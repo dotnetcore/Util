@@ -31,14 +31,22 @@ public class RadioService {
     /// 初始化
     /// </summary>
     public void Init() {
-        InitShareConfig();
         LoadExpression();
+        InitShareConfig();
         InitValidationService();
         InitFormShareService();
         InitFormItemShareService();
         EnableExtend();
         DisableAutoCreateRadio();
         EnableAutoCreateRadioGroup();
+    }
+
+    /// <summary>
+    /// 加载表达式
+    /// </summary>
+    private void LoadExpression() {
+        var loader = new SelectExpressionLoader();
+        loader.Load( _config );
     }
 
     /// <summary>
@@ -64,14 +72,6 @@ public class RadioService {
     /// </summary>
     private RadioGroupShareConfig GetShareConfig() {
         return _config.GetValueFromItems<RadioGroupShareConfig>();
-    }
-
-    /// <summary>
-    /// 加载表达式
-    /// </summary>
-    private void LoadExpression() {
-        var loader = new SelectExpressionLoader();
-        loader.Load( _config );
     }
 
     /// <summary>

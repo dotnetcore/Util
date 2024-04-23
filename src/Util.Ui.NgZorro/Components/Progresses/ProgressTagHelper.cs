@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Progresses.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -25,21 +24,13 @@ public class ProgressTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Format { get; set; }
     /// <summary>
-    /// nzPercent,百分比,类型: number,默认值: 0
-    /// </summary>
-    public double Percent { get; set; }
-    /// <summary>
     /// [nzPercent],百分比,类型: number,默认值: 0
     /// </summary>
-    public string BindPercent { get; set; }
+    public string Percent { get; set; }
     /// <summary>
     /// [nzShowInfo],是否显示进度数值或状态图标,默认值: true
     /// </summary>
-    public bool ShowInfo { get; set; }
-    /// <summary>
-    /// [nzShowInfo],是否显示进度数值或状态图标,默认值: true
-    /// </summary>
-    public string BindShowInfo { get; set; }
+    public string ShowInfo { get; set; }
     /// <summary>
     /// nzStatus,进度条状态,可选值: 'success' | 'exception' | 'active' | 'normal'
     /// </summary>
@@ -65,45 +56,25 @@ public class ProgressTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindStrokeColor { get; set; }
     /// <summary>
-    /// nzSuccessPercent,已完成的分段百分比,类型: number,默认值: 0
-    /// </summary>
-    public double SuccessPercent { get; set; }
-    /// <summary>
     /// [nzSuccessPercent],已完成的分段百分比,类型: number,默认值: 0
     /// </summary>
-    public string BindSuccessPercent { get; set; }
-    /// <summary>
-    /// nzStrokeWidth,线条宽度,当 nzType="line" 时,单位为像素，默认值为8。当 nzType为 "circle" 或 "dashboard" 时,单位是进度条画布宽度的百分比，默认值为6。
-    /// </summary>
-    public double StrokeWidth { get; set; }
+    public string SuccessPercent { get; set; }
     /// <summary>
     /// [nzStrokeWidth],线条宽度,当 nzType="line" 时,单位为像素，默认值为8。当 nzType为 "circle" 或 "dashboard" 时,单位是进度条画布宽度的百分比，默认值为6。
     /// </summary>
-    public string BindStrokeWidth { get; set; }
-    /// <summary>
-    /// nzSteps,进度条总步数,仅在 nzType="line" 时有效,类型: number
-    /// </summary>
-    public int Steps { get; set; }
+    public string StrokeWidth { get; set; }
     /// <summary>
     /// [nzSteps],进度条总步数,仅在 nzType="line" 时有效,类型: number
     /// </summary>
-    public string BindSteps { get; set; }
-    /// <summary>
-    /// nzWidth,画布宽度,单位为像素，当 nzType为 "circle" 或 "dashboard" 时有效,默认值为132。
-    /// </summary>
-    public double Width { get; set; }
+    public string Steps { get; set; }
     /// <summary>
     /// [nzWidth],画布宽度,单位为像素，当 nzType为 "circle" 或 "dashboard" 时有效,默认值为132。
     /// </summary>
-    public string BindWidth { get; set; }
-    /// <summary>
-    /// nzGapDegree,仪表盘进度条缺口角度,可取值 0 ~ 360，当 nzType="dashboard" 时有效，默认值为0。
-    /// </summary>
-    public double GapDegree { get; set; }
+    public string Width { get; set; }
     /// <summary>
     /// [nzGapDegree],仪表盘进度条缺口角度,可取值 0 ~ 360，当 nzType="dashboard" 时有效，默认值为0。
     /// </summary>
-    public string BindGapDegree { get; set; }
+    public string GapDegree { get; set; }
     /// <summary>
     /// nzGapPosition,表盘进度条缺口位置,当 nzType="dashboard" 时有效，可选值: 'top' | 'right' | 'bottom' | 'left',默认值: 'top'
     /// </summary>

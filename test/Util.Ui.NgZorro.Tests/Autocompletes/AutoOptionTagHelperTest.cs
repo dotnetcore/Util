@@ -120,20 +120,9 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-auto-option [nzDisabled]=\"true\"></nz-auto-option>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-auto-option [nzDisabled]=\"a\"></nz-auto-option>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

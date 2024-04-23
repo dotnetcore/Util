@@ -29,9 +29,37 @@ public static class UiConst {
     /// </summary>
     public const string Padding = "padding";
     /// <summary>
+    /// 单位
+    /// </summary>
+    public const string Unit = "unit";
+    /// <summary>
+    /// 可选
+    /// </summary>
+    public const string Optional = "optional";
+    /// <summary>
+    /// 可选帮助
+    /// </summary>
+    public const string OptionalHelp = "optional-help";
+    /// <summary>
+    /// 可选帮助颜色
+    /// </summary>
+    public const string OptionalHelpColor = "optional-help-color";
+    /// <summary>
+    /// 隐藏标签
+    /// </summary>
+    public const string HideLabel = "hide-label";
+    /// <summary>
+    /// 全屏外层样式类
+    /// </summary>
+    public const string FullscreenWrapClass = "fullscreen-wrap-class";
+    /// <summary>
     /// 等级
     /// </summary>
     public const string Level = "level";
+    /// <summary>
+    /// 默认
+    /// </summary>
+    public const string Default = "default";
     /// <summary>
     /// 图片
     /// </summary>
@@ -44,6 +72,14 @@ public static class UiConst {
     /// 单元格控件
     /// </summary>
     public const string CellControl = "cell-control";
+    /// <summary>
+    /// 点击选中
+    /// </summary>
+    public const string CheckOnClick = "check-on-click";
+    /// <summary>
+    /// 值支持多语言
+    /// </summary>
+    public const string ValueI18n = "value-i18n";
     /// <summary>
     /// 可见高度
     /// </summary>
@@ -736,6 +772,14 @@ public static class UiConst {
     /// 全屏
     /// </summary>
     public const string Fullscreen = "fullscreen";
+    /// <summary>
+    /// 全屏包装
+    /// </summary>
+    public const string FullscreenPack = "fullscreen-pack";
+    /// <summary>
+    /// 全屏标题
+    /// </summary>
+    public const string FullscreenTitle = "fullscreen-title";
     /// <summary>
     /// 打开
     /// </summary>
@@ -1508,6 +1552,10 @@ public static class UiConst {
     /// 是否编辑
     /// </summary>
     public const string IsEdit = "is-edit";
+    /// <summary>
+    /// 是否批量编辑
+    /// </summary>
+    public const string IsBatchEdit = "is-batch-edit";
     /// <summary>
     /// 标签
     /// </summary>

@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.BackTops;
 using Util.Ui.TagHelpers;
@@ -64,20 +63,9 @@ public class BackTopTagHelperTest {
     /// </summary>
     [Fact]
     public void TestVisibilityHeight() {
-        _wrapper.SetContextAttribute( UiConst.VisibilityHeight, 1 );
+        _wrapper.SetContextAttribute( UiConst.VisibilityHeight, "1" );
         var result = new StringBuilder();
         result.Append( "<nz-back-top [nzVisibilityHeight]=\"1\"></nz-back-top>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试可见高度
-    /// </summary>
-    [Fact]
-    public void TestBindVisibilityHeight() {
-        _wrapper.SetContextAttribute( AngularConst.BindVisibilityHeight, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-back-top [nzVisibilityHeight]=\"a\"></nz-back-top>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -97,20 +85,9 @@ public class BackTopTagHelperTest {
     /// </summary>
     [Fact]
     public void TestDuration() {
-        _wrapper.SetContextAttribute( UiConst.Duration, 1 );
+        _wrapper.SetContextAttribute( UiConst.Duration, "1" );
         var result = new StringBuilder();
         result.Append( "<nz-back-top [nzDuration]=\"1\"></nz-back-top>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试持续时间
-    /// </summary>
-    [Fact]
-    public void TestBindDuration() {
-        _wrapper.SetContextAttribute( AngularConst.BindDuration, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-back-top [nzDuration]=\"a\"></nz-back-top>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

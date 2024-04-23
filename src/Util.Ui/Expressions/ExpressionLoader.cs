@@ -1,6 +1,6 @@
 ﻿using Util.Ui.Configs;
 
-namespace Util.Ui.Expressions; 
+namespace Util.Ui.Expressions;
 
 /// <summary>
 /// 表达式加载器
@@ -21,14 +21,14 @@ public class ExpressionLoader : ExpressionLoaderBase {
     /// 加载属性名
     /// </summary>
     protected virtual void LoadName( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.Name, info.PropertyName );
+        config.SetAttribute( UiConst.Name, info.PropertyName, false );
     }
 
     /// <summary>
     /// 加载显示名称
     /// </summary>
     protected virtual void LoadDisplayName( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.Title, info.DisplayName );
+        config.SetAttribute( UiConst.Title, info.DisplayName, false );
     }
 
     /// <summary>

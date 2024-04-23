@@ -59,8 +59,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置清除搜索值
     /// </summary>
     public SelectBuilder AutoClearSearchValue() {
-        AttributeIfNotEmpty( "[nzAutoClearSearchValue]", _config.GetBoolValue( UiConst.AutoClearSearchValue ) );
-        AttributeIfNotEmpty( "[nzAutoClearSearchValue]", _config.GetValue( AngularConst.BindAutoClearSearchValue ) );
+        AttributeIfNotEmpty( "[nzAutoClearSearchValue]", _config.GetValue( UiConst.AutoClearSearchValue ) );
         return this;
     }
 
@@ -68,8 +67,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置允许清除
     /// </summary>
     public SelectBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 
@@ -77,8 +75,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置移除边框
     /// </summary>
     public SelectBuilder Borderless() {
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetBoolValue( UiConst.Borderless ) );
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( AngularConst.BindBorderless ) );
+        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( UiConst.Borderless ) );
         return this;
     }
 
@@ -86,8 +83,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置打开下拉菜单
     /// </summary>
     public SelectBuilder Open() {
-        AttributeIfNotEmpty( "[nzOpen]", _config.GetBoolValue( UiConst.Open ) );
-        AttributeIfNotEmpty( "[nzOpen]", _config.GetValue( AngularConst.BindOpen ) );
+        AttributeIfNotEmpty( "[nzOpen]", _config.GetValue( UiConst.Open ) );
         AttributeIfNotEmpty( "[(nzOpen)]", _config.GetValue( AngularConst.BindonOpen ) );
         return this;
     }
@@ -96,8 +92,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public SelectBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -105,8 +100,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置禁用
     /// </summary>
     public SelectBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -131,8 +125,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置下拉菜单和选择器同宽
     /// </summary>
     public SelectBuilder DropdownMatchSelectWidth() {
-        AttributeIfNotEmpty( "[nzDropdownMatchSelectWidth]", _config.GetBoolValue( UiConst.DropdownMatchSelectWidth ) );
-        AttributeIfNotEmpty( "[nzDropdownMatchSelectWidth]", _config.GetValue( AngularConst.BindDropdownMatchSelectWidth ) );
+        AttributeIfNotEmpty( "[nzDropdownMatchSelectWidth]", _config.GetValue( UiConst.DropdownMatchSelectWidth ) );
         return this;
     }
 
@@ -148,8 +141,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置服务端搜索
     /// </summary>
     public SelectBuilder ServerSearch() {
-        ServerSearch( _config.GetBoolValue( UiConst.ServerSearch ) );
-        ServerSearch( _config.GetValue( AngularConst.BindServerSearch ) );
+        ServerSearch( _config.GetValue( UiConst.ServerSearch ) );
         return this;
     }
 
@@ -173,8 +165,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置最大多选数量
     /// </summary>
     public SelectBuilder MaxMultipleCount() {
-        AttributeIfNotEmpty( "nzMaxMultipleCount", _config.GetValue( UiConst.MaxMultipleCount ) );
-        AttributeIfNotEmpty( "[nzMaxMultipleCount]", _config.GetValue( AngularConst.BindMaxMultipleCount ) );
+        AttributeIfNotEmpty( "[nzMaxMultipleCount]", _config.GetValue( UiConst.MaxMultipleCount ) );
         return this;
     }
 
@@ -209,8 +200,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置显示箭头
     /// </summary>
     public SelectBuilder ShowArrow() {
-        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetBoolValue( UiConst.ShowArrow ) );
-        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetValue( AngularConst.BindShowArrow ) );
+        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetValue( UiConst.ShowArrow ) );
         return this;
     }
 
@@ -218,8 +208,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置显示搜索
     /// </summary>
     public SelectBuilder ShowSearch() {
-        ShowSearch( _config.GetBoolValue( UiConst.ShowSearch ) );
-        ShowSearch( _config.GetValue( AngularConst.BindShowSearch ) );
+        ShowSearch( _config.GetValue( UiConst.ShowSearch ) );
         return this;
     }
 
@@ -316,8 +305,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置最大标签数量
     /// </summary>
     public SelectBuilder MaxTagCount() {
-        AttributeIfNotEmpty( "nzMaxTagCount", _config.GetValue( UiConst.MaxTagCount ) );
-        AttributeIfNotEmpty( "[nzMaxTagCount]", _config.GetValue( AngularConst.BindMaxTagCount ) );
+        AttributeIfNotEmpty( "[nzMaxTagCount]", _config.GetValue( UiConst.MaxTagCount ) );
         return this;
     }
 
@@ -341,8 +329,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置选项高度
     /// </summary>
     public SelectBuilder OptionHeightPx() {
-        AttributeIfNotEmpty( "nzOptionHeightPx", _config.GetValue( UiConst.OptionHeightPx ) );
-        AttributeIfNotEmpty( "[nzOptionHeightPx]", _config.GetValue( AngularConst.BindOptionHeightPx ) );
+        AttributeIfNotEmpty( "[nzOptionHeightPx]", _config.GetValue( UiConst.OptionHeightPx ) );
         return this;
     }
 
@@ -350,8 +337,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// 配置最大显示选项数量
     /// </summary>
     public SelectBuilder OptionOverflowSize() {
-        AttributeIfNotEmpty( "nzOptionOverflowSize", _config.GetValue( UiConst.OptionOverflowSize ) );
-        AttributeIfNotEmpty( "[nzOptionOverflowSize]", _config.GetValue( AngularConst.BindOptionOverflowSize ) );
+        AttributeIfNotEmpty( "[nzOptionOverflowSize]", _config.GetValue( UiConst.OptionOverflowSize ) );
         return this;
     }
 

@@ -76,20 +76,9 @@ namespace Util.Ui.NgZorro.Tests.Breadcrumbs {
         /// </summary>
         [Fact]
         public void TestAutoGenerate() {
-            _wrapper.SetContextAttribute( UiConst.AutoGenerate, true );
+            _wrapper.SetContextAttribute( UiConst.AutoGenerate, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-breadcrumb [nzAutoGenerate]=\"true\"></nz-breadcrumb>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动生成
-        /// </summary>
-        [Fact]
-        public void TestBindAutoGenerate() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoGenerate, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-breadcrumb [nzAutoGenerate]=\"a\"></nz-breadcrumb>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

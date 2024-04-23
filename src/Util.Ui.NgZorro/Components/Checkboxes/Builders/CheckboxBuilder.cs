@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 
 namespace Util.Ui.NgZorro.Components.Checkboxes.Builders; 
@@ -26,8 +25,7 @@ public class CheckboxBuilder : FormControlBuilderBase<CheckboxBuilder> {
     /// 配置自动获取焦点
     /// </summary>
     public CheckboxBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -35,8 +33,7 @@ public class CheckboxBuilder : FormControlBuilderBase<CheckboxBuilder> {
     /// 配置禁用
     /// </summary>
     public CheckboxBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -60,7 +57,7 @@ public class CheckboxBuilder : FormControlBuilderBase<CheckboxBuilder> {
     /// 配置值
     /// </summary>
     public CheckboxBuilder Value() {
-        AttributeIfNotEmpty( "nzValue", _config.GetBoolValue( UiConst.Value ) );
+        AttributeIfNotEmpty( "nzValue", _config.GetValue( UiConst.Value ) );
         AttributeIfNotEmpty( "[nzValue]", _config.GetValue( AngularConst.BindValue ) );
         return this;
     }

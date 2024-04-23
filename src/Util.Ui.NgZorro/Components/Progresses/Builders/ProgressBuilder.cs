@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Progresses.Builders; 
@@ -43,8 +42,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置百分比
     /// </summary>
     public ProgressBuilder Percent() {
-        AttributeIfNotEmpty( "nzPercent", _config.GetValue( UiConst.Percent ) );
-        AttributeIfNotEmpty( "[nzPercent]", _config.GetValue( AngularConst.BindPercent ) );
+        AttributeIfNotEmpty( "[nzPercent]", _config.GetValue( UiConst.Percent ) );
         return this;
     }
 
@@ -52,8 +50,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置是否显示进度信息
     /// </summary>
     public ProgressBuilder ShowInfo() {
-        AttributeIfNotEmpty( "[nzShowInfo]", _config.GetBoolValue( UiConst.ShowInfo ) );
-        AttributeIfNotEmpty( "[nzShowInfo]", _config.GetValue( AngularConst.BindShowInfo ) );
+        AttributeIfNotEmpty( "[nzShowInfo]", _config.GetValue( UiConst.ShowInfo ) );
         return this;
     }
 
@@ -88,8 +85,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置已完成分段百分比
     /// </summary>
     public ProgressBuilder SuccessPercent() {
-        AttributeIfNotEmpty( "nzSuccessPercent", _config.GetValue( UiConst.SuccessPercent ) );
-        AttributeIfNotEmpty( "[nzSuccessPercent]", _config.GetValue( AngularConst.BindSuccessPercent ) );
+        AttributeIfNotEmpty( "[nzSuccessPercent]", _config.GetValue( UiConst.SuccessPercent ) );
         return this;
     }
 
@@ -97,8 +93,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置线条宽度
     /// </summary>
     public ProgressBuilder StrokeWidth() {
-        AttributeIfNotEmpty( "nzStrokeWidth", _config.GetValue( UiConst.StrokeWidth ) );
-        AttributeIfNotEmpty( "[nzStrokeWidth]", _config.GetValue( AngularConst.BindStrokeWidth ) );
+        AttributeIfNotEmpty( "[nzStrokeWidth]", _config.GetValue( UiConst.StrokeWidth ) );
         return this;
     }
 
@@ -106,8 +101,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置总步数
     /// </summary>
     public ProgressBuilder Steps() {
-        AttributeIfNotEmpty( "nzSteps", _config.GetValue( UiConst.Steps ) );
-        AttributeIfNotEmpty( "[nzSteps]", _config.GetValue( AngularConst.BindSteps ) );
+        AttributeIfNotEmpty( "[nzSteps]", _config.GetValue( UiConst.Steps ) );
         return this;
     }
 
@@ -115,8 +109,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置画布宽度
     /// </summary>
     public ProgressBuilder Width() {
-        AttributeIfNotEmpty( "nzWidth", _config.GetValue( UiConst.Width ) );
-        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( AngularConst.BindWidth ) );
+        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( UiConst.Width ) );
         return this;
     }
 
@@ -124,8 +117,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置缺口角度
     /// </summary>
     public ProgressBuilder GapDegree() {
-        AttributeIfNotEmpty( "nzGapDegree", _config.GetValue( UiConst.GapDegree ) );
-        AttributeIfNotEmpty( "[nzGapDegree]", _config.GetValue( AngularConst.BindGapDegree ) );
+        AttributeIfNotEmpty( "[nzGapDegree]", _config.GetValue( UiConst.GapDegree ) );
         return this;
     }
 

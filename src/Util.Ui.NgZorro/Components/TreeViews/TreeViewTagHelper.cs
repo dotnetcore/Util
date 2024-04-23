@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.TreeViews.Renders;
 using Util.Ui.Renders;
 
@@ -22,19 +21,11 @@ public class TreeViewTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDirectoryTree],是否以文件夹样式显示节点,默认值: false
     /// </summary>
-    public bool DirectoryTree { get; set; }
-    /// <summary>
-    /// [nzDirectoryTree],是否以文件夹样式显示节点,默认值: false
-    /// </summary>
-    public string BindDirectoryTree { get; set; }
+    public string DirectoryTree { get; set; }
     /// <summary>
     /// [nzBlockNode],节点是否占整行,默认值: false
     /// </summary>
-    public bool BlockNode { get; set; }
-    /// <summary>
-    /// [nzBlockNode],节点是否占整行,默认值: false
-    /// </summary>
-    public string BindBlockNode { get; set; }
+    public string BlockNode { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

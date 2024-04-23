@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Selects.Renders;
 using Util.Ui.Renders;
 
@@ -14,11 +13,7 @@ public class OptionTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzLabel,标签
     /// </summary>
@@ -38,19 +33,11 @@ public class OptionTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzHide],是否隐藏
     /// </summary>
-    public bool Hide { get; set; }
-    /// <summary>
-    /// [nzHide],是否隐藏
-    /// </summary>
-    public string BindHide { get; set; }
+    public string Hide { get; set; }
     /// <summary>
     /// [nzCustomContent],是否自定义在下拉菜单中的Template内容，当为 true 时，nz-option 包裹的内容将直接渲染在下拉菜单中,默认值: false
     /// </summary>
-    public bool CustomContent { get; set; }
-    /// <summary>
-    /// [nzCustomContent],是否自定义在下拉菜单中的Template内容，当为 true 时，nz-option 包裹的内容将直接渲染在下拉菜单中,默认值: false
-    /// </summary>
-    public string BindCustomContent { get; set; }
+    public string CustomContent { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

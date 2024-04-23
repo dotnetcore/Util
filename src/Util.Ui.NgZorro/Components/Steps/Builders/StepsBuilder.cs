@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Steps.Builders; 
@@ -36,7 +35,6 @@ public class StepsBuilder : AngularTagBuilder {
     /// </summary>
     public StepsBuilder Current() {
         AttributeIfNotEmpty( "[nzCurrent]", _config.GetValue( UiConst.Current ) );
-        AttributeIfNotEmpty( "[nzCurrent]", _config.GetValue( AngularConst.BindCurrent ) );
         return this;
     }
 
@@ -54,7 +52,6 @@ public class StepsBuilder : AngularTagBuilder {
     /// </summary>
     public StepsBuilder StartIndex() {
         AttributeIfNotEmpty( "[nzStartIndex]", _config.GetValue( UiConst.StartIndex ) );
-        AttributeIfNotEmpty( "[nzStartIndex]", _config.GetValue( AngularConst.BindStartIndex ) );
         return this;
     }
 
@@ -80,8 +77,7 @@ public class StepsBuilder : AngularTagBuilder {
     /// 配置点状
     /// </summary>
     public StepsBuilder ProgressDot() {
-        AttributeIfNotEmpty( "[nzProgressDot]", _config.GetBoolValue( UiConst.ProgressDot ) );
-        AttributeIfNotEmpty( "[nzProgressDot]", _config.GetValue( AngularConst.BindProgressDot ) );
+        AttributeIfNotEmpty( "[nzProgressDot]", _config.GetValue( UiConst.ProgressDot ) );
         return this;
     }
 

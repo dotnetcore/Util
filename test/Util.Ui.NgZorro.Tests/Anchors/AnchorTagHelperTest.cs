@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
         /// </summary>
         [Fact]
         public void TestAffix() {
-            _wrapper.SetContextAttribute( UiConst.Affix, true );
+            _wrapper.SetContextAttribute( UiConst.Affix, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-anchor [nzAffix]=\"true\"></nz-anchor>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否固定模式
-        /// </summary>
-        [Fact]
-        public void TestBindAffix() {
-            _wrapper.SetContextAttribute( AngularConst.BindAffix, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-anchor [nzAffix]=\"a\"></nz-anchor>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -74,20 +63,9 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
         /// </summary>
         [Fact]
         public void TestBounds() {
-            _wrapper.SetContextAttribute( UiConst.Bounds, 1 );
+            _wrapper.SetContextAttribute( UiConst.Bounds, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-anchor nzBounds=\"1\"></nz-anchor>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试区域边界
-        /// </summary>
-        [Fact]
-        public void TestBindBounds() {
-            _wrapper.SetContextAttribute( AngularConst.BindBounds, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-anchor [nzBounds]=\"a\"></nz-anchor>" );
+            result.Append( "<nz-anchor [nzBounds]=\"1\"></nz-anchor>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
         /// </summary>
         [Fact]
         public void TestOffsetTop() {
-            _wrapper.SetContextAttribute( UiConst.OffsetTop, 1 );
+            _wrapper.SetContextAttribute( UiConst.OffsetTop, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-anchor nzOffsetTop=\"1\"></nz-anchor>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试顶部偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffsetTop() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffsetTop, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-anchor [nzOffsetTop]=\"a\"></nz-anchor>" );
+            result.Append( "<nz-anchor [nzOffsetTop]=\"1\"></nz-anchor>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,20 +85,9 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
         /// </summary>
         [Fact]
         public void TestShowInkInFixed() {
-            _wrapper.SetContextAttribute( UiConst.ShowInkInFixed, true );
+            _wrapper.SetContextAttribute( UiConst.ShowInkInFixed, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-anchor [nzShowInkInFixed]=\"true\"></nz-anchor>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试固定模式是否显示小圆点
-        /// </summary>
-        [Fact]
-        public void TestBindShowInkInFixed() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowInkInFixed, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-anchor [nzShowInkInFixed]=\"a\"></nz-anchor>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -63,20 +63,9 @@ namespace Util.Ui.NgZorro.Tests.Transfers {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-transfer [nzDisabled]=\"true\"></nz-transfer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-transfer [nzDisabled]=\"a\"></nz-transfer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -195,20 +184,9 @@ namespace Util.Ui.NgZorro.Tests.Transfers {
         /// </summary>
         [Fact]
         public void TestShowSearch() {
-            _wrapper.SetContextAttribute( UiConst.ShowSearch, true );
+            _wrapper.SetContextAttribute( UiConst.ShowSearch, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-transfer [nzShowSearch]=\"true\"></nz-transfer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示搜索
-        /// </summary>
-        [Fact]
-        public void TestBindShowSearch() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowSearch, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-transfer [nzShowSearch]=\"a\"></nz-transfer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

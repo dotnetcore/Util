@@ -135,8 +135,7 @@ public class InputNumberGroupBuilder : AngularTagBuilder {
     /// 配置紧凑模式
     /// </summary>
     public InputNumberGroupBuilder Compact() {
-        AttributeIfNotEmpty( "[nzCompact]", _config.GetBoolValue( UiConst.Compact ) );
-        AttributeIfNotEmpty( "[nzCompact]", _config.GetValue( AngularConst.BindCompact ) );
+        AttributeIfNotEmpty( "[nzCompact]", _config.GetValue( UiConst.Compact ) );
         return this;
     }
 

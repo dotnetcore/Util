@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
 
 namespace Util.Ui.NgZorro.Components.Affixes.Builders; 
 
@@ -25,7 +24,6 @@ public class AffixBuilder : AngularTagBuilder {
     /// </summary>
     public AffixBuilder OffsetTop() {
         AttributeIfNotEmpty( "[nzOffsetTop]", _config.GetValue( UiConst.OffsetTop ) );
-        AttributeIfNotEmpty( "[nzOffsetTop]", _config.GetValue( AngularConst.BindOffsetTop ) );
         return this;
     }
 
@@ -34,7 +32,6 @@ public class AffixBuilder : AngularTagBuilder {
     /// </summary>
     public AffixBuilder OffsetBottom() {
         AttributeIfNotEmpty( "[nzOffsetBottom]", _config.GetValue( UiConst.OffsetBottom ) );
-        AttributeIfNotEmpty( "[nzOffsetBottom]", _config.GetValue( AngularConst.BindOffsetBottom ) );
         return this;
     }
 

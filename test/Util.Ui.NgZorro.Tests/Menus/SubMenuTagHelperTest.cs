@@ -75,20 +75,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-submenu=\"\" [nzDisabled]=\"true\"><ul></ul></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-submenu=\"\" [nzDisabled]=\"a\"><ul></ul></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestOpen() {
-            _wrapper.SetContextAttribute( UiConst.Open, true );
+            _wrapper.SetContextAttribute( UiConst.Open, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-submenu=\"\" [nzOpen]=\"true\"><ul></ul></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试展开
-        /// </summary>
-        [Fact]
-        public void TestBindOpen() {
-            _wrapper.SetContextAttribute( AngularConst.BindOpen, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-submenu=\"\" [nzOpen]=\"a\"><ul></ul></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

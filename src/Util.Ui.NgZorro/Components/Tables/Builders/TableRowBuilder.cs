@@ -2,7 +2,7 @@
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 
-namespace Util.Ui.NgZorro.Components.Tables.Builders; 
+namespace Util.Ui.NgZorro.Components.Tables.Builders;
 
 /// <summary>
 /// 表格行标签生成器
@@ -16,13 +16,18 @@ public class TableRowBuilder : AngularTagBuilder {
     /// 表格共享配置
     /// </summary>
     private TableShareConfig _tableShareConfig;
+    /// <summary>
+    /// 点击事件列表
+    /// </summary>
+    private readonly List<string> _onClick;
 
     /// <summary>
     /// 初始化表格行标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public TableRowBuilder( Config config ) : base( config,"tr" ) {
+    public TableRowBuilder( Config config ) : base( config, "tr" ) {
         _config = config;
+        _onClick = [];
     }
 
     /// <summary>
@@ -49,46 +54,41 @@ public class TableRowBuilder : AngularTagBuilder {
     /// 配置事件
     /// </summary>
     public virtual TableRowBuilder Events() {
-        var onClick = GetOnClick();
-        ConfigOnClick( onClick );
+        ConfigOnClick();
         return this;
-    }
-
-    /// <summary>
-    /// 获取单击事件,合并了从表格设置的行单击事件
-    /// </summary>
-    private string GetOnClick() {
-        var onClick = _config.GetValue( UiConst.OnClick );
-        var onClickRow = TableShareConfig.OnClickRow;
-        if ( onClick.IsEmpty() )
-            return onClickRow;
-        if ( onClickRow.IsEmpty() )
-            return onClick;
-        return $"{onClick};{onClickRow}";
     }
 
     /// <summary>
     /// 配置单击事件
     /// </summary>
-    private void ConfigOnClick( string value ) {
-        var result = new StringBuilder();
-        ConfigSelect( result );
-        result.Append( value );
-        this.OnClick( result.ToString() );
+    private void ConfigOnClick() {
+        AddOnClick();
+        this.OnClick( _onClick.Join( separator: ";" ) );
     }
 
     /// <summary>
-    /// 配置选中行
+    /// 添加单击事件
     /// </summary>
-    private void ConfigSelect( StringBuilder result ) {
-        var isSelect = IsSelectOnClick();
-        if ( isSelect ) {
-            ConfigSelectOnClick( result );
+    private void AddOnClick() {
+        AddOnClick( _config.GetValue( UiConst.OnClick ) );
+        AddOnClick( TableShareConfig.OnClickRow );
+        if ( IsSelectOnClick() )
+            AddOnClick( $"{TableShareConfig.TableExtendId}.toggleSelect(row)" );
+        if ( IsSelectOnlyOnClick() )
+            AddOnClick( $"{TableShareConfig.TableExtendId}.selectRowOnly(row)" );
+        if ( IsCheckRowOnClick() )
+            AddOnClick( $"{TableShareConfig.TableExtendId}.toggle(row)" );
+        if ( IsCheckRowOnlyOnClick() )
+            AddOnClick( $"{TableShareConfig.TableExtendId}.checkRowOnly(row)" );
+    }
+
+    /// <summary>
+    /// 添加单击事件
+    /// </summary>
+    private void AddOnClick( string onClick ) {
+        if ( onClick.IsEmpty() )
             return;
-        }
-        isSelect = IsSelectOnlyOnClick();
-        if( isSelect )
-            ConfigSelectOnlyOnClick( result );
+        _onClick.Add( onClick );
     }
 
     /// <summary>
@@ -100,21 +100,6 @@ public class TableRowBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置单击选中行
-    /// </summary>
-    private void ConfigSelectOnClick( StringBuilder result ) {
-        result.Append( $"{TableShareConfig.TableExtendId}.toggleSelect(row);" );
-        AddSelectedClass();
-    }
-
-    /// <summary>
-    /// 添加选中样式
-    /// </summary>
-    private void AddSelectedClass() {
-        Attribute( "[class.table-row-selected]", $"{TableShareConfig.TableExtendId}.isSelected(row)" );
-    }
-
-    /// <summary>
     /// 是否单击仅选中该行
     /// </summary>
     private bool IsSelectOnlyOnClick() {
@@ -123,18 +108,39 @@ public class TableRowBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置单击仅选中一行
+    /// 是否单击选中复选框
     /// </summary>
-    private void ConfigSelectOnlyOnClick( StringBuilder result ) {
-        result.Append( $"{TableShareConfig.TableExtendId}.selectRowOnly(row);" );
-        AddSelectedClass();
+    private bool IsCheckRowOnClick() {
+        if ( TableShareConfig.IsShowCheckbox == false )
+            return false;
+        var result = _config.GetValue<bool>( UiConst.CheckOnClick );
+        return result || TableShareConfig.CheckOnClickRow;
+    }
+
+    /// <summary>
+    /// 是否单击选中单选框
+    /// </summary>
+    private bool IsCheckRowOnlyOnClick() {
+        if ( TableShareConfig.IsShowRadio == false )
+            return false;
+        var result = _config.GetValue<bool>( UiConst.CheckOnClick );
+        return result || TableShareConfig.CheckOnClickRow;
     }
 
     /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
-        base.ConfigBase(_config);
+        base.ConfigBase( _config );
         Expand().Events();
+        ConfigSelect();
+    }
+
+    /// <summary>
+    /// 配置选中行
+    /// </summary>
+    private void ConfigSelect() {
+        if ( IsSelectOnClick() || IsSelectOnlyOnClick() )
+            Attribute( "[class.table-row-selected]", $"{TableShareConfig.TableExtendId}.isSelected(row)" );
     }
 }

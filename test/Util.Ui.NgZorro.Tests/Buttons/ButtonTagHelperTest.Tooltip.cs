@@ -195,20 +195,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestTooltipVisible() {
-            _wrapper.SetContextAttribute( UiConst.TooltipVisible, true );
+            _wrapper.SetContextAttribute( UiConst.TooltipVisible, "true" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipVisible]=\"true\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试提示框是否可见
-        /// </summary>
-        [Fact]
-        public void TestBindTooltipVisible() {
-            _wrapper.SetContextAttribute( AngularConst.BindTooltipVisible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipVisible]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

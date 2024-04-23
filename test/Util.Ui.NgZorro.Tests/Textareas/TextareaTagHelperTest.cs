@@ -65,20 +65,9 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<textarea nz-input=\"\" [disabled]=\"true\"></textarea>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<textarea nz-input=\"\" [disabled]=\"a\"></textarea>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -87,20 +76,9 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         /// </summary>
         [Fact]
         public void TestReadonly() {
-            _wrapper.SetContextAttribute( UiConst.Readonly, true );
+            _wrapper.SetContextAttribute( UiConst.Readonly, "true" );
             var result = new StringBuilder();
             result.Append( "<textarea nz-input=\"\" [readOnly]=\"true\"></textarea>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试只读
-        /// </summary>
-        [Fact]
-        public void TestBindReadonly() {
-            _wrapper.SetContextAttribute( AngularConst.BindReadonly, "a" );
-            var result = new StringBuilder();
-            result.Append( "<textarea nz-input=\"\" [readOnly]=\"a\"></textarea>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -131,18 +109,7 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         /// </summary>
         [Fact]
         public void TestRows() {
-            _wrapper.SetContextAttribute( UiConst.Rows, 1 );
-            var result = new StringBuilder();
-            result.Append( "<textarea nz-input=\"\" rows=\"1\"></textarea>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试行数
-        /// </summary>
-        [Fact]
-        public void TestBindRows() {
-            _wrapper.SetContextAttribute( AngularConst.BindRows, 1 );
+            _wrapper.SetContextAttribute( UiConst.Rows, "1" );
             var result = new StringBuilder();
             result.Append( "<textarea nz-input=\"\" [rows]=\"1\"></textarea>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -153,18 +120,7 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         /// </summary>
         [Fact]
         public void TestColumns() {
-            _wrapper.SetContextAttribute( UiConst.Columns, 1 );
-            var result = new StringBuilder();
-            result.Append( "<textarea cols=\"1\" nz-input=\"\"></textarea>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试列数
-        /// </summary>
-        [Fact]
-        public void TestBindColumns() {
-            _wrapper.SetContextAttribute( AngularConst.BindColumns, 1 );
+            _wrapper.SetContextAttribute( UiConst.Columns, "1" );
             var result = new StringBuilder();
             result.Append( "<textarea nz-input=\"\" [cols]=\"1\"></textarea>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -175,20 +131,9 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         /// </summary>
         [Fact]
         public void TestAutosize() {
-            _wrapper.SetContextAttribute( UiConst.Autosize, true );
+            _wrapper.SetContextAttribute( UiConst.Autosize, "true" );
             var result = new StringBuilder();
             result.Append( "<textarea nz-input=\"\" [nzAutosize]=\"true\"></textarea>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自适应内容高度
-        /// </summary>
-        [Fact]
-        public void TestBindAutosize() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutosize, "a" );
-            var result = new StringBuilder();
-            result.Append( "<textarea nz-input=\"\" [nzAutosize]=\"a\"></textarea>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

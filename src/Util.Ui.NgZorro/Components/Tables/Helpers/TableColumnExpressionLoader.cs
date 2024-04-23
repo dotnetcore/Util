@@ -1,11 +1,12 @@
 ﻿using Util.Ui.Expressions;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Tables.Helpers; 
+namespace Util.Ui.NgZorro.Components.Tables.Helpers;
 
 /// <summary>
-/// 表达式加载器
+/// 表格列表达式加载器
 /// </summary>
 public class TableColumnExpressionLoader : ExpressionLoaderBase {
     /// <summary>
@@ -16,6 +17,7 @@ public class TableColumnExpressionLoader : ExpressionLoaderBase {
     protected override void Load( Config config, ModelExpressionInfo info ) {
         LoadName( config, info );
         LoadDisplayName( config, info );
+        LoadSort( config, info );
         LoadType( config, info );
     }
 
@@ -23,14 +25,27 @@ public class TableColumnExpressionLoader : ExpressionLoaderBase {
     /// 加载属性名
     /// </summary>
     protected virtual void LoadName( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.Column, info.PropertyName );
+        config.SetAttribute( UiConst.Column, info.PropertyName, false );
     }
 
     /// <summary>
     /// 加载显示名称
     /// </summary>
     protected virtual void LoadDisplayName( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.Title, info.DisplayName );
+        config.SetAttribute( UiConst.Title, info.DisplayName, false );
+    }
+
+    /// <summary>
+    /// 加载排序
+    /// </summary>
+    protected virtual void LoadSort( Config config, ModelExpressionInfo info ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableTableSort == false )
+            return;
+        var shareConfig = config.GetValueFromItems<TableShareConfig>();
+        if ( shareConfig == null || shareConfig.IsTreeTable )
+            return;
+        config.SetAttribute( UiConst.Sort, true, false );
     }
 
     /// <summary>
@@ -41,7 +56,7 @@ public class TableColumnExpressionLoader : ExpressionLoaderBase {
             config.SetAttribute( UiConst.Type, TableColumnType.Bool );
             return;
         }
-        if( info.IsDate ) {
+        if ( info.IsDate ) {
             config.SetAttribute( UiConst.Type, TableColumnType.Date );
             return;
         }
@@ -66,8 +81,7 @@ public class TableColumnExpressionLoader : ExpressionLoaderBase {
                 result.Append( "{{" );
                 result.Append( $"'{item.Text}'|i18n" );
                 result.Append( "}}" );
-            }
-            else {
+            } else {
                 result.Append( item.Text );
             }
             result.Append( "</ng-container>" );

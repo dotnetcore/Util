@@ -1,9 +1,10 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Templates.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Dividers.Builders; 
 
@@ -28,8 +29,7 @@ public class DividerBuilder : AngularTagBuilder {
     /// 配置虚线
     /// </summary>
     public DividerBuilder Dashed() {
-        AttributeIfNotEmpty( "[nzDashed]", _config.GetBoolValue( UiConst.Dashed ) );
-        AttributeIfNotEmpty( "[nzDashed]", _config.GetValue( AngularConst.BindDashed ) );
+        AttributeIfNotEmpty( "[nzDashed]", _config.GetValue( UiConst.Dashed ) );
         return this;
     }
 
@@ -48,9 +48,21 @@ public class DividerBuilder : AngularTagBuilder {
     public DividerBuilder Text() {
         if ( _config.Content.IsEmpty() == false )
             return this;
-        AttributeIfNotEmpty( "nzText", _config.GetValue( UiConst.Text ) );
+        SetText( _config.GetValue( UiConst.Text ) );
         AttributeIfNotEmpty( "[nzText]", _config.GetValue( AngularConst.BindText ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置文字
+    /// </summary>
+    private void SetText( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzText]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzText", value );
     }
 
     /// <summary>
@@ -66,8 +78,7 @@ public class DividerBuilder : AngularTagBuilder {
     /// 配置正文样式
     /// </summary>
     public DividerBuilder Plain() {
-        AttributeIfNotEmpty( "[nzPlain]", _config.GetBoolValue( UiConst.Plain ) );
-        AttributeIfNotEmpty( "[nzPlain]", _config.GetValue( AngularConst.BindPlain ) );
+        AttributeIfNotEmpty( "[nzPlain]", _config.GetValue( UiConst.Plain ) );
         return this;
     }
 

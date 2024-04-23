@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
@@ -28,21 +27,13 @@ public class FormLabelTagHelper : ColumnTagHelperBase {
     /// </summary>
     public ModelExpression For { get; set; }
     /// <summary>
-    /// [nzRequired],是否必填项，显示红色星号
+    /// [nzRequired],是否必填项，显示红色星号, 默认值: false
     /// </summary>
-    public bool Required { get; set; }
+    public string Required { get; set; }
     /// <summary>
-    /// [nzRequired],是否必填项，显示红色星号
+    /// [nzNoColon],是否不显示冒号, 默认值: false
     /// </summary>
-    public string BindRequired { get; set; }
-    /// <summary>
-    /// [nzNoColon],是否不显示冒号
-    /// </summary>
-    public bool NoColon { get; set; }
-    /// <summary>
-    /// [nzNoColon],是否不显示冒号
-    /// </summary>
-    public string BindNoColon { get; set; }
+    public string NoColon { get; set; }
     /// <summary>
     /// nzFor,设置标签指向的组件Id,注意：应设置组件的raw-id,即原始Id属性,而不是引用变量
     /// </summary>

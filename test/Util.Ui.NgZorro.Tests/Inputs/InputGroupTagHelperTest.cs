@@ -232,20 +232,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// </summary>
         [Fact]
         public void TestSearch() {
-            _wrapper.SetContextAttribute( UiConst.Search, true );
+            _wrapper.SetContextAttribute( UiConst.Search, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSearch]=\"true\"></nz-input-group>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试搜索框
-        /// </summary>
-        [Fact]
-        public void TestBindSearch() {
-            _wrapper.SetContextAttribute( AngularConst.BindSearch, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-group [nzSearch]=\"a\"></nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -276,20 +265,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// </summary>
         [Fact]
         public void TestCompact() {
-            _wrapper.SetContextAttribute( UiConst.Compact, true );
+            _wrapper.SetContextAttribute( UiConst.Compact, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzCompact]=\"true\"></nz-input-group>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试紧凑模式
-        /// </summary>
-        [Fact]
-        public void TestBindCompact() {
-            _wrapper.SetContextAttribute( AngularConst.BindCompact, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-group [nzCompact]=\"a\"></nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 
@@ -34,8 +33,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置允许清除
     /// </summary>
     public TimePickerBuilder AllowEmpty() {
-        AttributeIfNotEmpty( "[nzAllowEmpty]", _config.GetBoolValue( UiConst.AllowEmpty ) );
-        AttributeIfNotEmpty( "[nzAllowEmpty]", _config.GetValue( AngularConst.BindAllowEmpty ) );
+        AttributeIfNotEmpty( "[nzAllowEmpty]", _config.GetValue( UiConst.AllowEmpty ) );
         return this;
     }
 
@@ -52,8 +50,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public TimePickerBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -70,8 +67,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置禁用
     /// </summary>
     public TimePickerBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -112,8 +108,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置隐藏禁止选择的选项
     /// </summary>
     public TimePickerBuilder HideDisabledOptions() {
-        AttributeIfNotEmpty( "[nzHideDisabledOptions]", _config.GetBoolValue( UiConst.HideDisabledOptions ) );
-        AttributeIfNotEmpty( "[nzHideDisabledOptions]", _config.GetValue( AngularConst.BindHideDisabledOptions ) );
+        AttributeIfNotEmpty( "[nzHideDisabledOptions]", _config.GetValue( UiConst.HideDisabledOptions ) );
         return this;
     }
 
@@ -121,8 +116,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置小时选项间隔
     /// </summary>
     public TimePickerBuilder HourStep() {
-        AttributeIfNotEmpty( "nzHourStep", _config.GetValue( UiConst.HourStep ) );
-        AttributeIfNotEmpty( "[nzHourStep]", _config.GetValue( AngularConst.BindHourStep ) );
+        AttributeIfNotEmpty( "[nzHourStep]", _config.GetValue( UiConst.HourStep ) );
         return this;
     }
 
@@ -130,8 +124,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置分钟选项间隔
     /// </summary>
     public TimePickerBuilder MinuteStep() {
-        AttributeIfNotEmpty( "nzMinuteStep", _config.GetValue( UiConst.MinuteStep ) );
-        AttributeIfNotEmpty( "[nzMinuteStep]", _config.GetValue( AngularConst.BindMinuteStep ) );
+        AttributeIfNotEmpty( "[nzMinuteStep]", _config.GetValue( UiConst.MinuteStep ) );
         return this;
     }
 
@@ -139,8 +132,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置秒选项间隔
     /// </summary>
     public TimePickerBuilder SecondStep() {
-        AttributeIfNotEmpty( "nzSecondStep", _config.GetValue( UiConst.SecondStep ) );
-        AttributeIfNotEmpty( "[nzSecondStep]", _config.GetValue( AngularConst.BindSecondStep ) );
+        AttributeIfNotEmpty( "[nzSecondStep]", _config.GetValue( UiConst.SecondStep ) );
         return this;
     }
 
@@ -148,8 +140,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置面板是否打开
     /// </summary>
     public TimePickerBuilder Open() {
-        AttributeIfNotEmpty( "[nzOpen]", _config.GetBoolValue( UiConst.Open ) );
-        AttributeIfNotEmpty( "[nzOpen]", _config.GetValue( AngularConst.BindOpen ) );
+        AttributeIfNotEmpty( "[nzOpen]", _config.GetValue( UiConst.Open ) );
         AttributeIfNotEmpty( "[(nzOpen)]", _config.GetValue( AngularConst.BindonOpen ) );
         return this;
     }
@@ -176,8 +167,7 @@ public class TimePickerBuilder : FormControlBuilderBase<TimePickerBuilder> {
     /// 配置12小时制
     /// </summary>
     public TimePickerBuilder Use12Hours() {
-        AttributeIfNotEmpty( "[nzUse12Hours]", _config.GetBoolValue( UiConst.Use12Hours ) );
-        AttributeIfNotEmpty( "[nzUse12Hours]", _config.GetValue( AngularConst.BindUse12Hours ) );
+        AttributeIfNotEmpty( "[nzUse12Hours]", _config.GetValue( UiConst.Use12Hours ) );
         return this;
     }
 

@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-checkbox-group [nzDisabled]=\"true\"></nz-checkbox-group>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-checkbox-group [nzDisabled]=\"a\"></nz-checkbox-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

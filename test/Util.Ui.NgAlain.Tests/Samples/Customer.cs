@@ -12,7 +12,7 @@ public class Customer {
     /// <summary>
     /// 编码
     ///</summary>
-    [Description( "编码" )]
+    [Display( Name = "code" )]
     [MaxLength( 100 )]
     [MinLength( 10, ErrorMessage = "编码最小为10位" )]
     [Required(ErrorMessage = "编码不能是空值" )]

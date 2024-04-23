@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Badges.Builders; 
@@ -25,8 +24,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置是否独立使用
     /// </summary>
     public BadgeBuilder Standalone() {
-        AttributeIfNotEmpty( "[nzStandalone]", _config.GetBoolValue( UiConst.Standalone ) );
-        AttributeIfNotEmpty( "[nzStandalone]", _config.GetValue( AngularConst.BindStandalone ) );
+        AttributeIfNotEmpty( "[nzStandalone]", _config.GetValue( UiConst.Standalone ) );
         return this;
     }
 
@@ -43,8 +41,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置显示的数字
     /// </summary>
     public BadgeBuilder Count() {
-        AttributeIfNotEmpty( "nzCount", _config.GetValue( UiConst.Count ) );
-        AttributeIfNotEmpty( "[nzCount]", _config.GetValue( AngularConst.BindCount ) );
+        AttributeIfNotEmpty( "[nzCount]", _config.GetValue( UiConst.Count ) );
         return this;
     }
 
@@ -52,8 +49,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置是否不显示数字,仅显示小红点
     /// </summary>
     public BadgeBuilder Dot() {
-        AttributeIfNotEmpty( "[nzDot]", _config.GetBoolValue( UiConst.Dot ) );
-        AttributeIfNotEmpty( "[nzDot]", _config.GetValue( AngularConst.BindDot ) );
+        AttributeIfNotEmpty( "[nzDot]", _config.GetValue( UiConst.Dot ) );
         return this;
     }
 
@@ -61,8 +57,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置是否显示小红点
     /// </summary>
     public BadgeBuilder ShowDot() {
-        AttributeIfNotEmpty( "[nzShowDot]", _config.GetBoolValue( UiConst.ShowDot ) );
-        AttributeIfNotEmpty( "[nzShowDot]", _config.GetValue( AngularConst.BindShowDot ) );
+        AttributeIfNotEmpty( "[nzShowDot]", _config.GetValue( UiConst.ShowDot ) );
         return this;
     }
 
@@ -70,8 +65,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置封顶数字
     /// </summary>
     public BadgeBuilder OverflowCount() {
-        AttributeIfNotEmpty( "nzOverflowCount", _config.GetValue( UiConst.OverflowCount ) );
-        AttributeIfNotEmpty( "[nzOverflowCount]", _config.GetValue( AngularConst.BindOverflowCount ) );
+        AttributeIfNotEmpty( "[nzOverflowCount]", _config.GetValue( UiConst.OverflowCount ) );
         return this;
     }
 
@@ -79,8 +73,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置是否显示0值
     /// </summary>
     public BadgeBuilder ShowZero() {
-        AttributeIfNotEmpty( "[nzShowZero]", _config.GetBoolValue( UiConst.ShowZero ) );
-        AttributeIfNotEmpty( "[nzShowZero]", _config.GetValue( AngularConst.BindShowZero ) );
+        AttributeIfNotEmpty( "[nzShowZero]", _config.GetValue( UiConst.ShowZero ) );
         return this;
     }
 

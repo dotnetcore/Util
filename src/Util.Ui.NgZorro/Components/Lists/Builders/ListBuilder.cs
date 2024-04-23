@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Lists.Builders; 
@@ -25,8 +24,7 @@ public class ListBuilder : AngularTagBuilder {
     /// 配置是否显示边框
     /// </summary>
     public ListBuilder Bordered() {
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetBoolValue( UiConst.Bordered ) );
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( AngularConst.BindBordered ) );
+        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 
@@ -78,8 +76,7 @@ public class ListBuilder : AngularTagBuilder {
     /// 配置是否显示分割线
     /// </summary>
     public ListBuilder Split() {
-        AttributeIfNotEmpty( "[nzSplit]", _config.GetBoolValue( UiConst.Split ) );
-        AttributeIfNotEmpty( "[nzSplit]", _config.GetValue( AngularConst.BindSplit ) );
+        AttributeIfNotEmpty( "[nzSplit]", _config.GetValue( UiConst.Split ) );
         return this;
     }
 
@@ -87,8 +84,7 @@ public class ListBuilder : AngularTagBuilder {
     /// 配置栅格
     /// </summary>
     public ListBuilder Grid() {
-        if( _config.GetValue<bool?>( UiConst.Grid ) == true )
-            Attribute( "nzGrid" );
+        AttributeIfNotEmpty( "[nzGrid]", _config.GetValue( UiConst.Grid ) );
         return this;
     }
 

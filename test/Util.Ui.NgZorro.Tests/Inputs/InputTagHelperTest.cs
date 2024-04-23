@@ -94,20 +94,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<input nz-input=\"\" [disabled]=\"true\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<input nz-input=\"\" [disabled]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -116,20 +105,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// </summary>
         [Fact]
         public void TestReadonly() {
-            _wrapper.SetContextAttribute( UiConst.Readonly, true );
+            _wrapper.SetContextAttribute( UiConst.Readonly, "true" );
             var result = new StringBuilder();
             result.Append( "<input nz-input=\"\" [readOnly]=\"true\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试只读
-        /// </summary>
-        [Fact]
-        public void TestBindReadonly() {
-            _wrapper.SetContextAttribute( AngularConst.BindReadonly, "a" );
-            var result = new StringBuilder();
-            result.Append( "<input nz-input=\"\" [readOnly]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

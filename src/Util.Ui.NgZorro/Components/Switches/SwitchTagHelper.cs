@@ -19,11 +19,7 @@ public class SwitchTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzCheckedChildren,选中时显示的标签内容,类型: string | TemplateRef&lt;void>
     /// </summary>
@@ -55,11 +51,7 @@ public class SwitchTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzControl],是否完全由用户控制状态,默认值: false
     /// </summary>
-    public bool Control { get; set; }
-    /// <summary>
-    /// [nzControl],是否完全由用户控制状态,默认值: false
-    /// </summary>
-    public string BindControl { get; set; }
+    public string Control { get; set; }
     /// <summary>
     /// (click),单击事件
     /// </summary>

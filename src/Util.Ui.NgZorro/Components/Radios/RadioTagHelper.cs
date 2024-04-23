@@ -18,19 +18,11 @@ public class RadioTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAutoFocus],是否自动获取焦点
     /// </summary>
-    public bool AutoFocus { get; set; }
-    /// <summary>
-    /// [nzAutoFocus],是否自动获取焦点
-    /// </summary>
-    public string BindAutoFocus { get; set; }
+    public string AutoFocus { get; set; }
     /// <summary>
     /// [nzDisabled],禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzValue,值,与 nz-radio-group 配合使用
     /// </summary>

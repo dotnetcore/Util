@@ -17,11 +17,7 @@ public class BackTopTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzVisibilityHeight],滚动高度达到该值才显示回到顶部按钮, 默认值: 400
     /// </summary>
-    public double VisibilityHeight { get; set; }
-    /// <summary>
-    /// [nzVisibilityHeight],滚动高度达到该值才显示回到顶部按钮, 默认值: 400
-    /// </summary>
-    public string BindVisibilityHeight { get; set; }
+    public string VisibilityHeight { get; set; }
     /// <summary>
     /// [nzTarget],设置监听目标元素, 类型: string | Element, 默认值: window
     /// </summary>
@@ -29,11 +25,7 @@ public class BackTopTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDuration],回到顶部所需时间,单位: 毫秒, 默认值: 450
     /// </summary>
-    public double Duration { get; set; }
-    /// <summary>
-    /// [nzDuration],回到顶部所需时间,单位: 毫秒, 默认值: 450
-    /// </summary>
-    public string BindDuration { get; set; }
+    public string Duration { get; set; }
     /// <summary>
     /// (nzClick), 单击回到顶部按钮事件,类型: EventEmitter&lt;boolean>
     /// </summary>

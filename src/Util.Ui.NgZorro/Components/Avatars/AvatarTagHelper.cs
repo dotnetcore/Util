@@ -36,13 +36,9 @@ public class AvatarTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// nzGap,文本距离左右两侧边界,单位:像素,默认值: 4
-    /// </summary>
-    public double Gap { get; set; }
-    /// <summary>
     /// [nzGap],文本距离左右两侧边界,单位:像素,默认值: 4
     /// </summary>
-    public string BindGap { get; set; }
+    public string Gap { get; set; }
     /// <summary>
     /// nzSrc,图片头像地址
     /// </summary>

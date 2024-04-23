@@ -800,12 +800,12 @@ public partial class TableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th (nzCheckedChange)=\"x_id.masterToggle()\" rowSpan=\"2\" " );
+        result.Append( "<th (nzCheckedChange)=\"x_id.masterToggle()\" " );
         result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
         result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
-        result.Append( "[nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
+        result.Append( "[nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\" [rowSpan]=\"2\">" );
         result.Append( "</th>" );
-        result.Append( "<th colSpan=\"2\">t</th>" );
+        result.Append( "<th [colSpan]=\"2\">t</th>" );
         result.Append( "</tr>" );
         result.Append( "<tr>" );
         result.Append( "<th>a</th>" );
@@ -1206,6 +1206,122 @@ public partial class TableTagHelperTest {
         result.Append( "<x-table-settings #ts_id=\"\" key=\"a\" " );
         result.Append( "[enableFixedColumn]=\"true\" [initColumns]=\"[{'title':'util.checkbox','width':x_id.config.table.checkboxWidth,'left':true,'align':'left'},{'title':'a'}]\">" );
         result.Append( "</x-table-settings>" );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试设置复选框 - 第一列设置为左侧固定,自动设置复选框Left
+    /// </summary>
+    [Fact]
+    public void TestShowCheckbox_Left_1() {
+        _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.Title, "a" );
+        column.SetContextAttribute( UiConst.Left, "true" );
+        column.AppendContent( "b" );
+        _wrapper.AppendContent( column );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table #x_id=\"xTableExtend\" " );
+        result.Append( "(nzPageIndexChange)=\"x_id.pageIndexChange($event)\" (nzPageSizeChange)=\"x_id.pageSizeChange($event)\" " );
+        result.Append( "x-table-extend=\"\" " );
+        result.Append( "[(nzPageIndex)]=\"x_id.queryParam.page\" [(nzPageSize)]=\"x_id.queryParam.pageSize\" [nzData]=\"x_id.dataSource\" " );
+        result.Append( "[nzFrontPagination]=\"false\" [nzLoading]=\"x_id.loading\" [nzPageSizeOptions]=\"x_id.pageSizeOptions\" [nzShowQuickJumper]=\"true\" " );
+        result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th (nzCheckedChange)=\"x_id.masterToggle()\" " );
+        result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
+        result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
+        result.Append( "[nzLeft]=\"true\" [nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
+        result.Append( "</th>" );
+        result.Append( "<th [nzLeft]=\"true\">a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+        result.Append( "[nzChecked]=\"x_id.isChecked(row)\" [nzLeft]=\"true\" " );
+        result.Append( "[nzShowCheckbox]=\"true\">" );
+        result.Append( "</td>" );
+        result.Append( "<td [nzLeft]=\"true\">b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        AppendTotalTemplate( result );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试设置复选框 - 创建完整结构  - 第一列表头设置为左侧固定,自动设置复选框Left
+    /// </summary>
+    [Fact]
+    public void TestShowCheckbox_Left_2() {
+        _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
+
+        //创建表头
+        var head = new TableHeadTagHelper().ToWrapper();
+        _wrapper.AppendContent( head );
+
+        //创建表头行
+        var headRow = new TableRowTagHelper().ToWrapper();
+        head.AppendContent( headRow );
+
+        //创建表头单元格
+        var th = new TableHeadColumnTagHelper().ToWrapper();
+        th.SetContextAttribute( UiConst.Left, "true" );
+        th.AppendContent( "a" );
+        headRow.AppendContent( th );
+
+        //创建表格主体
+        var body = new TableBodyTagHelper().ToWrapper();
+        _wrapper.AppendContent( body );
+
+        //创建表格主体行
+        var row = new TableRowTagHelper().ToWrapper();
+        body.AppendContent( row );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.AppendContent( "b" );
+        row.AppendContent( column );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table #x_id=\"xTableExtend\" " );
+        result.Append( "(nzPageIndexChange)=\"x_id.pageIndexChange($event)\" (nzPageSizeChange)=\"x_id.pageSizeChange($event)\" " );
+        result.Append( "x-table-extend=\"\" " );
+        result.Append( "[(nzPageIndex)]=\"x_id.queryParam.page\" [(nzPageSize)]=\"x_id.queryParam.pageSize\" [nzData]=\"x_id.dataSource\" " );
+        result.Append( "[nzFrontPagination]=\"false\" [nzLoading]=\"x_id.loading\" [nzPageSizeOptions]=\"x_id.pageSizeOptions\" [nzShowQuickJumper]=\"true\" " );
+        result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th (nzCheckedChange)=\"x_id.masterToggle()\" " );
+        result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
+        result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
+        result.Append( "[nzLeft]=\"true\" [nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
+        result.Append( "</th>" );
+        result.Append( "<th [nzLeft]=\"true\">a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr>" );
+        result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+        result.Append( "[nzChecked]=\"x_id.isChecked(row)\" [nzLeft]=\"true\" " );
+        result.Append( "[nzShowCheckbox]=\"true\">" );
+        result.Append( "</td>" );
+        result.Append( "<td [nzLeft]=\"true\">b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        AppendTotalTemplate( result );
 
         //验证
         Assert.Equal( result.ToString(), GetResult() );

@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.PageHeaders.Configs;
 using Util.Ui.NgZorro.Configs;
 
@@ -36,8 +35,7 @@ public class BreadcrumbBuilder : AngularTagBuilder {
     /// 配置自动生成
     /// </summary>
     public BreadcrumbBuilder AutoGenerate() {
-        AttributeIfNotEmpty( "[nzAutoGenerate]", _config.GetBoolValue( UiConst.AutoGenerate ) );
-        AttributeIfNotEmpty( "[nzAutoGenerate]", _config.GetValue( AngularConst.BindAutoGenerate ) );
+        AttributeIfNotEmpty( "[nzAutoGenerate]", _config.GetValue( UiConst.AutoGenerate ) );
         return this;
     }
 

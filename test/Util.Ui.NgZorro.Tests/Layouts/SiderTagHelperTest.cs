@@ -56,17 +56,6 @@ namespace Util.Ui.NgZorro.Tests.Layouts {
         public void TestWidth() {
             _wrapper.SetContextAttribute( UiConst.Width, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-sider nzWidth=\"a\"></nz-sider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试宽度
-        /// </summary>
-        [Fact]
-        public void TestBindWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindWidth, "a" );
-            var result = new StringBuilder();
             result.Append( "<nz-sider [nzWidth]=\"a\"></nz-sider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -120,20 +109,9 @@ namespace Util.Ui.NgZorro.Tests.Layouts {
         /// </summary>
         [Fact]
         public void TestCollapsedWidth() {
-            _wrapper.SetContextAttribute( UiConst.CollapsedWidth, 1 );
+            _wrapper.SetContextAttribute( UiConst.CollapsedWidth, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-sider [nzCollapsedWidth]=\"1\"></nz-sider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试收缩宽度
-        /// </summary>
-        [Fact]
-        public void TestBindCollapsedWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindCollapsedWidth, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-sider [nzCollapsedWidth]=\"a\"></nz-sider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -142,20 +120,9 @@ namespace Util.Ui.NgZorro.Tests.Layouts {
         /// </summary>
         [Fact]
         public void TestCollapsible() {
-            _wrapper.SetContextAttribute( UiConst.Collapsible, true );
+            _wrapper.SetContextAttribute( UiConst.Collapsible, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-sider [nzCollapsible]=\"true\"></nz-sider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试可收缩
-        /// </summary>
-        [Fact]
-        public void TestBindCollapsible() {
-            _wrapper.SetContextAttribute( AngularConst.BindCollapsible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-sider [nzCollapsible]=\"a\"></nz-sider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -164,20 +131,9 @@ namespace Util.Ui.NgZorro.Tests.Layouts {
         /// </summary>
         [Fact]
         public void TestCollapsed() {
-            _wrapper.SetContextAttribute( UiConst.Collapsed, true );
+            _wrapper.SetContextAttribute( UiConst.Collapsed, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-sider [nzCollapsed]=\"true\"></nz-sider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试收缩状态
-        /// </summary>
-        [Fact]
-        public void TestBindCollapsed() {
-            _wrapper.SetContextAttribute( AngularConst.BindCollapsed, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-sider [nzCollapsed]=\"a\"></nz-sider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -197,20 +153,9 @@ namespace Util.Ui.NgZorro.Tests.Layouts {
         /// </summary>
         [Fact]
         public void TestReverseArrow() {
-            _wrapper.SetContextAttribute( UiConst.ReverseArrow, true );
+            _wrapper.SetContextAttribute( UiConst.ReverseArrow, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-sider [nzReverseArrow]=\"true\"></nz-sider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试翻转折叠提示箭头方向
-        /// </summary>
-        [Fact]
-        public void TestBindReverseArrow() {
-            _wrapper.SetContextAttribute( AngularConst.BindReverseArrow, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-sider [nzReverseArrow]=\"a\"></nz-sider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

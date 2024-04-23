@@ -1,6 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Lists.Builders; 
 
@@ -24,8 +22,7 @@ public class ListItemBuilder : AngularTagBuilder {
     /// 配置是否非flex布局
     /// </summary>
     public ListItemBuilder NoFlex() {
-        AttributeIfNotEmpty( "[nzNoFlex]", _config.GetBoolValue( UiConst.NoFlex ) );
-        AttributeIfNotEmpty( "[nzNoFlex]", _config.GetValue( AngularConst.BindNoFlex ) );
+        AttributeIfNotEmpty( "[nzNoFlex]", _config.GetValue( UiConst.NoFlex ) );
         return this;
     }
 

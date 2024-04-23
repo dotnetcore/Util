@@ -45,7 +45,7 @@ namespace Util.Ui.NgZorro.Tests.Segments {
         /// </summary>
         [Fact]
         public void TestAutoLoad() {
-            _wrapper.SetContextAttribute( UiConst.AutoLoad, false );
+            _wrapper.SetContextAttribute( UiConst.AutoLoad, "false" );
             var result = new StringBuilder();
             result.Append( "<nz-segmented [autoLoad]=\"false\">" );
             result.Append( "</nz-segmented>" );

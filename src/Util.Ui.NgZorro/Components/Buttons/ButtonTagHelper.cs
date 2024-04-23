@@ -38,43 +38,23 @@ public class ButtonTagHelper : ButtonTagHelperBase {
     /// <summary>
     /// [disabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [disabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzDanger],是否危险状态
     /// </summary>
-    public bool Danger { get; set; }
-    /// <summary>
-    /// [nzDanger],是否危险状态
-    /// </summary>
-    public string BindDanger { get; set; }
+    public string Danger { get; set; }
     /// <summary>
     /// [nzLoading],是否加载状态
     /// </summary>
-    public bool Loading { get; set; }
-    /// <summary>
-    /// [nzLoading],是否加载状态
-    /// </summary>
-    public string BindLoading { get; set; }
+    public string Loading { get; set; }
     /// <summary>
     /// [nzGhost],是否幽灵按钮,幽灵按钮将按钮的内容反色，背景变为透明，常用在有色背景上
     /// </summary>
-    public bool Ghost { get; set; }
-    /// <summary>
-    /// [nzGhost],是否幽灵按钮,幽灵按钮将按钮的内容反色，背景变为透明，常用在有色背景上
-    /// </summary>
-    public string BindGhost { get; set; }
+    public string Ghost { get; set; }
     /// <summary>
     /// [nzBlock],将按钮宽度调整为父容器宽度
     /// </summary>
-    public bool Block { get; set; }
-    /// <summary>
-    /// [nzBlock],将按钮宽度调整为父容器宽度
-    /// </summary>
-    public string BindBlock { get; set; }
+    public string Block { get; set; }
     /// <summary>
     /// 图标
     /// </summary>
@@ -88,7 +68,7 @@ public class ButtonTagHelper : ButtonTagHelperBase {
     /// </summary>
     public bool IsSubmit { get; set; }
     /// <summary>
-    /// [cdkCopyToClipboard],复制到剪贴板
+    /// 扩展属性 [cdkCopyToClipboard],复制到剪贴板
     /// </summary>
     public string CopyToClipboard { get; set; }
 

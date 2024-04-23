@@ -75,20 +75,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestSelectable() {
-            _wrapper.SetContextAttribute( UiConst.Selectable, false );
+            _wrapper.SetContextAttribute( UiConst.Selectable, "false" );
             var result = new StringBuilder();
             result.Append( "<ul nz-menu=\"\" [nzSelectable]=\"false\"></ul>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许选中
-        /// </summary>
-        [Fact]
-        public void TestBindSelectable() {
-            _wrapper.SetContextAttribute( AngularConst.BindSelectable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<ul nz-menu=\"\" [nzSelectable]=\"a\"></ul>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestInlineCollapsed() {
-            _wrapper.SetContextAttribute( UiConst.InlineCollapsed, false );
+            _wrapper.SetContextAttribute( UiConst.InlineCollapsed, "false" );
             var result = new StringBuilder();
             result.Append( "<ul nz-menu=\"\" [nzInlineCollapsed]=\"false\"></ul>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试折叠状态
-        /// </summary>
-        [Fact]
-        public void TestBindInlineCollapsed() {
-            _wrapper.SetContextAttribute( AngularConst.BindInlineCollapsed, "a" );
-            var result = new StringBuilder();
-            result.Append( "<ul nz-menu=\"\" [nzInlineCollapsed]=\"a\"></ul>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

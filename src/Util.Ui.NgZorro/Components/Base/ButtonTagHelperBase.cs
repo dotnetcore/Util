@@ -7,6 +7,22 @@ namespace Util.Ui.NgZorro.Components.Base;
 /// </summary>
 public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// <summary>
+    /// 扩展属性,全屏切换,设置需要全屏的内容区引用变量,范例 &lt;div #id> , 传入 id
+    /// </summary>
+    public string Fullscreen { get; set; }
+    /// <summary>
+    /// 扩展属性,全屏标题
+    /// </summary>
+    public string FullscreenTitle { get; set; }
+    /// <summary>
+    /// 扩展属性,进入全屏时,外层容器添加的样式类名, 设置为true,则设置默认样式类 x-fullscreen
+    /// </summary>
+    public string FullscreenWrapClass { get; set; }
+    /// <summary>
+    /// 扩展属性,全屏是否创建标题和页脚进行包装,默认值: true, 设置为 false 则完全受控,fullscreen-title 和 fullscreen-wrap-class 将无效
+    /// </summary>
+    public bool FullscreenPack { get; set; }
+    /// <summary>
     /// 扩展属性,内容文本,支持i18n
     /// </summary>
     public string Text { get; set; }
@@ -165,19 +181,11 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// <summary>
     /// [nzClickHide],点击后是否隐藏下拉菜单,默认值:true
     /// </summary>
-    public bool DropdownMenuClickHide { get; set; }
-    /// <summary>
-    /// [nzClickHide],点击后是否隐藏下拉菜单,默认值:true
-    /// </summary>
-    public string BindDropdownMenuClickHide { get; set; }
+    public string DropdownMenuClickHide { get; set; }
     /// <summary>
     /// [nzVisible],下拉菜单是否可见
     /// </summary>
-    public bool DropdownMenuVisible { get; set; }
-    /// <summary>
-    /// [nzVisible],下拉菜单是否可见
-    /// </summary>
-    public string BindDropdownMenuVisible { get; set; }
+    public string DropdownMenuVisible { get; set; }
     /// <summary>
     /// [(nzVisible)],下拉菜单是否可见
     /// </summary>
@@ -241,31 +249,19 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// <summary>
     /// [nzPopoverVisible],气泡卡片是否可见,默认值: false
     /// </summary>
-    public bool PopoverVisible { get; set; }
-    /// <summary>
-    /// [nzPopoverVisible],气泡卡片是否可见,默认值: false
-    /// </summary>
-    public string BindPopoverVisible { get; set; }
+    public string PopoverVisible { get; set; }
     /// <summary>
     /// [(nzPopoverVisible)],气泡卡片是否可见,默认值: false
     /// </summary>
     public string BindonPopoverVisible { get; set; }
     /// <summary>
-    /// nzPopoverMouseEnterDelay,鼠标移入后延时多久才显示气泡卡片，单位：秒,默认值: 0.15
-    /// </summary>
-    public double PopoverMouseEnterDelay { get; set; }
-    /// <summary>
     /// [nzPopoverMouseEnterDelay],鼠标移入后延时多久才显示气泡卡片，单位：秒,默认值: 0.15
     /// </summary>
-    public string BindPopoverMouseEnterDelay { get; set; }
-    /// <summary>
-    /// nzPopoverMouseLeaveDelay,鼠标移出后延时多久才隐藏气泡卡片，单位：秒,默认值: 0.1
-    /// </summary>
-    public double PopoverMouseLeaveDelay { get; set; }
+    public string PopoverMouseEnterDelay { get; set; }
     /// <summary>
     /// [nzPopoverMouseLeaveDelay],鼠标移出后延时多久才隐藏气泡卡片，单位：秒,默认值: 0.1
     /// </summary>
-    public string BindPopoverMouseLeaveDelay { get; set; }
+    public string PopoverMouseLeaveDelay { get; set; }
     /// <summary>
     /// nzPopoverOverlayClassName,气泡卡片样式类名
     /// </summary>
@@ -281,11 +277,7 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// <summary>
     /// [nzPopoverBackdrop],气泡卡片浮层是否带背景,默认值: false
     /// </summary>
-    public bool PopoverBackdrop { get; set; }
-    /// <summary>
-    /// [nzPopoverBackdrop],气泡卡片浮层是否带背景,默认值: false
-    /// </summary>
-    public string BindPopoverBackdrop { get; set; }
+    public string PopoverBackdrop { get; set; }
     /// <summary>
     /// (click),单击事件
     /// </summary>
@@ -329,27 +321,15 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// <summary>
     /// [nzPopconfirmVisible],气泡确认框是否可见,默认值: false
     /// </summary>
-    public bool PopconfirmVisible { get; set; }
-    /// <summary>
-    /// [nzPopconfirmVisible],气泡确认框是否可见,默认值: false
-    /// </summary>
-    public string BindPopconfirmVisible { get; set; }
+    public string PopconfirmVisible { get; set; }
     /// <summary>
     /// [nzPopconfirmShowArrow],气泡确认框是否显示箭头,默认值: true
     /// </summary>
-    public bool PopconfirmShowArrow { get; set; }
-    /// <summary>
-    /// [nzPopconfirmShowArrow],气泡确认框是否显示箭头,默认值: true
-    /// </summary>
-    public string BindPopconfirmShowArrow { get; set; }
-    /// <summary>
-    /// nzPopconfirmMouseEnterDelay,鼠标移入后延时多久才显示气泡确认框，单位：秒,默认值: 0.15
-    /// </summary>
-    public double PopconfirmMouseEnterDelay { get; set; }
+    public string PopconfirmShowArrow { get; set; }
     /// <summary>
     /// [nzPopconfirmMouseEnterDelay],鼠标移入后延时多久才显示气泡确认框，单位：秒,默认值: 0.15
     /// </summary>
-    public string BindPopconfirmMouseEnterDelay { get; set; }
+    public string PopconfirmMouseEnterDelay { get; set; }
     /// <summary>
     /// nzPopconfirmMouseLeaveDelay,鼠标移出后延时多久才隐藏气泡确认框，单位：秒,默认值: 0.1
     /// </summary>

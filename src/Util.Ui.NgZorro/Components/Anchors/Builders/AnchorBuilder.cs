@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Anchors.Builders; 
 
@@ -24,8 +23,7 @@ public class AnchorBuilder : AngularTagBuilder {
     /// 配置是否固定模式
     /// </summary>
     public AnchorBuilder Affix() {
-        AttributeIfNotEmpty( "[nzAffix]", _config.GetBoolValue( UiConst.Affix ) );
-        AttributeIfNotEmpty( "[nzAffix]", _config.GetValue( AngularConst.BindAffix ) );
+        AttributeIfNotEmpty( "[nzAffix]", _config.GetValue( UiConst.Affix ) );
         return this;
     }
 
@@ -33,8 +31,7 @@ public class AnchorBuilder : AngularTagBuilder {
     /// 配置区域边界
     /// </summary>
     public AnchorBuilder Bounds() {
-        AttributeIfNotEmpty( "nzBounds", _config.GetValue( UiConst.Bounds ) );
-        AttributeIfNotEmpty( "[nzBounds]", _config.GetValue( AngularConst.BindBounds ) );
+        AttributeIfNotEmpty( "[nzBounds]", _config.GetValue( UiConst.Bounds ) );
         return this;
     }
 
@@ -42,8 +39,7 @@ public class AnchorBuilder : AngularTagBuilder {
     /// 配置顶部偏移量
     /// </summary>
     public AnchorBuilder OffsetTop() {
-        AttributeIfNotEmpty( "nzOffsetTop", _config.GetValue( UiConst.OffsetTop ) );
-        AttributeIfNotEmpty( "[nzOffsetTop]", _config.GetValue( AngularConst.BindOffsetTop ) );
+        AttributeIfNotEmpty( "[nzOffsetTop]", _config.GetValue( UiConst.OffsetTop ) );
         return this;
     }
 
@@ -51,8 +47,7 @@ public class AnchorBuilder : AngularTagBuilder {
     /// 配置固定模式是否显示小圆点
     /// </summary>
     public AnchorBuilder ShowInkInFixed() {
-        AttributeIfNotEmpty( "[nzShowInkInFixed]", _config.GetBoolValue( UiConst.ShowInkInFixed ) );
-        AttributeIfNotEmpty( "[nzShowInkInFixed]", _config.GetValue( AngularConst.BindShowInkInFixed ) );
+        AttributeIfNotEmpty( "[nzShowInkInFixed]", _config.GetValue( UiConst.ShowInkInFixed ) );
         return this;
     }
 

@@ -16,7 +16,13 @@ public class FormShareConfig {
     /// </summary>
     public FormShareConfig() {
         _columnIds = new List<string>();
+        FormId = "form";
     }
+
+    /// <summary>
+    /// 表单标识
+    /// </summary>
+    public string FormId { get; set; }
 
     /// <summary>
     /// 获取查询条件数量

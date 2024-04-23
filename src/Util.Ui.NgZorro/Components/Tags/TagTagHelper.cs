@@ -81,11 +81,7 @@ public class TagTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzChecked],是否选中,在 nzMode="checkable" 时可用,默认值: false
     /// </summary>
-    public bool Checked { get; set; }
-    /// <summary>
-    /// [nzChecked],是否选中,在 nzMode="checkable" 时可用,默认值: false
-    /// </summary>
-    public string BindChecked { get; set; }
+    public string Checked { get; set; }
     /// <summary>
     /// [(nzChecked)],是否选中,在 nzMode="checkable" 时可用,默认值: false
     /// </summary>

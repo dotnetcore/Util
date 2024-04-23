@@ -18,7 +18,7 @@ public class ColumnTagHelper : ColumnTagHelperBase {
     /// <summary>
     /// 标识
     /// </summary>
-    private string _id;
+    private readonly string _id;
 
     /// <summary>
     /// 初始化栅格列

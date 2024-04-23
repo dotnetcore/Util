@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Lists {
         /// </summary>
         [Fact]
         public void TestBordered() {
-            _wrapper.SetContextAttribute( UiConst.Bordered, true );
+            _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-list [nzBordered]=\"true\"></nz-list>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示边框
-        /// </summary>
-        [Fact]
-        public void TestBindBordered() {
-            _wrapper.SetContextAttribute( AngularConst.BindBordered, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-list [nzBordered]=\"a\"></nz-list>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -174,20 +163,9 @@ namespace Util.Ui.NgZorro.Tests.Lists {
         /// </summary>
         [Fact]
         public void TestSplit() {
-            _wrapper.SetContextAttribute( UiConst.Split, true );
+            _wrapper.SetContextAttribute( UiConst.Split, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-list [nzSplit]=\"true\"></nz-list>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示分割线
-        /// </summary>
-        [Fact]
-        public void TestBindSplit() {
-            _wrapper.SetContextAttribute( AngularConst.BindSplit, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-list [nzSplit]=\"a\"></nz-list>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -196,20 +174,9 @@ namespace Util.Ui.NgZorro.Tests.Lists {
         /// </summary>
         [Fact]
         public void TestGrid() {
-            _wrapper.SetContextAttribute( UiConst.Grid, true );
+            _wrapper.SetContextAttribute( UiConst.Grid, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-list nzGrid=\"\"></nz-list>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试栅格 - 当设置为false不添加nzGrid属性
-        /// </summary>
-        [Fact]
-        public void TestGrid_False() {
-            _wrapper.SetContextAttribute( UiConst.Grid, false );
-            var result = new StringBuilder();
-            result.Append( "<nz-list></nz-list>" );
+            result.Append( "<nz-list [nzGrid]=\"true\"></nz-list>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -82,13 +82,9 @@ public class InputGroupTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSuffixIcon { get; set; }
     /// <summary>
-    /// [nzSearch],是否用于搜索
+    /// [nzSearch],是否用于搜索, 默认值: false
     /// </summary>
-    public bool Search { get; set; }
-    /// <summary>
-    /// [nzSearch],是否用于搜索
-    /// </summary>
-    public string BindSearch { get; set; }
+    public string Search { get; set; }
     /// <summary>
     /// nzSize,设置输入框大小, 可选值: 'default' | 'small' |  'large'
     /// </summary>
@@ -98,13 +94,9 @@ public class InputGroupTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzCompact],是否紧凑模式
+    /// [nzCompact],是否紧凑模式, 默认值: false
     /// </summary>
-    public bool Compact { get; set; }
-    /// <summary>
-    /// [nzCompact],是否紧凑模式
-    /// </summary>
-    public string BindCompact { get; set; }
+    public string Compact { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

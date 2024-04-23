@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.NgZorro.Components.Drawers.Helpers;
 using Util.Ui.NgZorro.Components.Modals.Helpers;
 using Util.Ui.NgZorro.Components.Modals.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -28,19 +27,11 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzMaskClosable],点击遮罩是否允许关闭,默认值: true
     /// </summary>
-    public bool MaskClosable { get; set; }
-    /// <summary>
-    /// [nzMaskClosable],点击遮罩是否允许关闭,默认值: true
-    /// </summary>
-    public string BindMaskClosable { get; set; }
+    public string MaskClosable { get; set; }
     /// <summary>
     /// [nzCloseOnNavigation],导航时是否关闭,当用户在历史中前进/后退时是否关闭模态框,注意:这通常不包括点击链接（除非用户使用HashLocationStrategy）。默认值: true
     /// </summary>
-    public bool CloseOnNavigation { get; set; }
-    /// <summary>
-    /// [nzCloseOnNavigation],导航时是否关闭,当用户在历史中前进/后退时是否关闭模态框,注意:这通常不包括点击链接（除非用户使用HashLocationStrategy）。默认值: true
-    /// </summary>
-    public string BindCloseOnNavigation { get; set; }
+    public string CloseOnNavigation { get; set; }
     /// <summary>
     /// [(nzVisible)],是否可见,默认值: false
     /// </summary>
@@ -48,11 +39,7 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzClosable],是否可关闭,确认框模式下该值无效（默认会被隐藏）,默认值: true
     /// </summary>
-    public bool Closable { get; set; }
-    /// <summary>
-    /// [nzClosable],是否可关闭,确认框模式下该值无效（默认会被隐藏）,默认值: true
-    /// </summary>
-    public string BindClosable { get; set; }
+    public string Closable { get; set; }
     /// <summary>
     /// [nzOkLoading],确定按钮是否加载状态,默认值: false
     /// </summary>
@@ -60,11 +47,7 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzOkDisabled],是否禁用确定按钮,默认值: false
     /// </summary>
-    public bool OkDisabled { get; set; }
-    /// <summary>
-    /// [nzOkDisabled],是否禁用确定按钮,默认值: false
-    /// </summary>
-    public string BindOkDisabled { get; set; }
+    public string OkDisabled { get; set; }
     /// <summary>
     /// [nzCancelLoading],取消按钮是否加载状态,默认值: false
     /// </summary>
@@ -72,27 +55,15 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzCancelDisabled],是否禁用取消按钮,默认值: false
     /// </summary>
-    public bool CancelDisabled { get; set; }
-    /// <summary>
-    /// [nzCancelDisabled],是否禁用取消按钮,默认值: false
-    /// </summary>
-    public string BindCancelDisabled { get; set; }
+    public string CancelDisabled { get; set; }
     /// <summary>
     /// [nzKeyboard],是否支持键盘ESC键关闭,默认值: true
     /// </summary>
-    public bool Keyboard { get; set; }
-    /// <summary>
-    /// [nzKeyboard],是否支持键盘ESC键关闭,默认值: true
-    /// </summary>
-    public string BindKeyboard { get; set; }
+    public string Keyboard { get; set; }
     /// <summary>
     /// [nzCentered],是否垂直居中显示,默认值: false
     /// </summary>
-    public bool Centered { get; set; }
-    /// <summary>
-    /// [nzCentered],是否垂直居中显示,默认值: false
-    /// </summary>
-    public string BindCentered { get; set; }
+    public string Centered { get; set; }
     /// <summary>
     /// [nzContent],内容,类型: string | TemplateRef | Component | ng-content
     /// </summary>
@@ -106,21 +77,13 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Footer { get; set; }
     /// <summary>
-    /// nzZIndex,z-index,类型: number,默认值: 1000
-    /// </summary>
-    public int ZIndex { get; set; }
-    /// <summary>
     /// [nzZIndex],z-index,类型: number,默认值: 1000
     /// </summary>
-    public string BindZIndex { get; set; }
-    /// <summary>
-    /// nzWidth,宽度, 使用数字时，默认单位为px,类型: number | string,默认值: 520
-    /// </summary>
-    public double Width { get; set; }
+    public string ZIndex { get; set; }
     /// <summary>
     /// [nzWidth],宽度, 使用数字时，默认单位为px,类型: number | string,默认值: 520
     /// </summary>
-    public string BindWidth { get; set; }
+    public string Width { get; set; }
     /// <summary>
     /// nzWrapClassName,对话框外层容器样式类名
     /// </summary>
@@ -192,11 +155,7 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzOkDanger],确认按钮是否危险按钮,默认值: false
     /// </summary>
-    public bool OkDanger { get; set; }
-    /// <summary>
-    /// [nzOkDanger],确认按钮是否危险按钮,默认值: false
-    /// </summary>
-    public string BindOkDanger { get; set; }
+    public string OkDanger { get; set; }
     /// <summary>
     /// nzIconType,图标类型,仅确认框模式下有效,默认值: 'question-circle'
     /// </summary>

@@ -22,37 +22,21 @@ public class EllipsisTagHelper : AngularTagHelperBase {
     /// </summary>
     public ModelExpression For { get; set; }
     /// <summary>
-    /// [tooltip],移动到文本展示完整内容的提示,默认值: false
+    /// [tooltip],是否显示文本完整内容的提示,默认值: false
     /// </summary>
-    public bool Tooltip { get; set; }
-    /// <summary>
-    /// [tooltip],移动到文本展示完整内容的提示,默认值: false
-    /// </summary>
-    public string BindTooltip { get; set; }
-    /// <summary>
-    /// length,在按照长度截取下的文本最大字符数，超过则截取省略
-    /// </summary>
-    public int Length { get; set; }
+    public string Tooltip { get; set; }
     /// <summary>
     /// [length],在按照长度截取下的文本最大字符数，超过则截取省略
     /// </summary>
-    public string BindLength { get; set; }
-    /// <summary>
-    /// lines,在按照行数截取下最大的行数，超过则截取省略
-    /// </summary>
-    public int Lines { get; set; }
+    public string Length { get; set; }
     /// <summary>
     /// [lines],在按照行数截取下最大的行数，超过则截取省略
     /// </summary>
-    public string BindLines { get; set; }
+    public string Lines { get; set; }
     /// <summary>
     /// [fullWidthRecognition],是否将全角字符的长度视为2来计算字符串长度,默认值: false
     /// </summary>
-    public bool FullWidthRecognition { get; set; }
-    /// <summary>
-    /// [fullWidthRecognition],是否将全角字符的长度视为2来计算字符串长度,默认值: false
-    /// </summary>
-    public string BindFullWidthRecognition { get; set; }
+    public string FullWidthRecognition { get; set; }
     /// <summary>
     /// tail,指定溢出尾巴,默认值: ...
     /// </summary>

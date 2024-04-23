@@ -194,5 +194,17 @@ public class TableHeadColumnShareConfig {
         _tableShareConfig.HeadColumns.Add( column );
         if ( column.IsEnableResizable == true )
             _tableShareConfig.IsEnableResizable = true;
+        InitLeft( column );
+    }
+
+    /// <summary>
+    /// 初始化左侧固定
+    /// </summary>
+    private void InitLeft( HeadColumnInfo column ) {
+        if ( IsFirst && column.IsLeft == "true" ) {
+            _tableShareConfig.IsCheckboxLeft = "true";
+            _tableShareConfig.IsRadioLeft = "true";
+            _tableShareConfig.IsLineNumberLeft = "true";
+        }
     }
 }

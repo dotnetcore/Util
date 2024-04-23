@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Enums;
 
@@ -38,8 +37,7 @@ public class SubMenuBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public SubMenuBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -56,8 +54,7 @@ public class SubMenuBuilder : AngularTagBuilder {
     /// 配置展开
     /// </summary>
     public SubMenuBuilder Open() {
-        AttributeIfNotEmpty( "[nzOpen]", _config.GetBoolValue( UiConst.Open ) );
-        AttributeIfNotEmpty( "[nzOpen]", _config.GetValue( AngularConst.BindOpen ) );
+        AttributeIfNotEmpty( "[nzOpen]", _config.GetValue( UiConst.Open ) );
         AttributeIfNotEmpty( "[(nzOpen)]", _config.GetValue( AngularConst.BindonOpen ) );
         return this;
     }

@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Components.Popover;
 using Util.Ui.NgZorro.Configs;
@@ -67,8 +68,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置禁用
     /// </summary>
     public TBuilder Disabled() {
-        AttributeIfNotEmpty( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[disabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         return (TBuilder)this;
     }
 
@@ -76,8 +76,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置危险按钮
     /// </summary>
     public virtual TBuilder Danger() {
-        AttributeIfNotEmpty( "[nzDanger]", _config.GetBoolValue( UiConst.Danger ) );
-        AttributeIfNotEmpty( "[nzDanger]", _config.GetValue( AngularConst.BindDanger ) );
+        AttributeIfNotEmpty( "[nzDanger]", _config.GetValue( UiConst.Danger ) );
         return (TBuilder)this;
     }
 
@@ -85,8 +84,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置加载状态
     /// </summary>
     public TBuilder Loading() {
-        AttributeIfNotEmpty( "[nzLoading]", _config.GetBoolValue( UiConst.Loading ) );
-        AttributeIfNotEmpty( "[nzLoading]", _config.GetValue( AngularConst.BindLoading ) );
+        AttributeIfNotEmpty( "[nzLoading]", _config.GetValue( UiConst.Loading ) );
         return (TBuilder)this;
     }
 
@@ -94,8 +92,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置幽灵按钮
     /// </summary>
     public TBuilder Ghost() {
-        AttributeIfNotEmpty( "[nzGhost]", _config.GetBoolValue( UiConst.Ghost ) );
-        AttributeIfNotEmpty( "[nzGhost]", _config.GetValue( AngularConst.BindGhost ) );
+        AttributeIfNotEmpty( "[nzGhost]", _config.GetValue( UiConst.Ghost ) );
         return (TBuilder)this;
     }
 
@@ -103,8 +100,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置Block按钮
     /// </summary>
     public TBuilder Block() {
-        AttributeIfNotEmpty( "[nzBlock]", _config.GetBoolValue( UiConst.Block ) );
-        AttributeIfNotEmpty( "[nzBlock]", _config.GetValue( AngularConst.BindBlock ) );
+        AttributeIfNotEmpty( "[nzBlock]", _config.GetValue( UiConst.Block ) );
         return (TBuilder)this;
     }
 
@@ -174,8 +170,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置点击隐藏下拉菜单
     /// </summary>
     public TBuilder DropdownMenuClickHide() {
-        AttributeIfNotEmpty( "[nzClickHide]", _config.GetBoolValue( UiConst.DropdownMenuClickHide ) );
-        AttributeIfNotEmpty( "[nzClickHide]", _config.GetValue( AngularConst.BindDropdownMenuClickHide ) );
+        AttributeIfNotEmpty( "[nzClickHide]", _config.GetValue( UiConst.DropdownMenuClickHide ) );
         return (TBuilder)this;
     }
 
@@ -183,8 +178,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置下拉菜单可见性
     /// </summary>
     public TBuilder DropdownMenuVisible() {
-        AttributeIfNotEmpty( "[nzVisible]", _config.GetBoolValue( UiConst.DropdownMenuVisible ) );
-        AttributeIfNotEmpty( "[nzVisible]", _config.GetValue( AngularConst.BindDropdownMenuVisible ) );
+        AttributeIfNotEmpty( "[nzVisible]", _config.GetValue( UiConst.DropdownMenuVisible ) );
         AttributeIfNotEmpty( "[(nzVisible)]", _config.GetValue( AngularConst.BindonDropdownMenuVisible ) );
         return (TBuilder)this;
     }
@@ -744,6 +738,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             return;
         Attribute( "x-button-extend" );
         Attribute( $"#{GetButtonExtendId()}", "xButtonExtend" );
+        DisableButton();
     }
 
     /// <summary>
@@ -752,6 +747,8 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     protected virtual bool IsEnableExtend() {
         if ( IsValidateForm() )
             return true;
+        if ( IsScreenFull() )
+            return true;
         return false;
     }
 
@@ -759,8 +756,14 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 是否验证表单
     /// </summary>
     protected bool IsValidateForm() {
-        var result = _config.GetValue<bool?>( UiConst.ValidateForm );
-        return result == true;
+        return _config.GetValue<bool?>( UiConst.ValidateForm ) == true;
+    }
+
+    /// <summary>
+    /// 是否全屏
+    /// </summary>
+    protected bool IsScreenFull() {
+        return _config.Contains( UiConst.Fullscreen );
     }
 
     /// <summary>
@@ -771,5 +774,53 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
         if ( id.IsEmpty() )
             id = _id;
         return $"x_{id}";
+    }
+
+    /// <summary>
+    /// 表单验证禁用按钮
+    /// </summary>
+    protected void DisableButton() {
+        if ( IsValidateForm() == false )
+            return;
+        var formShareConfig = _config.GetValueFromItems<FormShareConfig>();
+        if ( formShareConfig == null )
+            return;
+        Attribute( "[disabled]", $"{GetButtonExtendId()}.isDisabled({formShareConfig.FormId}.invalid)" );
+    }
+
+    /// <summary>
+    /// 获取全屏外层容器样式类名
+    /// </summary>
+    protected string GetFullscreenWrapClass() {
+        var className = _config.GetValue( UiConst.FullscreenWrapClass );
+        if (className.IsEmpty()) {
+            if(_config.Contains( UiConst.FullscreenPack ) || _config.Contains( UiConst.FullscreenTitle ) )
+                return ",null";
+            return null;
+        }
+        return $",'{className}'";
+    }
+
+    /// <summary>
+    /// 获取全屏包装
+    /// </summary>
+    protected string GetFullscreenPack() {
+        var isPack = _config.GetBoolValue( UiConst.FullscreenPack );
+        if (isPack.IsEmpty()) {
+            if ( _config.Contains( UiConst.FullscreenTitle ) )
+                return ",true";
+            return null;
+        }
+        return $",{isPack}";
+    }
+
+    /// <summary>
+    /// 获取全屏标题
+    /// </summary>
+    protected string GetFullscreenTitle() {
+        var title = _config.GetValue( UiConst.FullscreenTitle );
+        if ( title.IsEmpty() )
+            return null;
+        return $",'{title}'";
     }
 }

@@ -36,8 +36,7 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// 配置禁用
     /// </summary>
     public TextareaBuilder Disabled() {
-        AttributeIfNotEmpty( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[disabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -45,8 +44,7 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// 配置只读
     /// </summary>
     public TextareaBuilder Readonly() {
-        AttributeIfNotEmpty( "[readOnly]", _config.GetBoolValue( UiConst.Readonly ) );
-        AttributeIfNotEmpty( "[readOnly]", _config.GetValue( AngularConst.BindReadonly ) );
+        AttributeIfNotEmpty( "[readOnly]", _config.GetValue( UiConst.Readonly ) );
         return this;
     }
 
@@ -54,8 +52,7 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// 配置行数
     /// </summary>
     public TextareaBuilder Rows() {
-        AttributeIfNotEmpty( "rows", _config.GetValue( UiConst.Rows ) );
-        AttributeIfNotEmpty( "[rows]", _config.GetValue( AngularConst.BindRows ) );
+        AttributeIfNotEmpty( "[rows]", _config.GetValue( UiConst.Rows ) );
         return this;
     }
 
@@ -63,8 +60,7 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// 配置列数
     /// </summary>
     public TextareaBuilder Columns() {
-        AttributeIfNotEmpty( "cols", _config.GetValue( UiConst.Columns ) );
-        AttributeIfNotEmpty( "[cols]", _config.GetValue( AngularConst.BindColumns ) );
+        AttributeIfNotEmpty( "[cols]", _config.GetValue( UiConst.Columns ) );
         return this;
     }
 
@@ -72,8 +68,7 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// 配置自适应内容高度
     /// </summary>
     public TextareaBuilder Autosize() {
-        AttributeIfNotEmpty( "[nzAutosize]", _config.GetBoolValue( UiConst.Autosize ) );
-        AttributeIfNotEmpty( "[nzAutosize]", _config.GetValue( AngularConst.BindAutosize ) );
+        AttributeIfNotEmpty( "[nzAutosize]", _config.GetValue( UiConst.Autosize ) );
         var model = new RowsModel { MinRows = _config.GetValue<int?>( UiConst.MinRows ), MaxRows = _config.GetValue<int?>( UiConst.MaxRows ) };
         AttributeIfNotEmpty( "[nzAutosize]", model.ToJson() );
         return this;

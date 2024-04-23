@@ -163,20 +163,9 @@ namespace Util.Ui.NgZorro.Tests.Steps {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-step [nzDisabled]=\"true\"></nz-step>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-step [nzDisabled]=\"a\"></nz-step>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

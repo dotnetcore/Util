@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Spins.Builders; 
@@ -26,8 +25,7 @@ public class SpinBuilder : AngularTagBuilder {
     /// 配置延迟显示时间
     /// </summary>
     public SpinBuilder Delay() {
-        AttributeIfNotEmpty( "nzDelay", _config.GetValue( UiConst.Delay ) );
-        AttributeIfNotEmpty( "[nzDelay]", _config.GetValue( AngularConst.BindDelay ) );
+        AttributeIfNotEmpty( "[nzDelay]", _config.GetValue( UiConst.Delay ) );
         return this;
     }
 
@@ -52,8 +50,7 @@ public class SpinBuilder : AngularTagBuilder {
     /// 配置是否旋转
     /// </summary>
     public SpinBuilder Spinning() {
-        AttributeIfNotEmpty( "[nzSpinning]", _config.GetBoolValue( UiConst.Spinning ) );
-        AttributeIfNotEmpty( "[nzSpinning]", _config.GetValue( AngularConst.BindSpinning ) );
+        AttributeIfNotEmpty( "[nzSpinning]", _config.GetValue( UiConst.Spinning ) );
         return this;
     }
 
@@ -61,8 +58,7 @@ public class SpinBuilder : AngularTagBuilder {
     /// 配置是否简单模式
     /// </summary>
     public SpinBuilder Simple() {
-        AttributeIf( "nzSimple", _config.GetValue<bool?>( UiConst.Simple ) == true );
-        AttributeIfNotEmpty( "[nzSimple]", _config.GetValue( AngularConst.BindSimple ) );
+        AttributeIfNotEmpty( "[nzSimple]", _config.GetValue( UiConst.Simple ) );
         return this;
     }
 

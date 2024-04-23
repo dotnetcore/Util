@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -21,13 +20,9 @@ public class SubMenuTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindTitle { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用
+    /// [nzDisabled],是否禁用, 默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzIcon,图标
     /// </summary>
@@ -37,13 +32,9 @@ public class SubMenuTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindIcon { get; set; }
     /// <summary>
-    /// [nzOpen],是否展开
+    /// [nzOpen],是否展开, 默认值: false
     /// </summary>
-    public bool Open { get; set; }
-    /// <summary>
-    /// [nzOpen],是否展开
-    /// </summary>
-    public string BindOpen { get; set; }
+    public string Open { get; set; }
     /// <summary>
     /// [(nzOpen)],是否展开
     /// </summary>

@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Configs;
 using Util.Ui.NgZorro.Configs;
@@ -50,8 +49,7 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     /// 配置自动获取焦点
     /// </summary>
     public RadioBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -59,8 +57,7 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     /// 配置禁用
     /// </summary>
     public RadioBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -68,7 +65,7 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     /// 配置值
     /// </summary>
     public RadioBuilder Value() {
-        AttributeIfNotEmpty( "nzValue", _config.GetBoolValue( UiConst.Value ) );
+        AttributeIfNotEmpty( "nzValue", _config.GetValue( UiConst.Value ) );
         AttributeIfNotEmpty( "[nzValue]", _config.GetValue( AngularConst.BindValue ) );
         return this;
     }

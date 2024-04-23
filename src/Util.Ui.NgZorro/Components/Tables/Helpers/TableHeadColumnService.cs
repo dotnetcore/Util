@@ -1,5 +1,4 @@
-﻿using Util.Ui.Expressions;
-using Util.Ui.NgZorro.Components.Tables.Configs;
+﻿using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -31,9 +30,9 @@ public class TableHeadColumnService {
     /// </summary>
     public void Init() {
         CreateTableHeadColumnShareConfig();
+        LoadExpression();
         CancelAutoCreateHeadColumn();
         SetColumn();
-        LoadExpression();
     }
 
     /// <summary>
@@ -49,6 +48,14 @@ public class TableHeadColumnService {
     /// </summary>
     private TableShareConfig GetTableShareConfig() {
         return _config.GetValueFromItems<TableShareConfig>() ?? new TableShareConfig();
+    }
+
+    /// <summary>
+    /// 加载表达式
+    /// </summary>
+    private void LoadExpression() {
+        var expressionLoader = new TableHeadColumnExpressionLoader();
+        expressionLoader.Load( _config );
     }
 
     /// <summary>
@@ -73,14 +80,6 @@ public class TableHeadColumnService {
             CellControl = _config.GetValue( UiConst.CellControl ),
             IsEnableResizable = _config.GetValue<bool?>( UiConst.EnableResizable )
         } );
-    }
-
-    /// <summary>
-    /// 加载表达式
-    /// </summary>
-    private void LoadExpression() {
-        var expressionLoader = new ExpressionLoader();
-        expressionLoader.Load( _config );
     }
 
     /// <summary>

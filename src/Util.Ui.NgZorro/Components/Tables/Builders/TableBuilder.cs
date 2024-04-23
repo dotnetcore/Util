@@ -4,6 +4,7 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Components.Tables.Helpers;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders;
@@ -91,8 +92,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否前端分页
     /// </summary>
     public TableBuilder FrontPagination() {
-        FrontPagination( _config.GetBoolValue( UiConst.FrontPagination ) );
-        FrontPagination( _config.GetValue( AngularConst.BindFrontPagination ) );
+        FrontPagination( _config.GetValue( UiConst.FrontPagination ) );
         return this;
     }
 
@@ -124,8 +124,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置当前页
     /// </summary>
     public TableBuilder PageIndex() {
-        AttributeIfNotEmpty( "nzPageIndex", _config.GetValue( UiConst.PageIndex ) );
-        AttributeIfNotEmpty( "[nzPageIndex]", _config.GetValue( AngularConst.BindPageIndex ) );
+        AttributeIfNotEmpty( "[nzPageIndex]", _config.GetValue( UiConst.PageIndex ) );
         BindonPageIndex( _config.GetValue( AngularConst.BindonPageIndex ) );
         return this;
     }
@@ -142,8 +141,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置每页显示行数
     /// </summary>
     public TableBuilder PageSize() {
-        AttributeIfNotEmpty( "nzPageSize", _config.GetValue( UiConst.PageSize ) );
-        AttributeIfNotEmpty( "[nzPageSize]", _config.GetValue( AngularConst.BindPageSize ) );
+        AttributeIfNotEmpty( "[nzPageSize]", _config.GetValue( UiConst.PageSize ) );
         BindonPageSize( _config.GetValue( AngularConst.BindonPageSize ) );
         return this;
     }
@@ -160,8 +158,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否显示分页
     /// </summary>
     public TableBuilder ShowPagination() {
-        ShowPagination( _config.GetBoolValue( UiConst.ShowPagination ) );
-        ShowPagination( _config.GetValue( AngularConst.BindShowPagination ) );
+        ShowPagination( _config.GetValue( UiConst.ShowPagination ) );
         return this;
     }
 
@@ -197,8 +194,7 @@ public class TableBuilder : AngularTagBuilder {
     public TableBuilder Bordered() {
         if ( _shareConfig.IsEnableTableSettings )
             return this;
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetBoolValue( UiConst.Bordered ) );
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( AngularConst.BindBordered ) );
+        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 
@@ -206,8 +202,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否显示外边框
     /// </summary>
     public TableBuilder OuterBordered() {
-        AttributeIfNotEmpty( "[nzOuterBordered]", _config.GetBoolValue( UiConst.OuterBordered ) );
-        AttributeIfNotEmpty( "[nzOuterBordered]", _config.GetValue( AngularConst.BindOuterBordered ) );
+        AttributeIfNotEmpty( "[nzOuterBordered]", _config.GetValue( UiConst.OuterBordered ) );
         return this;
     }
 
@@ -257,8 +252,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置延迟显示加载时间
     /// </summary>
     public TableBuilder LoadingDelay() {
-        AttributeIfNotEmpty( "nzLoadingDelay", _config.GetValue( UiConst.LoadingDelay ) );
-        AttributeIfNotEmpty( "[nzLoadingDelay]", _config.GetValue( AngularConst.BindLoadingDelay ) );
+        AttributeIfNotEmpty( "[nzLoadingDelay]", _config.GetValue( UiConst.LoadingDelay ) );
         return this;
     }
 
@@ -328,8 +322,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否显示快速跳转
     /// </summary>
     public TableBuilder ShowQuickJumper() {
-        ShowQuickJumper( _config.GetBoolValue( UiConst.ShowQuickJumper ) );
-        ShowQuickJumper( _config.GetValue( AngularConst.BindShowQuickJumper ) );
+        ShowQuickJumper( _config.GetValue( UiConst.ShowQuickJumper ) );
         return this;
     }
 
@@ -345,8 +338,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否显示改变分页大小按钮
     /// </summary>
     public TableBuilder ShowSizeChanger() {
-        ShowSizeChanger( _config.GetBoolValue( UiConst.ShowSizeChanger ) );
-        ShowSizeChanger( _config.GetValue( AngularConst.BindShowSizeChanger ) );
+        ShowSizeChanger( _config.GetValue( UiConst.ShowSizeChanger ) );
         return this;
     }
 
@@ -385,8 +377,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置只有一页时是否隐藏分页器
     /// </summary>
     public TableBuilder HideOnSinglePage() {
-        AttributeIfNotEmpty( "[nzHideOnSinglePage]", _config.GetBoolValue( UiConst.HideOnSinglePage ) );
-        AttributeIfNotEmpty( "[nzHideOnSinglePage]", _config.GetValue( AngularConst.BindHideOnSinglePage ) );
+        AttributeIfNotEmpty( "[nzHideOnSinglePage]", _config.GetValue( UiConst.HideOnSinglePage ) );
         return this;
     }
 
@@ -394,8 +385,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否显示简单分页
     /// </summary>
     public TableBuilder Simple() {
-        AttributeIfNotEmpty( "[nzSimple]", _config.GetBoolValue( UiConst.Simple ) );
-        AttributeIfNotEmpty( "[nzSimple]", _config.GetValue( AngularConst.BindSimple ) );
+        AttributeIfNotEmpty( "[nzSimple]", _config.GetValue( UiConst.Simple ) );
         return this;
     }
 
@@ -403,8 +393,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置是否模板模式
     /// </summary>
     public TableBuilder TemplateMode() {
-        AttributeIfNotEmpty( "[nzTemplateMode]", _config.GetBoolValue( UiConst.TemplateMode ) );
-        AttributeIfNotEmpty( "[nzTemplateMode]", _config.GetValue( AngularConst.BindTemplateMode ) );
+        AttributeIfNotEmpty( "[nzTemplateMode]", _config.GetValue( UiConst.TemplateMode ) );
         return this;
     }
 
@@ -412,8 +401,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置虚拟滚动列高
     /// </summary>
     public TableBuilder VirtualItemSize() {
-        AttributeIfNotEmpty( "nzVirtualItemSize", _config.GetValue( UiConst.VirtualItemSize ) );
-        AttributeIfNotEmpty( "[nzVirtualItemSize]", _config.GetValue( AngularConst.BindVirtualItemSize ) );
+        AttributeIfNotEmpty( "[nzVirtualItemSize]", _config.GetValue( UiConst.VirtualItemSize ) );
         return this;
     }
 
@@ -421,8 +409,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置虚拟滚动缓冲区最大高度
     /// </summary>
     public TableBuilder VirtualMaxBufferPx() {
-        AttributeIfNotEmpty( "nzVirtualMaxBufferPx", _config.GetValue( UiConst.VirtualMaxBufferPx ) );
-        AttributeIfNotEmpty( "[nzVirtualMaxBufferPx]", _config.GetValue( AngularConst.BindVirtualMaxBufferPx ) );
+        AttributeIfNotEmpty( "[nzVirtualMaxBufferPx]", _config.GetValue( UiConst.VirtualMaxBufferPx ) );
         return this;
     }
 
@@ -430,8 +417,7 @@ public class TableBuilder : AngularTagBuilder {
     /// 配置虚拟滚动缓冲区最小高度
     /// </summary>
     public TableBuilder VirtualMinBufferPx() {
-        AttributeIfNotEmpty( "nzVirtualMinBufferPx", _config.GetValue( UiConst.VirtualMinBufferPx ) );
-        AttributeIfNotEmpty( "[nzVirtualMinBufferPx]", _config.GetValue( AngularConst.BindVirtualMinBufferPx ) );
+        AttributeIfNotEmpty( "[nzVirtualMinBufferPx]", _config.GetValue( UiConst.VirtualMinBufferPx ) );
         return this;
     }
 
@@ -651,6 +637,7 @@ public class TableBuilder : AngularTagBuilder {
             return;
         Attribute( "x-edit-table" );
         Attribute( $"#{EditId}", "xEditTable" );
+        AttributeIfNotEmpty( "[isBatch]", _config.GetBoolValue( UiConst.IsBatchEdit ) );
     }
 
     /// <summary>

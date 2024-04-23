@@ -56,21 +56,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestRequired() {
-            _wrapper.SetContextAttribute( UiConst.Required, true );
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-form-label [nzRequired]=\"true\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试必填样式
-        /// </summary>
-        [Fact]
-        public void TestBindRequired() {
-            _wrapper.SetContextAttribute( AngularConst.BindRequired, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzRequired]=\"a\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -80,21 +68,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestNoColon() {
-            _wrapper.SetContextAttribute( UiConst.NoColon, true );
+            _wrapper.SetContextAttribute( UiConst.NoColon, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-form-label [nzNoColon]=\"true\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试不显示冒号
-        /// </summary>
-        [Fact]
-        public void TestBindNoColon() {
-            _wrapper.SetContextAttribute( AngularConst.BindNoColon, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzNoColon]=\"a\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -176,9 +152,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestSpan() {
-            _wrapper.SetContextAttribute( UiConst.Span, 1 );
+            _wrapper.SetContextAttribute( UiConst.Span, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-form-label nzSpan=\"1\">" );
+            result.Append( "<nz-form-label [nzSpan]=\"1\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -211,7 +187,7 @@ namespace Util.Ui.NgZorro.Tests.Forms {
             result.Append( "<form nz-form=\"\">" );
             result.Append( "<ng-container>" );
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label nzSpan=\"5\">a</nz-form-label>" );
+            result.Append( "<nz-form-label [nzSpan]=\"5\">a</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<input nz-input=\"\" />" );
             result.Append( "</nz-form-control>" );
@@ -222,37 +198,13 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         }
 
         /// <summary>
-        /// 测试跨度
-        /// </summary>
-        [Fact]
-        public void TestBindSpan() {
-            _wrapper.SetContextAttribute( AngularConst.BindSpan, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzSpan]=\"a\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试偏移量
         /// </summary>
         [Fact]
         public void TestOffset() {
-            _wrapper.SetContextAttribute( UiConst.Offset, 1 );
+            _wrapper.SetContextAttribute( UiConst.Offset, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-form-label nzOffset=\"1\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffset() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffset, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzOffset]=\"a\">" );
+            result.Append( "<nz-form-label [nzOffset]=\"1\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -262,21 +214,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestPull() {
-            _wrapper.SetContextAttribute( UiConst.Pull, 1 );
+            _wrapper.SetContextAttribute( UiConst.Pull, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-form-label nzPull=\"1\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试左移
-        /// </summary>
-        [Fact]
-        public void TestBindPull() {
-            _wrapper.SetContextAttribute( AngularConst.BindPull, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzPull]=\"a\">" );
+            result.Append( "<nz-form-label [nzPull]=\"1\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -286,21 +226,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestPush() {
-            _wrapper.SetContextAttribute( UiConst.Push, 1 );
+            _wrapper.SetContextAttribute( UiConst.Push, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-form-label nzPush=\"1\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试右移
-        /// </summary>
-        [Fact]
-        public void TestBindPush() {
-            _wrapper.SetContextAttribute( AngularConst.BindPush, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzPush]=\"a\">" );
+            result.Append( "<nz-form-label [nzPush]=\"1\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -310,21 +238,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestOrder() {
-            _wrapper.SetContextAttribute( UiConst.Order, 1 );
+            _wrapper.SetContextAttribute( UiConst.Order, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-form-label nzOrder=\"1\">" );
-            result.Append( "</nz-form-label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试栅格顺序
-        /// </summary>
-        [Fact]
-        public void TestBindOrder() {
-            _wrapper.SetContextAttribute( AngularConst.BindOrder, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-form-label [nzOrder]=\"a\">" );
+            result.Append( "<nz-form-label [nzOrder]=\"1\">" );
             result.Append( "</nz-form-label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

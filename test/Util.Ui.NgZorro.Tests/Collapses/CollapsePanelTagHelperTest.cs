@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Collapses {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-collapse-panel [nzDisabled]=\"true\"></nz-collapse-panel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-collapse-panel [nzDisabled]=\"a\"></nz-collapse-panel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -141,20 +130,9 @@ namespace Util.Ui.NgZorro.Tests.Collapses {
         /// </summary>
         [Fact]
         public void TestShowArrow() {
-            _wrapper.SetContextAttribute( UiConst.ShowArrow, true );
+            _wrapper.SetContextAttribute( UiConst.ShowArrow, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-collapse-panel [nzShowArrow]=\"true\"></nz-collapse-panel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示箭头
-        /// </summary>
-        [Fact]
-        public void TestBindShowArrow() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowArrow, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-collapse-panel [nzShowArrow]=\"a\"></nz-collapse-panel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -163,20 +141,9 @@ namespace Util.Ui.NgZorro.Tests.Collapses {
         /// </summary>
         [Fact]
         public void TestActive() {
-            _wrapper.SetContextAttribute( UiConst.Active, true );
+            _wrapper.SetContextAttribute( UiConst.Active, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-collapse-panel [nzActive]=\"true\"></nz-collapse-panel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否展开面板
-        /// </summary>
-        [Fact]
-        public void TestBindActive() {
-            _wrapper.SetContextAttribute( AngularConst.BindActive, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-collapse-panel [nzActive]=\"a\"></nz-collapse-panel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

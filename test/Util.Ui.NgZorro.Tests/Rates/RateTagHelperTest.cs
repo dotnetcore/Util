@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.Rates {
         /// </summary>
         [Fact]
         public void TestAllowClear() {
-            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-rate [nzAllowClear]=\"true\"></nz-rate>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowClear() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowClear, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-rate [nzAllowClear]=\"Ab\"></nz-rate>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -74,20 +63,9 @@ namespace Util.Ui.NgZorro.Tests.Rates {
         /// </summary>
         [Fact]
         public void TestAllowHalf() {
-            _wrapper.SetContextAttribute( UiConst.AllowHalf, true );
+            _wrapper.SetContextAttribute( UiConst.AllowHalf, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-rate [nzAllowHalf]=\"true\"></nz-rate>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许半选
-        /// </summary>
-        [Fact]
-        public void TestBindAllowHalf() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowHalf, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-rate [nzAllowHalf]=\"a\"></nz-rate>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.Rates {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-rate [nzAutoFocus]=\"true\"></nz-rate>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-rate [nzAutoFocus]=\"Ab\"></nz-rate>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -129,20 +96,9 @@ namespace Util.Ui.NgZorro.Tests.Rates {
         /// </summary>
         [Fact]
         public void TestCount() {
-            _wrapper.SetContextAttribute( UiConst.Count, 1 );
+            _wrapper.SetContextAttribute( UiConst.Count, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-rate nzCount=\"1\"></nz-rate>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试数量
-        /// </summary>
-        [Fact]
-        public void TestBindCount() {
-            _wrapper.SetContextAttribute( AngularConst.BindCount, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-rate [nzCount]=\"a\"></nz-rate>" );
+            result.Append( "<nz-rate [nzCount]=\"1\"></nz-rate>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -151,20 +107,9 @@ namespace Util.Ui.NgZorro.Tests.Rates {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-rate [nzDisabled]=\"true\"></nz-rate>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-rate [nzDisabled]=\"a\"></nz-rate>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

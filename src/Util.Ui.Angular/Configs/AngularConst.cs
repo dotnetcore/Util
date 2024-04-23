@@ -45,6 +45,22 @@ public static class AngularConst {
     /// </summary>
     public const string BindLink = "bind-link";
     /// <summary>
+    /// 可选
+    /// </summary>
+    public const string BindOptional = "bind-optional";
+    /// <summary>
+    /// 可选帮助
+    /// </summary>
+    public const string BindOptionalHelp = "bind-optional-help";
+    /// <summary>
+    /// 可选帮助颜色
+    /// </summary>
+    public const string BindOptionalHelpColor = "bind-optional-help-color";
+    /// <summary>
+    /// 间距
+    /// </summary>
+    public const string BindGutter = "bind-gutter";
+    /// <summary>
     /// 可见高度
     /// </summary>
     public const string BindVisibilityHeight = "bind-visibility-height";
@@ -184,6 +200,10 @@ public static class AngularConst {
     /// 活动
     /// </summary>
     public const string BindActive = "bind-active";
+    /// <summary>
+    /// 单位
+    /// </summary>
+    public const string BindUnit = "bind-unit";
     /// <summary>
     /// 模式
     /// </summary>

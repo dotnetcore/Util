@@ -228,4 +228,37 @@ public class SearchFormTagHelperTest {
         result.Append( "</form>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
+
+    /// <summary>
+    /// 测试查询表单 - 手工覆盖操作按钮栅格属性
+    /// </summary>
+    [Fact]
+    public void Test_6() {
+        //添加2个栅格列
+        var column = new ColumnTagHelper().ToWrapper();
+        _wrapper.AppendContent( column );
+
+        var column2 = new ColumnTagHelper().ToWrapper();
+        _wrapper.AppendContent( column2 );
+
+        //添加查询操作
+        var columnAction = new ColumnTagHelper().ToWrapper();
+        columnAction.SetContextAttribute( UiConst.Md, "a" );
+        columnAction.SetContextAttribute( UiConst.Lg, "a" );
+        columnAction.SetContextAttribute( UiConst.Xl, "a" );
+        columnAction.SetContextAttribute( UiConst.Xxl, "a" );
+        _wrapper.AppendContent( columnAction );
+
+        var result = new StringBuilder();
+        result.Append( "<form nz-form=\"\">" );
+        result.Append( "<div nz-col=\"\" [nzLg]=\"8\" [nzMd]=\"12\" [nzSm]=\"24\" [nzXl]=\"8\" [nzXs]=\"24\" [nzXXl]=\"6\">" );
+        result.Append( "</div>" );
+        result.Append( "<div nz-col=\"\" [nzLg]=\"8\" [nzMd]=\"12\" [nzSm]=\"24\" [nzXl]=\"8\" [nzXs]=\"24\" [nzXXl]=\"6\">" );
+        result.Append( "</div>" );
+        result.Append( "<div nz-col=\"\" [nzLg]=\"a\" [nzMd]=\"a\" [nzSm]=\"24\" " );
+        result.Append( "[nzXl]=\"a\" [nzXs]=\"24\" [nzXXl]=\"a\">" );
+        result.Append( "</div>" );
+        result.Append( "</form>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
 }

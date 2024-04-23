@@ -1,4 +1,4 @@
-﻿namespace Util.Ui.Builders; 
+﻿namespace Util.Ui.Builders;
 
 /// <summary>
 /// 空容器标签生成器

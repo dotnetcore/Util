@@ -75,20 +75,9 @@ namespace Util.Ui.NgZorro.Tests.Skeletons {
         /// </summary>
         [Fact]
         public void TestActive() {
-            _wrapper.SetContextAttribute( UiConst.Active, true );
+            _wrapper.SetContextAttribute( UiConst.Active, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-skeleton-element [nzActive]=\"true\"></nz-skeleton-element>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示动画效果
-        /// </summary>
-        [Fact]
-        public void TestBindActive() {
-            _wrapper.SetContextAttribute( AngularConst.BindActive, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-skeleton-element [nzActive]=\"a\"></nz-skeleton-element>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

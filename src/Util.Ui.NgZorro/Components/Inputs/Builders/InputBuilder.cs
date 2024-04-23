@@ -35,8 +35,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// 配置禁用
     /// </summary>
     public InputBuilder Disabled() {
-        AttributeIfNotEmpty( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[disabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -44,8 +43,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// 配置只读
     /// </summary>
     public InputBuilder Readonly() {
-        AttributeIfNotEmpty( "[readOnly]", _config.GetBoolValue( UiConst.Readonly ) );
-        AttributeIfNotEmpty( "[readOnly]", _config.GetValue( AngularConst.BindReadonly ) );
+        AttributeIfNotEmpty( "[readOnly]", _config.GetValue( UiConst.Readonly ) );
         return this;
     }
 
@@ -91,7 +89,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// 配置手机号验证
     /// </summary>
     public InputBuilder ValidatePhone() {
-        AttributeIfNotEmpty( "[isInvalidPhone]", _config.GetBoolValue( UiConst.IsInvalidPhone ) );
+        AttributeIfNotEmpty( "[isInvalidPhone]", _config.GetValue( UiConst.IsInvalidPhone ) );
         return this;
     }
 
@@ -99,7 +97,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// 配置身份证验证
     /// </summary>
     public InputBuilder ValidateIdCard() {
-        AttributeIfNotEmpty( "[isInvalidIdCard]", _config.GetBoolValue( UiConst.IsInvalidIdCard ) );
+        AttributeIfNotEmpty( "[isInvalidIdCard]", _config.GetValue( UiConst.IsInvalidIdCard ) );
         return this;
     }
 

@@ -7,22 +7,14 @@ using Util.Ui.Renders;
 namespace Util.Ui.NgAlain.Components.PageHeaders; 
 
 /// <summary>
-/// ng-alain页头,生成的标签为&lt;page-header&gt;&lt;/page-header&gt;
+/// ng-alain 页头,生成的标签为&lt;page-header&gt;&lt;/page-header&gt;
 /// </summary>
-[HtmlTargetElement( "util-page-header2" )]
+[HtmlTargetElement( "util-page-header-x" )]
 public class PageHeaderTagHelper : AngularTagHelperBase {
     /// <summary>
     /// title,标题,支持i18n
     /// </summary>
     public string Title { get; set; }
-    /// <summary>
-    /// 扩展属性,设置创建标题,支持i18n
-    /// </summary>
-    public string TitleCreate { get; set; }
-    /// <summary>
-    /// 扩展属性,设置修改标题,支持i18n
-    /// </summary>
-    public string TitleUpdate { get; set; }
     /// <summary>
     /// [title],标题
     /// </summary>
@@ -30,19 +22,11 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [autoTitle],是否自动生成标题，以当前路由从主菜单中定位,默认值: true
     /// </summary>
-    public bool AutoTitle { get; set; }
-    /// <summary>
-    /// [autoTitle],是否自动生成标题，以当前路由从主菜单中定位,默认值: true
-    /// </summary>
-    public string BindAutoTitle { get; set; }
+    public string AutoTitle { get; set; }
     /// <summary>
     /// [syncTitle],是否自动将标题同步至 TitleService、ReuseService 下，仅 title 为 string 类型时有效,默认值: true
     /// </summary>
-    public bool SyncTitle { get; set; }
-    /// <summary>
-    /// [syncTitle],是否自动将标题同步至 TitleService、ReuseService 下，仅 title 为 string 类型时有效,默认值: true
-    /// </summary>
-    public string BindSyncTitle { get; set; }
+    public string SyncTitle { get; set; }
     /// <summary>
     /// home,首页文本，若指定空表示不显示,默认值: 首页
     /// </summary>
@@ -70,19 +54,11 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [autoBreadcrumb],是否自动生成导航，以当前路由从主菜单中定位,默认值: true
     /// </summary>
-    public bool AutoBreadcrumb { get; set; }
-    /// <summary>
-    /// [autoBreadcrumb],是否自动生成导航，以当前路由从主菜单中定位,默认值: true
-    /// </summary>
-    public string BindAutoBreadcrumb { get; set; }
+    public string AutoBreadcrumb { get; set; }
     /// <summary>
     /// [recursiveBreadcrumb],是否自动向上递归查找，范例: 菜单数据源包含 /ware，则 /ware/1 也视为 /ware 项,默认值: false
     /// </summary>
-    public bool RecursiveBreadcrumb { get; set; }
-    /// <summary>
-    /// [recursiveBreadcrumb],是否自动向上递归查找，范例: 菜单数据源包含 /ware，则 /ware/1 也视为 /ware 项,默认值: false
-    /// </summary>
-    public string BindRecursiveBreadcrumb { get; set; }
+    public string RecursiveBreadcrumb { get; set; }
     /// <summary>
     /// [loading],是否加载中,默认值: false
     /// </summary>
@@ -90,19 +66,11 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [wide],是否定宽,默认值: false
     /// </summary>
-    public bool Wide { get; set; }
-    /// <summary>
-    /// [wide],是否定宽,默认值: false
-    /// </summary>
-    public string BindWide { get; set; }
+    public string Wide { get; set; }
     /// <summary>
     /// [fixed],是否固定模式,默认值: false
     /// </summary>
-    public bool Fixed { get; set; }
-    /// <summary>
-    /// [fixed],是否固定模式,默认值: false
-    /// </summary>
-    public string BindFixed { get; set; }
+    public string Fixed { get; set; }
     /// <summary>
     /// [fixedOffsetTop],固定偏移值,默认值: 64
     /// </summary>

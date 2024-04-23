@@ -2,6 +2,7 @@
 using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables;
+using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -68,7 +69,7 @@ public class TableRowTagHelperTest {
     public void TestSelectOnClick() {
         _wrapper.SetContextAttribute( UiConst.SelectOnClick, true );
         var result = new StringBuilder();
-        result.Append( "<tr (click)=\"x_id.toggleSelect(row);\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
+        result.Append( "<tr (click)=\"x_id.toggleSelect(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -80,7 +81,7 @@ public class TableRowTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.SelectOnClick, true );
         _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
         var result = new StringBuilder();
-        result.Append( "<tr (click)=\"x_id.toggleSelect(row);a\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
+        result.Append( "<tr (click)=\"a;x_id.toggleSelect(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -91,7 +92,7 @@ public class TableRowTagHelperTest {
     public void TestSelectOnlyOnClick() {
         _wrapper.SetContextAttribute( UiConst.SelectOnlyOnClick, true );
         var result = new StringBuilder();
-        result.Append( "<tr (click)=\"x_id.selectRowOnly(row);\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
+        result.Append( "<tr (click)=\"x_id.selectRowOnly(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -103,7 +104,31 @@ public class TableRowTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.SelectOnlyOnClick, true );
         _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
         var result = new StringBuilder();
-        result.Append( "<tr (click)=\"x_id.selectRowOnly(row);a\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
+        result.Append( "<tr (click)=\"a;x_id.selectRowOnly(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\"></tr>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试点击表格行时是否选中复选框或单选框 - 复选框
+    /// </summary>
+    [Fact]
+    public void TestCheckOnClick_1() {
+        _wrapper.SetItem(new TableShareConfig { IsShowCheckbox = true });
+        _wrapper.SetContextAttribute( UiConst.CheckOnClick, true );
+        var result = new StringBuilder();
+        result.Append( "<tr (click)=\"x_id.toggle(row)\"></tr>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试点击表格行时是否选中复选框或单选框 - 单选框
+    /// </summary>
+    [Fact]
+    public void TestCheckOnClick_2() {
+        _wrapper.SetItem( new TableShareConfig { IsShowRadio = true } );
+        _wrapper.SetContextAttribute( UiConst.CheckOnClick, true );
+        var result = new StringBuilder();
+        result.Append( "<tr (click)=\"x_id.checkRowOnly(row)\"></tr>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

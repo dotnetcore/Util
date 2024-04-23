@@ -3,6 +3,7 @@ using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Dividers;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -60,20 +61,9 @@ namespace Util.Ui.NgZorro.Tests.Dividers {
         /// </summary>
         [Fact]
         public void TestDashed() {
-            _wrapper.SetContextAttribute( UiConst.Dashed, true );
+            _wrapper.SetContextAttribute( UiConst.Dashed, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-divider [nzDashed]=\"true\"></nz-divider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚线
-        /// </summary>
-        [Fact]
-        public void TestBindDashed() {
-            _wrapper.SetContextAttribute( AngularConst.BindDashed, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-divider [nzDashed]=\"a\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -107,6 +97,18 @@ namespace Util.Ui.NgZorro.Tests.Dividers {
             _wrapper.SetContextAttribute( UiConst.Text, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-divider nzText=\"a\"></nz-divider>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置文字 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestText_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-divider [nzText]=\"'a'|i18n\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -148,20 +150,9 @@ namespace Util.Ui.NgZorro.Tests.Dividers {
         /// </summary>
         [Fact]
         public void TestPlain() {
-            _wrapper.SetContextAttribute( UiConst.Plain, true );
+            _wrapper.SetContextAttribute( UiConst.Plain, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-divider [nzPlain]=\"true\"></nz-divider>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试正文样式
-        /// </summary>
-        [Fact]
-        public void TestBindPlain() {
-            _wrapper.SetContextAttribute( AngularConst.BindPlain, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-divider [nzPlain]=\"a\"></nz-divider>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

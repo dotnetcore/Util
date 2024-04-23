@@ -35,8 +35,7 @@ public class SkeletonElementBuilder : AngularTagBuilder {
     /// 配置是否显示动画效果
     /// </summary>
     public SkeletonElementBuilder Active() {
-        AttributeIfNotEmpty( "[nzActive]", _config.GetBoolValue( UiConst.Active ) );
-        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( AngularConst.BindActive ) );
+        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( UiConst.Active ) );
         return this;
     }
 

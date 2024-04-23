@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Calendars.Builders; 
@@ -36,8 +35,7 @@ public class CalendarBuilder : AngularTagBuilder {
     /// 配置是否全屏显示
     /// </summary>
     public CalendarBuilder Fullscreen() {
-        AttributeIfNotEmpty( "[nzFullscreen]", _config.GetBoolValue( UiConst.Fullscreen ) );
-        AttributeIfNotEmpty( "[nzFullscreen]", _config.GetValue( AngularConst.BindFullscreen ) );
+        AttributeIfNotEmpty( "[nzFullscreen]", _config.GetValue( UiConst.Fullscreen ) );
         return this;
     }
 

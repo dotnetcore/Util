@@ -47,7 +47,7 @@ public class TinymceBuilder : FormControlBuilderBase<TinymceBuilder> {
     /// 配置品牌
     /// </summary>
     public TinymceBuilder Branding() {
-        AttributeIfNotEmpty( "[branding]", _config.GetBoolValue( UiConst.Branding ) );
+        AttributeIfNotEmpty( "[branding]", _config.GetValue( UiConst.Branding ) );
         return this;
     }
 
@@ -55,7 +55,7 @@ public class TinymceBuilder : FormControlBuilderBase<TinymceBuilder> {
     /// 配置是否允许粘贴图片
     /// </summary>
     public TinymceBuilder PasteDataImages() {
-        AttributeIfNotEmpty( "[pasteDataImages]", _config.GetBoolValue( UiConst.PasteDataImages ) );
+        AttributeIfNotEmpty( "[pasteDataImages]", _config.GetValue( UiConst.PasteDataImages ) );
         return this;
     }
 
@@ -95,8 +95,7 @@ public class TinymceBuilder : FormControlBuilderBase<TinymceBuilder> {
     /// 配置禁用
     /// </summary>
     public TinymceBuilder Disabled() {
-        AttributeIfNotEmpty( "[disabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[disabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[disabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 

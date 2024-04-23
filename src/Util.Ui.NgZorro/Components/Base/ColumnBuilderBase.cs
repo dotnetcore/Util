@@ -3,7 +3,7 @@ using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Grids.Helpers;
 
-namespace Util.Ui.NgZorro.Components.Base; 
+namespace Util.Ui.NgZorro.Components.Base;
 
 /// <summary>
 /// 栅格列标签生成器基类
@@ -20,7 +20,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// <param name="config">配置</param>
     /// <param name="tagName">标签名称，范例：div</param>
     /// <param name="renderMode">渲染模式</param>
-    protected ColumnBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config,tagName, renderMode ) {
+    protected ColumnBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config, tagName, renderMode ) {
         _config = config;
     }
 
@@ -28,8 +28,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置跨度
     /// </summary>
     public virtual TBuilder Span() {
-        AttributeIfNotEmpty( "nzSpan", _config.GetValue( UiConst.Span ) );
-        AttributeIfNotEmpty( "[nzSpan]", _config.GetValue( AngularConst.BindSpan ) );
+        AttributeIfNotEmpty( "[nzSpan]", _config.GetValue( UiConst.Span ) );
         return (TBuilder)this;
     }
 
@@ -37,8 +36,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置偏移量
     /// </summary>
     public virtual TBuilder Offset() {
-        AttributeIfNotEmpty( "nzOffset", _config.GetValue( UiConst.Offset ) );
-        AttributeIfNotEmpty( "[nzOffset]", _config.GetValue( AngularConst.BindOffset ) );
+        AttributeIfNotEmpty( "[nzOffset]", _config.GetValue( UiConst.Offset ) );
         return (TBuilder)this;
     }
 
@@ -46,8 +44,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置左移
     /// </summary>
     public virtual TBuilder Pull() {
-        AttributeIfNotEmpty( "nzPull", _config.GetValue( UiConst.Pull ) );
-        AttributeIfNotEmpty( "[nzPull]", _config.GetValue( AngularConst.BindPull ) );
+        AttributeIfNotEmpty( "[nzPull]", _config.GetValue( UiConst.Pull ) );
         return (TBuilder)this;
     }
 
@@ -55,8 +52,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置右移
     /// </summary>
     public virtual TBuilder Push() {
-        AttributeIfNotEmpty( "nzPush", _config.GetValue( UiConst.Push ) );
-        AttributeIfNotEmpty( "[nzPush]", _config.GetValue( AngularConst.BindPush ) );
+        AttributeIfNotEmpty( "[nzPush]", _config.GetValue( UiConst.Push ) );
         return (TBuilder)this;
     }
 
@@ -64,8 +60,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置栅格顺序
     /// </summary>
     public virtual TBuilder Order() {
-        AttributeIfNotEmpty( "nzOrder", _config.GetValue( UiConst.Order ) );
-        AttributeIfNotEmpty( "[nzOrder]", _config.GetValue( AngularConst.BindOrder ) );
+        AttributeIfNotEmpty( "[nzOrder]", _config.GetValue( UiConst.Order ) );
         return (TBuilder)this;
     }
 
@@ -135,7 +130,7 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     protected virtual int? GetXsPush() {
         return _config.GetValue<int?>( UiConst.XsPush );
     }
-        
+
     /// <summary>
     /// 配置Sm窄尺寸响应式栅格
     /// </summary>
@@ -199,14 +194,6 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     public TBuilder ConfigMd() {
         AttributeIfNotEmpty( "[nzMd]", GetMd() );
-        var model = new GridModel {
-            Span = GetMdSpan(),
-            Offset = GetMdOffset(),
-            Order = GetMdOrder(),
-            Pull = GetMdPull(),
-            Push = GetMdPush()
-        };
-        AttributeIfNotEmpty( "[nzMd]", model.ToJson() );
         return (TBuilder)this;
     }
 
@@ -214,7 +201,17 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 获取Md中尺寸响应式栅格
     /// </summary>
     protected virtual string GetMd() {
-        return _config.GetValue( UiConst.Md );
+        var result = _config.GetValue( UiConst.Md );
+        if ( result.IsEmpty() == false )
+            return result;
+        var model = new GridModel {
+            Span = GetMdSpan(),
+            Offset = GetMdOffset(),
+            Order = GetMdOrder(),
+            Pull = GetMdPull(),
+            Push = GetMdPush()
+        };
+        return model.ToJson();
     }
 
     /// <summary>
@@ -257,14 +254,6 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     public TBuilder ConfigLg() {
         AttributeIfNotEmpty( "[nzLg]", GetLg() );
-        var model = new GridModel {
-            Span = GetLgSpan(),
-            Offset = GetLgOffset(),
-            Order = GetLgOrder(),
-            Pull = GetLgPull(),
-            Push = GetLgPush()
-        };
-        AttributeIfNotEmpty( "[nzLg]", model.ToJson() );
         return (TBuilder)this;
     }
 
@@ -272,7 +261,17 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 获取Lg宽尺寸响应式栅格
     /// </summary>
     protected virtual string GetLg() {
-        return _config.GetValue( UiConst.Lg );
+        var result = _config.GetValue( UiConst.Lg );
+        if ( result.IsEmpty() == false )
+            return result;
+        var model = new GridModel {
+            Span = GetLgSpan(),
+            Offset = GetLgOffset(),
+            Order = GetLgOrder(),
+            Pull = GetLgPull(),
+            Push = GetLgPush()
+        };
+        return model.ToJson();
     }
 
     /// <summary>
@@ -315,14 +314,6 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     public TBuilder ConfigXl() {
         AttributeIfNotEmpty( "[nzXl]", GetXl() );
-        var model = new GridModel {
-            Span = GetXlSpan(),
-            Offset = GetXlOffset(),
-            Order = GetXlOrder(),
-            Pull = GetXlPull(),
-            Push = GetXlPush()
-        };
-        AttributeIfNotEmpty( "[nzXl]", model.ToJson() );
         return (TBuilder)this;
     }
 
@@ -330,7 +321,17 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 获取Xl超宽尺寸响应式栅格
     /// </summary>
     protected virtual string GetXl() {
-        return _config.GetValue( UiConst.Xl );
+        var result = _config.GetValue( UiConst.Xl );
+        if ( result.IsEmpty() == false )
+            return result;
+        var model = new GridModel {
+            Span = GetXlSpan(),
+            Offset = GetXlOffset(),
+            Order = GetXlOrder(),
+            Pull = GetXlPull(),
+            Push = GetXlPush()
+        };
+        return model.ToJson();
     }
 
     /// <summary>
@@ -373,14 +374,6 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     public TBuilder ConfigXxl() {
         AttributeIfNotEmpty( "[nzXXl]", GetXxl() );
-        var model = new GridModel {
-            Span = GetXxlSpan(),
-            Offset = GetXxlOffset(),
-            Order = GetXxlOrder(),
-            Pull = GetXxlPull(),
-            Push = GetXxlPush()
-        };
-        AttributeIfNotEmpty( "[nzXXl]", model.ToJson() );
         return (TBuilder)this;
     }
 
@@ -388,7 +381,17 @@ public abstract class ColumnBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 获取Xxl极宽尺寸响应式栅格
     /// </summary>
     protected virtual string GetXxl() {
-        return _config.GetValue( UiConst.Xxl );
+        var result = _config.GetValue( UiConst.Xxl );
+        if ( result.IsEmpty() == false )
+            return result;
+        var model = new GridModel {
+            Span = GetXxlSpan(),
+            Offset = GetXxlOffset(),
+            Order = GetXxlOrder(),
+            Pull = GetXxlPull(),
+            Push = GetXxlPush()
+        };
+        return model.ToJson();
     }
 
     /// <summary>

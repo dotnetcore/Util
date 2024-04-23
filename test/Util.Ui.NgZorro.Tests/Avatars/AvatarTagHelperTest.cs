@@ -231,20 +231,9 @@ namespace Util.Ui.NgZorro.Tests.Avatars {
         /// </summary>
         [Fact]
         public void TestGap() {
-            _wrapper.SetContextAttribute( UiConst.Gap, 1 );
+            _wrapper.SetContextAttribute( UiConst.Gap, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-avatar nzGap=\"1\"></nz-avatar>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试文本距离两侧间距
-        /// </summary>
-        [Fact]
-        public void TestBindGap() {
-            _wrapper.SetContextAttribute( AngularConst.BindGap, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-avatar [nzGap]=\"a\"></nz-avatar>" );
+            result.Append( "<nz-avatar [nzGap]=\"1\"></nz-avatar>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

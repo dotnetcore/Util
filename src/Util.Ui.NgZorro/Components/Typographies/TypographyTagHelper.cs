@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Typographies.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -15,11 +14,7 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzEditable],是否可编辑，需要配合 [nzContent] 使用
     /// </summary>
-    public bool Editable { get; set; }
-    /// <summary>
-    /// [nzEditable],是否可编辑，需要配合 [nzContent] 使用
-    /// </summary>
-    public string BindEditable { get; set; }
+    public string Editable { get; set; }
     /// <summary>
     /// nzEditIcon,自定义编辑图标
     /// </summary>
@@ -39,11 +34,7 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzCopyable],是否可复制，需要配合 [nzContent] 使用
     /// </summary>
-    public bool Copyable { get; set; }
-    /// <summary>
-    /// [nzCopyable],是否可复制，需要配合 [nzContent] 使用
-    /// </summary>
-    public string BindCopyable { get; set; }
+    public string Copyable { get; set; }
     /// <summary>
     /// nzCopyText,自定义被复制的文本
     /// </summary>
@@ -75,35 +66,19 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzDisabled],禁用文本
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],禁用文本
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzEllipsis],自动溢出省略，动态内容时需要配合 [nzContent] 使用
     /// </summary>
-    public bool Ellipsis { get; set; }
-    /// <summary>
-    /// [nzEllipsis],自动溢出省略，动态内容时需要配合 [nzContent] 使用
-    /// </summary>
-    public string BindEllipsis { get; set; }
+    public string Ellipsis { get; set; }
     /// <summary>
     /// [nzExpandable],自动溢出省略时是否可展开
     /// </summary>
-    public bool Expandable { get; set; }
-    /// <summary>
-    /// [nzExpandable],自动溢出省略时是否可展开
-    /// </summary>
-    public string BindExpandable { get; set; }
+    public string Expandable { get; set; }
     /// <summary>
     /// [nzEllipsisRows],自动溢出省略时省略行数
     /// </summary>
-    public int EllipsisRows { get; set; }
-    /// <summary>
-    /// [nzEllipsisRows],自动溢出省略时省略行数
-    /// </summary>
-    public string BindEllipsisRows { get; set; }
+    public string EllipsisRows { get; set; }
     /// <summary>
     /// nzSuffix,自动溢出省略时的文本后缀
     /// </summary>
@@ -141,7 +116,7 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
         var config = new Config( context, output, content );
         config.SetAttribute( UiConst.Typography, IsEnableTypography(),false );
-        return new TypographyRender( config, GetTagBuilder() );
+        return new TypographyRender( config, GetTagBuilder( config ) );
     }
 
     /// <summary>
@@ -154,5 +129,5 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected abstract TagBuilder GetTagBuilder();
+    protected abstract TagBuilder GetTagBuilder( Config config );
 }

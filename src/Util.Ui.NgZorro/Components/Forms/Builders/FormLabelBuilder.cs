@@ -35,8 +35,7 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 配置必填样式
     /// </summary>
     public FormLabelBuilder Required() {
-        AttributeIfNotEmpty( "[nzRequired]", _config.GetBoolValue( UiConst.Required ) );
-        AttributeIfNotEmpty( "[nzRequired]", _config.GetValue( AngularConst.BindRequired ) );
+        AttributeIfNotEmpty( "[nzRequired]", _config.GetValue( UiConst.Required ) );
         return this;
     }
 
@@ -44,8 +43,7 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 配置不显示冒号
     /// </summary>
     public FormLabelBuilder NoColon() {
-        AttributeIfNotEmpty( "[nzNoColon]", _config.GetBoolValue( UiConst.NoColon ) );
-        AttributeIfNotEmpty( "[nzNoColon]", _config.GetValue( AngularConst.BindNoColon ) );
+        AttributeIfNotEmpty( "[nzNoColon]", _config.GetValue( UiConst.NoColon ) );
         return this;
     }
 
@@ -153,10 +151,12 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 获取Xs超窄尺寸响应式栅格
     /// </summary>
     protected override string GetXs() {
-        if( _config.Contains( UiConst.Xs ) )
+        if ( _config.Contains( UiConst.Xs ) )
             return base.GetXs();
         var shareConfig = GetFormItemShareConfig();
-        return shareConfig.LabelXs;
+        if ( shareConfig.LabelXs.IsEmpty() == false )
+            return shareConfig.LabelXs;
+        return base.GetXs();
     }
 
     /// <summary>
@@ -213,10 +213,12 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 获取Sm窄尺寸响应式栅格
     /// </summary>
     protected override string GetSm() {
-        if( _config.Contains( UiConst.Sm ) )
+        if ( _config.Contains( UiConst.Sm ) )
             return base.GetSm();
         var shareConfig = GetFormItemShareConfig();
-        return shareConfig.LabelSm;
+        if ( shareConfig.LabelSm.IsEmpty() == false )
+            return shareConfig.LabelSm;
+        return base.GetSm();
     }
 
     /// <summary>
@@ -273,10 +275,12 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 获取Md中尺寸响应式栅格
     /// </summary>
     protected override string GetMd() {
-        if( _config.Contains( UiConst.Md ) )
+        if ( _config.Contains( UiConst.Md ) )
             return base.GetMd();
         var shareConfig = GetFormItemShareConfig();
-        return shareConfig.LabelMd;
+        if ( shareConfig.LabelMd.IsEmpty() == false )
+            return shareConfig.LabelMd;
+        return base.GetMd();
     }
 
     /// <summary>
@@ -333,10 +337,12 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 获取Lg宽尺寸响应式栅格
     /// </summary>
     protected override string GetLg() {
-        if( _config.Contains( UiConst.Lg ) )
+        if ( _config.Contains( UiConst.Lg ) )
             return base.GetLg();
         var shareConfig = GetFormItemShareConfig();
-        return shareConfig.LabelLg;
+        if ( shareConfig.LabelLg.IsEmpty() == false )
+            return shareConfig.LabelLg;
+        return base.GetLg();
     }
 
     /// <summary>
@@ -393,10 +399,12 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 获取Xl超宽尺寸响应式栅格
     /// </summary>
     protected override string GetXl() {
-        if( _config.Contains( UiConst.Xl ) )
+        if ( _config.Contains( UiConst.Xl ) )
             return base.GetXl();
         var shareConfig = GetFormItemShareConfig();
-        return shareConfig.LabelXl;
+        if ( shareConfig.LabelXl.IsEmpty() == false )
+            return shareConfig.LabelXl;
+        return base.GetXl();
     }
 
     /// <summary>
@@ -453,10 +461,12 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     /// 获取Xxl极宽尺寸响应式栅格
     /// </summary>
     protected override string GetXxl() {
-        if( _config.Contains( UiConst.Xxl ) )
+        if ( _config.Contains( UiConst.Xxl ) )
             return base.GetXxl();
         var shareConfig = GetFormItemShareConfig();
-        return shareConfig.LabelXxl;
+        if ( shareConfig.LabelXxl.IsEmpty() == false )
+            return shareConfig.LabelXxl;
+        return base.GetXxl();
     }
 
     /// <summary>

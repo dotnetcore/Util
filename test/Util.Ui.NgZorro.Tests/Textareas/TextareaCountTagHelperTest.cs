@@ -59,17 +59,6 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         }
 
         /// <summary>
-        /// 测试数字提示最大值
-        /// </summary>
-        [Fact]
-        public void TestBindMaxCharacterCount() {
-            _wrapper.SetContextAttribute( AngularConst.BindMaxCharacterCount, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-textarea-count [nzMaxCharacterCount]=\"a\"></nz-textarea-count>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试数字提示最大值计算函数
         /// </summary>
         [Fact]

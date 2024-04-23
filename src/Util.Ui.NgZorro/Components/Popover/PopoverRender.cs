@@ -97,10 +97,8 @@ public class PopoverRender {
     /// </summary>
     public PopoverRender PopoverVisible() {
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverVisible ) ) == false );
-        _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverVisible ) ) == false );
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindonPopoverVisible ) ) == false );
-        _builder.AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetBoolValue( UiConst.PopoverVisible ) );
-        _builder.AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetValue( AngularConst.BindPopoverVisible ) );
+        _builder.AttributeIfNotEmpty( "[nzPopoverVisible]", _config.GetValue( UiConst.PopoverVisible ) );
         _builder.AttributeIfNotEmpty( "[(nzPopoverVisible)]", _config.GetValue( AngularConst.BindonPopoverVisible ) );
         return this;
     }
@@ -110,9 +108,7 @@ public class PopoverRender {
     /// </summary>
     public PopoverRender PopoverMouseEnterDelay() {
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverMouseEnterDelay ) ) == false );
-        _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverMouseEnterDelay ) ) == false );
-        _builder.AttributeIfNotEmpty( "nzPopoverMouseEnterDelay", _config.GetValue( UiConst.PopoverMouseEnterDelay ) );
-        _builder.AttributeIfNotEmpty( "[nzPopoverMouseEnterDelay]", _config.GetValue( AngularConst.BindPopoverMouseEnterDelay ) );
+        _builder.AttributeIfNotEmpty( "[nzPopoverMouseEnterDelay]", _config.GetValue( UiConst.PopoverMouseEnterDelay ) );
         return this;
     }
 
@@ -121,9 +117,7 @@ public class PopoverRender {
     /// </summary>
     public PopoverRender PopoverMouseLeaveDelay() {
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverMouseLeaveDelay ) ) == false );
-        _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverMouseLeaveDelay ) ) == false );
-        _builder.AttributeIfNotEmpty( "nzPopoverMouseLeaveDelay", _config.GetValue( UiConst.PopoverMouseLeaveDelay ) );
-        _builder.AttributeIfNotEmpty( "[nzPopoverMouseLeaveDelay]", _config.GetValue( AngularConst.BindPopoverMouseLeaveDelay ) );
+        _builder.AttributeIfNotEmpty( "[nzPopoverMouseLeaveDelay]", _config.GetValue( UiConst.PopoverMouseLeaveDelay ) );
         return this;
     }
 
@@ -152,9 +146,7 @@ public class PopoverRender {
     /// </summary>
     public PopoverRender PopoverBackdrop() {
         _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( UiConst.PopoverBackdrop ) ) == false );
-        _builder.AttributeIf( "nz-popover", string.IsNullOrWhiteSpace( _config.GetValue( AngularConst.BindPopoverBackdrop ) ) == false );
-        _builder.AttributeIfNotEmpty( "[nzPopoverBackdrop]", _config.GetBoolValue( UiConst.PopoverBackdrop ) );
-        _builder.AttributeIfNotEmpty( "[nzPopoverBackdrop]", _config.GetValue( AngularConst.BindPopoverBackdrop ) );
+        _builder.AttributeIfNotEmpty( "[nzPopoverBackdrop]", _config.GetValue( UiConst.PopoverBackdrop ) );
         return this;
     }
 

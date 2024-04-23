@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tabs.Builders; 
@@ -26,8 +25,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置选中标签索引
     /// </summary>
     public TabSetBuilder SelectedIndex() {
-        AttributeIfNotEmpty( "nzSelectedIndex", _config.GetValue( UiConst.SelectedIndex ) );
-        AttributeIfNotEmpty( "[nzSelectedIndex]", _config.GetValue( AngularConst.BindSelectedIndex ) );
+        AttributeIfNotEmpty( "[nzSelectedIndex]", _config.GetValue( UiConst.SelectedIndex ) );
         AttributeIfNotEmpty( "[(nzSelectedIndex)]", _config.GetValue( AngularConst.BindonSelectedIndex ) );
         return this;
     }
@@ -36,8 +34,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置是否使用动画切换选项卡
     /// </summary>
     public TabSetBuilder Animated() {
-        AttributeIfNotEmpty( "[nzAnimated]", _config.GetBoolValue( UiConst.Animated ) );
-        AttributeIfNotEmpty( "[nzAnimated]", _config.GetValue( AngularConst.BindAnimated ) );
+        AttributeIfNotEmpty( "[nzAnimated]", _config.GetValue( UiConst.Animated ) );
         return this;
     }
 
@@ -88,8 +85,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置标签间隙
     /// </summary>
     public TabSetBuilder TabBarGutter() {
-        AttributeIfNotEmpty( "nzTabBarGutter", _config.GetValue( UiConst.TabBarGutter ) );
-        AttributeIfNotEmpty( "[nzTabBarGutter]", _config.GetValue( AngularConst.BindTabBarGutter ) );
+        AttributeIfNotEmpty( "[nzTabBarGutter]", _config.GetValue( UiConst.TabBarGutter ) );
         return this;
     }
 
@@ -97,8 +93,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置是否隐藏全部标签
     /// </summary>
     public TabSetBuilder HideAll() {
-        AttributeIfNotEmpty( "[nzHideAll]", _config.GetBoolValue( UiConst.HideAll ) );
-        AttributeIfNotEmpty( "[nzHideAll]", _config.GetValue( AngularConst.BindHideAll ) );
+        AttributeIfNotEmpty( "[nzHideAll]", _config.GetValue( UiConst.HideAll ) );
         return this;
     }
 
@@ -106,8 +101,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置是否支持路由联动
     /// </summary>
     public TabSetBuilder LinkRouter() {
-        AttributeIfNotEmpty( "[nzLinkRouter]", _config.GetBoolValue( UiConst.LinkRouter ) );
-        AttributeIfNotEmpty( "[nzLinkRouter]", _config.GetValue( AngularConst.BindLinkRouter ) );
+        AttributeIfNotEmpty( "[nzLinkRouter]", _config.GetValue( UiConst.LinkRouter ) );
         return this;
     }
 
@@ -115,8 +109,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置是否以严格模式匹配路由联动
     /// </summary>
     public TabSetBuilder LinkExact() {
-        AttributeIfNotEmpty( "[nzLinkExact]", _config.GetBoolValue( UiConst.LinkExact ) );
-        AttributeIfNotEmpty( "[nzLinkExact]", _config.GetValue( AngularConst.BindLinkExact ) );
+        AttributeIfNotEmpty( "[nzLinkExact]", _config.GetValue( UiConst.LinkExact ) );
         return this;
     }
 
@@ -132,8 +125,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置标签是否居中显示
     /// </summary>
     public TabSetBuilder Centered() {
-        AttributeIfNotEmpty( "[nzCentered]", _config.GetBoolValue( UiConst.Centered ) );
-        AttributeIfNotEmpty( "[nzCentered]", _config.GetValue( AngularConst.BindCentered ) );
+        AttributeIfNotEmpty( "[nzCentered]", _config.GetValue( UiConst.Centered ) );
         return this;
     }
 
@@ -141,8 +133,7 @@ public class TabSetBuilder : AngularTagBuilder {
     /// 配置是否隐藏添加按钮
     /// </summary>
     public TabSetBuilder HideAdd() {
-        AttributeIfNotEmpty( "[nzHideAdd]", _config.GetBoolValue( UiConst.HideAdd ) );
-        AttributeIfNotEmpty( "[nzHideAdd]", _config.GetValue( AngularConst.BindHideAdd ) );
+        AttributeIfNotEmpty( "[nzHideAdd]", _config.GetValue( UiConst.HideAdd ) );
         return this;
     }
 

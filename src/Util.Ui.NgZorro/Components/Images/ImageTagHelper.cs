@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Images.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -39,19 +38,11 @@ public class ImageTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDisablePreview],是否禁止预览,默认值: false
     /// </summary>
-    public bool DisablePreview { get; set; }
-    /// <summary>
-    /// [nzDisablePreview],是否禁止预览,默认值: false
-    /// </summary>
-    public string BindDisablePreview { get; set; }
+    public string DisablePreview { get; set; }
     /// <summary>
     /// [nzCloseOnNavigation],导航时是否关闭预览,默认值: false
     /// </summary>
-    public bool CloseOnNavigation { get; set; }
-    /// <summary>
-    /// [nzCloseOnNavigation],导航时是否关闭预览,默认值: false
-    /// </summary>
-    public string BindCloseOnNavigation { get; set; }
+    public string CloseOnNavigation { get; set; }
     /// <summary>
     /// nzDirection,文字方向,可选值: 'ltr' | 'rtl',默认值: 'ltr'
     /// </summary>

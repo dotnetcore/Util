@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Skeletons.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -23,11 +22,7 @@ public class SkeletonElementTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzActive],是否显示动画效果,类型: boolean,默认值: false
     /// </summary>
-    public bool Active { get; set; }
-    /// <summary>
-    /// [nzActive],是否显示动画效果,类型: boolean,默认值: false
-    /// </summary>
-    public string BindActive { get; set; }
+    public string Active { get; set; }
     /// <summary>
     /// nzSize,大小,可选值: 'large' | 'small' | 'default',默认值: 'default'
     /// </summary>

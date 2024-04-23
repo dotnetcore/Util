@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tables.Renders;
 using Util.Ui.Renders;
 
@@ -18,11 +17,7 @@ public class FilterTriggerTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzVisible],是否显示下拉菜单
     /// </summary>
-    public bool Visible { get; set; }
-    /// <summary>
-    /// [nzVisible],是否显示下拉菜单
-    /// </summary>
-    public string BindVisible { get; set; }
+    public string Visible { get; set; }
     /// <summary>
     /// [(nzVisible)],是否显示下拉菜单
     /// </summary>
@@ -30,19 +25,11 @@ public class FilterTriggerTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzActive],是否激活选中图标效果,默认值: false
     /// </summary>
-    public bool Active { get; set; }
-    /// <summary>
-    /// [nzActive],是否激活选中图标效果,默认值: false
-    /// </summary>
-    public string BindActive { get; set; }
+    public string Active { get; set; }
     /// <summary>
     /// [nzHasBackdrop],是否附带背景,默认值: false
     /// </summary>
-    public bool HasBackdrop { get; set; }
-    /// <summary>
-    /// [nzHasBackdrop],是否附带背景,默认值: false
-    /// </summary>
-    public string BindHasBackdrop { get; set; }
+    public string HasBackdrop { get; set; }
     /// <summary>
     /// (nzVisibleChange),下拉菜单显示状态变化事件,参数为 nzVisible,类型: EventEmitter&lt;boolean>
     /// </summary>

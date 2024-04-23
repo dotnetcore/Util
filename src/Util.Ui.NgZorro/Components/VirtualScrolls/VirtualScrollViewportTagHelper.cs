@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.VirtualScrolls.Renders;
 using Util.Ui.Renders;
 
@@ -14,11 +13,7 @@ public class VirtualScrollViewportTagHelper : AngularTagHelperBase {
     /// <summary>
     /// itemSize,列的高度,单位:px,类型: number
     /// </summary>
-    public double ItemSize { get; set; }
-    /// <summary>
-    /// [itemSize],列的高度,单位:px,类型: number
-    /// </summary>
-    public string BindItemSize { get; set; }
+    public string ItemSize { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

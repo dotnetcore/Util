@@ -4,7 +4,7 @@ using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Expressions;
 using Util.Validation.Validators;
 
-namespace Util.Ui.NgZorro.Components.Inputs.Helpers; 
+namespace Util.Ui.NgZorro.Components.Inputs.Helpers;
 
 /// <summary>
 /// 输入框表达式加载器
@@ -17,6 +17,7 @@ public class InputExpressionLoader : NgZorroExpressionLoaderBase {
     /// <param name="info">模型表达式信息</param>
     protected override void Load( Config config, ModelExpressionInfo info ) {
         LoadLabel( config, info );
+        LoadId( config, info );
         LoadName( config, info );
         LoadNgModel( config, info );
         LoadMinRows( config, info );
@@ -42,10 +43,17 @@ public class InputExpressionLoader : NgZorroExpressionLoaderBase {
     }
 
     /// <summary>
+    /// 加载标识
+    /// </summary>
+    protected virtual void LoadId( Config config, ModelExpressionInfo info ) {
+        config.SetAttribute( UiConst.Id, GeKebaberizePropertyName( config, info ), false );
+    }
+
+    /// <summary>
     /// 加载名称
     /// </summary>
     protected virtual void LoadName( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.Name, info.LastPropertyName, false );
+        config.SetAttribute( UiConst.Name, GeKebaberizePropertyName( config, info ), false );
     }
 
     /// <summary>
@@ -161,7 +169,7 @@ public class InputExpressionLoader : NgZorroExpressionLoaderBase {
     protected virtual void LoadPhone( Config config, ModelExpressionInfo info ) {
         if ( info.IsPhone == false )
             return;
-        config.SetAttribute( UiConst.IsInvalidPhone, true, false );
+        config.SetAttribute( UiConst.IsInvalidPhone, "true", false );
         config.SetAttribute( UiConst.Pattern, ValidatePattern.MobilePhonePattern, false );
         config.SetAttribute( UiConst.PatternMessage, info.PhoneMessage, false );
     }
@@ -172,7 +180,7 @@ public class InputExpressionLoader : NgZorroExpressionLoaderBase {
     protected virtual void LoadIdCard( Config config, ModelExpressionInfo info ) {
         if ( info.IsIdCard == false )
             return;
-        config.SetAttribute( UiConst.IsInvalidIdCard, true, false );
+        config.SetAttribute( UiConst.IsInvalidIdCard, "true", false );
         config.SetAttribute( UiConst.Pattern, ValidatePattern.IdCardPattern, false );
         config.SetAttribute( UiConst.PatternMessage, info.IdCardMessage, false );
     }

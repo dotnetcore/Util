@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
+using Util.Ui.NgZorro.Components.Typographies.Builders;
 
 namespace Util.Ui.NgZorro.Components.Typographies; 
 
@@ -11,7 +12,7 @@ public class ArticleTagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new ArticleBuilder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new ArticleBuilder( config );
     }
 }

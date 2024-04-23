@@ -11,9 +11,6 @@ namespace Util.Ui.NgZorro.Tests.Tables;
 /// 表格单元格测试 - 编辑指令扩展
 /// </summary>
 public partial class TableColumnTagHelperTest {
-
-    #region IsEdit
-
     /// <summary>
     /// 测试启用编辑模式 - 自动创建显示区域和控件区域
     /// </summary>
@@ -291,6 +288,4 @@ public partial class TableColumnTagHelperTest {
         //验证
         Assert.Equal( result.ToString(), table.GetResult() );
     }
-
-    #endregion
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Checkboxes.Helpers;
 using Util.Ui.NgZorro.Components.Checkboxes.Renders;
@@ -19,11 +18,7 @@ public class CheckboxGroupTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

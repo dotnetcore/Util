@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -41,45 +40,25 @@ public class MenuItemTagHelper : AngularTagHelperBase {
     /// </summary>
     public AntDesignIcon Icon { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用
+    /// [nzDisabled],是否禁用, 默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用
+    /// [nzSelected],是否被选中, 默认值: false
     /// </summary>
-    public string BindDisabled { get; set; }
+    public string Selected { get; set; }
     /// <summary>
-    /// [nzSelected],是否被选中
+    /// [nzDanger],是否危险状态, 默认值: false
     /// </summary>
-    public bool Selected { get; set; }
+    public string Danger { get; set; }
     /// <summary>
-    /// [nzSelected],是否被选中
+    /// [nzMatchRouter],是否根据 routerLink 自动设置选中状态, 默认值: false
     /// </summary>
-    public string BindSelected { get; set; }
+    public string MatchRouter { get; set; }
     /// <summary>
-    /// [nzDanger],是否危险状态
+    /// [nzMatchRouterExact],是否路由完整精确匹配, 默认值: false
     /// </summary>
-    public bool Danger { get; set; }
-    /// <summary>
-    /// [nzDanger],是否危险状态
-    /// </summary>
-    public string BindDanger { get; set; }
-    /// <summary>
-    /// [nzMatchRouter],是否根据 routerLink 自动设置选中状态
-    /// </summary>
-    public bool MatchRouter { get; set; }
-    /// <summary>
-    /// [nzMatchRouter],是否根据 routerLink 自动设置选中状态
-    /// </summary>
-    public string BindMatchRouter { get; set; }
-    /// <summary>
-    /// [nzMatchRouterExact],是否路由完整精确匹配
-    /// </summary>
-    public bool MatchRouterExact { get; set; }
-    /// <summary>
-    /// [nzMatchRouterExact],是否路由完整精确匹配
-    /// </summary>
-    public string BindMatchRouterExact { get; set; }
+    public string MatchRouterExact { get; set; }
     /// <summary>
     /// (click),单击事件处理函数
     /// </summary>

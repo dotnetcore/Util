@@ -25,8 +25,7 @@ public class TreeNodeCheckboxBuilder : AngularTagBuilder {
     /// 配置是否勾选
     /// </summary>
     public TreeNodeCheckboxBuilder Checked() {
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetBoolValue( UiConst.Checked ) );
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( AngularConst.BindChecked ) );
+        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( UiConst.Checked ) );
         return this;
     }
 
@@ -42,8 +41,7 @@ public class TreeNodeCheckboxBuilder : AngularTagBuilder {
     /// 配置是否禁用
     /// </summary>
     public TreeNodeCheckboxBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 

@@ -76,20 +76,9 @@ namespace Util.Ui.NgZorro.Tests.Segments {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-segmented [nzDisabled]=\"true\"></nz-segmented>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-segmented [nzDisabled]=\"a\"></nz-segmented>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -131,20 +120,9 @@ namespace Util.Ui.NgZorro.Tests.Segments {
         /// </summary>
         [Fact]
         public void TestBlock() {
-            _wrapper.SetContextAttribute( UiConst.Block, true );
+            _wrapper.SetContextAttribute( UiConst.Block, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-segmented [nzBlock]=\"true\"></nz-segmented>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试将宽度调整为父元素宽度
-        /// </summary>
-        [Fact]
-        public void TestBindBlock() {
-            _wrapper.SetContextAttribute( AngularConst.BindBlock, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-segmented [nzBlock]=\"a\"></nz-segmented>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

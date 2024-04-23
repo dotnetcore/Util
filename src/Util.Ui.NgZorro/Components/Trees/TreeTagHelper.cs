@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Applications.Trees;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Trees.Renders;
 using Util.Ui.Renders;
 
@@ -79,35 +78,19 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBlockNode],是否节点占一行,默认值: false
     /// </summary>
-    public bool BlockNode { get; set; }
-    /// <summary>
-    /// [nzBlockNode],是否节点占一行,默认值: false
-    /// </summary>
-    public string BindBlockNode { get; set; }
+    public string BlockNode { get; set; }
     /// <summary>
     /// [nzCheckable],节点前是否显示复选框,默认值: false
     /// </summary>
-    public bool Checkable { get; set; }
-    /// <summary>
-    /// [nzCheckable],节点前是否显示复选框,默认值: false
-    /// </summary>
-    public string BindCheckable { get; set; }
+    public string Checkable { get; set; }
     /// <summary>
     /// [nzShowExpand],节点前是否显示展开图标,默认值: true
     /// </summary>
-    public bool ShowExpand { get; set; }
-    /// <summary>
-    /// [nzShowExpand],节点前是否显示展开图标,默认值: true
-    /// </summary>
-    public string BindShowExpand { get; set; }
+    public string ShowExpand { get; set; }
     /// <summary>
     /// [nzShowLine],是否显示连接线,默认值: false
     /// </summary>
-    public bool ShowLine { get; set; }
-    /// <summary>
-    /// [nzShowLine],是否显示连接线,默认值: false
-    /// </summary>
-    public string BindShowLine { get; set; }
+    public string ShowLine { get; set; }
     /// <summary>
     /// [nzExpandedIcon],自定义展开图标,类型: TemplateRef&lt;{ $implicit: NzTreeNode }>
     /// </summary>
@@ -115,51 +98,27 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowIcon],是否显示节点文本前图标,没有默认样式,默认值: false
     /// </summary>
-    public bool ShowIcon { get; set; }
-    /// <summary>
-    /// [nzShowIcon],是否显示节点文本前图标,没有默认样式,默认值: false
-    /// </summary>
-    public string BindShowIcon { get; set; }
+    public string ShowIcon { get; set; }
     /// <summary>
     /// [nzAsyncData],是否异步加载,默认值: false
     /// </summary>
-    public bool AsyncData { get; set; }
-    /// <summary>
-    /// [nzAsyncData],是否异步加载,默认值: false
-    /// </summary>
-    public string BindAsyncData { get; set; }
+    public string AsyncData { get; set; }
     /// <summary>
     /// [nzDraggable],节点是否可拖拽,默认值: false
     /// </summary>
-    public bool Draggable { get; set; }
-    /// <summary>
-    /// [nzDraggable],节点是否可拖拽,默认值: false
-    /// </summary>
-    public string BindDraggable { get; set; }
+    public string Draggable { get; set; }
     /// <summary>
     /// [nzMultiple],是否支持点选多个节点,默认值: false
     /// </summary>
-    public bool Multiple { get; set; }
-    /// <summary>
-    /// [nzMultiple],是否支持点选多个节点,默认值: false
-    /// </summary>
-    public string BindMultiple { get; set; }
+    public string Multiple { get; set; }
     /// <summary>
     /// [nzHideUnMatched],是否隐藏未匹配节点,默认值: false
     /// </summary>
-    public bool HideUnmatched { get; set; }
-    /// <summary>
-    /// [nzHideUnMatched],是否隐藏未匹配节点,默认值: false
-    /// </summary>
-    public string BindHideUnmatched { get; set; }
+    public string HideUnmatched { get; set; }
     /// <summary>
     /// [nzCheckStrictly],严格勾选,父子节点选中状态不再关联,默认值: false
     /// </summary>
-    public bool CheckStrictly { get; set; }
-    /// <summary>
-    /// [nzCheckStrictly],严格勾选,父子节点选中状态不再关联,默认值: false
-    /// </summary>
-    public string BindCheckStrictly { get; set; }
+    public string CheckStrictly { get; set; }
     /// <summary>
     /// [nzTreeTemplate],自定义节点模板,类型: TemplateRef&lt;{ $implicit: NzTreeNode }>
     /// </summary>
@@ -167,11 +126,7 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzExpandAll],是否默认展开所有节点,仅对同步加载有效,默认值: false
     /// </summary>
-    public bool ExpandAll { get; set; }
-    /// <summary>
-    /// [nzExpandAll],是否默认展开所有节点,仅对同步加载有效,默认值: false
-    /// </summary>
-    public string BindExpandAll { get; set; }
+    public string ExpandAll { get; set; }
     /// <summary>
     /// [nzExpandedKeys],展开节点的键集合,类型: string[]
     /// </summary>
@@ -213,29 +168,17 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindVirtualHeight { get; set; }
     /// <summary>
-    /// nzVirtualItemSize,虚拟滚动时每一列的高度,单位:像素,默认值: 28
-    /// </summary>
-    public int VirtualItemSize { get; set; }
-    /// <summary>
     /// [nzVirtualItemSize],虚拟滚动时每一列的高度,单位:像素,默认值: 28
     /// </summary>
-    public string BindVirtualItemSize { get; set; }
-    /// <summary>
-    /// nzVirtualMaxBufferPx,虚拟滚动缓冲区最大高度,单位:像素,默认值: 500
-    /// </summary>
-    public int VirtualMaxBufferPx { get; set; }
+    public string VirtualItemSize { get; set; }
     /// <summary>
     /// [nzVirtualMaxBufferPx],虚拟滚动缓冲区最大高度,单位:像素,默认值: 500
     /// </summary>
-    public string BindVirtualMaxBufferPx { get; set; }
-    /// <summary>
-    /// nzVirtualMinBufferPx,虚拟滚动缓冲区最小高度，低于该值时将加载新结构,单位:像素,默认值: 28
-    /// </summary>
-    public int VirtualMinBufferPx { get; set; }
+    public string VirtualMaxBufferPx { get; set; }
     /// <summary>
     /// [nzVirtualMinBufferPx],虚拟滚动缓冲区最小高度，低于该值时将加载新结构,单位:像素,默认值: 28
     /// </summary>
-    public string BindVirtualMinBufferPx { get; set; }
+    public string VirtualMinBufferPx { get; set; }
     /// <summary>
     /// (nzClick),单击事件,点击树节点时触发,类型: EventEmitter&lt;NzFormatEmitEvent>
     /// </summary>

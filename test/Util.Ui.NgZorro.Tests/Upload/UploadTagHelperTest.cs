@@ -131,20 +131,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestDirectory() {
-            _wrapper.SetContextAttribute( UiConst.Directory, true );
+            _wrapper.SetContextAttribute( UiConst.Directory, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzDirectory]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否支持上传文件夹
-        /// </summary>
-        [Fact]
-        public void TestBindDirectory() {
-            _wrapper.SetContextAttribute( AngularConst.BindDirectory, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzDirectory]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -186,20 +175,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzDisabled]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzDisabled]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -340,20 +318,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestMultiple() {
-            _wrapper.SetContextAttribute( UiConst.Multiple, true );
+            _wrapper.SetContextAttribute( UiConst.Multiple, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzMultiple]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否支持多选文件
-        /// </summary>
-        [Fact]
-        public void TestBindMultiple() {
-            _wrapper.SetContextAttribute( AngularConst.BindMultiple, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzMultiple]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -384,20 +351,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestShowUploadList() {
-            _wrapper.SetContextAttribute( UiConst.ShowUploadList, true );
+            _wrapper.SetContextAttribute( UiConst.ShowUploadList, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzShowUploadList]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示上传列表
-        /// </summary>
-        [Fact]
-        public void TestBindShowUploadList() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowUploadList, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzShowUploadList]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -406,20 +362,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestShowButton() {
-            _wrapper.SetContextAttribute( UiConst.ShowButton, true );
+            _wrapper.SetContextAttribute( UiConst.ShowButton, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzShowButton]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示上传按钮
-        /// </summary>
-        [Fact]
-        public void TestBindShowButton() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowButton, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzShowButton]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -428,20 +373,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestWithCredentials() {
-            _wrapper.SetContextAttribute( UiConst.WithCredentials, true );
+            _wrapper.SetContextAttribute( UiConst.WithCredentials, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzWithCredentials]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试上传时是否携带cookie
-        /// </summary>
-        [Fact]
-        public void TestBindWithCredentials() {
-            _wrapper.SetContextAttribute( AngularConst.BindWithCredentials, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzWithCredentials]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -450,20 +384,9 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         /// </summary>
         [Fact]
         public void TestOpenFileDialogOnClick() {
-            _wrapper.SetContextAttribute( UiConst.OpenFileDialogOnClick, true );
+            _wrapper.SetContextAttribute( UiConst.OpenFileDialogOnClick, "true" );
             var result = new StringBuilder();
             result.Append( $"<nz-upload [nzOpenFileDialogOnClick]=\"true\">{GetButton()}</nz-upload>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试点击是否打开文件对话框
-        /// </summary>
-        [Fact]
-        public void TestBindOpenFileDialogOnClick() {
-            _wrapper.SetContextAttribute( AngularConst.BindOpenFileDialogOnClick, "a" );
-            var result = new StringBuilder();
-            result.Append( $"<nz-upload [nzOpenFileDialogOnClick]=\"a\">{GetButton()}</nz-upload>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

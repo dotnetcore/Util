@@ -46,8 +46,7 @@ public class SegmentedBuilder : FormControlBuilderBase<SegmentedBuilder> {
     /// 配置将宽度调整为父元素宽度
     /// </summary>
     public SegmentedBuilder Block() {
-        AttributeIfNotEmpty( "[nzBlock]", _config.GetBoolValue( UiConst.Block ) );
-        AttributeIfNotEmpty( "[nzBlock]", _config.GetValue( AngularConst.BindBlock ) );
+        AttributeIfNotEmpty( "[nzBlock]", _config.GetValue( UiConst.Block ) );
         return this;
     }
 
@@ -55,8 +54,7 @@ public class SegmentedBuilder : FormControlBuilderBase<SegmentedBuilder> {
     /// 配置禁用
     /// </summary>
     public SegmentedBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -81,7 +79,7 @@ public class SegmentedBuilder : FormControlBuilderBase<SegmentedBuilder> {
     /// 配置自动加载
     /// </summary>
     private SegmentedBuilder AutoLoad() {
-        AttributeIfNotEmpty( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+        AttributeIfNotEmpty( "[autoLoad]", _config.GetValue( UiConst.AutoLoad ) );
         return this;
     }
 

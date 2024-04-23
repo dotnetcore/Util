@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.BreadCrumbs.Renders;
 using Util.Ui.Renders;
 
@@ -22,11 +21,7 @@ public class BreadcrumbTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzAutoGenerate],通过配置 router.data 自动生成面包屑
     /// </summary>
-    public bool AutoGenerate { get; set; }
-    /// <summary>
-    /// [nzAutoGenerate],通过配置 router.data 自动生成面包屑
-    /// </summary>
-    public string BindAutoGenerate { get; set; }
+    public string AutoGenerate { get; set; }
     /// <summary>
     /// nzRouteLabel,自定义 route data 属性名称, nzAutoGenerate 为 true 时生效,默认值: 'breadcrumb'
     /// </summary>

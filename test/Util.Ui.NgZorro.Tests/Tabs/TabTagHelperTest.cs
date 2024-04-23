@@ -88,20 +88,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestForceRender() {
-            _wrapper.SetContextAttribute( UiConst.ForceRender, true );
+            _wrapper.SetContextAttribute( UiConst.ForceRender, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tab [nzForceRender]=\"true\"></nz-tab>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否强制渲染
-        /// </summary>
-        [Fact]
-        public void TestBindForceRender() {
-            _wrapper.SetContextAttribute( AngularConst.BindForceRender, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tab [nzForceRender]=\"a\"></nz-tab>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -110,20 +99,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tab [nzDisabled]=\"true\"></nz-tab>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tab [nzDisabled]=\"a\"></nz-tab>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -132,20 +110,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestClosable() {
-            _wrapper.SetContextAttribute( UiConst.Closable, true );
+            _wrapper.SetContextAttribute( UiConst.Closable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tab [nzClosable]=\"true\"></nz-tab>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示关闭按钮
-        /// </summary>
-        [Fact]
-        public void TestBindClosable() {
-            _wrapper.SetContextAttribute( AngularConst.BindClosable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tab [nzClosable]=\"a\"></nz-tab>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

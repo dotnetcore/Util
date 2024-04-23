@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Spins {
         /// </summary>
         [Fact]
         public void TestDelay() {
-            _wrapper.SetContextAttribute( UiConst.Delay, 1 );
+            _wrapper.SetContextAttribute( UiConst.Delay, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-spin nzDelay=\"1\"></nz-spin>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试延迟显示时间
-        /// </summary>
-        [Fact]
-        public void TestBindDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindDelay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-spin [nzDelay]=\"a\"></nz-spin>" );
+            result.Append( "<nz-spin [nzDelay]=\"1\"></nz-spin>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -108,20 +97,9 @@ namespace Util.Ui.NgZorro.Tests.Spins {
         /// </summary>
         [Fact]
         public void TestSpinning() {
-            _wrapper.SetContextAttribute( UiConst.Spinning, true );
+            _wrapper.SetContextAttribute( UiConst.Spinning, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-spin [nzSpinning]=\"true\"></nz-spin>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否旋转
-        /// </summary>
-        [Fact]
-        public void TestBindSpinning() {
-            _wrapper.SetContextAttribute( AngularConst.BindSpinning, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-spin [nzSpinning]=\"a\"></nz-spin>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -130,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Spins {
         /// </summary>
         [Fact]
         public void TestSimple() {
-            _wrapper.SetContextAttribute( UiConst.Simple, true );
+            _wrapper.SetContextAttribute( UiConst.Simple, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-spin nzSimple=\"\"></nz-spin>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否简单模式
-        /// </summary>
-        [Fact]
-        public void TestBindSimple() {
-            _wrapper.SetContextAttribute( AngularConst.BindSimple, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-spin [nzSimple]=\"a\"></nz-spin>" );
+            result.Append( "<nz-spin [nzSimple]=\"true\"></nz-spin>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

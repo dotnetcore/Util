@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Cards.Renders;
 using Util.Ui.Renders;
 
@@ -14,11 +13,7 @@ public class CardGridTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzHoverable],鼠标滑过时是否可浮起,默认值: true
     /// </summary>
-    public bool Hoverable { get; set; }
-    /// <summary>
-    /// [nzHoverable],鼠标滑过时是否可浮起,默认值: true
-    /// </summary>
-    public string BindHoverable { get; set; }
+    public string Hoverable { get; set; }
     /// <summary>
     /// (click),单击事件
     /// </summary>

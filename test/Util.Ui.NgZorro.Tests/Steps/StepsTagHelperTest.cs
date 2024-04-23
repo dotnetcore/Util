@@ -75,20 +75,9 @@ namespace Util.Ui.NgZorro.Tests.Steps {
         /// </summary>
         [Fact]
         public void TestCurrent() {
-            _wrapper.SetContextAttribute( UiConst.Current, 1 );
+            _wrapper.SetContextAttribute( UiConst.Current, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-steps [nzCurrent]=\"1\"></nz-steps>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试当前步骤
-        /// </summary>
-        [Fact]
-        public void TestBindCurrent() {
-            _wrapper.SetContextAttribute( AngularConst.BindCurrent, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-steps [nzCurrent]=\"a\"></nz-steps>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Steps {
         /// </summary>
         [Fact]
         public void TestStartIndex() {
-            _wrapper.SetContextAttribute( UiConst.StartIndex, 1 );
+            _wrapper.SetContextAttribute( UiConst.StartIndex, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-steps [nzStartIndex]=\"1\"></nz-steps>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试起始序号
-        /// </summary>
-        [Fact]
-        public void TestBindStartIndex() {
-            _wrapper.SetContextAttribute( AngularConst.BindStartIndex, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-steps [nzStartIndex]=\"a\"></nz-steps>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -185,20 +163,9 @@ namespace Util.Ui.NgZorro.Tests.Steps {
         /// </summary>
         [Fact]
         public void TestProgressDot() {
-            _wrapper.SetContextAttribute( UiConst.ProgressDot, true );
+            _wrapper.SetContextAttribute( UiConst.ProgressDot, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-steps [nzProgressDot]=\"true\"></nz-steps>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试点状
-        /// </summary>
-        [Fact]
-        public void TestBindProgressDot() {
-            _wrapper.SetContextAttribute( AngularConst.BindProgressDot, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-steps [nzProgressDot]=\"a\"></nz-steps>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

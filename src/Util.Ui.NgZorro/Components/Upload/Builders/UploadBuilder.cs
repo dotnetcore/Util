@@ -69,8 +69,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置是否支持上传文件夹
     /// </summary>
     public UploadBuilder Directory() {
-        AttributeIfNotEmpty( "[nzDirectory]", _config.GetBoolValue( UiConst.Directory ) );
-        AttributeIfNotEmpty( "[nzDirectory]", _config.GetValue( AngularConst.BindDirectory ) );
+        AttributeIfNotEmpty( "[nzDirectory]", _config.GetValue( UiConst.Directory ) );
         return this;
     }
 
@@ -102,8 +101,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public UploadBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -179,8 +177,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置是否支持多选文件
     /// </summary>
     public UploadBuilder Multiple() {
-        AttributeIfNotEmpty( "[nzMultiple]", _config.GetBoolValue( UiConst.Multiple ) );
-        AttributeIfNotEmpty( "[nzMultiple]", _config.GetValue( AngularConst.BindMultiple ) );
+        AttributeIfNotEmpty( "[nzMultiple]", _config.GetValue( UiConst.Multiple ) );
         return this;
     }
 
@@ -197,8 +194,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置是否显示上传列表
     /// </summary>
     public UploadBuilder ShowUploadList() {
-        AttributeIfNotEmpty( "[nzShowUploadList]", _config.GetBoolValue( UiConst.ShowUploadList ) );
-        AttributeIfNotEmpty( "[nzShowUploadList]", _config.GetValue( AngularConst.BindShowUploadList ) );
+        AttributeIfNotEmpty( "[nzShowUploadList]", _config.GetValue( UiConst.ShowUploadList ) );
         return this;
     }
 
@@ -206,8 +202,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置是否显示上传按钮
     /// </summary>
     public UploadBuilder ShowButton() {
-        AttributeIfNotEmpty( "[nzShowButton]", _config.GetBoolValue( UiConst.ShowButton ) );
-        AttributeIfNotEmpty( "[nzShowButton]", _config.GetValue( AngularConst.BindShowButton ) );
+        AttributeIfNotEmpty( "[nzShowButton]", _config.GetValue( UiConst.ShowButton ) );
         return this;
     }
 
@@ -215,8 +210,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置上传时是否携带cookie
     /// </summary>
     public UploadBuilder WithCredentials() {
-        AttributeIfNotEmpty( "[nzWithCredentials]", _config.GetBoolValue( UiConst.WithCredentials ) );
-        AttributeIfNotEmpty( "[nzWithCredentials]", _config.GetValue( AngularConst.BindWithCredentials ) );
+        AttributeIfNotEmpty( "[nzWithCredentials]", _config.GetValue( UiConst.WithCredentials ) );
         return this;
     }
 
@@ -224,8 +218,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置点击是否打开文件对话框
     /// </summary>
     public UploadBuilder OpenFileDialogOnClick() {
-        AttributeIfNotEmpty( "[nzOpenFileDialogOnClick]", _config.GetBoolValue( UiConst.OpenFileDialogOnClick ) );
-        AttributeIfNotEmpty( "[nzOpenFileDialogOnClick]", _config.GetValue( AngularConst.BindOpenFileDialogOnClick ) );
+        AttributeIfNotEmpty( "[nzOpenFileDialogOnClick]", _config.GetValue( UiConst.OpenFileDialogOnClick ) );
         return this;
     }
 
@@ -431,7 +424,7 @@ public class UploadBuilder : AngularTagBuilder {
     /// 配置是否清除文件列表
     /// </summary>
     public void ClearFiles() {
-        AttributeIfNotEmpty( "[isClearFiles]", _config.GetBoolValue( UiConst.ClearFiles ) );
+        AttributeIfNotEmpty( "[isClearFiles]", _config.GetValue( UiConst.ClearFiles ) );
     }
 
     /// <summary>

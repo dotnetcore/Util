@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Extensions;
@@ -125,8 +123,7 @@ public class MenuItemBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public MenuItemBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -134,8 +131,7 @@ public class MenuItemBuilder : AngularTagBuilder {
     /// 配置选中
     /// </summary>
     public MenuItemBuilder Selected() {
-        AttributeIfNotEmpty( "[nzSelected]", _config.GetBoolValue( UiConst.Selected ) );
-        AttributeIfNotEmpty( "[nzSelected]", _config.GetValue( AngularConst.BindSelected ) );
+        AttributeIfNotEmpty( "[nzSelected]", _config.GetValue( UiConst.Selected ) );
         return this;
     }
 
@@ -143,8 +139,7 @@ public class MenuItemBuilder : AngularTagBuilder {
     /// 配置危险状态
     /// </summary>
     public MenuItemBuilder Danger() {
-        AttributeIfNotEmpty( "[nzDanger]", _config.GetBoolValue( UiConst.Danger ) );
-        AttributeIfNotEmpty( "[nzDanger]", _config.GetValue( AngularConst.BindDanger ) );
+        AttributeIfNotEmpty( "[nzDanger]", _config.GetValue( UiConst.Danger ) );
         return this;
     }
 
@@ -152,10 +147,8 @@ public class MenuItemBuilder : AngularTagBuilder {
     /// 配置匹配路由
     /// </summary>
     public MenuItemBuilder MatchRouter() {
-        AttributeIfNotEmpty( "[nzMatchRouter]", _config.GetBoolValue( UiConst.MatchRouter ) );
-        AttributeIfNotEmpty( "[nzMatchRouter]", _config.GetValue( AngularConst.BindMatchRouter ) );
-        AttributeIfNotEmpty( "[nzMatchRouterExact]", _config.GetBoolValue( UiConst.MatchRouterExact ) );
-        AttributeIfNotEmpty( "[nzMatchRouterExact]", _config.GetValue( AngularConst.BindMatchRouterExact ) );
+        AttributeIfNotEmpty( "[nzMatchRouter]", _config.GetValue( UiConst.MatchRouter ) );
+        AttributeIfNotEmpty( "[nzMatchRouterExact]", _config.GetValue( UiConst.MatchRouterExact ) );
         return this;
     }
 

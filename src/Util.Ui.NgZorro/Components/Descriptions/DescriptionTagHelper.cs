@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Descriptions.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -31,11 +30,7 @@ public class DescriptionTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBordered],是否显示边框,默认值：false
     /// </summary>
-    public bool Bordered { get; set; }
-    /// <summary>
-    /// [nzBordered],是否显示边框,默认值：false
-    /// </summary>
-    public string BindBordered { get; set; }
+    public string Bordered { get; set; }
     /// <summary>
     /// [nzColumn],一行包含的描述列表项数量,可以是数字,也可以写成响应式对象,类型: number|object,范例：{ xs: 8, sm: 16, md: 24},默认值: { xxl: 3, xl: 3, lg: 3, md: 3, sm: 2, xs: 1 }
     /// </summary>
@@ -75,11 +70,7 @@ public class DescriptionTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzColon],是否显示冒号,默认值：true
     /// </summary>
-    public bool Colon { get; set; }
-    /// <summary>
-    /// [nzColon],是否显示冒号,默认值：true
-    /// </summary>
-    public string BindColon { get; set; }
+    public string Colon { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

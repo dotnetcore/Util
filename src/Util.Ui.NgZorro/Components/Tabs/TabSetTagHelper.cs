@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tabs.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -13,13 +12,9 @@ namespace Util.Ui.NgZorro.Components.Tabs;
 [HtmlTargetElement( "util-tabset" )]
 public class TabSetTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzSelectedIndex,选中标签索引,即当前激活标签面板的序号,类型: number
-    /// </summary>
-    public int SelectedIndex { get; set; }
-    /// <summary>
     /// [nzSelectedIndex],选中标签索引,即当前激活标签面板的序号,类型: number
     /// </summary>
-    public string BindSelectedIndex { get; set; }
+    public string SelectedIndex { get; set; }
     /// <summary>
     /// [(nzSelectedIndex)],选中标签索引,即当前激活标签面板的序号,类型: number
     /// </summary>
@@ -27,11 +22,7 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzAnimated],是否使用动画切换选项卡,类型: boolean | {inkBar:boolean, tabPane:boolean},默认值: true, 当 nzType 为 'card' 时为 false
     /// </summary>
-    public bool Animated { get; set; }
-    /// <summary>
-    /// [nzAnimated],是否使用动画切换选项卡,类型: boolean | {inkBar:boolean, tabPane:boolean},默认值: true, 当 nzType 为 'card' 时为 false
-    /// </summary>
-    public string BindAnimated { get; set; }
+    public string Animated { get; set; }
     /// <summary>
     /// nzSize,标签大小,可选值: 'large' | 'small' | 'default',默认值: 'default'
     /// </summary>
@@ -65,37 +56,21 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindType { get; set; }
     /// <summary>
-    /// nzTabBarGutter,标签间隙
-    /// </summary>
-    public double TabBarGutter { get; set; }
-    /// <summary>
     /// [nzTabBarGutter],标签间隙
     /// </summary>
-    public string BindTabBarGutter { get; set; }
+    public string TabBarGutter { get; set; }
     /// <summary>
     /// [nzHideAll],是否隐藏全部标签,默认值: false
     /// </summary>
-    public bool HideAll { get; set; }
-    /// <summary>
-    /// [nzHideAll],是否隐藏全部标签,默认值: false
-    /// </summary>
-    public string BindHideAll { get; set; }
+    public string HideAll { get; set; }
     /// <summary>
     /// [nzLinkRouter],是否支持路由联动,默认值: false
     /// </summary>
-    public bool LinkRouter { get; set; }
-    /// <summary>
-    /// [nzLinkRouter],是否支持路由联动,默认值: false
-    /// </summary>
-    public string BindLinkRouter { get; set; }
+    public string LinkRouter { get; set; }
     /// <summary>
     /// [nzLinkExact],是否以严格模式匹配路由联动,默认值: true
     /// </summary>
-    public bool LinkExact { get; set; }
-    /// <summary>
-    /// [nzLinkExact],是否以严格模式匹配路由联动,默认值: true
-    /// </summary>
-    public string BindLinkExact { get; set; }
+    public string LinkExact { get; set; }
     /// <summary>
     /// [nzCanDeactivate],标签守卫函数,决定标签是否可以被切换,类型: NzTabsCanDeactivateFn
     /// </summary>
@@ -103,19 +78,11 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzCentered],标签是否居中显示,默认值: false
     /// </summary>
-    public bool Centered { get; set; }
-    /// <summary>
-    /// [nzCentered],标签是否居中显示,默认值: false
-    /// </summary>
-    public string BindCentered { get; set; }
+    public string Centered { get; set; }
     /// <summary>
     /// [nzHideAdd],是否隐藏添加按钮,当 nzType 为 'editable-card' 时有效,默认值: false
     /// </summary>
-    public bool HideAdd { get; set; }
-    /// <summary>
-    /// [nzHideAdd],是否隐藏添加按钮,当 nzType 为 'editable-card' 时有效,默认值: false
-    /// </summary>
-    public string BindHideAdd { get; set; }
+    public string HideAdd { get; set; }
     /// <summary>
     /// nzAddIcon,添加按钮图标,当 nzType 为 'editable-card' 时有效,类型: string | TemplateRef&lt;void>
     /// </summary>

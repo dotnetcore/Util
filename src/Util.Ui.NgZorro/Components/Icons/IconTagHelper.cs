@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Icons.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -31,19 +30,11 @@ public class IconTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzSpin],持续旋转
     /// </summary>
-    public bool Spin { get; set; }
-    /// <summary>
-    /// [nzSpin],持续旋转
-    /// </summary>
-    public string BindSpin { get; set; }
+    public string Spin { get; set; }
     /// <summary>
     /// [nzRotate],旋转角度
     /// </summary>
-    public double Rotate { get; set; }
-    /// <summary>
-    /// [nzRotate],旋转角度
-    /// </summary>
-    public string BindRotate { get; set; }
+    public string Rotate { get; set; }
     /// <summary>
     /// nzTwotoneColor,双色图标主题色,注意：仅适用双色图标主题
     /// </summary>

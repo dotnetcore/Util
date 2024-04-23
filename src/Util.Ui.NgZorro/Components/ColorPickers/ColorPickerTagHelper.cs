@@ -43,11 +43,7 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzShowText],是否显示颜色文本,默认值: false
     /// </summary>
-    public bool ShowText { get; set; }
-    /// <summary>
-    /// [nzShowText],是否显示颜色文本,默认值: false
-    /// </summary>
-    public string BindShowText { get; set; }
+    public string ShowText { get; set; }
     /// <summary>
     /// nzSize,控件尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
     /// </summary>
@@ -59,19 +55,11 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用, 默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用, 默认值: false
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzDisabledAlpha],是否禁用透明度, 默认值: false
     /// </summary>
-    public bool DisabledAlpha { get; set; }
-    /// <summary>
-    /// [nzDisabledAlpha],是否禁用透明度, 默认值: false
-    /// </summary>
-    public string BindDisabledAlpha { get; set; }
+    public string DisabledAlpha { get; set; }
     /// <summary>
     /// nzTrigger,触发模式, 可选值: hover｜click ,默认值: click
     /// </summary>
@@ -83,11 +71,7 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAllowClear], 是否允许清除选择的颜色, 默认值: false
     /// </summary>
-    public bool AllowClear { get; set; }
-    /// <summary>
-    /// [nzAllowClear], 是否允许清除选择的颜色, 默认值: false
-    /// </summary>
-    public string BindAllowClear { get; set; }
+    public string AllowClear { get; set; }
     /// <summary>
     /// nzFormat,颜色格式, 可选值: rgb｜hex｜hsb ,默认值: hex
     /// </summary>

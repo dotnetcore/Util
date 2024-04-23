@@ -23,19 +23,11 @@ public class DatePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAllowClear],是否允许清除内容
     /// </summary>
-    public bool AllowClear { get; set; }
-    /// <summary>
-    /// [nzAllowClear],是否允许清除内容
-    /// </summary>
-    public string BindAllowClear { get; set; }
+    public string AllowClear { get; set; }
     /// <summary>
     /// [nzAutoFocus],是否自动聚焦
     /// </summary>
-    public bool AutoFocus { get; set; }
-    /// <summary>
-    /// [nzAutoFocus],是否自动聚焦
-    /// </summary>
-    public string BindAutoFocus { get; set; }
+    public string AutoFocus { get; set; }
     /// <summary>
     /// nzDefaultPickerValue,默认面板日期
     /// </summary>
@@ -47,11 +39,7 @@ public class DatePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzDisabledDate],不可选择日期函数,函数定义：(current: Date) => boolean
     /// </summary>
@@ -101,11 +89,7 @@ public class DatePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzInputReadOnly],为 input 标签设置只读属性,避免在移动设备上触发小键盘
     /// </summary>
-    public bool InputReadonly { get; set; }
-    /// <summary>
-    /// [nzInputReadOnly],为 input 标签设置只读属性,避免在移动设备上触发小键盘
-    /// </summary>
-    public string BindInputReadonly { get; set; }
+    public string InputReadonly { get; set; }
     /// <summary>
     /// [nzLocale],国际化配置
     /// </summary>
@@ -153,11 +137,7 @@ public class DatePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzBorderless],是否移除边框
     /// </summary>
-    public bool Borderless { get; set; }
-    /// <summary>
-    /// [nzBorderless],是否移除边框
-    /// </summary>
-    public string BindBorderless { get; set; }
+    public string Borderless { get; set; }
     /// <summary>
     /// [nzDateRender],自定义日期单元格内容,注意：该属性仅在 nzMode="date" 时有效
     /// </summary>
@@ -165,27 +145,15 @@ public class DatePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzShowTime],是否显示时间选择,注意：该属性仅在 nzMode="date" 时有效
     /// </summary>
-    public bool ShowTime { get; set; }
-    /// <summary>
-    /// [nzShowTime],是否显示时间选择,注意：该属性仅在 nzMode="date" 时有效
-    /// </summary>
-    public string BindShowTime { get; set; }
+    public string ShowTime { get; set; }
     /// <summary>
     /// [nzShowToday],是否显示“今天”按钮,注意：该属性仅在 nzMode="date" 时有效
     /// </summary>
-    public bool ShowToday { get; set; }
-    /// <summary>
-    /// [nzShowToday],是否显示“今天”按钮,注意：该属性仅在 nzMode="date" 时有效
-    /// </summary>
-    public string BindShowToday { get; set; }
+    public string ShowToday { get; set; }
     /// <summary>
     /// [nzShowNow],是否显示“此刻”按钮,注意：该属性仅在 nzMode="date"，且 [nzShowTime]="true" 时有效
     /// </summary>
-    public bool ShowNow { get; set; }
-    /// <summary>
-    /// [nzShowNow],是否显示“此刻”按钮,注意：该属性仅在 nzMode="date"，且 [nzShowTime]="true" 时有效
-    /// </summary>
-    public string BindShowNow { get; set; }
+    public string ShowNow { get; set; }
     /// <summary>
     /// (nzOnOpenChange),弹出关闭日历事件
     /// </summary>

@@ -81,8 +81,7 @@ public class TypographyRender : RenderBase {
     /// 配置可编辑
     /// </summary>
     private void ConfigEditable() {
-        _builder.AttributeIfNotEmpty( "[nzEditable]", _config.GetBoolValue( UiConst.Editable ) );
-        _builder.AttributeIfNotEmpty( "[nzEditable]", _config.GetValue( AngularConst.BindEditable ) );
+        _builder.AttributeIfNotEmpty( "[nzEditable]", _config.GetValue( UiConst.Editable ) );
     }
 
     /// <summary>
@@ -105,15 +104,14 @@ public class TypographyRender : RenderBase {
     /// 配置可复制
     /// </summary>
     private void ConfigCopyable() {
-        _builder.AttributeIfNotEmpty( "[nzCopyable]", _config.GetBoolValue( UiConst.Copyable ) );
-        _builder.AttributeIfNotEmpty( "[nzCopyable]", _config.GetValue( AngularConst.BindCopyable ) );
+        _builder.AttributeIfNotEmpty( "[nzCopyable]", _config.GetValue( UiConst.Copyable ) );
     }
 
     /// <summary>
     /// 配置复制文本
     /// </summary>
     private void ConfigCopyText() {
-        _builder.AttributeIfNotEmpty( "nzCopyText", _config.GetBoolValue( UiConst.CopyText ) );
+        _builder.AttributeIfNotEmpty( "nzCopyText", _config.GetValue( UiConst.CopyText ) );
         _builder.AttributeIfNotEmpty( "[nzCopyText]", _config.GetValue( AngularConst.BindCopyText ) );
     }
 
@@ -145,39 +143,35 @@ public class TypographyRender : RenderBase {
     /// 配置禁用文本
     /// </summary>
     private void ConfigDisabled() {
-        _builder.AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        _builder.AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        _builder.AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
     }
 
     /// <summary>
     /// 配置省略文本
     /// </summary>
     private void ConfigEllipsis() {
-        _builder.AttributeIfNotEmpty( "[nzEllipsis]", _config.GetBoolValue( UiConst.Ellipsis ) );
-        _builder.AttributeIfNotEmpty( "[nzEllipsis]", _config.GetValue( AngularConst.BindEllipsis ) );
+        _builder.AttributeIfNotEmpty( "[nzEllipsis]", _config.GetValue( UiConst.Ellipsis ) );
     }
 
     /// <summary>
     /// 配置省略可展开
     /// </summary>
     private void ConfigExpandable() {
-        _builder.AttributeIfNotEmpty( "[nzExpandable]", _config.GetBoolValue( UiConst.Expandable ) );
-        _builder.AttributeIfNotEmpty( "[nzExpandable]", _config.GetValue( AngularConst.BindExpandable ) );
+        _builder.AttributeIfNotEmpty( "[nzExpandable]", _config.GetValue( UiConst.Expandable ) );
     }
 
     /// <summary>
     /// 配置省略行数
     /// </summary>
     private void ConfigEllipsisRows() {
-        _builder.AttributeIfNotEmpty( "[nzEllipsisRows]", _config.GetBoolValue( UiConst.EllipsisRows ) );
-        _builder.AttributeIfNotEmpty( "[nzEllipsisRows]", _config.GetValue( AngularConst.BindEllipsisRows ) );
+        _builder.AttributeIfNotEmpty( "[nzEllipsisRows]", _config.GetValue( UiConst.EllipsisRows ) );
     }
 
     /// <summary>
     /// 配置省略后缀
     /// </summary>
     private void ConfigSuffix() {
-        _builder.AttributeIfNotEmpty( "nzSuffix", _config.GetBoolValue( UiConst.Suffix ) );
+        _builder.AttributeIfNotEmpty( "nzSuffix", _config.GetValue( UiConst.Suffix ) );
         _builder.AttributeIfNotEmpty( "[nzSuffix]", _config.GetValue( AngularConst.BindSuffix ) );
     }
 

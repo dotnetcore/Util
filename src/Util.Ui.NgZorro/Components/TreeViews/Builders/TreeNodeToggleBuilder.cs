@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders; 
 
@@ -24,7 +23,7 @@ public class TreeNodeToggleBuilder : AngularTagBuilder {
     /// 配置空操作切换
     /// </summary>
     public TreeNodeToggleBuilder TreeNodeNoopToggle() {
-        AttributeIf( "nzTreeNodeNoopToggle", _config.GetValue<bool>( UiConst.TreeNodeNoopToggle ) );
+        AttributeIfNotEmpty( "[nzTreeNodeNoopToggle]", _config.GetValue( UiConst.TreeNodeNoopToggle ) );
         return this;
     }
 

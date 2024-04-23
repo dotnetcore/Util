@@ -14,11 +14,7 @@ public class FlexTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzVertical],是否垂直布局, 默认值: false
     /// </summary>
-    public bool Vertical { get; set; }
-    /// <summary>
-    /// [nzVertical],是否垂直布局, 默认值: false
-    /// </summary>
-    public string BindVertical { get; set; }
+    public string Vertical { get; set; }
     /// <summary>
     /// nzJustify,对齐方式, 可选值: flex-start,center,flex-end,space-between,space-around,space-evenly
     /// </summary>

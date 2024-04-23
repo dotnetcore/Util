@@ -18,7 +18,7 @@ public class TableColumnTagHelper : TooltipTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// 属性表达式
+    /// 扩展属性, 属性表达式
     /// </summary>
     public ModelExpression For { get; set; }
     /// <summary>
@@ -61,25 +61,17 @@ public class TableColumnTagHelper : TooltipTagHelperBase {
     /// </summary>
     public bool IsEdit { get; set; }
     /// <summary>
-    /// nzWidth,列宽度,表头未分组时可用,设置数值,则默认单位为px，范例：100，表示100px，也可以使用百分比,范例: 20%
+    /// 扩展属性,列宽度,表头未分组时可用,设置数值,则默认单位为px，范例：100，表示100px，也可以使用百分比,范例: 20%
     /// </summary>
     public string Width { get; set; }
     /// <summary>
     /// [nzShowCheckbox],是否显示复选框,注意:此属性为ng-zorro原生属性,未提供复选框联动功能,请设置表格上的show-checkbox属性
     /// </summary>
-    public bool ShowCheckbox { get; set; }
-    /// <summary>
-    /// [nzShowCheckbox],是否显示复选框
-    /// </summary>
-    public string BindShowCheckbox { get; set; }
+    public string ShowCheckbox { get; set; }
     /// <summary>
     /// [nzDisabled],是否禁用复选框
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用复选框
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzIndeterminate],复选框是否中间状态
     /// </summary>
@@ -87,11 +79,7 @@ public class TableColumnTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzChecked],是否选中复选框
     /// </summary>
-    public bool Checked { get; set; }
-    /// <summary>
-    /// [nzChecked],是否选中复选框
-    /// </summary>
-    public string BindChecked { get; set; }
+    public string Checked { get; set; }
     /// <summary>
     /// [(nzChecked)],是否选中复选框
     /// </summary>
@@ -99,19 +87,11 @@ public class TableColumnTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzShowExpand],是否显示展开按钮
     /// </summary>
-    public bool ShowExpand { get; set; }
-    /// <summary>
-    /// [nzShowExpand],是否显示展开按钮
-    /// </summary>
-    public string BindShowExpand { get; set; }
+    public string ShowExpand { get; set; }
     /// <summary>
     /// [nzExpand],是否已展开
     /// </summary>
-    public bool Expand { get; set; }
-    /// <summary>
-    /// [nzExpand],是否已展开
-    /// </summary>
-    public string BindExpand { get; set; }
+    public string Expand { get; set; }
     /// <summary>
     /// [(nzExpand)],是否已展开
     /// </summary>
@@ -143,27 +123,15 @@ public class TableColumnTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// [nzBreakWord],是否折行显示,默认值: false
     /// </summary>
-    public bool BreakWord { get; set; }
-    /// <summary>
-    /// [nzBreakWord],是否折行显示,默认值: false
-    /// </summary>
-    public string BindBreakWord { get; set; }
+    public string BreakWord { get; set; }
     /// <summary>
     /// [nzEllipsis],超过宽度将自动省略，暂不支持和排序筛选一起使用,仅当表格布局为 nzTableLayout="fixed" 时可用,默认值: false
     /// </summary>
-    public bool Ellipsis { get; set; }
-    /// <summary>
-    /// [nzEllipsis],超过宽度将自动省略，暂不支持和排序筛选一起使用,仅当表格布局为 nzTableLayout="fixed" 时可用,默认值: false
-    /// </summary>
-    public string BindEllipsis { get; set; }
-    /// <summary>
-    /// nzIndentSize,展示树形数据时，每层缩进的宽度,单位: px
-    /// </summary>
-    public double IndentSize { get; set; }
+    public string Ellipsis { get; set; }
     /// <summary>
     /// [nzIndentSize],展示树形数据时，每层缩进的宽度,单位: px
     /// </summary>
-    public string BindIndentSize { get; set; }
+    public string IndentSize { get; set; }
     /// <summary>
     /// nzCellControl,设置列的位置，该值为 NzCustomColumn 类型中 value 字段的值
     /// </summary>
@@ -176,6 +144,10 @@ public class TableColumnTagHelper : TooltipTagHelperBase {
     /// 扩展属性,是否启用拖动调整列宽
     /// </summary>
     public bool EnableResizable { get; set; }
+    /// <summary>
+    /// 扩展属性 [cdkCopyToClipboard],是否允许复制到剪贴板,注意: 需要设置 column 属性
+    /// </summary>
+    public bool Clipboard { get; set; }
     /// <summary>
     /// (nzCheckedChange),复选框选中状态变化事件,类型: EventEmitter&lt;boolean>
     /// </summary>

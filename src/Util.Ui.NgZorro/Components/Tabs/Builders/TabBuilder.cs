@@ -50,8 +50,7 @@ public class TabBuilder : AngularTagBuilder {
     /// 配置是否强制渲染
     /// </summary>
     public TabBuilder ForceRender() {
-        AttributeIfNotEmpty( "[nzForceRender]", _config.GetBoolValue( UiConst.ForceRender ) );
-        AttributeIfNotEmpty( "[nzForceRender]", _config.GetValue( AngularConst.BindForceRender ) );
+        AttributeIfNotEmpty( "[nzForceRender]", _config.GetValue( UiConst.ForceRender ) );
         return this;
     }
 
@@ -59,8 +58,7 @@ public class TabBuilder : AngularTagBuilder {
     /// 配置是否禁用
     /// </summary>
     public TabBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -68,8 +66,7 @@ public class TabBuilder : AngularTagBuilder {
     /// 配置是否显示关闭按钮
     /// </summary>
     public TabBuilder Closable() {
-        AttributeIfNotEmpty( "[nzClosable]", _config.GetBoolValue( UiConst.Closable ) );
-        AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( AngularConst.BindClosable ) );
+        AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( UiConst.Closable ) );
         return this;
     }
 

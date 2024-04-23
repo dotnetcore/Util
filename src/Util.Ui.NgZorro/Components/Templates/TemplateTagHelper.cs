@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Templates.Renders;
 using Util.Ui.Renders;
 
@@ -12,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.Templates;
 [HtmlTargetElement( "util-template" )]
 public class TemplateTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nz-tab,选项卡是否延迟加载
+    /// 扩展属性 nz-tab,选项卡是否延迟加载
     /// </summary>
     public bool Tab { get; set; }
 

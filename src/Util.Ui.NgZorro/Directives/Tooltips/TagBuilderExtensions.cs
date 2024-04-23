@@ -29,7 +29,7 @@ public static class TagBuilderExtensions {
         builder.TooltipColor( config.GetValue( UiConst.TooltipColor ) );
         builder.BindTooltipColor( config.GetValue( AngularConst.BindTooltipColor ) );
         builder.TooltipOrigin( config.GetValue( UiConst.TooltipOrigin ) );
-        builder.TooltipVisible( config.GetBoolValue( UiConst.TooltipVisible ) );
+        builder.TooltipVisible( config.GetValue( UiConst.TooltipVisible ) );
         builder.TooltipVisible( config.GetValue( AngularConst.BindTooltipVisible ) );
         builder.TooltipMouseEnterDelay( config.GetValue( UiConst.TooltipMouseEnterDelay ) );
         builder.BindTooltipMouseEnterDelay( config.GetValue( AngularConst.BindTooltipMouseEnterDelay ) );

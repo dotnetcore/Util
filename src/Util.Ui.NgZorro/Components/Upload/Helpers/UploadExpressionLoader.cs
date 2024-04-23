@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.Expressions;
 using Util.Ui.NgZorro.Expressions;
 
@@ -16,6 +15,7 @@ public class UploadExpressionLoader : NgZorroExpressionLoaderBase {
     /// <param name="info">模型表达式信息</param>
     protected override void Load( Config config, ModelExpressionInfo info ) {
         LoadLabel( config, info );
+        LoadId( config, info );
         LoadNgModel( config, info );
         LoadRequired( config, info );
     }
@@ -25,6 +25,13 @@ public class UploadExpressionLoader : NgZorroExpressionLoaderBase {
     /// </summary>
     protected virtual void LoadLabel( Config config, ModelExpressionInfo info ) {
         config.SetAttribute( UiConst.LabelText, info.DisplayName, false );
+    }
+
+    /// <summary>
+    /// 加载标识
+    /// </summary>
+    protected virtual void LoadId( Config config, ModelExpressionInfo info ) {
+        config.SetAttribute( UiConst.Id, GeKebaberizePropertyName( config, info ), false );
     }
 
     /// <summary>

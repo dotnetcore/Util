@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Timelines.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -31,11 +30,7 @@ public class TimelineTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzReverse],是否倒序排列,默认值: false
     /// </summary>
-    public bool Reverse { get; set; }
-    /// <summary>
-    /// [nzReverse],是否倒序排列,默认值: false
-    /// </summary>
-    public string BindReverse { get; set; }
+    public string Reverse { get; set; }
     /// <summary>
     /// nzMode,模式,可以改变时间轴和内容的相对位置,可选值: 'left' | 'alternate' | 'right' | 'custom'
     /// </summary>

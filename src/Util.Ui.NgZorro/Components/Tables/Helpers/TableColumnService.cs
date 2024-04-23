@@ -30,9 +30,9 @@ public class TableColumnService {
     /// </summary>
     public void Init() {
         CreateTableColumnShareConfig();
+        LoadExpression();
         EnableEdit();
         EnableEllipsis();
-        LoadExpression();
         AddToColumns();
     }
 
@@ -52,6 +52,14 @@ public class TableColumnService {
     }
 
     /// <summary>
+    /// 加载表达式
+    /// </summary>
+    private void LoadExpression() {
+        var expressionLoader = new TableColumnExpressionLoader();
+        expressionLoader.Load( _config );
+    }
+
+    /// <summary>
     /// 启用编辑模式
     /// </summary>
     private void EnableEdit() {
@@ -67,14 +75,6 @@ public class TableColumnService {
         var result = _config.GetValue<bool>( UiConst.Ellipsis );
         if ( result )
             _shareConfig.EnableEllipsis();
-    }
-
-    /// <summary>
-    /// 加载表达式
-    /// </summary>
-    private void LoadExpression() {
-        var expressionLoader = new TableColumnExpressionLoader();
-        expressionLoader.Load( _config );
     }
 
     /// <summary>

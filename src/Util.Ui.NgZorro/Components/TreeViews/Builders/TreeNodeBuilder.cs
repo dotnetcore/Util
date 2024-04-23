@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders; 
 
@@ -32,7 +31,7 @@ public class TreeNodeBuilder : AngularTagBuilder {
     /// 配置树节点内边距
     /// </summary>
     public TreeNodeBuilder TreeNodePadding() {
-        AttributeIf( "nzTreeNodePadding", _config.GetValue<bool>( UiConst.TreeNodePadding ) );
+        AttributeIfNotEmpty( "[nzTreeNodePadding]", _config.GetValue( UiConst.TreeNodePadding ) );
         return this;
     }
 
@@ -40,7 +39,7 @@ public class TreeNodeBuilder : AngularTagBuilder {
     /// 配置树节点内边距
     /// </summary>
     public TreeNodeBuilder TreeNodeIndentLine() {
-        AttributeIf( "nzTreeNodeIndentLine", _config.GetValue<bool>( UiConst.TreeNodeIndentLine ) );
+        AttributeIfNotEmpty( "[nzTreeNodeIndentLine]", _config.GetValue( UiConst.TreeNodeIndentLine ) );
         return this;
     }
 

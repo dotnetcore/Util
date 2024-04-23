@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>code</nz-form-label>" );
             result.Append( "<nz-form-control>" );
-            result.Append( "<label name=\"code\" nz-checkbox=\"\" [(ngModel)]=\"model.code\"></label>" );
+            result.Append( "<label #code=\"\" name=\"code\" nz-checkbox=\"\" [(ngModel)]=\"model.code\"></label>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );

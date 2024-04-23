@@ -119,20 +119,9 @@ namespace Util.Ui.NgZorro.Tests.Images {
         /// </summary>
         [Fact]
         public void TestDisablePreview() {
-            _wrapper.SetContextAttribute( UiConst.DisablePreview, true );
+            _wrapper.SetContextAttribute( UiConst.DisablePreview, "true" );
             var result = new StringBuilder();
             result.Append( "<img nz-image=\"\" [nzDisablePreview]=\"true\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否禁止预览
-        /// </summary>
-        [Fact]
-        public void TestBindDisablePreview() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisablePreview, "a" );
-            var result = new StringBuilder();
-            result.Append( "<img nz-image=\"\" [nzDisablePreview]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -141,20 +130,9 @@ namespace Util.Ui.NgZorro.Tests.Images {
         /// </summary>
         [Fact]
         public void TestCloseOnNavigation() {
-            _wrapper.SetContextAttribute( UiConst.CloseOnNavigation, true );
+            _wrapper.SetContextAttribute( UiConst.CloseOnNavigation, "true" );
             var result = new StringBuilder();
             result.Append( "<img nz-image=\"\" [nzCloseOnNavigation]=\"true\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试导航时是否关闭预览
-        /// </summary>
-        [Fact]
-        public void TestBindCloseOnNavigation() {
-            _wrapper.SetContextAttribute( AngularConst.BindCloseOnNavigation, "a" );
-            var result = new StringBuilder();
-            result.Append( "<img nz-image=\"\" [nzCloseOnNavigation]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

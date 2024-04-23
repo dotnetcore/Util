@@ -57,7 +57,7 @@ public class TableSettingsBuilder : AngularTagBuilder {
     /// 设置表格边框
     /// </summary>
     public TableSettingsBuilder Bordered() {
-        AttributeIfNotEmpty( "[initBordered]", _config.GetBoolValue( UiConst.Bordered ) );
+        AttributeIfNotEmpty( "[initBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 

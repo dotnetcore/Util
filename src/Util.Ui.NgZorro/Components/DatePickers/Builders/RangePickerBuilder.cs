@@ -1,5 +1,4 @@
-﻿using System;
-using Util.Helpers;
+﻿using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
@@ -32,8 +31,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置允许清除
     /// </summary>
     public RangePickerBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 
@@ -41,8 +39,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public RangePickerBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -59,8 +56,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置禁用
     /// </summary>
     public RangePickerBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -111,8 +107,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置只读
     /// </summary>
     public RangePickerBuilder InputReadonly() {
-        AttributeIfNotEmpty( "[nzInputReadOnly]", _config.GetBoolValue( UiConst.InputReadonly ) );
-        AttributeIfNotEmpty( "[nzInputReadOnly]", _config.GetValue( AngularConst.BindInputReadonly ) );
+        AttributeIfNotEmpty( "[nzInputReadOnly]", _config.GetValue( UiConst.InputReadonly ) );
         return this;
     }
 
@@ -173,8 +168,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置移除边框
     /// </summary>
     public RangePickerBuilder Borderless() {
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetBoolValue( UiConst.Borderless ) );
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( AngularConst.BindBorderless ) );
+        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( UiConst.Borderless ) );
         return this;
     }
 
@@ -199,8 +193,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置显示时间选择
     /// </summary>
     public RangePickerBuilder ShowTime() {
-        AttributeIfNotEmpty( "[nzShowTime]", _config.GetBoolValue( UiConst.ShowTime ) );
-        AttributeIfNotEmpty( "[nzShowTime]", _config.GetValue( AngularConst.BindShowTime ) );
+        AttributeIfNotEmpty( "[nzShowTime]", _config.GetValue( UiConst.ShowTime ) );
         return this;
     }
 

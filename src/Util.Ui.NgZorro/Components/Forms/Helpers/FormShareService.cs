@@ -36,6 +36,15 @@ public class FormShareService {
     }
 
     /// <summary>
+    /// 设置表单标识
+    /// </summary>
+    public void SetFormId() {
+        var id = _config.GetValue( UiConst.Id );
+        if ( id.IsEmpty() == false )
+            _shareConfig.FormId = id;
+    }
+
+    /// <summary>
     /// 初始化表单共享配置
     /// </summary>
     public void Init() {

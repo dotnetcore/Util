@@ -297,7 +297,7 @@ namespace Util.Ui.NgZorro.Tests.Display {
             _wrapper.SetExpression( t => t.Birthday );
             var result = new StringBuilder();
             result.Append( "<span>" );
-            result.Append( "{{model.birthday|date:\"yyyy-MM-dd HH:mm\"}}" );
+            result.Append( "{{model.birthday|date:\"yyyy-MM-dd HH:mm:ss\"}}" );
             result.Append( "</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Collapses.Builders; 
@@ -26,8 +25,7 @@ public class CollapsePanelBuilder : AngularTagBuilder {
     /// 配置是否禁用
     /// </summary>
     public CollapsePanelBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -62,8 +60,7 @@ public class CollapsePanelBuilder : AngularTagBuilder {
     /// 配置是否显示箭头
     /// </summary>
     public CollapsePanelBuilder ShowArrow() {
-        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetBoolValue( UiConst.ShowArrow ) );
-        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetValue( AngularConst.BindShowArrow ) );
+        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetValue( UiConst.ShowArrow ) );
         return this;
     }
 
@@ -71,8 +68,7 @@ public class CollapsePanelBuilder : AngularTagBuilder {
     /// 配置是否展开面板
     /// </summary>
     public CollapsePanelBuilder Active() {
-        AttributeIfNotEmpty( "[nzActive]", _config.GetBoolValue( UiConst.Active ) );
-        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( AngularConst.BindActive ) );
+        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( UiConst.Active ) );
         AttributeIfNotEmpty( "[(nzActive)]", _config.GetValue( AngularConst.BindonActive ) );
         return this;
     }

@@ -21,35 +21,19 @@ public class WaterMarkTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzWidth],水印宽度, 默认值: 120
     /// </summary>
-    public double Width { get; set; }
-    /// <summary>
-    /// [nzWidth],水印宽度, 默认值: 120
-    /// </summary>
-    public string BindWidth { get; set; }
+    public string Width { get; set; }
     /// <summary>
     /// [nzHeight],水印高度, 默认值: 64
     /// </summary>
-    public double Height { get; set; }
-    /// <summary>
-    /// [nzHeight],水印高度, 默认值: 64
-    /// </summary>
-    public string BindHeight { get; set; }
+    public string Height { get; set; }
     /// <summary>
     /// [nzRotate],旋转角度, 默认值: -22
     /// </summary>
-    public double Rotate { get; set; }
-    /// <summary>
-    /// [nzRotate],旋转角度, 默认值: -22
-    /// </summary>
-    public string BindRotate { get; set; }
+    public string Rotate { get; set; }
     /// <summary>
     /// [nzZIndex],水印元素的 z-index, 默认值: 9
     /// </summary>
-    public double ZIndex { get; set; }
-    /// <summary>
-    /// [nzZIndex],水印元素的 z-index, 默认值: 9
-    /// </summary>
-    public string BindZIndex { get; set; }
+    public string ZIndex { get; set; }
     /// <summary>
     /// nzImage,水印图片地址
     /// </summary>

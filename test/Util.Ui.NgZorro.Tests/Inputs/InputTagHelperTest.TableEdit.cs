@@ -87,12 +87,12 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "</ng-container>" );
             result.Append( "<ng-template #e_id_b=\"\">" );
             result.Append( "<nz-form-item class=\"mb0\">" );
-            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<input #c_id=\"\" #v_id=\"xValidationExtend\" displayName=\"code\" minLengthMessage=\"编码最小为10位\" " );
-            result.Append( "name=\"code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" [(ngModel)]=\"row.code\" [editRow]=\"id_row\" " );
-            result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [x-edit-control]=\"c_id\" [x-required-extend]=\"true\" />" );
-            result.Append( "<ng-template #vt_id=\"\">" );
-            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_control_code\">" );
+            result.Append( "<input #control_code=\"\" #v_control_code=\"xValidationExtend\" displayName=\"code\" minLengthMessage=\"编码最小为10位\" " );
+            result.Append( "name=\"control_code\" nz-input=\"\" requiredMessage=\"编码不能是空值\" x-validation-extend=\"\" [(ngModel)]=\"row.code\" [editRow]=\"id_row\" " );
+            result.Append( "[maxlength]=\"100\" [minlength]=\"10\" [x-edit-control]=\"control_code\" [x-required-extend]=\"true\" />" );
+            result.Append( "<ng-template #vt_control_code=\"\">" );
+            result.Append( "{{v_control_code.getErrorMessage()}}" );
             result.Append( "</ng-template>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );

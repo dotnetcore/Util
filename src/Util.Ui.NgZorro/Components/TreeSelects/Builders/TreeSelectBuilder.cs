@@ -36,8 +36,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置允许清除
     /// </summary>
     public TreeSelectBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 
@@ -54,8 +53,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置禁用
     /// </summary>
     public TreeSelectBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -63,8 +61,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否显示图标
     /// </summary>
     public TreeSelectBuilder ShowIcon() {
-        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetBoolValue( UiConst.ShowIcon ) );
-        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( AngularConst.BindShowIcon ) );
+        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( UiConst.ShowIcon ) );
         return this;
     }
 
@@ -72,8 +69,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置显示搜索
     /// </summary>
     public TreeSelectBuilder ShowSearch() {
-        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetBoolValue( UiConst.ShowSearch ) );
-        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( AngularConst.BindShowSearch ) );
+        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( UiConst.ShowSearch ) );
         return this;
     }
 
@@ -90,8 +86,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置下拉菜单和选择器同宽
     /// </summary>
     public TreeSelectBuilder DropdownMatchSelectWidth() {
-        AttributeIfNotEmpty( "[nzDropdownMatchSelectWidth]", _config.GetBoolValue( UiConst.DropdownMatchSelectWidth ) );
-        AttributeIfNotEmpty( "[nzDropdownMatchSelectWidth]", _config.GetValue( AngularConst.BindDropdownMatchSelectWidth ) );
+        AttributeIfNotEmpty( "[nzDropdownMatchSelectWidth]", _config.GetValue( UiConst.DropdownMatchSelectWidth ) );
         return this;
     }
 
@@ -116,8 +111,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否支持多选
     /// </summary>
     public TreeSelectBuilder Multiple() {
-        AttributeIfNotEmpty( "[nzMultiple]", _config.GetBoolValue( UiConst.Multiple ) );
-        AttributeIfNotEmpty( "[nzMultiple]", _config.GetValue( AngularConst.BindMultiple ) );
+        AttributeIfNotEmpty( "[nzMultiple]", _config.GetValue( UiConst.Multiple ) );
         return this;
     }
 
@@ -125,8 +119,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否搜索隐藏未匹配节点
     /// </summary>
     public TreeSelectBuilder HideUnmatched() {
-        AttributeIfNotEmpty( "[nzHideUnMatched]", _config.GetBoolValue( UiConst.HideUnmatched ) );
-        AttributeIfNotEmpty( "[nzHideUnMatched]", _config.GetValue( AngularConst.BindHideUnmatched ) );
+        AttributeIfNotEmpty( "[nzHideUnMatched]", _config.GetValue( UiConst.HideUnmatched ) );
         return this;
     }
 
@@ -143,8 +136,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置节点前是否添加复选框
     /// </summary>
     public TreeSelectBuilder Checkable() {
-        Checkable( _config.GetBoolValue( UiConst.Checkable ) );
-        Checkable( _config.GetValue( AngularConst.BindCheckable ) );
+        Checkable( _config.GetValue( UiConst.Checkable ) );
         return this;
     }
 
@@ -160,8 +152,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置严格勾选
     /// </summary>
     public TreeSelectBuilder CheckStrictly() {
-        AttributeIfNotEmpty( "[nzCheckStrictly]", _config.GetBoolValue( UiConst.CheckStrictly ) );
-        AttributeIfNotEmpty( "[nzCheckStrictly]", _config.GetValue( AngularConst.BindCheckStrictly ) );
+        AttributeIfNotEmpty( "[nzCheckStrictly]", _config.GetValue( UiConst.CheckStrictly ) );
         return this;
     }
 
@@ -169,8 +160,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否显示展开图标
     /// </summary>
     public TreeSelectBuilder ShowExpand() {
-        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetBoolValue( UiConst.ShowExpand ) );
-        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetValue( AngularConst.BindShowExpand ) );
+        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetValue( UiConst.ShowExpand ) );
         return this;
     }
 
@@ -178,8 +168,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否显示连接线
     /// </summary>
     public TreeSelectBuilder ShowLine() {
-        AttributeIfNotEmpty( "[nzShowLine]", _config.GetBoolValue( UiConst.ShowLine ) );
-        AttributeIfNotEmpty( "[nzShowLine]", _config.GetValue( AngularConst.BindShowLine ) );
+        AttributeIfNotEmpty( "[nzShowLine]", _config.GetValue( UiConst.ShowLine ) );
         return this;
     }
 
@@ -187,8 +176,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否异步加载
     /// </summary>
     public TreeSelectBuilder AsyncData() {
-        AttributeIfNotEmpty( "[nzAsyncData]", _config.GetBoolValue( UiConst.AsyncData ) );
-        AttributeIfNotEmpty( "[nzAsyncData]", _config.GetValue( AngularConst.BindAsyncData ) );
+        AttributeIfNotEmpty( "[nzAsyncData]", _config.GetValue( UiConst.AsyncData ) );
         return this;
     }
 
@@ -212,8 +200,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否默认展开所有节点
     /// </summary>
     public TreeSelectBuilder DefaultExpandAll() {
-        AttributeIfNotEmpty( "[nzDefaultExpandAll]", _config.GetBoolValue( UiConst.DefaultExpandAll ) );
-        AttributeIfNotEmpty( "[nzDefaultExpandAll]", _config.GetValue( AngularConst.BindDefaultExpandAll ) );
+        AttributeIfNotEmpty( "[nzDefaultExpandAll]", _config.GetValue( UiConst.DefaultExpandAll ) );
         return this;
     }
 
@@ -237,8 +224,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置最大标签数量
     /// </summary>
     public TreeSelectBuilder MaxTagCount() {
-        AttributeIfNotEmpty( "nzMaxTagCount", _config.GetValue( UiConst.MaxTagCount ) );
-        AttributeIfNotEmpty( "[nzMaxTagCount]", _config.GetValue( AngularConst.BindMaxTagCount ) );
+        AttributeIfNotEmpty( "[nzMaxTagCount]", _config.GetValue( UiConst.MaxTagCount ) );
         return this;
     }
 
@@ -271,8 +257,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置虚拟滚动列高
     /// </summary>
     public TreeSelectBuilder VirtualItemSize() {
-        AttributeIfNotEmpty( "nzVirtualItemSize", _config.GetValue( UiConst.VirtualItemSize ) );
-        AttributeIfNotEmpty( "[nzVirtualItemSize]", _config.GetValue( AngularConst.BindVirtualItemSize ) );
+        AttributeIfNotEmpty( "[nzVirtualItemSize]", _config.GetValue( UiConst.VirtualItemSize ) );
         return this;
     }
 
@@ -280,8 +265,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置虚拟滚动缓冲区最大高度
     /// </summary>
     public TreeSelectBuilder VirtualMaxBufferPx() {
-        AttributeIfNotEmpty( "nzVirtualMaxBufferPx", _config.GetValue( UiConst.VirtualMaxBufferPx ) );
-        AttributeIfNotEmpty( "[nzVirtualMaxBufferPx]", _config.GetValue( AngularConst.BindVirtualMaxBufferPx ) );
+        AttributeIfNotEmpty( "[nzVirtualMaxBufferPx]", _config.GetValue( UiConst.VirtualMaxBufferPx ) );
         return this;
     }
 
@@ -289,8 +273,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置虚拟滚动缓冲区最小高度
     /// </summary>
     public TreeSelectBuilder VirtualMinBufferPx() {
-        AttributeIfNotEmpty( "nzVirtualMinBufferPx", _config.GetValue( UiConst.VirtualMinBufferPx ) );
-        AttributeIfNotEmpty( "[nzVirtualMinBufferPx]", _config.GetValue( AngularConst.BindVirtualMinBufferPx ) );
+        AttributeIfNotEmpty( "[nzVirtualMinBufferPx]", _config.GetValue( UiConst.VirtualMinBufferPx ) );
         return this;
     }
 

@@ -1,8 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Drawers.Configs;
-using Util.Ui.NgZorro.Components.Modals.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Modals.Builders; 
@@ -28,8 +25,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否显示遮罩
     /// </summary>
     public ModalBuilder Mask() {
-        AttributeIfNotEmpty( "[nzMask]", _config.GetBoolValue( UiConst.Mask ) );
-        AttributeIfNotEmpty( "[nzMask]", _config.GetValue( AngularConst.BindMask ) );
+        AttributeIfNotEmpty( "[nzMask]", _config.GetValue( UiConst.Mask ) );
         return this;
     }
 
@@ -37,8 +33,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置点击遮罩是否允许关闭
     /// </summary>
     public ModalBuilder MaskClosable() {
-        AttributeIfNotEmpty( "[nzMaskClosable]", _config.GetBoolValue( UiConst.MaskClosable ) );
-        AttributeIfNotEmpty( "[nzMaskClosable]", _config.GetValue( AngularConst.BindMaskClosable ) );
+        AttributeIfNotEmpty( "[nzMaskClosable]", _config.GetValue( UiConst.MaskClosable ) );
         return this;
     }
 
@@ -46,8 +41,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置导航时是否关闭
     /// </summary>
     public ModalBuilder CloseOnNavigation() {
-        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetBoolValue( UiConst.CloseOnNavigation ) );
-        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetValue( AngularConst.BindCloseOnNavigation ) );
+        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetValue( UiConst.CloseOnNavigation ) );
         return this;
     }
 
@@ -55,7 +49,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否可见
     /// </summary>
     public ModalBuilder Visible() {
-        AttributeIfNotEmpty( "[(nzVisible)]", _config.GetBoolValue( UiConst.Visible ) );
+        AttributeIfNotEmpty( "[(nzVisible)]", _config.GetValue( UiConst.Visible ) );
         return this;
     }
 
@@ -63,8 +57,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否可关闭
     /// </summary>
     public ModalBuilder Closable() {
-        AttributeIfNotEmpty( "[nzClosable]", _config.GetBoolValue( UiConst.Closable ) );
-        AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( AngularConst.BindClosable ) );
+        AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( UiConst.Closable ) );
         return this;
     }
 
@@ -80,8 +73,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否禁用确定按钮
     /// </summary>
     public ModalBuilder OkDisabled() {
-        AttributeIfNotEmpty( "[nzOkDisabled]", _config.GetBoolValue( UiConst.OkDisabled ) );
-        AttributeIfNotEmpty( "[nzOkDisabled]", _config.GetValue( AngularConst.BindOkDisabled ) );
+        AttributeIfNotEmpty( "[nzOkDisabled]", _config.GetValue( UiConst.OkDisabled ) );
         return this;
     }
 
@@ -97,8 +89,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否禁用取消按钮
     /// </summary>
     public ModalBuilder CancelDisabled() {
-        AttributeIfNotEmpty( "[nzCancelDisabled]", _config.GetBoolValue( UiConst.CancelDisabled ) );
-        AttributeIfNotEmpty( "[nzCancelDisabled]", _config.GetValue( AngularConst.BindCancelDisabled ) );
+        AttributeIfNotEmpty( "[nzCancelDisabled]", _config.GetValue( UiConst.CancelDisabled ) );
         return this;
     }
 
@@ -106,8 +97,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否支持键盘ESC键关闭
     /// </summary>
     public ModalBuilder Keyboard() {
-        AttributeIfNotEmpty( "[nzKeyboard]", _config.GetBoolValue( UiConst.Keyboard ) );
-        AttributeIfNotEmpty( "[nzKeyboard]", _config.GetValue( AngularConst.BindKeyboard ) );
+        AttributeIfNotEmpty( "[nzKeyboard]", _config.GetValue( UiConst.Keyboard ) );
         return this;
     }
 
@@ -115,8 +105,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置是否垂直居中显示
     /// </summary>
     public ModalBuilder Centered() {
-        AttributeIfNotEmpty( "[nzCentered]", _config.GetBoolValue( UiConst.Centered ) );
-        AttributeIfNotEmpty( "[nzCentered]", _config.GetValue( AngularConst.BindCentered ) );
+        AttributeIfNotEmpty( "[nzCentered]", _config.GetValue( UiConst.Centered ) );
         return this;
     }
 
@@ -148,8 +137,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置z-index
     /// </summary>
     public ModalBuilder ZIndex() {
-        AttributeIfNotEmpty( "nzZIndex", _config.GetValue( UiConst.ZIndex ) );
-        AttributeIfNotEmpty( "[nzZIndex]", _config.GetValue( AngularConst.BindZIndex ) );
+        AttributeIfNotEmpty( "[nzZIndex]", _config.GetValue( UiConst.ZIndex ) );
         return this;
     }
 
@@ -157,8 +145,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置宽度
     /// </summary>
     public ModalBuilder Width() {
-        AttributeIfNotEmpty( "nzWidth", _config.GetValue( UiConst.Width ) );
-        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( AngularConst.BindWidth ) );
+        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( UiConst.Width ) );
         return this;
     }
 
@@ -253,8 +240,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置确认按钮是否危险按钮
     /// </summary>
     public ModalBuilder OkDanger() {
-        AttributeIfNotEmpty( "[nzOkDanger]", _config.GetBoolValue( UiConst.OkDanger ) );
-        AttributeIfNotEmpty( "[nzOkDanger]", _config.GetValue( AngularConst.BindOkDanger ) );
+        AttributeIfNotEmpty( "[nzOkDanger]", _config.GetValue( UiConst.OkDanger ) );
         return this;
     }
 

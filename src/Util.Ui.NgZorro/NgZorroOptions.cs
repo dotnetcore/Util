@@ -59,4 +59,12 @@ public class NgZorroOptions : RazorOptions {
     /// 表格序号对齐方式，默认值：左对齐
     /// </summary>
     public TableHeadColumnAlign TableLineNumberAlign { get; set; } = TableHeadColumnAlign.Left;
+    /// <summary>
+    /// 对话框内容容器 &lt;util-dialog-container> 的最大高度,默认值: 500px
+    /// </summary>
+    public string DialogContainerMaxHeight { get; set; } = "500px";
+    /// <summary>
+    /// 启用表格排序,注意: 仅在使用 for 表达式时生效,且对树形表格无效, 默认值: false
+    /// </summary>
+    public bool EnableTableSort { get; set; }
 }

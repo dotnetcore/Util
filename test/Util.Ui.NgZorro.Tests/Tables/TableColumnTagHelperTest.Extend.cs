@@ -6,7 +6,7 @@ using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
 
-namespace Util.Ui.NgZorro.Tests.Tables; 
+namespace Util.Ui.NgZorro.Tests.Tables;
 
 /// <summary>
 /// 表格单元格测试 - 指令扩展
@@ -637,6 +637,29 @@ public partial class TableColumnTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.TooltipTitle, "a" );
         var result = new StringBuilder();
         result.Append( "<td nz-tooltip=\"\" nzTooltipTitle=\"a\">b</td>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    #endregion
+
+    #region Clipboard
+
+    /// <summary>
+    /// 测试复制到剪贴板
+    /// </summary>
+    [Fact]
+    public void TestClipboard() {
+        _wrapper.SetContextAttribute( UiConst.Id, "a" );
+        _wrapper.SetContextAttribute( UiConst.Clipboard, true );
+        _wrapper.SetContextAttribute( UiConst.Column, "code" );
+        var result = new StringBuilder();
+        result.Append( "<td #a=\"\">" );
+        result.Append( "{{row.code}}" );
+        result.Append( "<button #btn_a_code=\"\" #x_btn_a_code=\"xButtonExtend\" (click)=\"x_btn_a_code.copyToClipboard(row.code)\" *ngIf=\"row.code\" " );
+        result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
+        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "</button>" );
+        result.Append( "</td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

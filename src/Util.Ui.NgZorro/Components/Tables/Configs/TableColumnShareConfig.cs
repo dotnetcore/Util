@@ -227,6 +227,18 @@ public class TableColumnShareConfig {
         _tableShareConfig.Columns.Add( column );
         if ( column.IsEnableResizable )
             _tableShareConfig.IsEnableResizable = true;
+        InitLeft();
+    }
+
+    /// <summary>
+    /// 初始化左侧固定
+    /// </summary>
+    private void InitLeft() {
+        if ( IsFirst && IsLeft == "true" ) {
+            _tableShareConfig.IsCheckboxLeft = "true";
+            _tableShareConfig.IsRadioLeft = "true";
+            _tableShareConfig.IsLineNumberLeft = "true";
+        }
     }
 
     /// <summary>

@@ -15,6 +15,7 @@ public class RangePickerExpressionLoader : NgZorroExpressionLoaderBase {
     /// <param name="info">模型表达式信息</param>
     protected override void Load( Config config, ModelExpressionInfo info ) {
         LoadLabel( config, info );
+        LoadId( config, info );
         LoadName( config, info );
         LoadDate( config, info );
         LoadRequired( config, info );
@@ -28,10 +29,17 @@ public class RangePickerExpressionLoader : NgZorroExpressionLoaderBase {
     }
 
     /// <summary>
+    /// 加载标识
+    /// </summary>
+    protected virtual void LoadId( Config config, ModelExpressionInfo info ) {
+        config.SetAttribute( UiConst.Id, GeKebaberizePropertyName( config, info ), false );
+    }
+
+    /// <summary>
     /// 加载名称
     /// </summary>
     protected virtual void LoadName( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.Name, info.LastPropertyName, false );
+        config.SetAttribute( UiConst.Name, GeKebaberizePropertyName( config, info ), false );
     }
 
     /// <summary>

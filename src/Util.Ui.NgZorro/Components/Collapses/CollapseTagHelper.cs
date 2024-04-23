@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Collapses.Renders;
 using Util.Ui.Renders;
 
@@ -14,27 +13,15 @@ public class CollapseTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzAccordion],是否手风琴,即每次只打开一个标签页,默认值: false
     /// </summary>
-    public bool Accordion { get; set; }
-    /// <summary>
-    /// [nzAccordion],是否手风琴,即每次只打开一个标签页,默认值: false
-    /// </summary>
-    public string BindAccordion { get; set; }
+    public string Accordion { get; set; }
     /// <summary>
     /// [nzBordered],是否有边框,默认值: true
     /// </summary>
-    public bool Bordered { get; set; }
-    /// <summary>
-    /// [nzBordered],是否有边框,默认值: true
-    /// </summary>
-    public string BindBordered { get; set; }
+    public string Bordered { get; set; }
     /// <summary>
     /// [nzGhost],是否使折叠面板透明且无边框,默认值: false
     /// </summary>
-    public bool Ghost { get; set; }
-    /// <summary>
-    /// [nzGhost],是否使折叠面板透明且无边框,默认值: false
-    /// </summary>
-    public string BindGhost { get; set; }
+    public string Ghost { get; set; }
     /// <summary>
     /// nzExpandIconPosition,图标位置,可选值: 'left' | 'right' ,默认值: 'left'
     /// </summary>

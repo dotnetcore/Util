@@ -1,6 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Builders; 
 
@@ -26,7 +24,6 @@ public class TextareaCountBuilder : AngularTagBuilder {
     /// </summary>
     public TextareaCountBuilder MaxCharacterCount() {
         AttributeIfNotEmpty( "[nzMaxCharacterCount]", _config.GetValue( UiConst.MaxCharacterCount ) );
-        AttributeIfNotEmpty( "[nzMaxCharacterCount]", _config.GetValue( AngularConst.BindMaxCharacterCount ) );
         return this;
     }
 

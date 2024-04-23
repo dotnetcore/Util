@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         /// </summary>
         [Fact]
         public void TestStandalone() {
-            _wrapper.SetContextAttribute( UiConst.Standalone, true );
+            _wrapper.SetContextAttribute( UiConst.Standalone, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-badge [nzStandalone]=\"true\"></nz-badge>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否独立使用
-        /// </summary>
-        [Fact]
-        public void TestBindStandalone() {
-            _wrapper.SetContextAttribute( AngularConst.BindStandalone, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-badge [nzStandalone]=\"a\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -97,20 +86,9 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         /// </summary>
         [Fact]
         public void TestCount() {
-            _wrapper.SetContextAttribute( UiConst.Count, 1 );
+            _wrapper.SetContextAttribute( UiConst.Count, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-badge nzCount=\"1\"></nz-badge>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示的数字
-        /// </summary>
-        [Fact]
-        public void TestBindCount() {
-            _wrapper.SetContextAttribute( AngularConst.BindCount, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-badge [nzCount]=\"a\"></nz-badge>" );
+            result.Append( "<nz-badge [nzCount]=\"1\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +97,9 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         /// </summary>
         [Fact]
         public void TestDot() {
-            _wrapper.SetContextAttribute( UiConst.Dot, true );
+            _wrapper.SetContextAttribute( UiConst.Dot, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-badge [nzDot]=\"true\"></nz-badge>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否不显示数字,仅显示小红点
-        /// </summary>
-        [Fact]
-        public void TestBindDot() {
-            _wrapper.SetContextAttribute( AngularConst.BindDot, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-badge [nzDot]=\"a\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -141,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         /// </summary>
         [Fact]
         public void TestShowDot() {
-            _wrapper.SetContextAttribute( UiConst.ShowDot, true );
+            _wrapper.SetContextAttribute( UiConst.ShowDot, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-badge [nzShowDot]=\"true\"></nz-badge>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示小红点
-        /// </summary>
-        [Fact]
-        public void TestBindShowDot() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowDot, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-badge [nzShowDot]=\"a\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -163,20 +119,9 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         /// </summary>
         [Fact]
         public void TestOverflowCount() {
-            _wrapper.SetContextAttribute( UiConst.OverflowCount, 1 );
+            _wrapper.SetContextAttribute( UiConst.OverflowCount, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-badge nzOverflowCount=\"1\"></nz-badge>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试封顶数字
-        /// </summary>
-        [Fact]
-        public void TestBindOverflowCount() {
-            _wrapper.SetContextAttribute( AngularConst.BindOverflowCount, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-badge [nzOverflowCount]=\"a\"></nz-badge>" );
+            result.Append( "<nz-badge [nzOverflowCount]=\"1\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -185,20 +130,9 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         /// </summary>
         [Fact]
         public void TestShowZero() {
-            _wrapper.SetContextAttribute( UiConst.ShowZero, true );
+            _wrapper.SetContextAttribute( UiConst.ShowZero, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-badge [nzShowZero]=\"true\"></nz-badge>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示0值
-        /// </summary>
-        [Fact]
-        public void TestBindShowZero() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowZero, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-badge [nzShowZero]=\"a\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

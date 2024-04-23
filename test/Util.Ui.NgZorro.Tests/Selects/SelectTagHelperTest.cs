@@ -132,20 +132,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestAutoClearSearchValue() {
-            _wrapper.SetContextAttribute( UiConst.AutoClearSearchValue, true );
+            _wrapper.SetContextAttribute( UiConst.AutoClearSearchValue, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzAutoClearSearchValue]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试清除搜索值
-        /// </summary>
-        [Fact]
-        public void TestBindAutoClearSearchValue() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoClearSearchValue, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzAutoClearSearchValue]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -154,20 +143,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestAllowClear() {
-            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzAllowClear]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowClear() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowClear, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzAllowClear]=\"Ab\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -176,20 +154,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestBorderless() {
-            _wrapper.SetContextAttribute( UiConst.Borderless, true );
+            _wrapper.SetContextAttribute( UiConst.Borderless, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzBorderless]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试移除边框
-        /// </summary>
-        [Fact]
-        public void TestBindBorderless() {
-            _wrapper.SetContextAttribute( AngularConst.BindBorderless, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzBorderless]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -198,20 +165,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestOpen() {
-            _wrapper.SetContextAttribute( UiConst.Open, true );
+            _wrapper.SetContextAttribute( UiConst.Open, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzOpen]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否打开下拉菜单
-        /// </summary>
-        [Fact]
-        public void TestBindOpen() {
-            _wrapper.SetContextAttribute( AngularConst.BindOpen, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzOpen]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -231,20 +187,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzAutoFocus]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzAutoFocus]=\"Ab\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -253,20 +198,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzDisabled]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzDisabled]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -308,20 +242,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestDropdownMatchSelectWidth() {
-            _wrapper.SetContextAttribute( UiConst.DropdownMatchSelectWidth, true );
+            _wrapper.SetContextAttribute( UiConst.DropdownMatchSelectWidth, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzDropdownMatchSelectWidth]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试下拉菜单和选择器同宽
-        /// </summary>
-        [Fact]
-        public void TestBindDropdownMatchSelectWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindDropdownMatchSelectWidth, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzDropdownMatchSelectWidth]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -341,20 +264,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestServerSearch() {
-            _wrapper.SetContextAttribute( UiConst.ServerSearch, true );
+            _wrapper.SetContextAttribute( UiConst.ServerSearch, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzServerSearch]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试服务端搜索
-        /// </summary>
-        [Fact]
-        public void TestBindServerSearch() {
-            _wrapper.SetContextAttribute( AngularConst.BindServerSearch, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzServerSearch]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -374,20 +286,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestMaxMultipleCount() {
-            _wrapper.SetContextAttribute( UiConst.MaxMultipleCount, 1 );
+            _wrapper.SetContextAttribute( UiConst.MaxMultipleCount, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-select nzMaxMultipleCount=\"1\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试最大多选数量
-        /// </summary>
-        [Fact]
-        public void TestBindMaxMultipleCount() {
-            _wrapper.SetContextAttribute( AngularConst.BindMaxMultipleCount, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzMaxMultipleCount]=\"a\"></nz-select>" );
+            result.Append( "<nz-select [nzMaxMultipleCount]=\"1\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -462,20 +363,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestShowArrow() {
-            _wrapper.SetContextAttribute( UiConst.ShowArrow, true );
+            _wrapper.SetContextAttribute( UiConst.ShowArrow, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzShowArrow]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示箭头
-        /// </summary>
-        [Fact]
-        public void TestBindShowArrow() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowArrow, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzShowArrow]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -484,20 +374,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestShowSearch() {
-            _wrapper.SetContextAttribute( UiConst.ShowSearch, true );
+            _wrapper.SetContextAttribute( UiConst.ShowSearch, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-select [nzShowSearch]=\"true\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示搜索
-        /// </summary>
-        [Fact]
-        public void TestBindShowSearch() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowSearch, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzShowSearch]=\"a\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -605,20 +484,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestMaxTagCount() {
-            _wrapper.SetContextAttribute( UiConst.MaxTagCount, 1 );
+            _wrapper.SetContextAttribute( UiConst.MaxTagCount, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-select nzMaxTagCount=\"1\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试最大标签数量
-        /// </summary>
-        [Fact]
-        public void TestBindMaxTagCount() {
-            _wrapper.SetContextAttribute( AngularConst.BindMaxTagCount, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzMaxTagCount]=\"a\"></nz-select>" );
+            result.Append( "<nz-select [nzMaxTagCount]=\"1\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -649,20 +517,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestOptionHeightPx() {
-            _wrapper.SetContextAttribute( UiConst.OptionHeightPx, 1 );
+            _wrapper.SetContextAttribute( UiConst.OptionHeightPx, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-select nzOptionHeightPx=\"1\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试选项高度
-        /// </summary>
-        [Fact]
-        public void TestBindOptionHeightPx() {
-            _wrapper.SetContextAttribute( AngularConst.BindOptionHeightPx, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzOptionHeightPx]=\"a\"></nz-select>" );
+            result.Append( "<nz-select [nzOptionHeightPx]=\"1\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -671,20 +528,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestOptionOverflowSize() {
-            _wrapper.SetContextAttribute( UiConst.OptionOverflowSize, 1 );
+            _wrapper.SetContextAttribute( UiConst.OptionOverflowSize, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-select nzOptionOverflowSize=\"1\"></nz-select>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试最大显示选项数量
-        /// </summary>
-        [Fact]
-        public void TestBindOptionOverflowSize() {
-            _wrapper.SetContextAttribute( AngularConst.BindOptionOverflowSize, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-select [nzOptionOverflowSize]=\"a\"></nz-select>" );
+            result.Append( "<nz-select [nzOptionOverflowSize]=\"1\"></nz-select>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

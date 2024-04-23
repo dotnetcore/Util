@@ -73,29 +73,10 @@ public class GenerateHtmlFilter : IAsyncPageFilter {
     public static string GetPath( string path, RazorOptions options ) {
         if ( string.IsNullOrWhiteSpace( path ) )
             return string.Empty;
-        if ( options.GenerateHtmlVersion == "v1" )
-            return GetPath( path, options.GenerateHtmlBasePath, options.GenerateHtmlFolder, options.GenerateHtmlSuffix );
         if ( path.Contains( "/" ) == false )
             return Util.Helpers.Url.JoinPath( options.RazorRootDirectory, options.GenerateHtmlFolder, $"{path}.html" );
         var lastIndex = path.LastIndexOf( "/", StringComparison.Ordinal );
         return Util.Helpers.Url.JoinPath( options.RazorRootDirectory, path.Substring( 0, lastIndex ), options.GenerateHtmlFolder, $"{path.Substring( lastIndex + 1 )}.html" );
-    }
-
-    /// <summary>
-    /// 获取Html文件路径
-    /// </summary>
-    /// <param name="path">路径</param>
-    /// <param name="basePath">基路径，默认值：/ClientApp/src/app</param>
-    /// <param name="folder">html文件目录名称，默认值：html</param>
-    /// <param name="htmlSuffix">html文件后缀，默认值：component.html</param>
-    public static string GetPath( string path, string basePath = "/ClientApp/src/app", string folder = "html", string htmlSuffix = "component.html" ) {
-        if ( string.IsNullOrWhiteSpace( path ) )
-            return string.Empty;
-        path = path.Kebaberize().ToLower().Trim( '\\' ).Trim( '/' );
-        if ( path.Contains( "/" ) == false )
-            return Util.Helpers.Url.JoinPath( basePath, $"{path}.{htmlSuffix}" );
-        var lastIndex = path.LastIndexOf( "/", StringComparison.Ordinal );
-        return Util.Helpers.Url.JoinPath( basePath, path.Substring( 0, lastIndex ), folder, $"{path.Substring( lastIndex + 1 )}.{htmlSuffix}" );
     }
 
     /// <summary>

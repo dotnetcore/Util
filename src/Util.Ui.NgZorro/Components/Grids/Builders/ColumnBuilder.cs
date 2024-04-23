@@ -69,10 +69,50 @@ public class ColumnBuilder : ColumnBuilderBase<ColumnBuilder> {
     protected virtual void ConfigSearchFormActionColumn() {
         _config.SetAttribute( UiConst.Xs, 24 );
         _config.SetAttribute( UiConst.Sm, 24 );
-        _config.SetAttribute( UiConst.Md, "{" + $"span:expand?{GetSearchFormActionSpan( 2 )}:{GetSearchFormActionSpan( 2, false )}" + "}" );
-        _config.SetAttribute( UiConst.Lg, "{" + $"span:expand?{GetSearchFormActionSpan( 3 )}:{GetSearchFormActionSpan( 3, false )}" + "}" );
-        _config.SetAttribute( UiConst.Xl, "{" + $"span:expand?{GetSearchFormActionSpan( 3 )}:{GetSearchFormActionSpan( 3, false )}" + "}" );
-        _config.SetAttribute( UiConst.Xxl, "{" + $"span:expand?{GetSearchFormActionSpan( GetXxlColumnNumber() )}:{GetSearchFormActionSpan( GetXxlColumnNumber(), false )}" + "}" );
+        _config.SetAttribute( UiConst.Md, GetSearchFormActionMd() );
+        _config.SetAttribute( UiConst.Lg, GetSearchFormActionLg() );
+        _config.SetAttribute( UiConst.Xl, GetSearchFormActionXl() );
+        _config.SetAttribute( UiConst.Xxl, GetSearchFormActionXxl() );
+    }
+
+    /// <summary>
+    /// 获取搜索表单操作区域中尺寸栅格值
+    /// </summary>
+    protected virtual string GetSearchFormActionMd() {
+        var result = GetMd();
+        if ( result.IsEmpty() == false )
+            return result;
+        return "{" + $"span:expand?{GetSearchFormActionSpan( 2 )}:{GetSearchFormActionSpan( 2, false )}" + "}";
+    }
+
+    /// <summary>
+    /// 获取搜索表单操作区域宽尺寸栅格值
+    /// </summary>
+    protected virtual string GetSearchFormActionLg() {
+        var result = GetLg();
+        if ( result.IsEmpty() == false )
+            return result;
+        return "{" + $"span:expand?{GetSearchFormActionSpan( 3 )}:{GetSearchFormActionSpan( 3, false )}" + "}";
+    }
+
+    /// <summary>
+    /// 获取搜索表单操作区域超宽尺寸栅格值
+    /// </summary>
+    protected virtual string GetSearchFormActionXl() {
+        var result = GetXl();
+        if ( result.IsEmpty() == false )
+            return result;
+        return "{" + $"span:expand?{GetSearchFormActionSpan( 3 )}:{GetSearchFormActionSpan( 3, false )}" + "}";
+    }
+
+    /// <summary>
+    /// 获取搜索表单操作区域极宽尺寸栅格值
+    /// </summary>
+    protected virtual string GetSearchFormActionXxl() {
+        var result = GetXxl();
+        if ( result.IsEmpty() == false )
+            return result;
+        return "{" + $"span:expand?{GetSearchFormActionSpan( GetXxlColumnNumber() )}:{GetSearchFormActionSpan( GetXxlColumnNumber(), false )}" + "}";
     }
 
     /// <summary>

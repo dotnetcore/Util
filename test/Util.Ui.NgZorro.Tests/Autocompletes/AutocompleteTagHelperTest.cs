@@ -66,20 +66,9 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// </summary>
         [Fact]
         public void TestBackfill() {
-            _wrapper.SetContextAttribute( UiConst.Backfill, true );
+            _wrapper.SetContextAttribute( UiConst.Backfill, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete [nzBackfill]=\"true\"></nz-autocomplete>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试回填选中项
-        /// </summary>
-        [Fact]
-        public void TestBindBackfill() {
-            _wrapper.SetContextAttribute( AngularConst.BindBackfill, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-autocomplete [nzBackfill]=\"a\"></nz-autocomplete>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -99,20 +88,9 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// </summary>
         [Fact]
         public void TestDefaultActiveFirstOption() {
-            _wrapper.SetContextAttribute( UiConst.DefaultActiveFirstOption, true );
+            _wrapper.SetContextAttribute( UiConst.DefaultActiveFirstOption, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete [nzDefaultActiveFirstOption]=\"true\"></nz-autocomplete>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试高亮第一项
-        /// </summary>
-        [Fact]
-        public void TestBindDefaultActiveFirstOption() {
-            _wrapper.SetContextAttribute( AngularConst.BindDefaultActiveFirstOption, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-autocomplete [nzDefaultActiveFirstOption]=\"a\"></nz-autocomplete>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -121,20 +99,9 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// </summary>
         [Fact]
         public void TestWidth() {
-            _wrapper.SetContextAttribute( UiConst.Width, 1 );
+            _wrapper.SetContextAttribute( UiConst.Width, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete [nzWidth]=\"1\"></nz-autocomplete>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试宽度
-        /// </summary>
-        [Fact]
-        public void TestBindWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindWidth, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-autocomplete [nzWidth]=\"a\"></nz-autocomplete>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

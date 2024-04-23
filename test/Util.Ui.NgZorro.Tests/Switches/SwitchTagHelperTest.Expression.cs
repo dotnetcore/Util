@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Tests.Switches {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>code</nz-form-label>" );
             result.Append( "<nz-form-control>" );
-            result.Append( "<nz-switch name=\"code\" [(ngModel)]=\"model.code\"></nz-switch>" );
+            result.Append( "<nz-switch #code=\"\" name=\"code\" [(ngModel)]=\"model.code\"></nz-switch>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );

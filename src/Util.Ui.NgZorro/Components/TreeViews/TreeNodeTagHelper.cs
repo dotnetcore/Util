@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.TreeViews.Renders;
 using Util.Ui.Renders;
 
@@ -16,13 +15,13 @@ public class TreeNodeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string TreeNodeDef { get; set; }
     /// <summary>
-    /// nzTreeNodePadding,以添加内边距的方式显示节点缩进,性能最好
+    /// [nzTreeNodePadding],以添加内边距的方式显示节点缩进,性能最好
     /// </summary>
-    public bool TreeNodePadding { get; set; }
+    public string TreeNodePadding { get; set; }
     /// <summary>
-    /// nzTreeNodeIndentLine,以添加缩进线的方式显示节点缩进
+    /// [nzTreeNodeIndentLine],以添加缩进线的方式显示节点缩进
     /// </summary>
-    public bool TreeNodeIndentLine { get; set; }
+    public string TreeNodeIndentLine { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

@@ -23,19 +23,11 @@ public class InputNumberTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAutoFocus],是否自动聚焦
     /// </summary>
-    public bool AutoFocus { get; set; }
-    /// <summary>
-    /// [nzAutoFocus],是否自动聚焦
-    /// </summary>
-    public string BindAutoFocus { get; set; }
+    public string AutoFocus { get; set; }
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [required],是否必填项
     /// </summary>
@@ -49,21 +41,13 @@ public class InputNumberTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindRequiredMessage { get; set; }
     /// <summary>
-    /// nzMax,最大值
-    /// </summary>
-    public double Max { get; set; }
-    /// <summary>
     /// [nzMax],最大值
     /// </summary>
-    public string BindMax { get; set; }
-    /// <summary>
-    /// nzMin,最小值
-    /// </summary>
-    public double Min { get; set; }
+    public string Max { get; set; }
     /// <summary>
     /// [nzMin],最小值
     /// </summary>
-    public string BindMin { get; set; }
+    public string Min { get; set; }
     /// <summary>
     /// [nzFormatter],格式化函数,函数定义:	(value: number | string) => string | number
     /// </summary>
@@ -73,13 +57,9 @@ public class InputNumberTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string Parser { get; set; }
     /// <summary>
-    /// nzPrecision,精度,即小数位数
-    /// </summary>
-    public int Precision { get; set; }
-    /// <summary>
     /// [nzPrecision],精度,即小数位数
     /// </summary>
-    public string BindPrecision { get; set; }
+    public string Precision { get; set; }
     /// <summary>
     /// nzPrecisionMode,数值精度的取值方式,可选值: 'cut' | 'toFixed' | ((value: number | string, precision?: number) => number)
     /// </summary>
@@ -97,13 +77,9 @@ public class InputNumberTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// nzStep,每次改变步数，可以为小数
-    /// </summary>
-    public double Step { get; set; }
-    /// <summary>
     /// [nzStep],每次改变步数，可以为小数
     /// </summary>
-    public string BindStep { get; set; }
+    public string Step { get; set; }
     /// <summary>
     /// nzInputMode,输入模式,提供了用户在编辑元素或其内容时可能输入的数据类型的提示,默认值:decimal
     /// </summary>

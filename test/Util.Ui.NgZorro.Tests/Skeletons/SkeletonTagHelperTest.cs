@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Skeletons;
 using Util.Ui.TagHelpers;
@@ -52,20 +51,9 @@ namespace Util.Ui.NgZorro.Tests.Skeletons {
         /// </summary>
         [Fact]
         public void TestActive() {
-            _wrapper.SetContextAttribute( UiConst.Active, true );
+            _wrapper.SetContextAttribute( UiConst.Active, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-skeleton [nzActive]=\"true\"></nz-skeleton>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示动画效果
-        /// </summary>
-        [Fact]
-        public void TestBindActive() {
-            _wrapper.SetContextAttribute( AngularConst.BindActive, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-skeleton [nzActive]=\"a\"></nz-skeleton>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,20 +106,9 @@ namespace Util.Ui.NgZorro.Tests.Skeletons {
         /// </summary>
         [Fact]
         public void TestRound() {
-            _wrapper.SetContextAttribute( UiConst.Round, true );
+            _wrapper.SetContextAttribute( UiConst.Round, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-skeleton [nzRound]=\"true\"></nz-skeleton>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试圆形
-        /// </summary>
-        [Fact]
-        public void TestBindRound() {
-            _wrapper.SetContextAttribute( AngularConst.BindRound, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-skeleton [nzRound]=\"a\"></nz-skeleton>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

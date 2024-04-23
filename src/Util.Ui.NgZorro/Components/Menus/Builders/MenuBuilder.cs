@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Menus.Builders; 
@@ -36,8 +35,7 @@ public class MenuBuilder : AngularTagBuilder {
     /// 配置允许选中
     /// </summary>
     public MenuBuilder Selectable() {
-        AttributeIfNotEmpty( "[nzSelectable]", _config.GetBoolValue( UiConst.Selectable ) );
-        AttributeIfNotEmpty( "[nzSelectable]", _config.GetBoolValue( AngularConst.BindSelectable ) );
+        AttributeIfNotEmpty( "[nzSelectable]", _config.GetValue( UiConst.Selectable ) );
         return this;
     }
 
@@ -54,8 +52,7 @@ public class MenuBuilder : AngularTagBuilder {
     /// 配置内嵌模式折叠状态
     /// </summary>
     public MenuBuilder InlineCollapsed() {
-        AttributeIfNotEmpty( "[nzInlineCollapsed]", _config.GetBoolValue( UiConst.InlineCollapsed ) );
-        AttributeIfNotEmpty( "[nzInlineCollapsed]", _config.GetValue( AngularConst.BindInlineCollapsed ) );
+        AttributeIfNotEmpty( "[nzInlineCollapsed]", _config.GetValue( UiConst.InlineCollapsed ) );
         return this;
     }
 

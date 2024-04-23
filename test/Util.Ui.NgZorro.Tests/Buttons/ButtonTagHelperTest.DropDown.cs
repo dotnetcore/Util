@@ -69,20 +69,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestDropdownMenuClickHide() {
-            _wrapper.SetContextAttribute( UiConst.DropdownMenuClickHide, false );
+            _wrapper.SetContextAttribute( UiConst.DropdownMenuClickHide, "false" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" [nzClickHide]=\"false\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试点击隐藏下拉菜单
-        /// </summary>
-        [Fact]
-        public void TestBindDropdownMenuClickHide() {
-            _wrapper.SetContextAttribute( AngularConst.BindDropdownMenuClickHide, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" [nzClickHide]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -91,20 +80,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestDropdownMenuVisible() {
-            _wrapper.SetContextAttribute( UiConst.DropdownMenuVisible, false );
+            _wrapper.SetContextAttribute( UiConst.DropdownMenuVisible, "false" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" [nzVisible]=\"false\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试下拉菜单可见性
-        /// </summary>
-        [Fact]
-        public void TestBindDropdownMenuVisible() {
-            _wrapper.SetContextAttribute( AngularConst.BindDropdownMenuVisible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" [nzVisible]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Selects.Builders; 
 
@@ -25,8 +24,8 @@ public class OptionBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public OptionBuilder Disabled() {
-        Disabled( _config.GetBoolValue( UiConst.Disabled ) );
-        return Disabled( _config.GetValue( AngularConst.BindDisabled ) );
+        Disabled( _config.GetValue( UiConst.Disabled ) );
+        return this;
     }
 
     /// <summary>
@@ -91,8 +90,7 @@ public class OptionBuilder : AngularTagBuilder {
     /// 配置隐藏
     /// </summary>
     public OptionBuilder Hide() {
-        AttributeIfNotEmpty( "[nzHide]", _config.GetBoolValue( UiConst.Hide ) );
-        AttributeIfNotEmpty( "[nzHide]", _config.GetValue( AngularConst.BindHide ) );
+        AttributeIfNotEmpty( "[nzHide]", _config.GetValue( UiConst.Hide ) );
         return this;
     }
 
@@ -100,8 +98,7 @@ public class OptionBuilder : AngularTagBuilder {
     /// 配置是否自定义内容
     /// </summary>
     public OptionBuilder CustomContent() {
-        AttributeIfNotEmpty( "[nzCustomContent]", _config.GetBoolValue( UiConst.CustomContent ) );
-        AttributeIfNotEmpty( "[nzCustomContent]", _config.GetValue( AngularConst.BindCustomContent ) );
+        AttributeIfNotEmpty( "[nzCustomContent]", _config.GetValue( UiConst.CustomContent ) );
         return this;
     }
 

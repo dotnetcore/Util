@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Directives.Popconfirms; 
@@ -23,18 +22,16 @@ public static class TagBuilderExtensions {
         builder.PopconfirmPlacement( config.GetValue<PopconfirmPlacement?>( UiConst.PopconfirmPlacement )?.Description() );
         builder.BindPopconfirmPlacement( config.GetValue( AngularConst.BindPopconfirmPlacement ) );
         builder.PopconfirmOrigin( config.GetValue( UiConst.PopconfirmOrigin ) );
-        builder.PopconfirmVisible( config.GetBoolValue( UiConst.PopconfirmVisible ) );
+        builder.PopconfirmVisible( config.GetValue( UiConst.PopconfirmVisible ) );
         builder.PopconfirmVisible( config.GetValue( AngularConst.BindPopconfirmVisible ) );
-        builder.PopconfirmShowArrow( config.GetBoolValue( UiConst.PopconfirmShowArrow ) );
+        builder.PopconfirmShowArrow( config.GetValue( UiConst.PopconfirmShowArrow ) );
         builder.PopconfirmShowArrow( config.GetValue( AngularConst.BindPopconfirmShowArrow ) );
         builder.PopconfirmMouseEnterDelay( config.GetValue( UiConst.PopconfirmMouseEnterDelay ) );
-        builder.BindPopconfirmMouseEnterDelay( config.GetValue( AngularConst.BindPopconfirmMouseEnterDelay ) );
         builder.PopconfirmMouseLeaveDelay( config.GetValue( UiConst.PopconfirmMouseLeaveDelay ) );
-        builder.BindPopconfirmMouseLeaveDelay( config.GetValue( AngularConst.BindPopconfirmMouseLeaveDelay ) );
         builder.PopconfirmOverlayClassName( config.GetValue( UiConst.PopconfirmOverlayClassName ) );
         builder.BindPopconfirmOverlayClassName( config.GetValue( AngularConst.BindPopconfirmOverlayClassName ) );
         builder.PopconfirmOverlayStyle( config.GetValue( UiConst.PopconfirmOverlayStyle ) );
-        builder.PopconfirmBackdrop( config.GetBoolValue( UiConst.PopconfirmBackdrop ) );
+        builder.PopconfirmBackdrop( config.GetValue( UiConst.PopconfirmBackdrop ) );
         builder.PopconfirmBackdrop( config.GetValue( AngularConst.BindPopconfirmBackdrop ) );
         builder.PopconfirmCancelText( config.GetValue( UiConst.PopconfirmCancelText ) );
         builder.BindPopconfirmCancelText( config.GetValue( AngularConst.BindPopconfirmCancelText ) );
@@ -42,7 +39,7 @@ public static class TagBuilderExtensions {
         builder.BindPopconfirmOkText( config.GetValue( AngularConst.BindPopconfirmOkText ) );
         builder.PopconfirmOkType( config.GetValue<ButtonType?>( UiConst.PopconfirmOkType )?.Description() );
         builder.BindPopconfirmOkType( config.GetValue( AngularConst.BindPopconfirmOkType ) );
-        builder.PopconfirmCondition( config.GetBoolValue( UiConst.PopconfirmCondition ) );
+        builder.PopconfirmCondition( config.GetValue( UiConst.PopconfirmCondition ) );
         builder.PopconfirmCondition( config.GetValue( AngularConst.BindPopconfirmCondition ) );
         builder.PopconfirmIcon( config.GetValue<AntDesignIcon?>( UiConst.PopconfirmIcon )?.Description() );
         builder.BindPopconfirmIcon( config.GetValue( AngularConst.BindPopconfirmIcon ) );
@@ -161,14 +158,14 @@ public static class TagBuilderExtensions {
     }
 
     /// <summary>
-    /// nzPopconfirmMouseEnterDelay,气泡框移入延时
+    /// [nzPopconfirmMouseEnterDelay],气泡框移入延时
     /// </summary>
     /// <typeparam name="TBuilder">生成器类型</typeparam>
     /// <param name="builder">生成器实例</param>
     /// <param name="value">值</param>
     public static TBuilder PopconfirmMouseEnterDelay<TBuilder>( this TBuilder builder, string value ) where TBuilder : TagBuilder {
         builder.AttributeIf( "nz-popconfirm", string.IsNullOrWhiteSpace( value ) == false );
-        builder.AttributeIfNotEmpty( "nzPopconfirmMouseEnterDelay", value );
+        builder.AttributeIfNotEmpty( "[nzPopconfirmMouseEnterDelay]", value );
         return builder;
     }
 
@@ -185,24 +182,12 @@ public static class TagBuilderExtensions {
     }
 
     /// <summary>
-    /// nzPopconfirmMouseLeaveDelay,气泡框移出延时
-    /// </summary>
-    /// <typeparam name="TBuilder">生成器类型</typeparam>
-    /// <param name="builder">生成器实例</param>
-    /// <param name="value">值</param>
-    public static TBuilder PopconfirmMouseLeaveDelay<TBuilder>( this TBuilder builder, string value ) where TBuilder : TagBuilder {
-        builder.AttributeIf( "nz-popconfirm", string.IsNullOrWhiteSpace( value ) == false );
-        builder.AttributeIfNotEmpty( "nzPopconfirmMouseLeaveDelay", value );
-        return builder;
-    }
-
-    /// <summary>
     /// [nzPopconfirmMouseLeaveDelay],气泡框移出延时
     /// </summary>
     /// <typeparam name="TBuilder">生成器类型</typeparam>
     /// <param name="builder">生成器实例</param>
     /// <param name="value">值</param>
-    public static TBuilder BindPopconfirmMouseLeaveDelay<TBuilder>( this TBuilder builder, string value ) where TBuilder : TagBuilder {
+    public static TBuilder PopconfirmMouseLeaveDelay<TBuilder>( this TBuilder builder, string value ) where TBuilder : TagBuilder {
         builder.AttributeIf( "nz-popconfirm", string.IsNullOrWhiteSpace( value ) == false );
         builder.AttributeIfNotEmpty( "[nzPopconfirmMouseLeaveDelay]", value );
         return builder;

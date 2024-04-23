@@ -35,11 +35,7 @@ public class FormTagHelper : FormContainerTagHelperBase {
     /// <summary>
     /// [nzNoColon],是否不显示表单标签的冒号，配置 nz-form-label 的 [nzNoColon] 的默认值
     /// </summary>
-    public bool NoColon { get; set; }
-    /// <summary>
-    /// [nzNoColon],是否不显示表单标签的冒号，配置 nz-form-label 的 [nzNoColon] 的默认值
-    /// </summary>
-    public string BindNoColon { get; set; }
+    public string NoColon { get; set; }
     /// <summary>
     /// nzTooltipIcon,标签提示图标，配置 nz-form-label 的 nzTooltipIcon 的默认值
     /// </summary>
@@ -74,6 +70,7 @@ public class FormTagHelper : FormContainerTagHelperBase {
         _config = new Config( context, output );
         var service = new FormShareService( _config );
         service.Init();
+        service.SetFormId();
     }
 
     /// <inheritdoc />

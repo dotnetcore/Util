@@ -468,8 +468,8 @@ public partial class TableTagHelperTest {
         result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
         result.Append( "<thead>" );
         result.Append( "<tr>" );
-        result.Append( "<th rowSpan=\"2\" [nzWidth]=\"x_id.config.table.radioWidth\"></th>" );
-        result.Append( "<th colSpan=\"2\">t</th>" );
+        result.Append( "<th [nzWidth]=\"x_id.config.table.radioWidth\" [rowSpan]=\"2\"></th>" );
+        result.Append( "<th [colSpan]=\"2\">t</th>" );
         result.Append( "</tr>" );
         result.Append( "<tr>" );
         result.Append( "<th>a</th>" );

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
 using Util.Ui.NgZorro.Components.Inputs.Renders;
@@ -46,21 +45,13 @@ public class TextareaTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string MaxLength { get; set; }
     /// <summary>
-    /// [disabled],是否禁用
+    /// [disabled],是否禁用, 默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
-    /// [disabled],是否禁用
+    /// [readOnly],只读, 默认值: false
     /// </summary>
-    public string BindDisabled { get; set; }
-    /// <summary>
-    /// [readOnly],只读
-    /// </summary>
-    public bool Readonly { get; set; }
-    /// <summary>
-    /// [readOnly],只读
-    /// </summary>
-    public string BindReadonly { get; set; }
+    public string Readonly { get; set; }
     /// <summary>
     /// placeholder,占位符提示信息
     /// </summary>
@@ -70,29 +61,17 @@ public class TextareaTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindPlaceholder { get; set; }
     /// <summary>
-    /// rows,行数
-    /// </summary>
-    public int Rows { get; set; }
-    /// <summary>
     /// [rows],行数
     /// </summary>
-    public string BindRows { get; set; }
-    /// <summary>
-    /// cols,列数
-    /// </summary>
-    public int Columns { get; set; }
+    public string Rows { get; set; }
     /// <summary>
     /// [cols],列数
     /// </summary>
-    public string BindColumns { get; set; }
-    /// <summary>
-    /// [nzAutosize],自适应内容高度
-    /// </summary>
-    public bool Autosize { get; set; }
+    public string Columns { get; set; }
     /// <summary>
     /// [nzAutosize],自适应内容高度,可设置为布尔值,或对象形式{ minRows: number, maxRows: number },范例: { minRows: 2, maxRows: 6 }
     /// </summary>
-    public string BindAutosize { get; set; }
+    public string Autosize { get; set; }
     /// <summary>
     /// [nzAutosize],最小行数,设置为 { minRows: number }
     /// </summary>
@@ -110,7 +89,7 @@ public class TextareaTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// 是否允许清除内容,设置为 true 将显示清除图标,注意:必须设置ngModel
+    /// 扩展属性, 是否允许清除内容,设置为 true 将显示清除图标,注意:必须设置ngModel
     /// </summary>
     public bool AllowClear { get; set; }
     /// <summary>

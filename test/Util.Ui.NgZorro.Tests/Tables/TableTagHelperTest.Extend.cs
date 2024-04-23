@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Inputs;
 using Util.Ui.NgZorro.Components.Tables;
 using Xunit;
 
@@ -397,7 +398,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr (click)=\"x_id.toggleSelect(row);\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
+        result.Append( "<tr (click)=\"x_id.toggleSelect(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
         result.Append( "<td>b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
@@ -436,7 +437,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr (click)=\"x_id.toggleSelect(row);d\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
+        result.Append( "<tr (click)=\"d;x_id.toggleSelect(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
         result.Append( "<td>b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
@@ -473,7 +474,7 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr (click)=\"x_id.selectRowOnly(row);\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
+        result.Append( "<tr (click)=\"x_id.selectRowOnly(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
         result.Append( "<td>b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
@@ -512,11 +513,103 @@ public partial class TableTagHelperTest {
         result.Append( "</tr>" );
         result.Append( "</thead>" );
         result.Append( "<tbody>" );
-        result.Append( "<tr (click)=\"x_id.selectRowOnly(row);d\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
+        result.Append( "<tr (click)=\"d;x_id.selectRowOnly(row)\" [class.table-row-selected]=\"x_id.isSelected(row)\">" );
         result.Append( "<td>b</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
         result.Append( "</nz-table>" );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    #endregion
+
+    #region CheckOnClickRow
+
+    /// <summary>
+    /// 测试点击表格行时是否选中复选框或单选框 - 复选框
+    /// </summary>
+    [Fact]
+    public void TestCheckOnClickRow_1() {
+        _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
+        _wrapper.SetContextAttribute( UiConst.CheckOnClickRow, true );
+
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.Title, "a" );
+        column.AppendContent( "b" );
+        _wrapper.AppendContent( column );
+
+        var result = new StringBuilder();
+        result.Append( "<nz-table #x_id=\"xTableExtend\" " );
+        result.Append( "(nzPageIndexChange)=\"x_id.pageIndexChange($event)\" (nzPageSizeChange)=\"x_id.pageSizeChange($event)\" " );
+        result.Append( "x-table-extend=\"\" " );
+        result.Append( "[(nzPageIndex)]=\"x_id.queryParam.page\" [(nzPageSize)]=\"x_id.queryParam.pageSize\" [nzData]=\"x_id.dataSource\" " );
+        result.Append( "[nzFrontPagination]=\"false\" [nzLoading]=\"x_id.loading\" [nzPageSizeOptions]=\"x_id.pageSizeOptions\" [nzShowQuickJumper]=\"true\" " );
+        result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th (nzCheckedChange)=\"x_id.masterToggle()\" " );
+        result.Append( "[nzChecked]=\"x_id.isMasterChecked()\" " );
+        result.Append( "[nzDisabled]=\"!x_id.dataSource.length\" [nzIndeterminate]=\"x_id.isMasterIndeterminate()\" " );
+        result.Append( "[nzShowCheckbox]=\"true\" [nzWidth]=\"x_id.config.table.checkboxWidth\">" );
+        result.Append( "</th>" );
+        result.Append( "<th>a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr (click)=\"x_id.toggle(row)\" *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<td (click)=\"$event.stopPropagation()\" (nzCheckedChange)=\"x_id.toggle(row)\" " );
+        result.Append( "[nzChecked]=\"x_id.isChecked(row)\" " );
+        result.Append( "[nzShowCheckbox]=\"true\">" );
+        result.Append( "</td>" );
+        result.Append( "<td>b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        AppendTotalTemplate( result );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试点击表格行时是否选中复选框或单选框 - 单选框
+    /// </summary>
+    [Fact]
+    public void TestCheckOnClickRow_2() {
+        _wrapper.SetContextAttribute( UiConst.ShowRadio, true );
+        _wrapper.SetContextAttribute( UiConst.CheckOnClickRow, true );
+
+        //创建列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.Title, "a" );
+        column.AppendContent( "b" );
+        _wrapper.AppendContent( column );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table #x_id=\"xTableExtend\" " );
+        result.Append( "(nzPageIndexChange)=\"x_id.pageIndexChange($event)\" (nzPageSizeChange)=\"x_id.pageSizeChange($event)\" " );
+        result.Append( "x-table-extend=\"\" " );
+        result.Append( "[(nzPageIndex)]=\"x_id.queryParam.page\" [(nzPageSize)]=\"x_id.queryParam.pageSize\" [nzData]=\"x_id.dataSource\" " );
+        result.Append( "[nzFrontPagination]=\"false\" [nzLoading]=\"x_id.loading\" [nzPageSizeOptions]=\"x_id.pageSizeOptions\" [nzShowQuickJumper]=\"true\" " );
+        result.Append( "[nzShowSizeChanger]=\"true\" [nzShowTotal]=\"total_id\" [nzTotal]=\"x_id.total\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th [nzWidth]=\"x_id.config.table.radioWidth\"></th>" );
+        result.Append( "<th>a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr (click)=\"x_id.checkRowOnly(row)\" *ngFor=\"let row of x_id.dataSource;index as index\">" );
+        result.Append( "<td>" );
+        result.Append( "<label (click)=\"$event.stopPropagation()\" (ngModelChange)=\"x_id.checkRowOnly(row)\" name=\"r_x_id\" nz-radio=\"\" [ngModel]=\"x_id.isChecked(row)\">" );
+        result.Append( "</label>" );
+        result.Append( "</td>" );
+        result.Append( "<td>b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+        AppendTotalTemplate( result );
 
         //验证
         Assert.Equal( result.ToString(), GetResult() );
@@ -658,6 +751,55 @@ public partial class TableTagHelperTest {
         result.Append( "<tbody>" );
         result.Append( "<tr (click)=\"c\">" );
         result.Append( "<td>b</td>" );
+        result.Append( "</tr>" );
+        result.Append( "</tbody>" );
+        result.Append( "</nz-table>" );
+
+        //验证
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    #endregion
+
+    #region IsBatchEdit
+
+    /// <summary>
+    /// 测试启用批量编辑模式
+    /// </summary>
+    [Fact]
+    public void TestIsBatchEdit() {
+        //创建表格
+        _wrapper.SetContextAttribute( UiConst.IsBatchEdit, true );
+
+        //添加列
+        var column = new TableColumnTagHelper().ToWrapper();
+        column.SetContextAttribute( UiConst.IsEdit, true );
+        column.SetContextAttribute( UiConst.Title, "a" );
+        column.SetContextAttribute( UiConst.Column, "b" );
+        _wrapper.AppendContent( column );
+
+        //添加输入框组件
+        var input = new InputTagHelper().ToWrapper();
+        column.AppendContent( input );
+
+        //结果
+        var result = new StringBuilder();
+        result.Append( "<nz-table #e_id=\"xEditTable\" x-edit-table=\"\" [isBatch]=\"true\">" );
+        result.Append( "<thead>" );
+        result.Append( "<tr>" );
+        result.Append( "<th>a</th>" );
+        result.Append( "</tr>" );
+        result.Append( "</thead>" );
+        result.Append( "<tbody>" );
+        result.Append( "<tr #id_row=\"xEditRow\" (click)=\"e_id.clickEdit(row.id)\" (dblclick)=\"e_id.dblClickEdit(row.id)\" [x-edit-row]=\"row\">" );
+        result.Append( "<td>" );
+        result.Append( "<ng-container *ngIf=\"e_id.editId !== row.id;else e_id_b\">" );
+        result.Append( "{{row.b}}" );
+        result.Append( "</ng-container>" );
+        result.Append( "<ng-template #e_id_b=\"\">" );
+        result.Append( "<input #c_id=\"\" nz-input=\"\" [editRow]=\"id_row\" [x-edit-control]=\"c_id\" />" );
+        result.Append( "</ng-template>" );
+        result.Append( "</td>" );
         result.Append( "</tr>" );
         result.Append( "</tbody>" );
         result.Append( "</nz-table>" );

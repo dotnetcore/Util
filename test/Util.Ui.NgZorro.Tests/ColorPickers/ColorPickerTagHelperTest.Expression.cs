@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>姓名</nz-form-label>" );
             result.Append( "<nz-form-control>" );
-            result.Append( "<nz-color-picker name=\"name\" " );
+            result.Append( "<nz-color-picker #name=\"\" name=\"name\" " );
             result.Append( "[(ngModel)]=\"model.name\">" );
             result.Append( "</nz-color-picker>" );
             result.Append( "</nz-form-control>" );

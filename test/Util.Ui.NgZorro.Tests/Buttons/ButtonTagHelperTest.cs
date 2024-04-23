@@ -189,20 +189,9 @@ public partial class ButtonTagHelperTest {
     /// </summary>
     [Fact]
     public void TestDisabled() {
-        _wrapper.SetContextAttribute( UiConst.Disabled, true );
+        _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\" [disabled]=\"true\"></button>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试禁用
-    /// </summary>
-    [Fact]
-    public void TestBindDisabled() {
-        _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-        var result = new StringBuilder();
-        result.Append( "<button nz-button=\"\" [disabled]=\"a\"></button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -211,20 +200,9 @@ public partial class ButtonTagHelperTest {
     /// </summary>
     [Fact]
     public void TestDanger() {
-        _wrapper.SetContextAttribute( UiConst.Danger, true );
+        _wrapper.SetContextAttribute( UiConst.Danger, "true" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\" [nzDanger]=\"true\"></button>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试危险按钮
-    /// </summary>
-    [Fact]
-    public void TestBindDanger() {
-        _wrapper.SetContextAttribute( AngularConst.BindDanger, "a" );
-        var result = new StringBuilder();
-        result.Append( "<button nz-button=\"\" [nzDanger]=\"a\"></button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -233,18 +211,7 @@ public partial class ButtonTagHelperTest {
     /// </summary>
     [Fact]
     public void TestLoading() {
-        _wrapper.SetContextAttribute( UiConst.Loading, true );
-        var result = new StringBuilder();
-        result.Append( "<button nz-button=\"\" [nzLoading]=\"true\"></button>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试加载状态
-    /// </summary>
-    [Fact]
-    public void TestBindLoading() {
-        _wrapper.SetContextAttribute( AngularConst.BindLoading, "true" );
+        _wrapper.SetContextAttribute( UiConst.Loading, "true" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\" [nzLoading]=\"true\"></button>" );
         Assert.Equal( result.ToString(), GetResult() );
@@ -255,20 +222,9 @@ public partial class ButtonTagHelperTest {
     /// </summary>
     [Fact]
     public void TestGhost() {
-        _wrapper.SetContextAttribute( UiConst.Ghost, true );
+        _wrapper.SetContextAttribute( UiConst.Ghost, "true" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\" [nzGhost]=\"true\"></button>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试幽灵按钮
-    /// </summary>
-    [Fact]
-    public void TestBindGhost() {
-        _wrapper.SetContextAttribute( AngularConst.BindGhost, "a" );
-        var result = new StringBuilder();
-        result.Append( "<button nz-button=\"\" [nzGhost]=\"a\"></button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -277,20 +233,9 @@ public partial class ButtonTagHelperTest {
     /// </summary>
     [Fact]
     public void TestBlock() {
-        _wrapper.SetContextAttribute( UiConst.Block, true );
+        _wrapper.SetContextAttribute( UiConst.Block, "true" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\" [nzBlock]=\"true\"></button>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试Block按钮
-    /// </summary>
-    [Fact]
-    public void TestBindBlock() {
-        _wrapper.SetContextAttribute( AngularConst.BindBlock, "a" );
-        var result = new StringBuilder();
-        result.Append( "<button nz-button=\"\" [nzBlock]=\"a\"></button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

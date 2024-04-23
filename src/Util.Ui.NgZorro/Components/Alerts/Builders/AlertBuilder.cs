@@ -24,8 +24,7 @@ public class AlertBuilder : AngularTagBuilder {
     /// 配置是否顶部公告
     /// </summary>
     public AlertBuilder Banner() {
-        AttributeIfNotEmpty( "[nzBanner]", _config.GetBoolValue( UiConst.Banner ) );
-        AttributeIfNotEmpty( "[nzBanner]", _config.GetValue( AngularConst.BindBanner ) );
+        AttributeIfNotEmpty( "[nzBanner]", _config.GetValue( UiConst.Banner ) );
         return this;
     }
 
@@ -33,8 +32,7 @@ public class AlertBuilder : AngularTagBuilder {
     /// 配置是否可关闭
     /// </summary>
     public AlertBuilder Closeable() {
-        AttributeIfNotEmpty( "[nzCloseable]", _config.GetBoolValue( UiConst.Closeable ) );
-        AttributeIfNotEmpty( "[nzCloseable]", _config.GetValue( AngularConst.BindCloseable ) );
+        AttributeIfNotEmpty( "[nzCloseable]", _config.GetValue( UiConst.Closeable ) );
         return this;
     }
 
@@ -77,8 +75,7 @@ public class AlertBuilder : AngularTagBuilder {
     /// 配置是否显示图标
     /// </summary>
     public AlertBuilder ShowIcon() {
-        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetBoolValue( UiConst.ShowIcon ) );
-        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( AngularConst.BindShowIcon ) );
+        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( UiConst.ShowIcon ) );
         return this;
     }
 

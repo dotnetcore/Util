@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestSelectedIndex() {
-            _wrapper.SetContextAttribute( UiConst.SelectedIndex, 1 );
+            _wrapper.SetContextAttribute( UiConst.SelectedIndex, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tabset nzSelectedIndex=\"1\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试选中标签索引
-        /// </summary>
-        [Fact]
-        public void TestBindSelectedIndex() {
-            _wrapper.SetContextAttribute( AngularConst.BindSelectedIndex, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzSelectedIndex]=\"a\"></nz-tabset>" );
+            result.Append( "<nz-tabset [nzSelectedIndex]=\"1\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -86,20 +75,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestAnimated() {
-            _wrapper.SetContextAttribute( UiConst.Animated, true );
+            _wrapper.SetContextAttribute( UiConst.Animated, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tabset [nzAnimated]=\"true\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否使用动画切换选项卡
-        /// </summary>
-        [Fact]
-        public void TestBindAnimated() {
-            _wrapper.SetContextAttribute( AngularConst.BindAnimated, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzAnimated]=\"a\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -196,20 +174,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestTabBarGutter() {
-            _wrapper.SetContextAttribute( UiConst.TabBarGutter, 1 );
+            _wrapper.SetContextAttribute( UiConst.TabBarGutter, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tabset nzTabBarGutter=\"1\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标签间隙
-        /// </summary>
-        [Fact]
-        public void TestBindTabBarGutter() {
-            _wrapper.SetContextAttribute( AngularConst.BindTabBarGutter, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzTabBarGutter]=\"a\"></nz-tabset>" );
+            result.Append( "<nz-tabset [nzTabBarGutter]=\"1\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -218,20 +185,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestHideAll() {
-            _wrapper.SetContextAttribute( UiConst.HideAll, true );
+            _wrapper.SetContextAttribute( UiConst.HideAll, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tabset [nzHideAll]=\"true\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否隐藏全部标签
-        /// </summary>
-        [Fact]
-        public void TestBindHideAll() {
-            _wrapper.SetContextAttribute( AngularConst.BindHideAll, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzHideAll]=\"a\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -240,20 +196,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestLinkRouter() {
-            _wrapper.SetContextAttribute( UiConst.LinkRouter, true );
+            _wrapper.SetContextAttribute( UiConst.LinkRouter, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tabset [nzLinkRouter]=\"true\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否支持路由联动
-        /// </summary>
-        [Fact]
-        public void TestBindLinkRouter() {
-            _wrapper.SetContextAttribute( AngularConst.BindLinkRouter, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzLinkRouter]=\"a\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -262,20 +207,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestLinkExact() {
-            _wrapper.SetContextAttribute( UiConst.LinkExact, true );
+            _wrapper.SetContextAttribute( UiConst.LinkExact, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tabset [nzLinkExact]=\"true\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否以严格模式匹配路由联动
-        /// </summary>
-        [Fact]
-        public void TestBindLinkExact() {
-            _wrapper.SetContextAttribute( AngularConst.BindLinkExact, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzLinkExact]=\"a\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -295,20 +229,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestCentered() {
-            _wrapper.SetContextAttribute( UiConst.Centered, true );
+            _wrapper.SetContextAttribute( UiConst.Centered, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tabset [nzCentered]=\"true\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标签是否居中显示
-        /// </summary>
-        [Fact]
-        public void TestBindCentered() {
-            _wrapper.SetContextAttribute( AngularConst.BindCentered, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzCentered]=\"a\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -317,20 +240,9 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         /// </summary>
         [Fact]
         public void TestHideAdd() {
-            _wrapper.SetContextAttribute( UiConst.HideAdd, true );
+            _wrapper.SetContextAttribute( UiConst.HideAdd, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tabset [nzHideAdd]=\"true\"></nz-tabset>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否隐藏添加按钮
-        /// </summary>
-        [Fact]
-        public void TestBindHideAdd() {
-            _wrapper.SetContextAttribute( AngularConst.BindHideAdd, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tabset [nzHideAdd]=\"a\"></nz-tabset>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -1,6 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.VirtualScrolls.Builders; 
 
@@ -25,8 +23,7 @@ public class VirtualScrollViewportBuilder : AngularTagBuilder {
     /// 配置列高
     /// </summary>
     public VirtualScrollViewportBuilder ItemSize() {
-        AttributeIfNotEmpty( "itemSize", _config.GetValue( UiConst.ItemSize ) );
-        AttributeIfNotEmpty( "[itemSize]", _config.GetValue( AngularConst.BindItemSize ) );
+        AttributeIfNotEmpty( "[itemSize]", _config.GetValue( UiConst.ItemSize ) );
         return this;
     }
 

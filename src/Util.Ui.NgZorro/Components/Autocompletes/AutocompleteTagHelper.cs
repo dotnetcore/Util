@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Autocompletes.Helpers;
 using Util.Ui.NgZorro.Components.Autocompletes.Renders;
 using Util.Ui.NgZorro.Components.Base;
@@ -23,7 +22,7 @@ public class AutocompleteTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
     /// </summary>
-    public bool AutoLoad { get; set; }
+    public string AutoLoad { get; set; }
     /// <summary>
     /// 扩展属性 [(queryParam)],查询参数
     /// </summary>
@@ -51,11 +50,7 @@ public class AutocompleteTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzBackfill],使用键盘选择选项时，是否把当前高亮项的值即时回填到输入框中
     /// </summary>
-    public bool Backfill { get; set; }
-    /// <summary>
-    /// [nzBackfill],使用键盘选择选项时，是否把当前高亮项的值即时回填到输入框中
-    /// </summary>
-    public string BindBackfill { get; set; }
+    public string Backfill { get; set; }
     /// <summary>
     /// [nzDataSource],数据源
     /// </summary>
@@ -63,19 +58,11 @@ public class AutocompleteTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDefaultActiveFirstOption],是否默认高亮第一项
     /// </summary>
-    public bool DefaultActiveFirstOption { get; set; }
-    /// <summary>
-    /// [nzDefaultActiveFirstOption],是否默认高亮第一项
-    /// </summary>
-    public string BindDefaultActiveFirstOption { get; set; }
+    public string DefaultActiveFirstOption { get; set; }
     /// <summary>
     /// [nzWidth],宽度
     /// </summary>
-    public double Width { get; set; }
-    /// <summary>
-    /// [nzWidth],宽度
-    /// </summary>
-    public string BindWidth { get; set; }
+    public string Width { get; set; }
     /// <summary>
     /// nzOverlayClassName,下拉根元素类名
     /// </summary>

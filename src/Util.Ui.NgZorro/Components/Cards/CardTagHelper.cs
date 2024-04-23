@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Cards.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -31,11 +30,7 @@ public class CardTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBorderless],是否移除边框,默认值: false
     /// </summary>
-    public bool Borderless { get; set; }
-    /// <summary>
-    /// [nzBorderless],是否移除边框,默认值: false
-    /// </summary>
-    public string BindBorderless { get; set; }
+    public string Borderless { get; set; }
     /// <summary>
     /// [nzCover],卡片封面,类型: TemplateRef&lt;void>
     /// </summary>
@@ -47,19 +42,11 @@ public class CardTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzHoverable],鼠标滑过时是否可浮起,默认值: false
     /// </summary>
-    public bool Hoverable { get; set; }
-    /// <summary>
-    /// [nzHoverable],鼠标滑过时是否可浮起,默认值: false
-    /// </summary>
-    public string BindHoverable { get; set; }
+    public string Hoverable { get; set; }
     /// <summary>
     /// [nzLoading],是否加载状态,默认值: false
     /// </summary>
-    public bool Loading { get; set; }
-    /// <summary>
-    /// [nzLoading],是否加载状态,默认值: false
-    /// </summary>
-    public string BindLoading { get; set; }
+    public string Loading { get; set; }
     /// <summary>
     /// nzType,卡片类型，可设置为 inner 或 不设置
     /// </summary>

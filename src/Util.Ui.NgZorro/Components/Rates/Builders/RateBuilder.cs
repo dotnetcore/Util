@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 
 namespace Util.Ui.NgZorro.Components.Rates.Builders; 
@@ -25,8 +24,7 @@ public class RateBuilder : FormControlBuilderBase<RateBuilder> {
     /// 配置允许清除
     /// </summary>
     public RateBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 
@@ -34,8 +32,7 @@ public class RateBuilder : FormControlBuilderBase<RateBuilder> {
     /// 配置允许半选
     /// </summary>
     public RateBuilder AllowHalf() {
-        AttributeIfNotEmpty( "[nzAllowHalf]", _config.GetBoolValue( UiConst.AllowHalf ) );
-        AttributeIfNotEmpty( "[nzAllowHalf]", _config.GetValue( AngularConst.BindAllowHalf ) );
+        AttributeIfNotEmpty( "[nzAllowHalf]", _config.GetValue( UiConst.AllowHalf ) );
         return this;
     }
 
@@ -43,8 +40,7 @@ public class RateBuilder : FormControlBuilderBase<RateBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public RateBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -60,8 +56,7 @@ public class RateBuilder : FormControlBuilderBase<RateBuilder> {
     /// 配置数量
     /// </summary>
     public RateBuilder Count() {
-        AttributeIfNotEmpty( "nzCount", _config.GetValue( UiConst.Count ) );
-        AttributeIfNotEmpty( "[nzCount]", _config.GetValue( AngularConst.BindCount ) );
+        AttributeIfNotEmpty( "[nzCount]", _config.GetValue( UiConst.Count ) );
         return this;
     }
 
@@ -69,8 +64,7 @@ public class RateBuilder : FormControlBuilderBase<RateBuilder> {
     /// 配置禁用
     /// </summary>
     public RateBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 

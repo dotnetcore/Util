@@ -65,8 +65,7 @@ public class CardBuilder : AngularTagBuilder {
     /// 配置是否移除边框
     /// </summary>
     public CardBuilder Borderless() {
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetBoolValue( UiConst.Borderless ) );
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( AngularConst.BindBorderless ) );
+        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( UiConst.Borderless ) );
         return this;
     }
 
@@ -90,8 +89,7 @@ public class CardBuilder : AngularTagBuilder {
     /// 配置鼠标滑过时是否可浮起
     /// </summary>
     public CardBuilder Hoverable() {
-        AttributeIfNotEmpty( "[nzHoverable]", _config.GetBoolValue( UiConst.Hoverable ) );
-        AttributeIfNotEmpty( "[nzHoverable]", _config.GetValue( AngularConst.BindHoverable ) );
+        AttributeIfNotEmpty( "[nzHoverable]", _config.GetValue( UiConst.Hoverable ) );
         return this;
     }
 
@@ -99,8 +97,7 @@ public class CardBuilder : AngularTagBuilder {
     /// 配置是否加载状态
     /// </summary>
     public CardBuilder Loading() {
-        AttributeIfNotEmpty( "[nzLoading]", _config.GetBoolValue( UiConst.Loading ) );
-        AttributeIfNotEmpty( "[nzLoading]", _config.GetValue( AngularConst.BindLoading ) );
+        AttributeIfNotEmpty( "[nzLoading]", _config.GetValue( UiConst.Loading ) );
         return this;
     }
 

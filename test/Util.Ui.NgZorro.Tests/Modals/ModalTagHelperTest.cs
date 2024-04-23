@@ -54,20 +54,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestMask() {
-        _wrapper.SetContextAttribute( UiConst.Mask, true );
+        _wrapper.SetContextAttribute( UiConst.Mask, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzMask]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示遮罩
-    /// </summary>
-    [Fact]
-    public void TestBindMask() {
-        _wrapper.SetContextAttribute( AngularConst.BindMask, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzMask]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -76,20 +65,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestMaskClosable() {
-        _wrapper.SetContextAttribute( UiConst.MaskClosable, true );
+        _wrapper.SetContextAttribute( UiConst.MaskClosable, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzMaskClosable]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试点击遮罩是否允许关闭
-    /// </summary>
-    [Fact]
-    public void TestBindMaskClosable() {
-        _wrapper.SetContextAttribute( AngularConst.BindMaskClosable, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzMaskClosable]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -98,20 +76,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestCloseOnNavigation() {
-        _wrapper.SetContextAttribute( UiConst.CloseOnNavigation, true );
+        _wrapper.SetContextAttribute( UiConst.CloseOnNavigation, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzCloseOnNavigation]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试导航时是否关闭
-    /// </summary>
-    [Fact]
-    public void TestBindCloseOnNavigation() {
-        _wrapper.SetContextAttribute( AngularConst.BindCloseOnNavigation, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzCloseOnNavigation]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -131,20 +98,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestClosable() {
-        _wrapper.SetContextAttribute( UiConst.Closable, true );
+        _wrapper.SetContextAttribute( UiConst.Closable, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzClosable]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否可关闭
-    /// </summary>
-    [Fact]
-    public void TestBindClosable() {
-        _wrapper.SetContextAttribute( AngularConst.BindClosable, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzClosable]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -164,20 +120,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestOkDisabled() {
-        _wrapper.SetContextAttribute( UiConst.OkDisabled, true );
+        _wrapper.SetContextAttribute( UiConst.OkDisabled, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzOkDisabled]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否禁用确定按钮
-    /// </summary>
-    [Fact]
-    public void TestBindOkDisabled() {
-        _wrapper.SetContextAttribute( AngularConst.BindOkDisabled, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzOkDisabled]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -197,20 +142,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestCancelDisabled() {
-        _wrapper.SetContextAttribute( UiConst.CancelDisabled, true );
+        _wrapper.SetContextAttribute( UiConst.CancelDisabled, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzCancelDisabled]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否禁用取消按钮
-    /// </summary>
-    [Fact]
-    public void TestBindCancelDisabled() {
-        _wrapper.SetContextAttribute( AngularConst.BindCancelDisabled, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzCancelDisabled]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -219,20 +153,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestKeyboard() {
-        _wrapper.SetContextAttribute( UiConst.Keyboard, true );
+        _wrapper.SetContextAttribute( UiConst.Keyboard, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzKeyboard]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否支持键盘ESC键关闭
-    /// </summary>
-    [Fact]
-    public void TestBindKeyboard() {
-        _wrapper.SetContextAttribute( AngularConst.BindKeyboard, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzKeyboard]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -241,20 +164,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestCentered() {
-        _wrapper.SetContextAttribute( UiConst.Centered, true );
+        _wrapper.SetContextAttribute( UiConst.Centered, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzCentered]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否垂直居中显示
-    /// </summary>
-    [Fact]
-    public void TestBindCentered() {
-        _wrapper.SetContextAttribute( AngularConst.BindCentered, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzCentered]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -296,20 +208,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestZIndex() {
-        _wrapper.SetContextAttribute( UiConst.ZIndex, 1 );
+        _wrapper.SetContextAttribute( UiConst.ZIndex, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-modal nzZIndex=\"1\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试z-index
-    /// </summary>
-    [Fact]
-    public void TestBindZIndex() {
-        _wrapper.SetContextAttribute( AngularConst.BindZIndex, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzZIndex]=\"a\"></nz-modal>" );
+        result.Append( "<nz-modal [nzZIndex]=\"1\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -318,20 +219,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestWidth() {
-        _wrapper.SetContextAttribute( UiConst.Width, 1 );
+        _wrapper.SetContextAttribute( UiConst.Width, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-modal nzWidth=\"1\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试宽度
-    /// </summary>
-    [Fact]
-    public void TestBindWidth() {
-        _wrapper.SetContextAttribute( AngularConst.BindWidth, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzWidth]=\"a\"></nz-modal>" );
+        result.Append( "<nz-modal [nzWidth]=\"1\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -527,20 +417,9 @@ public class ModalTagHelperTest {
     /// </summary>
     [Fact]
     public void TestOkDanger() {
-        _wrapper.SetContextAttribute( UiConst.OkDanger, true );
+        _wrapper.SetContextAttribute( UiConst.OkDanger, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzOkDanger]=\"true\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试确认按钮是否为危险按钮
-    /// </summary>
-    [Fact]
-    public void TestBindOkDanger() {
-        _wrapper.SetContextAttribute( AngularConst.BindOkDanger, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzOkDanger]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

@@ -51,20 +51,9 @@ namespace Util.Ui.NgZorro.Tests.Lists {
         /// </summary>
         [Fact]
         public void TestNoFlex() {
-            _wrapper.SetContextAttribute( UiConst.NoFlex, true );
+            _wrapper.SetContextAttribute( UiConst.NoFlex, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-list-item [nzNoFlex]=\"true\"></nz-list-item>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否非flex布局
-        /// </summary>
-        [Fact]
-        public void TestBindNoFlex() {
-            _wrapper.SetContextAttribute( UiConst.NoFlex, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-list-item [nzNoFlex]=\"a\"></nz-list-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

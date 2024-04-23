@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Spins.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -13,13 +12,9 @@ namespace Util.Ui.NgZorro.Components.Spins;
 [HtmlTargetElement( "util-spin" )]
 public class SpinTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzDelay,延迟显示加载效果的时间（防止闪烁），单位：毫秒
-    /// </summary>
-    public int Delay { get; set; }
-    /// <summary>
     /// [nzDelay],延迟显示加载效果的时间（防止闪烁），单位：毫秒
     /// </summary>
-    public string BindDelay { get; set; }
+    public string Delay { get; set; }
     /// <summary>
     /// [nzIndicator],加载指示符,自定义加载图标,类型: TemplateRef&lt;void>
     /// </summary>
@@ -35,19 +30,11 @@ public class SpinTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzSpinning],是否旋转,默认值: true
     /// </summary>
-    public bool Spinning { get; set; }
-    /// <summary>
-    /// [nzSpinning],是否旋转,默认值: true
-    /// </summary>
-    public string BindSpinning { get; set; }
-    /// <summary>
-    /// nzSimple,是否简单模式,如果不包裹其它元素,设置为true,默认值: false
-    /// </summary>
-    public bool Simple { get; set; }
+    public string Spinning { get; set; }
     /// <summary>
     /// [nzSimple],是否简单模式,如果不包裹其它元素,设置为true,默认值: false
     /// </summary>
-    public string BindSimple { get; set; }
+    public string Simple { get; set; }
     /// <summary>
     /// nzTip,当作为包裹元素时，可以自定义提示文字
     /// </summary>

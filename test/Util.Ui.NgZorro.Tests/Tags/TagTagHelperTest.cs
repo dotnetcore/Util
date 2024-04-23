@@ -85,20 +85,9 @@ namespace Util.Ui.NgZorro.Tests.Tags {
         /// </summary>
         [Fact]
         public void TestChecked() {
-            _wrapper.SetContextAttribute( UiConst.Checked, true );
+            _wrapper.SetContextAttribute( UiConst.Checked, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tag [nzChecked]=\"true\"></nz-tag>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否选中
-        /// </summary>
-        [Fact]
-        public void TestBindChecked() {
-            _wrapper.SetContextAttribute( AngularConst.BindChecked, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tag [nzChecked]=\"a\"></nz-tag>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

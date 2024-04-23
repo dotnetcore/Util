@@ -66,8 +66,7 @@ public class ColorPickerBuilder : FormControlBuilderBase<ColorPickerBuilder> {
     /// 配置显示颜色文本
     /// </summary>
     public ColorPickerBuilder ShowText() {
-        AttributeIfNotEmpty( "[nzShowText]", _config.GetBoolValue( UiConst.ShowText ) );
-        AttributeIfNotEmpty( "[nzShowText]", _config.GetValue( AngularConst.BindShowText ) );
+        AttributeIfNotEmpty( "[nzShowText]", _config.GetValue( UiConst.ShowText ) );
         return this;
     }
 
@@ -84,8 +83,7 @@ public class ColorPickerBuilder : FormControlBuilderBase<ColorPickerBuilder> {
     /// 配置禁用
     /// </summary>
     public ColorPickerBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -93,8 +91,7 @@ public class ColorPickerBuilder : FormControlBuilderBase<ColorPickerBuilder> {
     /// 配置禁用透明度
     /// </summary>
     public ColorPickerBuilder DisabledAlpha() {
-        AttributeIfNotEmpty( "[nzDisabledAlpha]", _config.GetBoolValue( UiConst.DisabledAlpha ) );
-        AttributeIfNotEmpty( "[nzDisabledAlpha]", _config.GetValue( AngularConst.BindDisabledAlpha ) );
+        AttributeIfNotEmpty( "[nzDisabledAlpha]", _config.GetValue( UiConst.DisabledAlpha ) );
         return this;
     }
 
@@ -111,8 +108,7 @@ public class ColorPickerBuilder : FormControlBuilderBase<ColorPickerBuilder> {
     /// 配置允许清除
     /// </summary>
     public ColorPickerBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 

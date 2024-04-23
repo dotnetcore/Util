@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
@@ -27,8 +26,7 @@ public class SiderBuilder : AngularTagBuilder {
     /// 配置宽度
     /// </summary>
     public SiderBuilder Width() {
-        AttributeIfNotEmpty( "nzWidth", _config.GetValue( UiConst.Width ) );
-        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( AngularConst.BindWidth ) );
+        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( UiConst.Width ) );
         return this;
     }
 
@@ -55,7 +53,6 @@ public class SiderBuilder : AngularTagBuilder {
     /// </summary>
     public SiderBuilder CollapsedWidth() {
         AttributeIfNotEmpty( "[nzCollapsedWidth]", _config.GetValue( UiConst.CollapsedWidth ) );
-        AttributeIfNotEmpty( "[nzCollapsedWidth]", _config.GetValue( AngularConst.BindCollapsedWidth ) );
         return this;
     }
 
@@ -63,8 +60,7 @@ public class SiderBuilder : AngularTagBuilder {
     /// 配置可收缩
     /// </summary>
     public SiderBuilder Collapsible() {
-        AttributeIfNotEmpty( "[nzCollapsible]", _config.GetBoolValue( UiConst.Collapsible ) );
-        AttributeIfNotEmpty( "[nzCollapsible]", _config.GetValue( AngularConst.BindCollapsible ) );
+        AttributeIfNotEmpty( "[nzCollapsible]", _config.GetValue( UiConst.Collapsible ) );
         return this;
     }
 
@@ -72,8 +68,7 @@ public class SiderBuilder : AngularTagBuilder {
     /// 配置收缩状态
     /// </summary>
     public SiderBuilder Collapsed() {
-        AttributeIfNotEmpty( "[nzCollapsed]", _config.GetBoolValue( UiConst.Collapsed ) );
-        AttributeIfNotEmpty( "[nzCollapsed]", _config.GetValue( AngularConst.BindCollapsed ) );
+        AttributeIfNotEmpty( "[nzCollapsed]", _config.GetValue( UiConst.Collapsed ) );
         AttributeIfNotEmpty( "[(nzCollapsed)]", _config.GetValue( AngularConst.BindonCollapsed ) );
         return this;
     }
@@ -82,8 +77,7 @@ public class SiderBuilder : AngularTagBuilder {
     /// 配置翻转折叠提示箭头方向
     /// </summary>
     public SiderBuilder ReverseArrow() {
-        AttributeIfNotEmpty( "[nzReverseArrow]", _config.GetBoolValue( UiConst.ReverseArrow ) );
-        AttributeIfNotEmpty( "[nzReverseArrow]", _config.GetValue( AngularConst.BindReverseArrow ) );
+        AttributeIfNotEmpty( "[nzReverseArrow]", _config.GetValue( UiConst.ReverseArrow ) );
         return this;
     }
 

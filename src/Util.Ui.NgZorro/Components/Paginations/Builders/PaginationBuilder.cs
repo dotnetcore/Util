@@ -1,6 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Paginations.Builders; 
 
@@ -26,7 +26,6 @@ public class PaginationBuilder : AngularTagBuilder {
     /// </summary>
     public PaginationBuilder Total() {
         AttributeIfNotEmpty( "[nzTotal]", _config.GetValue( UiConst.Total ) );
-        AttributeIfNotEmpty( "[nzTotal]", _config.GetValue( AngularConst.BindTotal ) );
         return this;
     }
 
@@ -35,7 +34,6 @@ public class PaginationBuilder : AngularTagBuilder {
     /// </summary>
     public PaginationBuilder PageIndex() {
         AttributeIfNotEmpty( "[nzPageIndex]", _config.GetValue( UiConst.PageIndex ) );
-        AttributeIfNotEmpty( "[nzPageIndex]", _config.GetValue( AngularConst.BindPageIndex ) );
         AttributeIfNotEmpty( "[(nzPageIndex)]", _config.GetValue( AngularConst.BindonPageIndex ) );
         return this;
     }
@@ -45,7 +43,6 @@ public class PaginationBuilder : AngularTagBuilder {
     /// </summary>
     public PaginationBuilder PageSize() {
         AttributeIfNotEmpty( "[nzPageSize]", _config.GetValue( UiConst.PageSize ) );
-        AttributeIfNotEmpty( "[nzPageSize]", _config.GetValue( AngularConst.BindPageSize ) );
         AttributeIfNotEmpty( "[(nzPageSize)]", _config.GetValue( AngularConst.BindonPageSize ) );
         return this;
     }
@@ -54,8 +51,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置显示改变分页大小按钮
     /// </summary>
     public PaginationBuilder ShowSizeChanger() {
-        AttributeIfNotEmpty( "[nzShowSizeChanger]", _config.GetBoolValue( UiConst.ShowSizeChanger ) );
-        AttributeIfNotEmpty( "[nzShowSizeChanger]", _config.GetValue( AngularConst.BindShowSizeChanger ) );
+        AttributeIfNotEmpty( "[nzShowSizeChanger]", _config.GetValue( UiConst.ShowSizeChanger ) );
         return this;
     }
 
@@ -63,8 +59,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置显示快速跳转
     /// </summary>
     public PaginationBuilder ShowQuickJumper() {
-        AttributeIfNotEmpty( "[nzShowQuickJumper]", _config.GetBoolValue( UiConst.ShowQuickJumper ) );
-        AttributeIfNotEmpty( "[nzShowQuickJumper]", _config.GetValue( AngularConst.BindShowQuickJumper ) );
+        AttributeIfNotEmpty( "[nzShowQuickJumper]", _config.GetValue( UiConst.ShowQuickJumper ) );
         return this;
     }
 
@@ -72,8 +67,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public PaginationBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -81,7 +75,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置尺寸
     /// </summary>
     public PaginationBuilder Size() {
-        AttributeIfNotEmpty( "nzSize", _config.GetBoolValue( UiConst.Size ) );
+        AttributeIfNotEmpty( "nzSize", _config.GetValue<PaginationSize?>( UiConst.Size )?.Description() );
         AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
         return this;
     }
@@ -90,7 +84,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置显示总行数和当前数据范围的模板
     /// </summary>
     public PaginationBuilder ShowTotal() {
-        AttributeIfNotEmpty( "[nzShowTotal]", _config.GetBoolValue( UiConst.ShowTotal ) );
+        AttributeIfNotEmpty( "[nzShowTotal]", _config.GetValue( UiConst.ShowTotal ) );
         return this;
     }
 
@@ -98,8 +92,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置简单分页
     /// </summary>
     public PaginationBuilder Simple() {
-        AttributeIfNotEmpty( "[nzSimple]", _config.GetBoolValue( UiConst.Simple ) );
-        AttributeIfNotEmpty( "[nzSimple]", _config.GetValue( AngularConst.BindSimple ) );
+        AttributeIfNotEmpty( "[nzSimple]", _config.GetValue( UiConst.Simple ) );
         return this;
     }
 
@@ -107,8 +100,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置响应式
     /// </summary>
     public PaginationBuilder Responsive() {
-        AttributeIfNotEmpty( "[nzResponsive]", _config.GetBoolValue( UiConst.Responsive ) );
-        AttributeIfNotEmpty( "[nzResponsive]", _config.GetValue( AngularConst.BindResponsive ) );
+        AttributeIfNotEmpty( "[nzResponsive]", _config.GetValue( UiConst.Responsive ) );
         return this;
     }
 
@@ -116,7 +108,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置每页行数选择列表
     /// </summary>
     public PaginationBuilder PageSizeOptions() {
-        AttributeIfNotEmpty( "[nzPageSizeOptions]", _config.GetBoolValue( UiConst.PageSizeOptions ) );
+        AttributeIfNotEmpty( "[nzPageSizeOptions]", _config.GetValue( UiConst.PageSizeOptions ) );
         return this;
     }
 
@@ -124,7 +116,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置自定义页码结构
     /// </summary>
     public PaginationBuilder ItemRender() {
-        AttributeIfNotEmpty( "[nzItemRender]", _config.GetBoolValue( UiConst.ItemRender ) );
+        AttributeIfNotEmpty( "[nzItemRender]", _config.GetValue( UiConst.ItemRender ) );
         return this;
     }
 
@@ -132,8 +124,7 @@ public class PaginationBuilder : AngularTagBuilder {
     /// 配置只有一页时是否隐藏分页器
     /// </summary>
     public PaginationBuilder HideOnSinglePage() {
-        AttributeIfNotEmpty( "[nzHideOnSinglePage]", _config.GetBoolValue( UiConst.HideOnSinglePage ) );
-        AttributeIfNotEmpty( "[nzHideOnSinglePage]", _config.GetValue( AngularConst.BindHideOnSinglePage ) );
+        AttributeIfNotEmpty( "[nzHideOnSinglePage]", _config.GetValue( UiConst.HideOnSinglePage ) );
         return this;
     }
 

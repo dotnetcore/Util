@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.TreeViews.Renders;
 using Util.Ui.Renders;
 
@@ -14,19 +13,11 @@ public class TreeNodeOptionTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzSelected],是否选中,默认值: false
     /// </summary>
-    public bool Selected { get; set; }
-    /// <summary>
-    /// [nzSelected],是否选中,默认值: false
-    /// </summary>
-    public string BindSelected { get; set; }
+    public string Selected { get; set; }
     /// <summary>
     /// [nzDisabled],是否禁用,默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用,默认值: false
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// (nzClick),单击事件,类型: EventEmitter&lt;MouseEvent>
     /// </summary>

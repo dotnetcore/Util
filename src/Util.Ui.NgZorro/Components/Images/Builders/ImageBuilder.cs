@@ -54,8 +54,7 @@ public class ImageBuilder : AngularTagBuilder {
     /// 配置是否禁止预览
     /// </summary>
     public ImageBuilder DisablePreview() {
-        AttributeIfNotEmpty( "[nzDisablePreview]", _config.GetBoolValue( UiConst.DisablePreview ) );
-        AttributeIfNotEmpty( "[nzDisablePreview]", _config.GetValue( AngularConst.BindDisablePreview ) );
+        AttributeIfNotEmpty( "[nzDisablePreview]", _config.GetValue( UiConst.DisablePreview ) );
         return this;
     }
 
@@ -63,8 +62,7 @@ public class ImageBuilder : AngularTagBuilder {
     /// 配置导航时是否关闭预览
     /// </summary>
     public ImageBuilder CloseOnNavigation() {
-        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetBoolValue( UiConst.CloseOnNavigation ) );
-        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetValue( AngularConst.BindCloseOnNavigation ) );
+        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetValue( UiConst.CloseOnNavigation ) );
         return this;
     }
 

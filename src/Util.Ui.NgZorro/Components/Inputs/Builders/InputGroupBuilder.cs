@@ -126,8 +126,7 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 配置搜索
     /// </summary>
     public InputGroupBuilder Search() {
-        AttributeIfNotEmpty( "[nzSearch]", _config.GetBoolValue( UiConst.Search ) );
-        AttributeIfNotEmpty( "[nzSearch]", _config.GetValue( AngularConst.BindSearch ) );
+        AttributeIfNotEmpty( "[nzSearch]", _config.GetValue( UiConst.Search ) );
         return this;
     }
 
@@ -144,8 +143,7 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 配置紧凑模式
     /// </summary>
     public InputGroupBuilder Compact() {
-        AttributeIfNotEmpty( "[nzCompact]", _config.GetBoolValue( UiConst.Compact ) );
-        AttributeIfNotEmpty( "[nzCompact]", _config.GetValue( AngularConst.BindCompact ) );
+        AttributeIfNotEmpty( "[nzCompact]", _config.GetValue( UiConst.Compact ) );
         return this;
     }
 

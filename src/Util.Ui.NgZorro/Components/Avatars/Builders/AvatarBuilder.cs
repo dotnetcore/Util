@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Avatars.Builders; 
@@ -52,8 +51,7 @@ public class AvatarBuilder : AngularTagBuilder {
     /// 配置文本距离两侧间距
     /// </summary>
     public AvatarBuilder Gap() {
-        AttributeIfNotEmpty( "nzGap", _config.GetValue( UiConst.Gap ) );
-        AttributeIfNotEmpty( "[nzGap]", _config.GetValue( AngularConst.BindGap ) );
+        AttributeIfNotEmpty( "[nzGap]", _config.GetValue( UiConst.Gap ) );
         return this;
     }
 

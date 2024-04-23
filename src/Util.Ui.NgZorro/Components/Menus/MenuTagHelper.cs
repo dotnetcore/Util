@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -23,11 +22,7 @@ public class MenuTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzSelectable],是否允许选中，默认值：true
     /// </summary>
-    public bool Selectable { get; set; }
-    /// <summary>
-    /// [nzSelectable],是否允许选中，默认值：true
-    /// </summary>
-    public string BindSelectable { get; set; }
+    public string Selectable { get; set; }
     /// <summary>
     /// nzTheme,主题颜色,可选值: 'light' | 'dark'
     /// </summary>

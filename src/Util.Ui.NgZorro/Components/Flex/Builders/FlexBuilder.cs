@@ -26,8 +26,7 @@ public class FlexBuilder : AngularTagBuilder {
     /// 配置是否垂直布局
     /// </summary>
     public FlexBuilder Vertical() {
-        AttributeIfNotEmpty( "[nzVertical]", _config.GetBoolValue( UiConst.Vertical ) );
-        AttributeIfNotEmpty( "[nzVertical]", _config.GetValue( AngularConst.BindVertical ) );
+        AttributeIfNotEmpty( "[nzVertical]", _config.GetValue( UiConst.Vertical ) );
         return this;
     }
 

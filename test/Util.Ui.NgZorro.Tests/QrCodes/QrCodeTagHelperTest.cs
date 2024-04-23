@@ -120,20 +120,9 @@ public class QrCodeTagHelperTest {
     /// </summary>
     [Fact]
     public void TestSize() {
-        _wrapper.SetContextAttribute( UiConst.Size, 1 );
+        _wrapper.SetContextAttribute( UiConst.Size, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-qrcode nzSize=\"1\"></nz-qrcode>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试尺寸
-    /// </summary>
-    [Fact]
-    public void TestBindSize() {
-        _wrapper.SetContextAttribute( AngularConst.BindSize, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-qrcode [nzSize]=\"a\"></nz-qrcode>" );
+        result.Append( "<nz-qrcode [nzSize]=\"1\"></nz-qrcode>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -175,20 +164,9 @@ public class QrCodeTagHelperTest {
     /// </summary>
     [Fact]
     public void TestIconSize() {
-        _wrapper.SetContextAttribute( UiConst.IconSize, 1 );
+        _wrapper.SetContextAttribute( UiConst.IconSize, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-qrcode nzIconSize=\"1\"></nz-qrcode>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试图标尺寸
-    /// </summary>
-    [Fact]
-    public void TestBindIconSize() {
-        _wrapper.SetContextAttribute( AngularConst.BindIconSize, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-qrcode [nzIconSize]=\"a\"></nz-qrcode>" );
+        result.Append( "<nz-qrcode [nzIconSize]=\"1\"></nz-qrcode>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -197,20 +175,9 @@ public class QrCodeTagHelperTest {
     /// </summary>
     [Fact]
     public void TestBordered() {
-        _wrapper.SetContextAttribute( UiConst.Bordered, true );
+        _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-qrcode [nzBordered]=\"true\"></nz-qrcode>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试边框
-    /// </summary>
-    [Fact]
-    public void TestBindBordered() {
-        _wrapper.SetContextAttribute( AngularConst.BindBordered, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-qrcode [nzBordered]=\"a\"></nz-qrcode>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

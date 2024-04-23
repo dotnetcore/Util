@@ -78,20 +78,9 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-radio-group [nzDisabled]=\"true\"></nz-radio-group>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-radio-group [nzDisabled]=\"a\"></nz-radio-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

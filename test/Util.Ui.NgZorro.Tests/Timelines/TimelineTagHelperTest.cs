@@ -97,20 +97,9 @@ namespace Util.Ui.NgZorro.Tests.Timelines {
         /// </summary>
         [Fact]
         public void TestReverse() {
-            _wrapper.SetContextAttribute( UiConst.Reverse, true );
+            _wrapper.SetContextAttribute( UiConst.Reverse, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-timeline [nzReverse]=\"true\"></nz-timeline>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否倒序排列
-        /// </summary>
-        [Fact]
-        public void TestBindReverse() {
-            _wrapper.SetContextAttribute( AngularConst.BindReverse, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-timeline [nzReverse]=\"a\"></nz-timeline>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

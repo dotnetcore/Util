@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Steps.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -21,13 +20,9 @@ public class StepsTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindType { get; set; }
     /// <summary>
-    /// [nzCurrent],指定当前步骤，从 0 开始记数,在子 nz-step 元素中，可以通过 nzStatus 属性覆盖状态
+    /// [nzCurrent],指定当前步骤，从 0 开始记数,在子 nz-step 元素中，可以通过 nzStatus 属性覆盖状态, 默认值: 0
     /// </summary>
-    public int Current { get; set; }
-    /// <summary>
-    /// [nzCurrent],指定当前步骤，从 0 开始记数,在子 nz-step 元素中，可以通过 nzStatus 属性覆盖状态
-    /// </summary>
-    public string BindCurrent { get; set; }
+    public string Current { get; set; }
     /// <summary>
     /// nzSize,步骤条尺寸,可选值: 'default' | 'small'
     /// </summary>
@@ -39,11 +34,7 @@ public class StepsTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzStartIndex],起始位置的序号,默认值: 0
     /// </summary>
-    public int StartIndex { get; set; }
-    /// <summary>
-    /// [nzStartIndex],起始位置的序号,默认值: 0
-    /// </summary>
-    public string BindStartIndex { get; set; }
+    public string StartIndex { get; set; }
     /// <summary>
     /// nzDirection,步骤条方向,可选值: 'vertical' | 'horizontal'
     /// </summary>
@@ -63,11 +54,7 @@ public class StepsTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzProgressDot],点状步骤条
     /// </summary>
-    public bool ProgressDot { get; set; }
-    /// <summary>
-    /// [nzProgressDot],点状步骤条
-    /// </summary>
-    public string BindProgressDot { get; set; }
+    public string ProgressDot { get; set; }
     /// <summary>
     /// nzLabelPlacement,标签放置位置，默认水平放图标右侧，可选 vertical 放图标下方,可选值:  'horizontal' | 'vertical'
     /// </summary>

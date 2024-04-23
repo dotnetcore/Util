@@ -74,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestDirectoryTree() {
-            _wrapper.SetContextAttribute( UiConst.DirectoryTree, true );
+            _wrapper.SetContextAttribute( UiConst.DirectoryTree, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-virtual-scroll-view [nzDirectoryTree]=\"true\"></nz-tree-virtual-scroll-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否文件夹样式
-        /// </summary>
-        [Fact]
-        public void TestBindDirectoryTree() {
-            _wrapper.SetContextAttribute( AngularConst.BindDirectoryTree, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view [nzDirectoryTree]=\"a\"></nz-tree-virtual-scroll-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,20 +85,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestBlockNode() {
-            _wrapper.SetContextAttribute( UiConst.BlockNode, true );
+            _wrapper.SetContextAttribute( UiConst.BlockNode, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-virtual-scroll-view [nzBlockNode]=\"true\"></nz-tree-virtual-scroll-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试节点是否占整行
-        /// </summary>
-        [Fact]
-        public void TestBindBlockNode() {
-            _wrapper.SetContextAttribute( AngularConst.BindBlockNode, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view [nzBlockNode]=\"a\"></nz-tree-virtual-scroll-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,20 +96,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestItemSize() {
-            _wrapper.SetContextAttribute( UiConst.ItemSize, 1 );
+            _wrapper.SetContextAttribute( UiConst.ItemSize, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view nzItemSize=\"1\"></nz-tree-virtual-scroll-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚拟滚动列高
-        /// </summary>
-        [Fact]
-        public void TestBindItemSize() {
-            _wrapper.SetContextAttribute( AngularConst.BindItemSize, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view [nzItemSize]=\"a\"></nz-tree-virtual-scroll-view>" );
+            result.Append( "<nz-tree-virtual-scroll-view [nzItemSize]=\"1\"></nz-tree-virtual-scroll-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -140,20 +107,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestMaxBufferPx() {
-            _wrapper.SetContextAttribute( UiConst.MaxBufferPx, 1 );
+            _wrapper.SetContextAttribute( UiConst.MaxBufferPx, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view nzMaxBufferPx=\"1\"></nz-tree-virtual-scroll-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚拟滚动缓冲区最大高度
-        /// </summary>
-        [Fact]
-        public void TestBindMaxBufferPx() {
-            _wrapper.SetContextAttribute( AngularConst.BindMaxBufferPx, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view [nzMaxBufferPx]=\"a\"></nz-tree-virtual-scroll-view>" );
+            result.Append( "<nz-tree-virtual-scroll-view [nzMaxBufferPx]=\"1\"></nz-tree-virtual-scroll-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -162,20 +118,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestMinBufferPx() {
-            _wrapper.SetContextAttribute( UiConst.MinBufferPx, 1 );
+            _wrapper.SetContextAttribute( UiConst.MinBufferPx, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view nzMinBufferPx=\"1\"></nz-tree-virtual-scroll-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚拟滚动缓冲区最小高度
-        /// </summary>
-        [Fact]
-        public void TestBindMinBufferPx() {
-            _wrapper.SetContextAttribute( AngularConst.BindMinBufferPx, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-virtual-scroll-view [nzMinBufferPx]=\"a\"></nz-tree-virtual-scroll-view>" );
+            result.Append( "<nz-tree-virtual-scroll-view [nzMinBufferPx]=\"1\"></nz-tree-virtual-scroll-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

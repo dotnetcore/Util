@@ -13,10 +13,6 @@ public class RazorOptions {
     /// </summary>
     public string RootPath { get; set; } = "ClientApp";
     /// <summary>
-    /// Razor页面生成html文件路径的版本,用于兼容传统使用方式,可选值: v1,v2, 如果需要退回到传统生成路径,传入 v1
-    /// </summary>
-    public string GenerateHtmlVersion { get; set; }
-    /// <summary>
     /// 是否在Razor页面运行时自动生成html文件
     /// </summary>
     public bool IsGenerateHtml { get; set; }
@@ -28,10 +24,6 @@ public class RazorOptions {
     /// Razor生成Html文件的目录名称，默认值：html
     /// </summary>
     public string GenerateHtmlFolder { get; set; } = "html";
-    /// <summary>
-    /// Razor生成Html页面的文件后缀，默认值：component.html
-    /// </summary>
-    public string GenerateHtmlSuffix { get; set; } = "component.html";
     /// <summary>
     /// 是否启用Razor监视服务,默认值: true
     /// </summary>
@@ -52,4 +44,8 @@ public class RazorOptions {
     /// 启用Razor生成覆盖已存在的html文件,默认值: true
     /// </summary>
     public bool EnableOverrideHtml { get; set; } = true;
+    /// <summary>
+    /// 启动Razor监视服务时, 是否重新生成全部html文件,默认值: false
+    /// </summary>
+    public bool EnableGenerateAllHtml { get; set; }
 }

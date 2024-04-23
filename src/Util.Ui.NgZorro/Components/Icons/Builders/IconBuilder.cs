@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
@@ -114,8 +113,7 @@ public class IconBuilder : AngularTagBuilder {
     /// 配置图标旋转
     /// </summary>
     public IconBuilder Spin() {
-        AttributeIfNotEmpty( "[nzSpin]", _config.GetBoolValue( UiConst.Spin ) );
-        AttributeIfNotEmpty( "[nzSpin]", _config.GetValue( AngularConst.BindSpin ) );
+        AttributeIfNotEmpty( "[nzSpin]", _config.GetValue( UiConst.Spin ) );
         return this;
     }
 
@@ -124,7 +122,6 @@ public class IconBuilder : AngularTagBuilder {
     /// </summary>
     public IconBuilder Rotate() {
         AttributeIfNotEmpty( "[nzRotate]", _config.GetValue( UiConst.Rotate ) );
-        AttributeIfNotEmpty( "[nzRotate]", _config.GetValue( AngularConst.BindRotate ) );
         return this;
     }
 

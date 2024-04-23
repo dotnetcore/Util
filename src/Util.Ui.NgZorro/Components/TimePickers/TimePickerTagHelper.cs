@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
 using Util.Ui.NgZorro.Components.TimePickers.Renders;
@@ -24,11 +23,7 @@ public class TimePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAllowEmpty],是否展示清除按钮,默认值: true
     /// </summary>
-    public bool AllowEmpty { get; set; }
-    /// <summary>
-    /// [nzAllowEmpty],是否展示清除按钮,默认值: true
-    /// </summary>
-    public string BindAllowEmpty { get; set; }
+    public string AllowEmpty { get; set; }
     /// <summary>
     /// nzClearText,清除按钮的提示文本,默认值: 'clear'
     /// </summary>
@@ -40,11 +35,7 @@ public class TimePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAutoFocus],是否自动聚焦,默认值: false
     /// </summary>
-    public bool AutoFocus { get; set; }
-    /// <summary>
-    /// [nzAutoFocus],是否自动聚焦,默认值: false
-    /// </summary>
-    public string BindAutoFocus { get; set; }
+    public string AutoFocus { get; set; }
     /// <summary>
     /// nzDefaultOpenValue,打开时默认选中的值,当 [ngModel] 不存在时有效,类型: Date,默认值: new Date()
     /// </summary>
@@ -56,11 +47,7 @@ public class TimePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzDisabledHours],不可选择小时函数,函数定义：() => number[]
     /// </summary>
@@ -84,43 +71,23 @@ public class TimePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzHideDisabledOptions],是否隐藏禁止选择的选项,默认值: false
     /// </summary>
-    public bool HideDisabledOptions { get; set; }
-    /// <summary>
-    /// [nzHideDisabledOptions],是否隐藏禁止选择的选项,默认值: false
-    /// </summary>
-    public string BindHideDisabledOptions { get; set; }
-    /// <summary>
-    /// nzHourStep,小时选项间隔,默认值: 1
-    /// </summary>
-    public int HourStep { get; set; }
+    public string HideDisabledOptions { get; set; }
     /// <summary>
     /// [nzHourStep],小时选项间隔,默认值: 1
     /// </summary>
-    public string BindHourStep { get; set; }
-    /// <summary>
-    /// nzMinuteStep,分钟选项间隔,默认值: 1
-    /// </summary>
-    public int MinuteStep { get; set; }
+    public string HourStep { get; set; }
     /// <summary>
     /// [nzMinuteStep],分钟选项间隔,默认值: 1
     /// </summary>
-    public string BindMinuteStep { get; set; }
-    /// <summary>
-    /// nzSecondStep,秒选项间隔,默认值: 1
-    /// </summary>
-    public int SecondStep { get; set; }
+    public string MinuteStep { get; set; }
     /// <summary>
     /// [nzSecondStep],秒选项间隔,默认值: 1
     /// </summary>
-    public string BindSecondStep { get; set; }
+    public string SecondStep { get; set; }
     /// <summary>
     /// [nzOpen],面板是否打开,默认值: false
     /// </summary>
-    public bool Open { get; set; }
-    /// <summary>
-    /// [nzOpen],面板是否打开,默认值: false
-    /// </summary>
-    public string BindOpen { get; set; }
+    public string Open { get; set; }
     /// <summary>
     /// [(nzOpen)],面板是否打开,默认值: false
     /// </summary>
@@ -144,11 +111,7 @@ public class TimePickerTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzUse12Hours],是否使用12小时制，为 true 时 format 默认为 h:mm:ss a,默认值: false
     /// </summary>
-    public bool Use12Hours { get; set; }
-    /// <summary>
-    /// [nzUse12Hours],是否使用12小时制，为 true 时 format 默认为 h:mm:ss a,默认值: false
-    /// </summary>
-    public string BindUse12Hours { get; set; }
+    public string Use12Hours { get; set; }
     /// <summary>
     /// nzSuffixIcon,后缀图标
     /// </summary>

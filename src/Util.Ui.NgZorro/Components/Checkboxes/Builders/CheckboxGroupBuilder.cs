@@ -1,6 +1,4 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Base;
+﻿using Util.Ui.NgZorro.Components.Base;
 
 namespace Util.Ui.NgZorro.Components.Checkboxes.Builders; 
 
@@ -24,8 +22,7 @@ public class CheckboxGroupBuilder : FormControlBuilderBase<CheckboxGroupBuilder>
     /// 配置禁用
     /// </summary>
     public CheckboxGroupBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 

@@ -68,11 +68,7 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// <summary>
     /// [nzDirectory],是否支持上传文件夹,默认值: false
     /// </summary>
-    public bool Directory { get; set; }
-    /// <summary>
-    /// [nzDirectory],是否支持上传文件夹,默认值: false
-    /// </summary>
-    public string BindDirectory { get; set; }
+    public string Directory { get; set; }
     /// <summary>
     /// [nzBeforeUpload],上传前钩子函数,参数为上传的文件，返回 false 停止上传,注意：务必使用 => 定义处理方法,函数定义: (file: NzUploadFile, fileList: NzUploadFile[]) => boolean | Observable&lt;boolean>
     /// </summary>
@@ -88,11 +84,7 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzFileList],文件列表,类型: NzUploadFile[]
     /// </summary>
@@ -108,19 +100,11 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// <summary>
     /// [nzLimit],限制单次最多上传数量,nzMultiple 打开时有效,0 表示不限,默认值: 0
     /// </summary>
-    public int Limit { get; set; }
-    /// <summary>
-    /// [nzLimit],限制单次最多上传数量,nzMultiple 打开时有效,0 表示不限,默认值: 0
-    /// </summary>
-    public string BindLimit { get; set; }
+    public string Limit { get; set; }
     /// <summary>
     /// [nzSize],限制文件大小,单位：KB,0 表示不限,默认值: 0
     /// </summary>
-    public double Size { get; set; }
-    /// <summary>
-    /// [nzSize],限制文件大小,单位：KB,0 表示不限,默认值: 0
-    /// </summary>
-    public string BindSize { get; set; }
+    public string Size { get; set; }
     /// <summary>
     /// nzFileType,限制文件类型,范例: image/png,image/jpeg,image/gif,image/bmp
     /// </summary>
@@ -148,11 +132,7 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// <summary>
     /// [nzMultiple],是否支持多选文件,开启后按住 ctrl 可选择多个文件,默认值: false
     /// </summary>
-    public bool Multiple { get; set; }
-    /// <summary>
-    /// [nzMultiple],是否支持多选文件,开启后按住 ctrl 可选择多个文件,默认值: false
-    /// </summary>
-    public string BindMultiple { get; set; }
+    public string Multiple { get; set; }
     /// <summary>
     /// nzName,发送到服务端的文件参数名,默认值: 'file'
     /// </summary>
@@ -164,35 +144,19 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// <summary>
     /// [nzShowUploadList],是否显示上传列表,类型: boolean | { showPreviewIcon?: boolean, showRemoveIcon?: boolean, showDownloadIcon?: boolean },默认值: true
     /// </summary>
-    public bool ShowUploadList { get; set; }
-    /// <summary>
-    /// [nzShowUploadList],是否显示上传列表,类型: boolean | { showPreviewIcon?: boolean, showRemoveIcon?: boolean, showDownloadIcon?: boolean },默认值: true
-    /// </summary>
-    public string BindShowUploadList { get; set; }
+    public string ShowUploadList { get; set; }
     /// <summary>
     /// [nzShowButton],是否显示上传按钮,默认值: true
     /// </summary>
-    public bool ShowButton { get; set; }
-    /// <summary>
-    /// [nzShowButton],是否显示上传按钮,默认值: true
-    /// </summary>
-    public string BindShowButton { get; set; }
+    public string ShowButton { get; set; }
     /// <summary>
     /// [nzWithCredentials],上传时是否携带cookie,默认值: false
     /// </summary>
-    public bool WithCredentials { get; set; }
-    /// <summary>
-    /// [nzWithCredentials],上传时是否携带cookie,默认值: false
-    /// </summary>
-    public string BindWithCredentials { get; set; }
+    public string WithCredentials { get; set; }
     /// <summary>
     /// [nzOpenFileDialogOnClick],点击是否打开文件对话框,默认值: true
     /// </summary>
-    public bool OpenFileDialogOnClick { get; set; }
-    /// <summary>
-    /// [nzOpenFileDialogOnClick],点击是否打开文件对话框,默认值: true
-    /// </summary>
-    public string BindOpenFileDialogOnClick { get; set; }
+    public string OpenFileDialogOnClick { get; set; }
     /// <summary>
     /// [nzPreview],点击文件链接或点击预览图标时的回调函数,注意：务必使用 => 定义处理方法,类型: (file: NzUploadFile) => void
     /// </summary>
@@ -226,7 +190,7 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// </summary>
     public string FileListRender { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
+    /// 扩展属性 *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
     /// </summary>
     public bool SpaceItem { get; set; }
     /// <summary>

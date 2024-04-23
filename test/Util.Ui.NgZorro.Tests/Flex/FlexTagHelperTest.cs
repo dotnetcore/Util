@@ -54,20 +54,9 @@ public class FlexTagHelperTest {
     /// </summary>
     [Fact]
     public void TestVertical() {
-        _wrapper.SetContextAttribute( UiConst.Vertical, true );
+        _wrapper.SetContextAttribute( UiConst.Vertical, "true" );
         var result = new StringBuilder();
         result.Append( "<div nz-flex=\"\" [nzVertical]=\"true\"></div>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否垂直布局
-    /// </summary>
-    [Fact]
-    public void TestBindVertical() {
-        _wrapper.SetContextAttribute( AngularConst.BindVertical, "a" );
-        var result = new StringBuilder();
-        result.Append( "<div nz-flex=\"\" [nzVertical]=\"a\"></div>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

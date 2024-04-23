@@ -108,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Calendars {
         /// </summary>
         [Fact]
         public void TestFullscreen() {
-            _wrapper.SetContextAttribute( UiConst.Fullscreen, true );
+            _wrapper.SetContextAttribute( UiConst.Fullscreen, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-calendar [nzFullscreen]=\"true\"></nz-calendar>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否全屏显示
-        /// </summary>
-        [Fact]
-        public void TestBindFullscreen() {
-            _wrapper.SetContextAttribute( AngularConst.BindFullscreen, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-calendar [nzFullscreen]=\"a\"></nz-calendar>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

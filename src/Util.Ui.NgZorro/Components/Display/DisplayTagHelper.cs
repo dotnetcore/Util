@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Display.Helpers;
 using Util.Ui.NgZorro.Components.Display.Renders;
@@ -36,7 +35,7 @@ public class DisplayTagHelper : FormContainerTagHelperBase {
     /// </summary>
     public bool ShowLabel { get; set; }
     /// <summary>
-    /// 日期格式化字符串，默认值: yyyy-MM-dd HH:mm,仅在使用属性表达式For时有效,格式说明：
+    /// 日期格式化字符串，默认值: yyyy-MM-dd HH:mm:ss,仅在使用属性表达式For时有效,格式说明：
     /// 1. 年 - yyyy
     /// 2. 月 - MM
     /// 3. 日 - dd

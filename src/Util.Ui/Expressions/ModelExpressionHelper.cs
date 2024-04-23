@@ -13,7 +13,7 @@ public static class ModelExpressionHelper {
     /// <param name="expression">属性表达式</param>
     public static ModelExpression Create<TModel,TProperty>( string name, Expression<Func<TModel, TProperty>> expression ) {
         var property = Util.Helpers.Lambda.GetMember( expression ) as PropertyInfo;
-        property.CheckNull( nameof(property) );
+        property!.CheckNull( nameof(property) );
         var provider = CreateModelMetadataProvider();
         var metadata = provider.GetMetadataForProperty( property, typeof( TProperty ) );
         var modelExplorer = new ModelExplorer( provider, metadata, null );

@@ -67,20 +67,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestAllowClear() {
-            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzAllowClear]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowClear() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowClear, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzAllowClear]=\"Ab\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -89,20 +78,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzAutoFocus]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzAutoFocus]=\"Ab\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -133,20 +111,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzDisabled]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzDisabled]=\"a\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -243,20 +210,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestInputReadOnly() {
-            _wrapper.SetContextAttribute( UiConst.InputReadonly, true );
+            _wrapper.SetContextAttribute( UiConst.InputReadonly, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzInputReadOnly]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试只读
-        /// </summary>
-        [Fact]
-        public void TestBindInputReadOnly() {
-            _wrapper.SetContextAttribute( AngularConst.BindInputReadonly, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzInputReadOnly]=\"a\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -386,20 +342,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestBorderless() {
-            _wrapper.SetContextAttribute( UiConst.Borderless, true );
+            _wrapper.SetContextAttribute( UiConst.Borderless, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzBorderless]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试移除边框
-        /// </summary>
-        [Fact]
-        public void TestBindBorderless() {
-            _wrapper.SetContextAttribute( AngularConst.BindBorderless, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzBorderless]=\"a\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -419,20 +364,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestShowTime() {
-            _wrapper.SetContextAttribute( UiConst.ShowTime, true );
+            _wrapper.SetContextAttribute( UiConst.ShowTime, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzShowTime]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示时间选择
-        /// </summary>
-        [Fact]
-        public void TestBindShowTime() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowTime, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzShowTime]=\"a\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -441,20 +375,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestShowToday() {
-            _wrapper.SetContextAttribute( UiConst.ShowToday, true );
+            _wrapper.SetContextAttribute( UiConst.ShowToday, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzShowToday]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示“今天”按钮
-        /// </summary>
-        [Fact]
-        public void TestBindShowToday() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowToday, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzShowToday]=\"a\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -463,20 +386,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestShowNow() {
-            _wrapper.SetContextAttribute( UiConst.ShowNow, true );
+            _wrapper.SetContextAttribute( UiConst.ShowNow, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-date-picker [nzShowNow]=\"true\"></nz-date-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示“此刻”按钮
-        /// </summary>
-        [Fact]
-        public void TestBindShowNow() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowNow, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-date-picker [nzShowNow]=\"a\"></nz-date-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -91,20 +91,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestPopconfirmVisible() {
-            _wrapper.SetContextAttribute( UiConst.PopconfirmVisible, true );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmVisible, "true" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmVisible]=\"true\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡框是否可见
-        /// </summary>
-        [Fact]
-        public void TestBindPopconfirmVisible() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmVisible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmVisible]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -113,20 +102,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestPopconfirmShowArrow() {
-            _wrapper.SetContextAttribute( UiConst.PopconfirmShowArrow, true );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmShowArrow, "true" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmShowArrow]=\"true\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡框是否显示箭头
-        /// </summary>
-        [Fact]
-        public void TestBindPopconfirmShowArrow() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmShowArrow, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmShowArrow]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -135,20 +113,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestPopconfirmMouseEnterDelay() {
-            _wrapper.SetContextAttribute( UiConst.PopconfirmMouseEnterDelay, 1 );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmMouseEnterDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzPopconfirmMouseEnterDelay=\"1\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡框移入延时
-        /// </summary>
-        [Fact]
-        public void TestBindPopconfirmMouseEnterDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmMouseEnterDelay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmMouseEnterDelay]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmMouseEnterDelay]=\"1\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -157,20 +124,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestPopconfirmMouseLeaveDelay() {
-            _wrapper.SetContextAttribute( UiConst.PopconfirmMouseLeaveDelay, 1 );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmMouseLeaveDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzPopconfirmMouseLeaveDelay=\"1\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡框移出延时
-        /// </summary>
-        [Fact]
-        public void TestBindPopconfirmMouseLeaveDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmMouseLeaveDelay,"a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmMouseLeaveDelay]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmMouseLeaveDelay]=\"1\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -212,20 +168,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestPopconfirmBackdrop() {
-            _wrapper.SetContextAttribute( UiConst.PopconfirmBackdrop, true );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmBackdrop, "true" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmBackdrop]=\"true\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡框浮层是否应带背景
-        /// </summary>
-        [Fact]
-        public void TestBindPopconfirmBackdrop() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmBackdrop, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmBackdrop]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -300,20 +245,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestPopconfirmCondition() {
-            _wrapper.SetContextAttribute( UiConst.PopconfirmCondition, true );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmCondition, "true" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzCondition]=\"true\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡框条件触发
-        /// </summary>
-        [Fact]
-        public void TestBindPopconfirmCondition() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmCondition, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzCondition]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

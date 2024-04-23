@@ -137,6 +137,14 @@ public class I18nKeys {
     /// </summary>
     public const string CopyToClipboard = "util.copyToClipboard";
     /// <summary>
+    /// util.fullscreen
+    /// </summary>
+    public const string Fullscreen = "util.fullscreen";
+    /// <summary>
+    /// util.fullscreenExit
+    /// </summary>
+    public const string FullscreenExit = "util.fullscreenExit";
+    /// <summary>
     /// util.expand
     /// </summary>
     public const string Expand = "util.expand";

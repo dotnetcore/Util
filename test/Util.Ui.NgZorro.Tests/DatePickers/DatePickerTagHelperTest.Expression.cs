@@ -15,12 +15,12 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label [nzRequired]=\"true\">出生日期</nz-form-label>" );
-            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
-            result.Append( "<nz-date-picker #v_id=\"xValidationExtend\" displayName=\"出生日期\" name=\"birthday\" " );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_birthday\">" );
+            result.Append( "<nz-date-picker #birthday=\"\" #v_birthday=\"xValidationExtend\" displayName=\"出生日期\" name=\"birthday\" " );
             result.Append( "x-validation-extend=\"\" [(ngModel)]=\"model.birthday\" [required]=\"true\">" );
             result.Append( "</nz-date-picker>" );
-            result.Append( "<ng-template #vt_id=\"\">" );
-            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "<ng-template #vt_birthday=\"\">" );
+            result.Append( "{{v_birthday.getErrorMessage()}}" );
             result.Append( "</ng-template>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );

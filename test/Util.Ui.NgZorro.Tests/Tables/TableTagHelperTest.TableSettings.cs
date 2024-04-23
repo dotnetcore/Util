@@ -221,7 +221,7 @@ public partial class TableTagHelperTest {
     public void TestEnableTableSettings_6() {
         _wrapper.SetContextAttribute( UiConst.Key, "k" );
         _wrapper.SetContextAttribute( UiConst.EnableTableSettings, true );
-        _wrapper.SetContextAttribute( UiConst.Bordered, true );
+        _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
 
         //创建列
         var column = new TableColumnTagHelper().ToWrapper();

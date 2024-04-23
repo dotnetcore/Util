@@ -25,8 +25,7 @@ public class TreeNodeOptionBuilder : AngularTagBuilder {
     /// 配置是否选中
     /// </summary>
     public TreeNodeOptionBuilder Selected() {
-        AttributeIfNotEmpty( "[nzSelected]", _config.GetBoolValue( UiConst.Selected ) );
-        AttributeIfNotEmpty( "[nzSelected]", _config.GetValue( AngularConst.BindSelected ) );
+        AttributeIfNotEmpty( "[nzSelected]", _config.GetValue( UiConst.Selected ) );
         return this;
     }
 
@@ -34,8 +33,7 @@ public class TreeNodeOptionBuilder : AngularTagBuilder {
     /// 配置是否禁用
     /// </summary>
     public TreeNodeOptionBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 

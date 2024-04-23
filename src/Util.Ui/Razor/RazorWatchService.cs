@@ -7,7 +7,7 @@ using Util.Ui.Razor.Internal;
 namespace Util.Ui.Razor;
 
 /// <summary>
-/// Razor页面监听服务
+/// Razor页面监视服务
 /// </summary>
 public class RazorWatchService : IRazorWatchService {
     /// <summary>
@@ -44,7 +44,7 @@ public class RazorWatchService : IRazorWatchService {
     private readonly SequentialSimpleAsyncSubject<string> _addViewSubject;
 
     /// <summary>
-    /// 初始化Razor页面监听服务
+    /// 初始化Razor页面监视服务
     /// </summary>
     public RazorWatchService( IServiceProvider serviceProvider, IPartViewPathResolver resolver, HttpClient client,
             IActionDescriptorCollectionProvider provider, IOptions<RazorOptions> options ) {
@@ -113,6 +113,29 @@ public class RazorWatchService : IRazorWatchService {
         }
     }
 
+    /// <summary>
+    /// 获取应用地址
+    /// </summary>
+    protected string GetApplicationUrl() {
+        var path = GetProjectPath( "Properties" );
+        var builder = new ConfigurationBuilder()
+            .SetBasePath( path )
+            .AddJsonFile( "launchSettings.json", true, false );
+        var config = builder.Build();
+        foreach ( var child in config.AsEnumerable() ) {
+            if ( child.Key.Contains( "applicationUrl", StringComparison.OrdinalIgnoreCase ) )
+                return child.Value;
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// 添加视图
+    /// </summary>
+    protected async Task AddView( string path ) {
+        await _addViewSubject.OnNextAsync( path );
+    }
+
     /// <inheritdoc />
     public virtual async Task StartAsync( CancellationToken cancellationToken ) {
         WriteLog( "启动中..." );
@@ -120,6 +143,7 @@ public class RazorWatchService : IRazorWatchService {
         InitRazorViewContainer();
         await Task.Factory.StartNew( async () => {
             await Task.Delay( _options.StartInitDelay, cancellationToken );
+            await GenerateAllHtml();
             await GenerateMissingHtml();
             await Preheat();
             IsStartComplete = true;
@@ -163,9 +187,31 @@ public class RazorWatchService : IRazorWatchService {
     }
 
     /// <summary>
+    /// 重新生成全部html
+    /// </summary>
+    protected async Task GenerateAllHtml() {
+        if ( _options.EnableGenerateAllHtml == false )
+            return;
+        WriteLog( "准备重新生成全部html..." );
+        _isGenerateMissingHtml = true;
+        EnableGenerateHtml();
+        var requestPath = Url.JoinPath( GetApplicationUrl(), "api/html" );
+        var response = await _client.GetAsync( requestPath );
+        if ( response.IsSuccessStatusCode ) {
+            WriteLog( "重新生成全部html完成..." );
+            return;
+        }
+        var result = await response.Content.ReadAsStringAsync();
+        WriteLog( "重新生成全部html失败..." );
+        WriteLog( result );
+    }
+
+    /// <summary>
     /// 生成缺失的html
     /// </summary>
     protected async Task GenerateMissingHtml() {
+        if ( _options.EnableGenerateAllHtml )
+            return;
         WriteLog( "准备生成缺失的html..." );
         EnableGenerateHtml();
         EnableOverrideHtml( false );
@@ -206,29 +252,6 @@ public class RazorWatchService : IRazorWatchService {
     }
 
     /// <summary>
-    /// 获取应用地址
-    /// </summary>
-    protected string GetApplicationUrl() {
-        var path = GetProjectPath( "Properties" );
-        var builder = new ConfigurationBuilder()
-            .SetBasePath( path )
-            .AddJsonFile( "launchSettings.json", true, false );
-        var config = builder.Build();
-        foreach ( var child in config.AsEnumerable() ) {
-            if ( child.Key.Contains( "applicationUrl", StringComparison.OrdinalIgnoreCase ) )
-                return child.Value;
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// 添加视图
-    /// </summary>
-    protected async Task AddView( string path ) {
-        await _addViewSubject.OnNextAsync( path );
-    }
-
-    /// <summary>
     /// Razor页面预热
     /// </summary>
     protected async Task Preheat() {
@@ -262,7 +285,7 @@ public class RazorWatchService : IRazorWatchService {
     /// 生成Html
     /// </summary>
     private async Task GenerateAsync( string fullPath ) {
-        if ( IsCshtml( fullPath ) == false )
+        if ( IsIgnore( fullPath ) )
             return;
         EnableGenerateHtml();
         var file = new FileInfo( fullPath );
@@ -278,10 +301,14 @@ public class RazorWatchService : IRazorWatchService {
     }
 
     /// <summary>
-    /// 是否cshtml文件
+    /// 是否忽略
     /// </summary>
-    protected bool IsCshtml( string path ) {
-        return path.EndsWith( ".cshtml", StringComparison.OrdinalIgnoreCase );
+    protected bool IsIgnore( string path ) {
+        if ( path.EndsWith( ".cshtml", StringComparison.OrdinalIgnoreCase ) == false )
+            return true;
+        if ( path.Contains( "_ViewImports", StringComparison.OrdinalIgnoreCase ) )
+            return true;
+        return false;
     }
 
     /// <inheritdoc />

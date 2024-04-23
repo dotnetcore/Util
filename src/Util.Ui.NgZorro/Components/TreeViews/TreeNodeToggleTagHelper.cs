@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.TreeViews.Renders;
 using Util.Ui.Renders;
 
@@ -12,9 +11,9 @@ namespace Util.Ui.NgZorro.Components.TreeViews;
 [HtmlTargetElement( "util-tree-node-toggle" )]
 public class TreeNodeToggleTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzTreeNodeNoopToggle,不做任何操作的切换部分，可用于占位或者显示图标
+    /// [nzTreeNodeNoopToggle],不做任何操作的切换部分，可用于占位或者显示图标
     /// </summary>
-    public bool TreeNodeNoopToggle { get; set; }
+    public string TreeNodeNoopToggle { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

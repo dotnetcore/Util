@@ -1,12 +1,12 @@
 ﻿using Util.Ui.Angular.Extensions;
-using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
+using Util.Ui.NgZorro.Components.Typographies.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Display.Builders; 
+namespace Util.Ui.NgZorro.Components.Display.Builders;
 
 /// <summary>
 /// 数据项展示标签生成器
@@ -42,7 +42,7 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
             return this;
         }
         var options = NgZorroOptionsService.GetOptions();
-        if( options.EnableI18n )
+        if ( options.EnableI18n )
             SetContent( "{{" + $"{value}|i18n" + "}}" );
         else
             SetContent( "{{" + value + "}}" );
@@ -70,7 +70,7 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
     protected void LoadDate( string value ) {
         var format = _config.GetValue( UiConst.DateFormat );
         if ( format.IsEmpty() )
-            format = "yyyy-MM-dd HH:mm";
+            format = "yyyy-MM-dd HH:mm:ss";
         SetContent( $"{{{{{value}|date:\"{format}\"}}}}" );
     }
 
@@ -92,12 +92,11 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
         if ( value.IsEmpty() )
             return this;
         var options = NgZorroOptionsService.GetOptions();
-        var labelBuilder = new SpanBuilder();
+        var labelBuilder = new SpanBuilder( _config );
         labelBuilder.Class( "mr-sm" );
         if ( options.EnableI18n ) {
             labelBuilder.AppendContentByI18n( value );
-        }
-        else {
+        } else {
             labelBuilder.AppendContent( value );
         }
         labelBuilder.AppendContent( ":" );
@@ -116,7 +115,7 @@ public class DisplayBuilder : FormControlBuilderBase<DisplayBuilder> {
     /// 配置复制到剪贴板
     /// </summary>
     public void CopyToClipboard() {
-        if( _config.GetValue<bool?>( UiConst.Clipboard ) != true )
+        if ( _config.GetValue<bool?>( UiConst.Clipboard ) != true )
             return;
         var value = _config.GetValue( UiConst.Value );
         _config.SetAttribute( UiConst.CopyToClipboard, value );

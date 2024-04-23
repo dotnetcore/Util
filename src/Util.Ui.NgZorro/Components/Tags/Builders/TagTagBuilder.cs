@@ -51,8 +51,7 @@ public class TagTagBuilder : AngularTagBuilder {
     /// 配置是否选中
     /// </summary>
     public TagTagBuilder Checked() {
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetBoolValue( UiConst.Checked ) );
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( AngularConst.BindChecked ) );
+        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( UiConst.Checked ) );
         AttributeIfNotEmpty( "[(nzChecked)]", _config.GetValue( AngularConst.BindonChecked ) );
         return this;
     }

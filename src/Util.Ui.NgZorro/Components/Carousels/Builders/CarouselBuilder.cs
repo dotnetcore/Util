@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Carousels.Builders; 
@@ -26,8 +25,7 @@ public class CarouselBuilder : AngularTagBuilder {
     /// 配置是否自动切换
     /// </summary>
     public CarouselBuilder AutoPlay() {
-        AttributeIfNotEmpty( "[nzAutoPlay]", _config.GetBoolValue( UiConst.AutoPlay ) );
-        AttributeIfNotEmpty( "[nzAutoPlay]", _config.GetValue( AngularConst.BindAutoPlay ) );
+        AttributeIfNotEmpty( "[nzAutoPlay]", _config.GetValue( UiConst.AutoPlay ) );
         return this;
     }
 
@@ -35,8 +33,7 @@ public class CarouselBuilder : AngularTagBuilder {
     /// 配置是否自动切换
     /// </summary>
     public CarouselBuilder AutoPlaySpeed() {
-        AttributeIfNotEmpty( "nzAutoPlaySpeed", _config.GetValue( UiConst.AutoPlaySpeed ) );
-        AttributeIfNotEmpty( "[nzAutoPlaySpeed]", _config.GetValue( AngularConst.BindAutoPlaySpeed ) );
+        AttributeIfNotEmpty( "[nzAutoPlaySpeed]", _config.GetValue( UiConst.AutoPlaySpeed ) );
         return this;
     }
 
@@ -61,8 +58,7 @@ public class CarouselBuilder : AngularTagBuilder {
     /// 配置是否显示指示点
     /// </summary>
     public CarouselBuilder Dots() {
-        AttributeIfNotEmpty( "[nzDots]", _config.GetBoolValue( UiConst.Dots ) );
-        AttributeIfNotEmpty( "[nzDots]", _config.GetValue( AngularConst.BindDots ) );
+        AttributeIfNotEmpty( "[nzDots]", _config.GetValue( UiConst.Dots ) );
         return this;
     }
 
@@ -79,8 +75,7 @@ public class CarouselBuilder : AngularTagBuilder {
     /// 配置是否支持手势划动切换
     /// </summary>
     public CarouselBuilder EnableSwipe() {
-        AttributeIfNotEmpty( "[nzEnableSwipe]", _config.GetBoolValue( UiConst.EnableSwipe ) );
-        AttributeIfNotEmpty( "[nzEnableSwipe]", _config.GetValue( AngularConst.BindEnableSwipe ) );
+        AttributeIfNotEmpty( "[nzEnableSwipe]", _config.GetValue( UiConst.EnableSwipe ) );
         return this;
     }
 

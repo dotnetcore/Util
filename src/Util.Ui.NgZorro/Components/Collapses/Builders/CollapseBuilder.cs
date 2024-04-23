@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Collapses.Builders; 
@@ -26,8 +25,7 @@ public class CollapseBuilder : AngularTagBuilder {
     /// 配置是否手风琴
     /// </summary>
     public CollapseBuilder Accordion() {
-        AttributeIfNotEmpty( "[nzAccordion]", _config.GetBoolValue( UiConst.Accordion ) );
-        AttributeIfNotEmpty( "[nzAccordion]", _config.GetValue( AngularConst.BindAccordion ) );
+        AttributeIfNotEmpty( "[nzAccordion]", _config.GetValue( UiConst.Accordion ) );
         return this;
     }
 
@@ -35,8 +33,7 @@ public class CollapseBuilder : AngularTagBuilder {
     /// 配置是否有边框
     /// </summary>
     public CollapseBuilder Bordered() {
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetBoolValue( UiConst.Bordered ) );
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( AngularConst.BindBordered ) );
+        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 
@@ -44,8 +41,7 @@ public class CollapseBuilder : AngularTagBuilder {
     /// 配置是否幽灵面板
     /// </summary>
     public CollapseBuilder Ghost() {
-        AttributeIfNotEmpty( "[nzGhost]", _config.GetBoolValue( UiConst.Ghost ) );
-        AttributeIfNotEmpty( "[nzGhost]", _config.GetValue( AngularConst.BindGhost ) );
+        AttributeIfNotEmpty( "[nzGhost]", _config.GetValue( UiConst.Ghost ) );
         return this;
     }
 

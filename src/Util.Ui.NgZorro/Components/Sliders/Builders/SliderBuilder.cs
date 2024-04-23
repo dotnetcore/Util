@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 
@@ -26,8 +25,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置禁用
     /// </summary>
     public SliderBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -35,8 +33,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置是否只能拖拽到刻度
     /// </summary>
     public SliderBuilder Dots() {
-        AttributeIfNotEmpty( "[nzDots]", _config.GetBoolValue( UiConst.Dots ) );
-        AttributeIfNotEmpty( "[nzDots]", _config.GetValue( AngularConst.BindDots ) );
+        AttributeIfNotEmpty( "[nzDots]", _config.GetValue( UiConst.Dots ) );
         return this;
     }
 
@@ -44,8 +41,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置是否包含
     /// </summary>
     public SliderBuilder Included() {
-        AttributeIfNotEmpty( "[nzIncluded]", _config.GetBoolValue( UiConst.Included ) );
-        AttributeIfNotEmpty( "[nzIncluded]", _config.GetValue( AngularConst.BindIncluded ) );
+        AttributeIfNotEmpty( "[nzIncluded]", _config.GetValue( UiConst.Included ) );
         return this;
     }
 
@@ -61,8 +57,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置最大值
     /// </summary>
     public SliderBuilder Max() {
-        AttributeIfNotEmpty( "nzMax", _config.GetValue( UiConst.Max ) );
-        AttributeIfNotEmpty( "[nzMax]", _config.GetValue( AngularConst.BindMax ) );
+        AttributeIfNotEmpty( "[nzMax]", _config.GetValue( UiConst.Max ) );
         return this;
     }
 
@@ -70,8 +65,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置最小值
     /// </summary>
     public SliderBuilder Min() {
-        AttributeIfNotEmpty( "nzMin", _config.GetValue( UiConst.Min ) );
-        AttributeIfNotEmpty( "[nzMin]", _config.GetValue( AngularConst.BindMin ) );
+        AttributeIfNotEmpty( "[nzMin]", _config.GetValue( UiConst.Min ) );
         return this;
     }
 
@@ -79,8 +73,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置双滑块模式
     /// </summary>
     public SliderBuilder Range() {
-        AttributeIfNotEmpty( "[nzRange]", _config.GetBoolValue( UiConst.Range ) );
-        AttributeIfNotEmpty( "[nzRange]", _config.GetValue( AngularConst.BindRange ) );
+        AttributeIfNotEmpty( "[nzRange]", _config.GetValue( UiConst.Range ) );
         return this;
     }
 
@@ -88,8 +81,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置步长
     /// </summary>
     public SliderBuilder Step() {
-        AttributeIfNotEmpty( "nzStep", _config.GetValue( UiConst.Step ) );
-        AttributeIfNotEmpty( "[nzStep]", _config.GetValue( AngularConst.BindStep ) );
+        AttributeIfNotEmpty( "[nzStep]", _config.GetValue( UiConst.Step ) );
         return this;
     }
 
@@ -105,8 +97,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置垂直方向
     /// </summary>
     public SliderBuilder Vertical() {
-        AttributeIfNotEmpty( "[nzVertical]", _config.GetBoolValue( UiConst.Vertical ) );
-        AttributeIfNotEmpty( "[nzVertical]", _config.GetValue( AngularConst.BindVertical ) );
+        AttributeIfNotEmpty( "[nzVertical]", _config.GetValue( UiConst.Vertical ) );
         return this;
     }
 
@@ -114,8 +105,7 @@ public class SliderBuilder : FormControlBuilderBase<SliderBuilder> {
     /// 配置反向
     /// </summary>
     public SliderBuilder Reverse() {
-        AttributeIfNotEmpty( "[nzReverse]", _config.GetBoolValue( UiConst.Reverse ) );
-        AttributeIfNotEmpty( "[nzReverse]", _config.GetValue( AngularConst.BindReverse ) );
+        AttributeIfNotEmpty( "[nzReverse]", _config.GetValue( UiConst.Reverse ) );
         return this;
     }
 

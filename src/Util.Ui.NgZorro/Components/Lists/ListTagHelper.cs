@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Lists.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -15,11 +14,7 @@ public class ListTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBordered],是否显示边框,默认值: false
     /// </summary>
-    public bool Bordered { get; set; }
-    /// <summary>
-    /// [nzBordered],是否显示边框,默认值: false
-    /// </summary>
-    public string BindBordered { get; set; }
+    public string Bordered { get; set; }
     /// <summary>
     /// nzFooter,列表底部,类型: string | TemplateRef&lt;void>
     /// </summary>
@@ -59,15 +54,11 @@ public class ListTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzSplit],是否显示分割线,默认值: true
     /// </summary>
-    public bool Split { get; set; }
+    public string Split { get; set; }
     /// <summary>
-    /// [nzSplit],是否显示分割线,默认值: true
+    /// [nzGrid],是否支持栅格列表,默认值: false
     /// </summary>
-    public string BindSplit { get; set; }
-    /// <summary>
-    /// nzGrid,是否支持栅格列表
-    /// </summary>
-    public bool Grid { get; set; }
+    public string Grid { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

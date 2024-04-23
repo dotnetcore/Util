@@ -90,21 +90,9 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestEditable() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.Editable, true );
+            _wrapper.SetContextAttribute( UiConst.Editable, "true" );
             var result = new StringBuilder();
             result.Append( "<p nz-typography=\"\" [nzEditable]=\"true\"></p>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试可编辑
-        /// </summary>
-        [Fact]
-        public void TestBindEditable() {
-            _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( AngularConst.BindEditable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<p nz-typography=\"\" [nzEditable]=\"a\"></p>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -162,21 +150,9 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestCopyable() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.Copyable, true );
+            _wrapper.SetContextAttribute( UiConst.Copyable, "true" );
             var result = new StringBuilder();
             result.Append( "<p nz-typography=\"\" [nzCopyable]=\"true\"></p>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试可复制
-        /// </summary>
-        [Fact]
-        public void TestBindCopyable() {
-            _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( AngularConst.BindCopyable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<p nz-typography=\"\" [nzCopyable]=\"a\"></p>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -270,21 +246,9 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestDisabled() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<p nz-typography=\"\" [nzDisabled]=\"true\"></p>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用文本
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<p nz-typography=\"\" [nzDisabled]=\"a\"></p>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -294,21 +258,9 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestEllipsis() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.Ellipsis, true );
+            _wrapper.SetContextAttribute( UiConst.Ellipsis, "true" );
             var result = new StringBuilder();
             result.Append( "<p nz-typography=\"\" [nzEllipsis]=\"true\"></p>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试省略文本
-        /// </summary>
-        [Fact]
-        public void TestBindEllipsis() {
-            _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( AngularConst.BindEllipsis, "a" );
-            var result = new StringBuilder();
-            result.Append( "<p nz-typography=\"\" [nzEllipsis]=\"a\"></p>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -318,21 +270,9 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestExpandable() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.Expandable, true );
+            _wrapper.SetContextAttribute( UiConst.Expandable, "true" );
             var result = new StringBuilder();
             result.Append( "<p nz-typography=\"\" [nzExpandable]=\"true\"></p>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试省略可展开
-        /// </summary>
-        [Fact]
-        public void TestBindExpandable() {
-            _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( AngularConst.BindExpandable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<p nz-typography=\"\" [nzExpandable]=\"a\"></p>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -342,21 +282,9 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestEllipsisRows() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.EllipsisRows, 2 );
+            _wrapper.SetContextAttribute( UiConst.EllipsisRows, "2" );
             var result = new StringBuilder();
             result.Append( "<p nz-typography=\"\" [nzEllipsisRows]=\"2\"></p>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试省略行数
-        /// </summary>
-        [Fact]
-        public void TestBindEllipsisRows() {
-            _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( AngularConst.BindEllipsisRows, "a" );
-            var result = new StringBuilder();
-            result.Append( "<p nz-typography=\"\" [nzEllipsisRows]=\"a\"></p>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

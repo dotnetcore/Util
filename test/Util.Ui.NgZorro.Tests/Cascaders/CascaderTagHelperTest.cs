@@ -55,20 +55,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestAllowClear() {
-            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzAllowClear]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowClear() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowClear, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzAllowClear]=\"Ab\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -77,20 +66,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzAutoFocus]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzAutoFocus]=\"Ab\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -110,20 +88,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestChangeOnSelect() {
-            _wrapper.SetContextAttribute( UiConst.ChangeOnSelect, true );
+            _wrapper.SetContextAttribute( UiConst.ChangeOnSelect, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzChangeOnSelect]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试选择变更
-        /// </summary>
-        [Fact]
-        public void TestBindChangeOnSelect() {
-            _wrapper.SetContextAttribute( AngularConst.BindChangeOnSelect, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzChangeOnSelect]=\"Ab\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -154,20 +121,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzDisabled]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzDisabled]=\"a\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -374,20 +330,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestShowArrow() {
-            _wrapper.SetContextAttribute( UiConst.ShowArrow, true );
+            _wrapper.SetContextAttribute( UiConst.ShowArrow, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzShowArrow]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示箭头
-        /// </summary>
-        [Fact]
-        public void TestBindShowArrow() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowArrow, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzShowArrow]=\"a\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -396,20 +341,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestShowInput() {
-            _wrapper.SetContextAttribute( UiConst.ShowInput, true );
+            _wrapper.SetContextAttribute( UiConst.ShowInput, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzShowInput]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示输入框
-        /// </summary>
-        [Fact]
-        public void TestBindShowInput() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowInput, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzShowInput]=\"a\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -418,20 +352,9 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         /// </summary>
         [Fact]
         public void TestShowSearch() {
-            _wrapper.SetContextAttribute( UiConst.ShowSearch, true );
+            _wrapper.SetContextAttribute( UiConst.ShowSearch, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzShowSearch]=\"true\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示搜索
-        /// </summary>
-        [Fact]
-        public void TestBindShowSearch() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowSearch, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader [nzShowSearch]=\"a\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

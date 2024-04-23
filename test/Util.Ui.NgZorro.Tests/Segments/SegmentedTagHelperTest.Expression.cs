@@ -16,10 +16,10 @@ namespace Util.Ui.NgZorro.Tests.Segments {
             result.Append( "<nz-form-item>" );
             result.Append( "<nz-form-label>启用</nz-form-label>" );
             result.Append( "<nz-form-control>" );
-            result.Append( "<nz-segmented #x_id=\"xSegmentedExtend\" (nzValueChange)=\"x_id.handleValueChange($event)\" " );
-            result.Append( "name=\"enabled\" x-segmented-extend=\"\" [(ngModel)]=\"x_id.index\" [(value)]=\"model.enabled\" " );
+            result.Append( "<nz-segmented #enabled=\"\" #x_enabled=\"xSegmentedExtend\" (nzValueChange)=\"x_enabled.handleValueChange($event)\" " );
+            result.Append( "name=\"enabled\" x-segmented-extend=\"\" [(ngModel)]=\"x_enabled.index\" [(value)]=\"model.enabled\" " );
             result.Append( "[data]=\"[{'text':'是','value':true,'sortId':1},{'text':'否','value':false,'sortId':2}]\" " );
-            result.Append( "[nzOptions]=\"x_id.options\">" );
+            result.Append( "[nzOptions]=\"x_enabled.options\">" );
             result.Append( "</nz-segmented>" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );

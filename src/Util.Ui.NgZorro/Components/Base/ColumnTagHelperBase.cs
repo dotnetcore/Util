@@ -7,45 +7,25 @@ namespace Util.Ui.NgZorro.Components.Base;
 /// </summary>
 public abstract class ColumnTagHelperBase : AngularTagHelperBase {
     /// <summary>
-    /// nzSpan,24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
-    /// </summary>
-    public int Span { get; set; }
-    /// <summary>
     /// [nzSpan],24栅格占位格数，可选值: 0 - 24, 为 0 时隐藏
     /// </summary>
-    public string BindSpan { get; set; }
-    /// <summary>
-    /// nzOffset,栅格向右偏移的格数,即栅格左侧的间隔格数，间隔内不可以有栅格,范例: 设置值为4,将元素向右侧偏移4格宽度
-    /// </summary>
-    public int Offset { get; set; }
+    public string Span { get; set; }
     /// <summary>
     /// [nzOffset],栅格向右偏移的格数,即栅格左侧的间隔格数，间隔内不可以有栅格,范例: 设置值为4,将元素向右侧偏移4格宽度
     /// </summary>
-    public string BindOffset { get; set; }
-    /// <summary>
-    /// nzOrder,栅格顺序
-    /// </summary>
-    public new int Order { get; set; }
+    public string Offset { get; set; }
     /// <summary>
     /// [nzOrder],栅格顺序
     /// </summary>
-    public string BindOrder { get; set; }
-    /// <summary>
-    /// nzPull,栅格向左移动的格数
-    /// </summary>
-    public int Pull { get; set; }
+    public new string Order { get; set; }
     /// <summary>
     /// [nzPull],栅格向左移动的格数
     /// </summary>
-    public string BindPull { get; set; }
-    /// <summary>
-    /// nzPush,栅格向右移动的格数
-    /// </summary>
-    public int Push { get; set; }
+    public string Pull { get; set; }
     /// <summary>
     /// [nzPush],栅格向右移动的格数
     /// </summary>
-    public string BindPush { get; set; }
+    public string Push { get; set; }
     /// <summary>
     /// nzFlex,Flex布局
     /// </summary>

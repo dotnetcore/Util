@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 
@@ -27,8 +26,7 @@ public class SwitchBuilder : FormControlBuilderBase<SwitchBuilder> {
     /// 配置禁用
     /// </summary>
     public SwitchBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -71,8 +69,7 @@ public class SwitchBuilder : FormControlBuilderBase<SwitchBuilder> {
     /// 配置用户控制状态
     /// </summary>
     public SwitchBuilder Control() {
-        AttributeIfNotEmpty( "[nzControl]", _config.GetBoolValue( UiConst.Control ) );
-        AttributeIfNotEmpty( "[nzControl]", _config.GetValue( AngularConst.BindControl ) );
+        AttributeIfNotEmpty( "[nzControl]", _config.GetValue( UiConst.Control ) );
         return this;
     }
 

@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\" [nzDisabled]=\"true\"></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\" [nzDisabled]=\"a\"></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -74,20 +63,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestSelected() {
-            _wrapper.SetContextAttribute( UiConst.Selected, true );
+            _wrapper.SetContextAttribute( UiConst.Selected, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\" [nzSelected]=\"true\"></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试选中
-        /// </summary>
-        [Fact]
-        public void TestBindSelected() {
-            _wrapper.SetContextAttribute( AngularConst.BindSelected, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\" [nzSelected]=\"a\"></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestDanger() {
-            _wrapper.SetContextAttribute( UiConst.Danger, true );
+            _wrapper.SetContextAttribute( UiConst.Danger, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\" [nzDanger]=\"true\"></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试危险状态
-        /// </summary>
-        [Fact]
-        public void TestBindDanger() {
-            _wrapper.SetContextAttribute( AngularConst.BindDanger, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\" [nzDanger]=\"a\"></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,20 +85,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestMatchRouter() {
-            _wrapper.SetContextAttribute( UiConst.MatchRouter, true );
+            _wrapper.SetContextAttribute( UiConst.MatchRouter, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\" [nzMatchRouter]=\"true\"></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试匹配路由
-        /// </summary>
-        [Fact]
-        public void TestBindMatchRouter() {
-            _wrapper.SetContextAttribute( AngularConst.BindMatchRouter, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\" [nzMatchRouter]=\"a\"></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -140,20 +96,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         /// </summary>
         [Fact]
         public void TestMatchRouterExact() {
-            _wrapper.SetContextAttribute( UiConst.MatchRouterExact, true );
+            _wrapper.SetContextAttribute( UiConst.MatchRouterExact, "true" );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\" [nzMatchRouterExact]=\"true\"></li>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试精确匹配路由
-        /// </summary>
-        [Fact]
-        public void TestBindMatchRouterExact() {
-            _wrapper.SetContextAttribute( AngularConst.BindMatchRouterExact, "a" );
-            var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\" [nzMatchRouterExact]=\"a\"></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -33,8 +33,7 @@ public class InputNumberBuilder : FormControlBuilderBase<InputNumberBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public InputNumberBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -42,8 +41,7 @@ public class InputNumberBuilder : FormControlBuilderBase<InputNumberBuilder> {
     /// 配置禁用
     /// </summary>
     public InputNumberBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -51,8 +49,7 @@ public class InputNumberBuilder : FormControlBuilderBase<InputNumberBuilder> {
     /// 配置最大值
     /// </summary>
     public InputNumberBuilder Max() {
-        AttributeIfNotEmpty( "nzMax", _config.GetValue( UiConst.Max ) );
-        AttributeIfNotEmpty( "[nzMax]", _config.GetValue( AngularConst.BindMax ) );
+        AttributeIfNotEmpty( "[nzMax]", _config.GetValue( UiConst.Max ) );
         return this;
     }
 
@@ -60,8 +57,7 @@ public class InputNumberBuilder : FormControlBuilderBase<InputNumberBuilder> {
     /// 配置最小值
     /// </summary>
     public InputNumberBuilder Min() {
-        AttributeIfNotEmpty( "nzMin", _config.GetValue( UiConst.Min ) );
-        AttributeIfNotEmpty( "[nzMin]", _config.GetValue( AngularConst.BindMin ) );
+        AttributeIfNotEmpty( "[nzMin]", _config.GetValue( UiConst.Min ) );
         return this;
     }
 
@@ -85,8 +81,7 @@ public class InputNumberBuilder : FormControlBuilderBase<InputNumberBuilder> {
     /// 配置精度
     /// </summary>
     public InputNumberBuilder Precision() {
-        AttributeIfNotEmpty( "nzPrecision", _config.GetValue( UiConst.Precision ) );
-        AttributeIfNotEmpty( "[nzPrecision]", _config.GetValue( AngularConst.BindPrecision ) );
+        AttributeIfNotEmpty( "[nzPrecision]", _config.GetValue( UiConst.Precision ) );
         return this;
     }
 
@@ -112,8 +107,7 @@ public class InputNumberBuilder : FormControlBuilderBase<InputNumberBuilder> {
     /// 配置步数
     /// </summary>
     public InputNumberBuilder Step() {
-        AttributeIfNotEmpty( "nzStep", _config.GetValue( UiConst.Step ) );
-        AttributeIfNotEmpty( "[nzStep]", _config.GetValue( AngularConst.BindStep ) );
+        AttributeIfNotEmpty( "[nzStep]", _config.GetValue( UiConst.Step ) );
         return this;
     }
 

@@ -38,35 +38,19 @@ public abstract class PopconfirmTagHelperBase : AngularTagHelperBase {
     /// <summary>
     /// [nzPopconfirmVisible],气泡确认框是否可见,默认值: false
     /// </summary>
-    public bool PopconfirmVisible { get; set; }
-    /// <summary>
-    /// [nzPopconfirmVisible],气泡确认框是否可见,默认值: false
-    /// </summary>
-    public string BindPopconfirmVisible { get; set; }
+    public string PopconfirmVisible { get; set; }
     /// <summary>
     /// [nzPopconfirmShowArrow],气泡确认框是否显示箭头,默认值: true
     /// </summary>
-    public bool PopconfirmShowArrow { get; set; }
-    /// <summary>
-    /// [nzPopconfirmShowArrow],气泡确认框是否显示箭头,默认值: true
-    /// </summary>
-    public string BindPopconfirmShowArrow { get; set; }
-    /// <summary>
-    /// nzPopconfirmMouseEnterDelay,鼠标移入后延时多久才显示气泡确认框，单位：秒,默认值: 0.15
-    /// </summary>
-    public double PopconfirmMouseEnterDelay { get; set; }
+    public string PopconfirmShowArrow { get; set; }
     /// <summary>
     /// [nzPopconfirmMouseEnterDelay],鼠标移入后延时多久才显示气泡确认框，单位：秒,默认值: 0.15
     /// </summary>
-    public string BindPopconfirmMouseEnterDelay { get; set; }
-    /// <summary>
-    /// nzPopconfirmMouseLeaveDelay,鼠标移出后延时多久才隐藏气泡确认框，单位：秒,默认值: 0.1
-    /// </summary>
-    public double PopconfirmMouseLeaveDelay { get; set; }
+    public string PopconfirmMouseEnterDelay { get; set; }
     /// <summary>
     /// [nzPopconfirmMouseLeaveDelay],鼠标移出后延时多久才隐藏气泡确认框，单位：秒,默认值: 0.1
     /// </summary>
-    public string BindPopconfirmMouseLeaveDelay { get; set; }
+    public string PopconfirmMouseLeaveDelay { get; set; }
     /// <summary>
     /// nzPopconfirmOverlayClassName,气泡确认框样式类名
     /// </summary>
@@ -82,11 +66,7 @@ public abstract class PopconfirmTagHelperBase : AngularTagHelperBase {
     /// <summary>
     /// [nzPopconfirmBackdrop],气泡确认框浮层是否应带背景,默认值: false
     /// </summary>
-    public bool PopconfirmBackdrop { get; set; }
-    /// <summary>
-    /// [nzPopconfirmBackdrop],气泡确认框浮层是否应带背景,默认值: false
-    /// </summary>
-    public string BindPopconfirmBackdrop { get; set; }
+    public string PopconfirmBackdrop { get; set; }
     /// <summary>
     /// nzCancelText,气泡确认框取消按钮文字,默认值: '取消'
     /// </summary>
@@ -114,11 +94,7 @@ public abstract class PopconfirmTagHelperBase : AngularTagHelperBase {
     /// <summary>
     /// [nzCondition],气泡确认框条件触发,是否直接触发 nzOnConfirm 事件,而不弹出框,默认值: false
     /// </summary>
-    public bool PopconfirmCondition { get; set; }
-    /// <summary>
-    /// [nzCondition],气泡确认框条件触发,是否直接触发 nzOnConfirm 事件,而不弹出框,默认值: false
-    /// </summary>
-    public string BindPopconfirmCondition { get; set; }
+    public string PopconfirmCondition { get; set; }
     /// <summary>
     /// nzIcon,气泡确认框自定义图标,类型: string | TemplateRef&lt;void>
     /// </summary>

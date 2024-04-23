@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
 
 namespace Util.Ui.NgZorro.Components.BackTops.Builders;
 
@@ -33,7 +32,6 @@ public class BackTopBuilder : AngularTagBuilder {
     /// </summary>
     public BackTopBuilder VisibilityHeight() {
         AttributeIfNotEmpty( "[nzVisibilityHeight]", _config.GetValue( UiConst.VisibilityHeight ) );
-        AttributeIfNotEmpty( "[nzVisibilityHeight]", _config.GetValue( AngularConst.BindVisibilityHeight ) );
         return this;
     }
 
@@ -50,7 +48,6 @@ public class BackTopBuilder : AngularTagBuilder {
     /// </summary>
     public BackTopBuilder Duration() {
         AttributeIfNotEmpty( "[nzDuration]", _config.GetValue( UiConst.Duration ) );
-        AttributeIfNotEmpty( "[nzDuration]", _config.GetValue( AngularConst.BindDuration ) );
         return this;
     }
 

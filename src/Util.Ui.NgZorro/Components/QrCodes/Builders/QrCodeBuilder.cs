@@ -52,8 +52,7 @@ public class QrCodeBuilder : AngularTagBuilder {
     /// 配置尺寸
     /// </summary>
     public QrCodeBuilder Size() {
-        AttributeIfNotEmpty( "nzSize", _config.GetValue( UiConst.Size ) );
-        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
+        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( UiConst.Size ) );
         return this;
     }
 
@@ -78,8 +77,7 @@ public class QrCodeBuilder : AngularTagBuilder {
     /// 配置图标尺寸
     /// </summary>
     public QrCodeBuilder IconSize() {
-        AttributeIfNotEmpty( "nzIconSize", _config.GetValue( UiConst.IconSize ) );
-        AttributeIfNotEmpty( "[nzIconSize]", _config.GetValue( AngularConst.BindIconSize ) );
+        AttributeIfNotEmpty( "[nzIconSize]", _config.GetValue( UiConst.IconSize ) );
         return this;
     }
 
@@ -87,8 +85,7 @@ public class QrCodeBuilder : AngularTagBuilder {
     /// 配置边框
     /// </summary>
     public QrCodeBuilder Bordered() {
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetBoolValue( UiConst.Bordered ) );
-        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( AngularConst.BindBordered ) );
+        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 

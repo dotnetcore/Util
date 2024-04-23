@@ -56,20 +56,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestAllowClear() {
-            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzAllowClear]=\"true\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowClear() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowClear, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker [nzAllowClear]=\"Ab\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -78,20 +67,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzAutoFocus]=\"true\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker [nzAutoFocus]=\"Ab\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -122,20 +100,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzDisabled]=\"true\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker [nzDisabled]=\"a\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -221,20 +188,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestInputReadOnly() {
-            _wrapper.SetContextAttribute( UiConst.InputReadonly, true );
+            _wrapper.SetContextAttribute( UiConst.InputReadonly, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzInputReadOnly]=\"true\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试只读
-        /// </summary>
-        [Fact]
-        public void TestBindInputReadOnly() {
-            _wrapper.SetContextAttribute( AngularConst.BindInputReadonly, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker [nzInputReadOnly]=\"a\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -364,20 +320,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestBorderless() {
-            _wrapper.SetContextAttribute( UiConst.Borderless, true );
+            _wrapper.SetContextAttribute( UiConst.Borderless, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzBorderless]=\"true\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试移除边框
-        /// </summary>
-        [Fact]
-        public void TestBindBorderless() {
-            _wrapper.SetContextAttribute( AngularConst.BindBorderless, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker [nzBorderless]=\"a\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -419,20 +364,9 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         /// </summary>
         [Fact]
         public void TestShowTime() {
-            _wrapper.SetContextAttribute( UiConst.ShowTime, true );
+            _wrapper.SetContextAttribute( UiConst.ShowTime, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzShowTime]=\"true\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示时间选择
-        /// </summary>
-        [Fact]
-        public void TestBindShowTime() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowTime, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker [nzShowTime]=\"a\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

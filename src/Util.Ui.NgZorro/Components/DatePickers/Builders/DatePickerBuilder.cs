@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 
@@ -34,8 +33,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置允许清除
     /// </summary>
     public DatePickerBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 
@@ -43,8 +41,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public DatePickerBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -61,8 +58,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置禁用
     /// </summary>
     public DatePickerBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -113,8 +109,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置只读
     /// </summary>
     public DatePickerBuilder InputReadonly() {
-        AttributeIfNotEmpty( "[nzInputReadOnly]", _config.GetBoolValue( UiConst.InputReadonly ) );
-        AttributeIfNotEmpty( "[nzInputReadOnly]", _config.GetValue( AngularConst.BindInputReadonly ) );
+        AttributeIfNotEmpty( "[nzInputReadOnly]", _config.GetValue( UiConst.InputReadonly ) );
         return this;
     }
 
@@ -175,8 +170,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置移除边框
     /// </summary>
     public DatePickerBuilder Borderless() {
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetBoolValue( UiConst.Borderless ) );
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( AngularConst.BindBorderless ) );
+        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( UiConst.Borderless ) );
         return this;
     }
 
@@ -192,8 +186,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置显示时间选择
     /// </summary>
     public DatePickerBuilder ShowTime() {
-        AttributeIfNotEmpty( "[nzShowTime]", _config.GetBoolValue( UiConst.ShowTime ) );
-        AttributeIfNotEmpty( "[nzShowTime]", _config.GetValue( AngularConst.BindShowTime ) );
+        AttributeIfNotEmpty( "[nzShowTime]", _config.GetValue( UiConst.ShowTime ) );
         return this;
     }
 
@@ -201,8 +194,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置显示“今天”按钮
     /// </summary>
     public DatePickerBuilder ShowToday() {
-        AttributeIfNotEmpty( "[nzShowToday]", _config.GetBoolValue( UiConst.ShowToday ) );
-        AttributeIfNotEmpty( "[nzShowToday]", _config.GetValue( AngularConst.BindShowToday ) );
+        AttributeIfNotEmpty( "[nzShowToday]", _config.GetValue( UiConst.ShowToday ) );
         return this;
     }
 
@@ -210,8 +202,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置显示“此刻”按钮
     /// </summary>
     public DatePickerBuilder ShowNow() {
-        AttributeIfNotEmpty( "[nzShowNow]", _config.GetBoolValue( UiConst.ShowNow ) );
-        AttributeIfNotEmpty( "[nzShowNow]", _config.GetValue( AngularConst.BindShowNow ) );
+        AttributeIfNotEmpty( "[nzShowNow]", _config.GetValue( UiConst.ShowNow ) );
         return this;
     }
 

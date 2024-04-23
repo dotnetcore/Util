@@ -251,7 +251,7 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         [Fact]
         public void TestTooltipVisible() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
-            _wrapper.SetContextAttribute( UiConst.TooltipVisible, true );
+            _wrapper.SetContextAttribute( UiConst.TooltipVisible, "true" );
             var result = new StringBuilder();
             result.Append( "<span nz-tooltip=\"\" nz-typography=\"\" [nzTooltipVisible]=\"true\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );

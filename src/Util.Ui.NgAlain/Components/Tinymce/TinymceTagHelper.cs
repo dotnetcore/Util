@@ -20,11 +20,11 @@ public class TinymceTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [branding],是否显示品牌,设为false时，隐藏编辑器界面右下角的“Powered by Tiny”,默认值: false
     /// </summary>
-    public bool Branding { get; set; }
+    public string Branding { get; set; }
     /// <summary>
     /// [pasteDataImages],是否允许粘贴图片,默认值: true
     /// </summary>
-    public bool PasteDataImages { get; set; }
+    public string PasteDataImages { get; set; }
     /// <summary>
     /// menubar,菜单栏,可以是布尔值,设置为false隐藏菜单栏,也可以是空格分隔的菜单列表,范例: file edit insert view format table tools help
     /// </summary>
@@ -48,11 +48,7 @@ public class TinymceTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [disabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [disabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [required],是否必填项
     /// </summary>

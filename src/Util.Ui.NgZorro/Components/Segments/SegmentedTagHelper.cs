@@ -47,11 +47,7 @@ public class SegmentedTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzSize,组件尺寸，可选值: 'large'|'small'|'default'
     /// </summary>
@@ -67,11 +63,7 @@ public class SegmentedTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzBlock],是否将宽度调整为父元素宽度, 默认值: false
     /// </summary>
-    public bool Block { get; set; }
-    /// <summary>
-    /// [nzBlock],是否将宽度调整为父元素宽度, 默认值: false
-    /// </summary>
-    public string BindBlock { get; set; }
+    public string Block { get; set; }
     /// <summary>
     /// (valueChange),扩展事件, 选中值变更事件
     /// </summary>

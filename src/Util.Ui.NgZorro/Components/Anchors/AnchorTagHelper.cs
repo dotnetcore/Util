@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Anchors.Renders;
 using Util.Ui.Renders;
 
@@ -14,35 +13,19 @@ public class AnchorTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzAffix],是否固定模式,默认值: true
     /// </summary>
-    public bool Affix { get; set; }
-    /// <summary>
-    /// [nzAffix],是否固定模式,默认值: true
-    /// </summary>
-    public string BindAffix { get; set; }
-    /// <summary>
-    /// nzBounds,锚点区域边界，单位：像素,默认值: 5
-    /// </summary>
-    public double Bounds { get; set; }
+    public string Affix { get; set; }
     /// <summary>
     /// [nzBounds],锚点区域边界，单位：像素,默认值: 5
     /// </summary>
-    public string BindBounds { get; set; }
-    /// <summary>
-    /// nzOffsetTop,距离窗口顶部达到指定偏移量后触发，类型：number
-    /// </summary>
-    public double OffsetTop { get; set; }
+    public string Bounds { get; set; }
     /// <summary>
     /// [nzOffsetTop],距离窗口顶部达到指定偏移量后触发，类型：number
     /// </summary>
-    public string BindOffsetTop { get; set; }
+    public string OffsetTop { get; set; }
     /// <summary>
     /// [nzShowInkInFixed],固定模式是否显示小圆点,默认值: false
     /// </summary>
-    public bool ShowInkInFixed { get; set; }
-    /// <summary>
-    /// [nzShowInkInFixed],固定模式是否显示小圆点,默认值: false
-    /// </summary>
-    public string BindShowInkInFixed { get; set; }
+    public string ShowInkInFixed { get; set; }
     /// <summary>
     /// nzContainer,指定滚动的容器,类型: string | HTMLElement,默认值: 'window'
     /// </summary>

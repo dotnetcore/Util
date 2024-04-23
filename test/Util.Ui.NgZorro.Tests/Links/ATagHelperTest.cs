@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.Enums;
@@ -30,6 +31,7 @@ namespace Util.Ui.NgZorro.Tests.Links {
         public ATagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new ATagHelper().ToWrapper();
+            Id.SetId("id");
         }
 
         /// <summary>
@@ -232,20 +234,9 @@ namespace Util.Ui.NgZorro.Tests.Links {
         /// </summary>
         [Fact]
         public void TestDropdownMenuClickHide() {
-            _wrapper.SetContextAttribute( UiConst.DropdownMenuClickHide, false );
+            _wrapper.SetContextAttribute( UiConst.DropdownMenuClickHide, "false" );
             var result = new StringBuilder();
             result.Append( "<a [nzClickHide]=\"false\"></a>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试点击隐藏下拉菜单
-        /// </summary>
-        [Fact]
-        public void TestBindDropdownMenuClickHide() {
-            _wrapper.SetContextAttribute( AngularConst.BindDropdownMenuClickHide, "a" );
-            var result = new StringBuilder();
-            result.Append( "<a [nzClickHide]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -254,20 +245,9 @@ namespace Util.Ui.NgZorro.Tests.Links {
         /// </summary>
         [Fact]
         public void TestDropdownMenuVisible() {
-            _wrapper.SetContextAttribute( UiConst.DropdownMenuVisible, false );
+            _wrapper.SetContextAttribute( UiConst.DropdownMenuVisible, "false" );
             var result = new StringBuilder();
             result.Append( "<a [nzVisible]=\"false\"></a>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试下拉菜单可见性
-        /// </summary>
-        [Fact]
-        public void TestBindDropdownMenuVisible() {
-            _wrapper.SetContextAttribute( AngularConst.BindDropdownMenuVisible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<a [nzVisible]=\"a\"></a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -388,7 +368,7 @@ namespace Util.Ui.NgZorro.Tests.Links {
         public void TestShowTableSettings() {
             _wrapper.SetContextAttribute( UiConst.ShowTableSettings, "a" );
             var result = new StringBuilder();
-            result.Append( "<a (click)=\"ts_a.show()\" class=\"btn-table-settings\" nz-tooltip=\"\" nzTooltipTitle=\"表格设置\">" );
+            result.Append( "<a (click)=\"ts_a.show()\" class=\"card-tool-icon-btn\" nz-tooltip=\"\" nzTooltipTitle=\"表格设置\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"setting\"></i>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -402,8 +382,87 @@ namespace Util.Ui.NgZorro.Tests.Links {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.ShowTableSettings, "a" );
             var result = new StringBuilder();
-            result.Append( "<a (click)=\"ts_a.show()\" class=\"btn-table-settings\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.tableSettings'|i18n\">" );
+            result.Append( "<a (click)=\"ts_a.show()\" class=\"card-tool-icon-btn\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.tableSettings'|i18n\">" );
             result.Append( "<i nz-icon=\"\" nzType=\"setting\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试全屏
+        /// </summary>
+        [Fact]
+        public void TestFullscreen() {
+            _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+            var result = new StringBuilder();
+            result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a)\" class=\"card-tool-icon-btn\" " );
+            result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
+            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试全屏 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestFullscreen_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+            var result = new StringBuilder();
+            result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a)\" class=\"card-tool-icon-btn\" " );
+            result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"(x_id.isFullscreen?'util.fullscreenExit':'util.fullscreen')|i18n\">" );
+            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
+            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试全屏外层容器样式类名
+        /// </summary>
+        [Fact]
+        public void TestFullscreenWrapClass() {
+            _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+            _wrapper.SetContextAttribute( UiConst.FullscreenWrapClass, "b" );
+            var result = new StringBuilder();
+            result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,'b')\" class=\"card-tool-icon-btn\" " );
+            result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
+            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试全屏包装
+        /// </summary>
+        [Fact]
+        public void TestFullscreenPack() {
+            _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+            _wrapper.SetContextAttribute( UiConst.FullscreenPack, false );
+            var result = new StringBuilder();
+            result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,null,false)\" class=\"card-tool-icon-btn\" " );
+            result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
+            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "</a>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试测试全屏标题
+        /// </summary>
+        [Fact]
+        public void TestFullscreenTitle() {
+            _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+            _wrapper.SetContextAttribute( UiConst.FullscreenTitle, "b" );
+            var result = new StringBuilder();
+            result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,null,true,'b')\" class=\"card-tool-icon-btn\" " );
+            result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
+            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

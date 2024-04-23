@@ -57,20 +57,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestShowCheckbox() {
-        _wrapper.SetContextAttribute( UiConst.ShowCheckbox, true );
+        _wrapper.SetContextAttribute( UiConst.ShowCheckbox, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzShowCheckbox]=\"true\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示复选框
-    /// </summary>
-    [Fact]
-    public void TestBindShowCheckbox() {
-        _wrapper.SetContextAttribute( AngularConst.BindShowCheckbox, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzShowCheckbox]=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -79,20 +68,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestDisabled() {
-        _wrapper.SetContextAttribute( UiConst.Disabled, true );
+        _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzDisabled]=\"true\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否禁用复选框
-    /// </summary>
-    [Fact]
-    public void TestBindDisabled() {
-        _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzDisabled]=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -112,20 +90,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestChecked() {
-        _wrapper.SetContextAttribute( UiConst.Checked, true );
+        _wrapper.SetContextAttribute( UiConst.Checked, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzChecked]=\"true\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否选中复选框
-    /// </summary>
-    [Fact]
-    public void TestBindChecked() {
-        _wrapper.SetContextAttribute( AngularConst.BindChecked, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzChecked]=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -145,20 +112,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestShowExpand() {
-        _wrapper.SetContextAttribute( UiConst.ShowExpand, true );
+        _wrapper.SetContextAttribute( UiConst.ShowExpand, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzShowExpand]=\"true\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示展开按钮
-    /// </summary>
-    [Fact]
-    public void TestBindShowExpand() {
-        _wrapper.SetContextAttribute( AngularConst.BindShowExpand, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzShowExpand]=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -167,20 +123,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestExpand() {
-        _wrapper.SetContextAttribute( UiConst.Expand, true );
+        _wrapper.SetContextAttribute( UiConst.Expand, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzExpand]=\"true\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否已展开
-    /// </summary>
-    [Fact]
-    public void TestBindExpand() {
-        _wrapper.SetContextAttribute( AngularConst.BindExpand, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzExpand]=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -266,20 +211,9 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestBreakWord() {
-        _wrapper.SetContextAttribute( UiConst.BreakWord, true );
+        _wrapper.SetContextAttribute( UiConst.BreakWord, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzBreakWord]=\"true\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否折行显示
-    /// </summary>
-    [Fact]
-    public void TestBindBreakWord() {
-        _wrapper.SetContextAttribute( AngularConst.BindBreakWord, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzBreakWord]=\"a\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -288,7 +222,7 @@ public partial class TableColumnTagHelperTest {
     /// </summary>
     [Fact]
     public void TestEllipsis() {
-        _wrapper.SetContextAttribute( UiConst.Ellipsis, true );
+        _wrapper.SetContextAttribute( UiConst.Ellipsis, "true" );
         var result = new StringBuilder();
         result.Append( "<td [nzEllipsis]=\"true\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
@@ -307,7 +241,7 @@ public partial class TableColumnTagHelperTest {
 
         //设置标题,内容,省略号
         _wrapper.SetContextAttribute( UiConst.Title, "a" );
-        _wrapper.SetContextAttribute( UiConst.Ellipsis, true );
+        _wrapper.SetContextAttribute( UiConst.Ellipsis, "true" );
         _wrapper.AppendContent( "b" );
 
         //结果
@@ -330,35 +264,13 @@ public partial class TableColumnTagHelperTest {
     }
 
     /// <summary>
-    /// 测试自动省略
-    /// </summary>
-    [Fact]
-    public void TestBindEllipsis() {
-        _wrapper.SetContextAttribute( AngularConst.BindEllipsis, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzEllipsis]=\"a\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
     /// 测试缩进宽度
     /// </summary>
     [Fact]
     public void TestIndentSize() {
-        _wrapper.SetContextAttribute( UiConst.IndentSize, 1 );
+        _wrapper.SetContextAttribute( UiConst.IndentSize, "1" );
         var result = new StringBuilder();
-        result.Append( "<td nzIndentSize=\"1\"></td>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试缩进宽度
-    /// </summary>
-    [Fact]
-    public void TestBindIndentSize() {
-        _wrapper.SetContextAttribute( AngularConst.BindIndentSize, "a" );
-        var result = new StringBuilder();
-        result.Append( "<td [nzIndentSize]=\"a\"></td>" );
+        result.Append( "<td [nzIndentSize]=\"1\"></td>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

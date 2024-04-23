@@ -71,7 +71,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         [Fact]
         public void TestClearFiles() {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
-            _wrapper.SetContextAttribute( UiConst.ClearFiles, true );
+            _wrapper.SetContextAttribute( UiConst.ClearFiles, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-upload #u_id=\"xUploadExtend\" (nzChange)=\"u_id.handleChange($event)\" x-upload-extend=\"\" " );
             result.Append( "[(model)]=\"code\" [(nzFileList)]=\"u_id.files\" [isClearFiles]=\"true\" [nzFilter]=\"u_id.filters\">" );

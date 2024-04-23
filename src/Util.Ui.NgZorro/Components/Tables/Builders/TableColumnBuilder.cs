@@ -47,8 +47,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置是否显示复选框
     /// </summary>
     public TableColumnBuilder ShowCheckbox() {
-        AttributeIfNotEmpty( "[nzShowCheckbox]", _config.GetBoolValue( UiConst.ShowCheckbox ) );
-        AttributeIfNotEmpty( "[nzShowCheckbox]", _config.GetValue( AngularConst.BindShowCheckbox ) );
+        AttributeIfNotEmpty( "[nzShowCheckbox]", _config.GetValue( UiConst.ShowCheckbox ) );
         return this;
     }
 
@@ -56,8 +55,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置是否禁用复选框
     /// </summary>
     public TableColumnBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -73,8 +71,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置是否选中复选框
     /// </summary>
     public TableColumnBuilder Checked() {
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetBoolValue( UiConst.Checked ) );
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( AngularConst.BindChecked ) );
+        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( UiConst.Checked ) );
         AttributeIfNotEmpty( "[(nzChecked)]", _config.GetValue( AngularConst.BindonChecked ) );
         return this;
     }
@@ -83,8 +80,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置是否显示展开按钮
     /// </summary>
     public TableColumnBuilder ShowExpand() {
-        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetBoolValue( UiConst.ShowExpand ) );
-        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetValue( AngularConst.BindShowExpand ) );
+        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetValue( UiConst.ShowExpand ) );
         return this;
     }
 
@@ -92,8 +88,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置是否已展开
     /// </summary>
     public TableColumnBuilder Expand() {
-        AttributeIfNotEmpty( "[nzExpand]", _config.GetBoolValue( UiConst.Expand ) );
-        AttributeIfNotEmpty( "[nzExpand]", _config.GetValue( AngularConst.BindExpand ) );
+        AttributeIfNotEmpty( "[nzExpand]", _config.GetValue( UiConst.Expand ) );
         AttributeIfNotEmpty( "[(nzExpand)]", _config.GetValue( AngularConst.BindonExpand ) );
         return this;
     }
@@ -222,8 +217,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置是否折行显示
     /// </summary>
     public TableColumnBuilder BreakWord() {
-        AttributeIfNotEmpty( "[nzBreakWord]", _config.GetBoolValue( UiConst.BreakWord ) );
-        AttributeIfNotEmpty( "[nzBreakWord]", _config.GetValue( AngularConst.BindBreakWord ) );
+        AttributeIfNotEmpty( "[nzBreakWord]", _config.GetValue( UiConst.BreakWord ) );
         return this;
     }
 
@@ -235,8 +229,7 @@ public class TableColumnBuilder : AngularTagBuilder {
             BindEllipsis( $"{_shareConfig.TableSettingsId}.getEllipsis('{_shareConfig.Title}')" );
             return this;
         }
-        BindEllipsis( _config.GetBoolValue( UiConst.Ellipsis ) );
-        BindEllipsis( _config.GetValue( AngularConst.BindEllipsis ) );
+        BindEllipsis( _config.GetValue( UiConst.Ellipsis ) );
         return this;
     }
 
@@ -252,8 +245,7 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// 配置缩进宽度
     /// </summary>
     public TableColumnBuilder IndentSize() {
-        AttributeIfNotEmpty( "nzIndentSize", _config.GetValue( UiConst.IndentSize ) );
-        AttributeIfNotEmpty( "[nzIndentSize]", _config.GetValue( AngularConst.BindIndentSize ) );
+        AttributeIfNotEmpty( "[nzIndentSize]", _config.GetValue( UiConst.IndentSize ) );
         return this;
     }
 

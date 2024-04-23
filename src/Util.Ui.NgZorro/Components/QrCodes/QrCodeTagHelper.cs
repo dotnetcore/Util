@@ -36,13 +36,9 @@ public class QrCodeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindBgColor { get; set; }
     /// <summary>
-    /// nzSize,尺寸, 默认值: 160
-    /// </summary>
-    public double Size { get; set; }
-    /// <summary>
     /// [nzSize],尺寸, 默认值: 160
     /// </summary>
-    public string BindSize { get; set; }
+    public string Size { get; set; }
     /// <summary>
     /// [nzPadding], 填充, 类型: number | number[] , 默认值: 0
     /// </summary>
@@ -56,21 +52,13 @@ public class QrCodeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindIcon { get; set; }
     /// <summary>
-    /// nzIconSize,图标尺寸, 默认值: 40
-    /// </summary>
-    public double IconSize { get; set; }
-    /// <summary>
     /// [nzIconSize],图标尺寸, 默认值: 40
     /// </summary>
-    public string BindIconSize { get; set; }
+    public string IconSize { get; set; }
     /// <summary>
     /// [nzBordered],是否显示边框, 默认值: true
     /// </summary>
-    public bool Bordered { get; set; }
-    /// <summary>
-    /// [nzBordered],是否显示边框, 默认值: true
-    /// </summary>
-    public string BindBordered { get; set; }
+    public string Bordered { get; set; }
     /// <summary>
     /// nzStatus,状态, 可选值: 'active'｜'expired' ｜'loading' , 默认值: 'active'
     /// </summary>

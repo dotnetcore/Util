@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Builders;
+using Util.Ui.NgZorro.Components.Typographies.Builders;
 
 namespace Util.Ui.NgZorro.Components.Typographies; 
 
@@ -11,8 +12,8 @@ public class H1TagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new H1Builder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new H1Builder( config );
     }
 }
 
@@ -24,8 +25,8 @@ public class H2TagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new H2Builder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new H2Builder( config );
     }
 }
 
@@ -37,8 +38,8 @@ public class H3TagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new H3Builder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new H3Builder( config );
     }
 }
 
@@ -50,8 +51,8 @@ public class H4TagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new H4Builder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new H4Builder( config );
     }
 }
 
@@ -63,8 +64,8 @@ public class H5TagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new H5Builder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new H5Builder( config );
     }
 }
 
@@ -76,7 +77,7 @@ public class H6TagHelper : TypographyTagHelper {
     /// <summary>
     /// 获取标签生成器
     /// </summary>
-    protected override TagBuilder GetTagBuilder() {
-        return new H6Builder();
+    protected override TagBuilder GetTagBuilder( Config config ) {
+        return new H6Builder( config );
     }
 }

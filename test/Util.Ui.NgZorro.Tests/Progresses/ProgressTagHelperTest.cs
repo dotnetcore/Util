@@ -86,20 +86,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestPercent() {
-            _wrapper.SetContextAttribute( UiConst.Percent, 1 );
+            _wrapper.SetContextAttribute( UiConst.Percent, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-progress nzPercent=\"1\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试百分比
-        /// </summary>
-        [Fact]
-        public void TestBindPercent() {
-            _wrapper.SetContextAttribute( AngularConst.BindPercent, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzPercent]=\"a\"></nz-progress>" );
+            result.Append( "<nz-progress [nzPercent]=\"1\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -108,20 +97,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestShowInfo() {
-            _wrapper.SetContextAttribute( UiConst.ShowInfo, true );
+            _wrapper.SetContextAttribute( UiConst.ShowInfo, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-progress [nzShowInfo]=\"true\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示进度信息
-        /// </summary>
-        [Fact]
-        public void TestBindShowInfo() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowInfo, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzShowInfo]=\"a\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -196,20 +174,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestSuccessPercent() {
-            _wrapper.SetContextAttribute( UiConst.SuccessPercent, 1 );
+            _wrapper.SetContextAttribute( UiConst.SuccessPercent, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-progress nzSuccessPercent=\"1\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试已完成分段百分比
-        /// </summary>
-        [Fact]
-        public void TestBindSuccessPercent() {
-            _wrapper.SetContextAttribute( AngularConst.BindSuccessPercent, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzSuccessPercent]=\"a\"></nz-progress>" );
+            result.Append( "<nz-progress [nzSuccessPercent]=\"1\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -218,20 +185,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestStrokeWidth() {
-            _wrapper.SetContextAttribute( UiConst.StrokeWidth, 1 );
+            _wrapper.SetContextAttribute( UiConst.StrokeWidth, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-progress nzStrokeWidth=\"1\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试线条宽度
-        /// </summary>
-        [Fact]
-        public void TestBindStrokeWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindStrokeWidth, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzStrokeWidth]=\"a\"></nz-progress>" );
+            result.Append( "<nz-progress [nzStrokeWidth]=\"1\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -240,20 +196,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestSteps() {
-            _wrapper.SetContextAttribute( UiConst.Steps, 1 );
+            _wrapper.SetContextAttribute( UiConst.Steps, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-progress nzSteps=\"1\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试总步数
-        /// </summary>
-        [Fact]
-        public void TestBindSteps() {
-            _wrapper.SetContextAttribute( AngularConst.BindSteps, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzSteps]=\"a\"></nz-progress>" );
+            result.Append( "<nz-progress [nzSteps]=\"1\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -262,20 +207,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestWidth() {
-            _wrapper.SetContextAttribute( UiConst.Width, 1 );
+            _wrapper.SetContextAttribute( UiConst.Width, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-progress nzWidth=\"1\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试画布宽度
-        /// </summary>
-        [Fact]
-        public void TestBindWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindWidth, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzWidth]=\"a\"></nz-progress>" );
+            result.Append( "<nz-progress [nzWidth]=\"1\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -284,20 +218,9 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// </summary>
         [Fact]
         public void TestGapDegree() {
-            _wrapper.SetContextAttribute( UiConst.GapDegree, 1 );
+            _wrapper.SetContextAttribute( UiConst.GapDegree, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-progress nzGapDegree=\"1\"></nz-progress>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试缺口角度
-        /// </summary>
-        [Fact]
-        public void TestBindGapDegree() {
-            _wrapper.SetContextAttribute( AngularConst.BindGapDegree, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-progress [nzGapDegree]=\"a\"></nz-progress>" );
+            result.Append( "<nz-progress [nzGapDegree]=\"1\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

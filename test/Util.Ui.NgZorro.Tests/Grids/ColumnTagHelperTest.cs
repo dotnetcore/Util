@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.Grids {
         /// </summary>
         [Fact]
         public void TestSpan() {
-            _wrapper.SetContextAttribute( UiConst.Span, 1 );
+            _wrapper.SetContextAttribute( UiConst.Span, "1" );
             var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" nzSpan=\"1\"></div>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试跨度
-        /// </summary>
-        [Fact]
-        public void TestBindSpan() {
-            _wrapper.SetContextAttribute( AngularConst.BindSpan, "a" );
-            var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" [nzSpan]=\"a\"></div>" );
+            result.Append( "<div nz-col=\"\" [nzSpan]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -74,20 +63,9 @@ namespace Util.Ui.NgZorro.Tests.Grids {
         /// </summary>
         [Fact]
         public void TestOffset() {
-            _wrapper.SetContextAttribute( UiConst.Offset, 1 );
+            _wrapper.SetContextAttribute( UiConst.Offset, "1" );
             var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" nzOffset=\"1\"></div>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffset() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffset, "a" );
-            var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" [nzOffset]=\"a\"></div>" );
+            result.Append( "<div nz-col=\"\" [nzOffset]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.Grids {
         /// </summary>
         [Fact]
         public void TestPull() {
-            _wrapper.SetContextAttribute( UiConst.Pull, 1 );
+            _wrapper.SetContextAttribute( UiConst.Pull, "1" );
             var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" nzPull=\"1\"></div>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试左移
-        /// </summary>
-        [Fact]
-        public void TestBindPull() {
-            _wrapper.SetContextAttribute( AngularConst.BindPull, "a" );
-            var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" [nzPull]=\"a\"></div>" );
+            result.Append( "<div nz-col=\"\" [nzPull]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,20 +85,9 @@ namespace Util.Ui.NgZorro.Tests.Grids {
         /// </summary>
         [Fact]
         public void TestPush() {
-            _wrapper.SetContextAttribute( UiConst.Push, 1 );
+            _wrapper.SetContextAttribute( UiConst.Push, "1" );
             var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" nzPush=\"1\"></div>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试右移
-        /// </summary>
-        [Fact]
-        public void TestBindPush() {
-            _wrapper.SetContextAttribute( AngularConst.BindPush, "a" );
-            var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" [nzPush]=\"a\"></div>" );
+            result.Append( "<div nz-col=\"\" [nzPush]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -140,20 +96,9 @@ namespace Util.Ui.NgZorro.Tests.Grids {
         /// </summary>
         [Fact]
         public void TestOrder() {
-            _wrapper.SetContextAttribute( UiConst.Order, 1 );
+            _wrapper.SetContextAttribute( UiConst.Order, "1" );
             var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" nzOrder=\"1\"></div>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试栅格顺序
-        /// </summary>
-        [Fact]
-        public void TestBindOrder() {
-            _wrapper.SetContextAttribute( AngularConst.BindOrder, "a" );
-            var result = new StringBuilder();
-            result.Append( "<div nz-col=\"\" [nzOrder]=\"a\"></div>" );
+            result.Append( "<div nz-col=\"\" [nzOrder]=\"1\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Cards.Builders; 
 
@@ -27,8 +25,7 @@ public class CardGridBuilder : AngularTagBuilder {
     /// 配置鼠标滑过时是否可浮起
     /// </summary>
     public CardGridBuilder Hoverable() {
-        AttributeIfNotEmpty( "[nzHoverable]", _config.GetBoolValue( UiConst.Hoverable ) );
-        AttributeIfNotEmpty( "[nzHoverable]", _config.GetValue( AngularConst.BindHoverable ) );
+        AttributeIfNotEmpty( "[nzHoverable]", _config.GetValue( UiConst.Hoverable ) );
         return this;
     }
 

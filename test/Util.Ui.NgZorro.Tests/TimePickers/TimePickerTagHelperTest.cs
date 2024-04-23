@@ -67,20 +67,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestAllowEmpty() {
-            _wrapper.SetContextAttribute( UiConst.AllowEmpty, true );
+            _wrapper.SetContextAttribute( UiConst.AllowEmpty, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-time-picker [nzAllowEmpty]=\"true\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowEmpty() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowEmpty, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzAllowEmpty]=\"Ab\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -111,20 +100,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-time-picker [nzAutoFocus]=\"true\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzAutoFocus]=\"Ab\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -155,20 +133,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-time-picker [nzDisabled]=\"true\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzDisabled]=\"a\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -232,20 +199,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestHideDisabledOptions() {
-            _wrapper.SetContextAttribute( UiConst.HideDisabledOptions, true );
+            _wrapper.SetContextAttribute( UiConst.HideDisabledOptions, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-time-picker [nzHideDisabledOptions]=\"true\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试隐藏禁止选择的选项
-        /// </summary>
-        [Fact]
-        public void TestBindHideDisabledOptions() {
-            _wrapper.SetContextAttribute( AngularConst.BindHideDisabledOptions, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzHideDisabledOptions]=\"a\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -254,20 +210,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestHourStep() {
-            _wrapper.SetContextAttribute( UiConst.HourStep, 1 );
+            _wrapper.SetContextAttribute( UiConst.HourStep, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-time-picker nzHourStep=\"1\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试小时选项间隔
-        /// </summary>
-        [Fact]
-        public void TestBindHourStep() {
-            _wrapper.SetContextAttribute( AngularConst.BindHourStep, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzHourStep]=\"a\"></nz-time-picker>" );
+            result.Append( "<nz-time-picker [nzHourStep]=\"1\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -276,20 +221,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestMinuteStep() {
-            _wrapper.SetContextAttribute( UiConst.MinuteStep, 1 );
+            _wrapper.SetContextAttribute( UiConst.MinuteStep, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-time-picker nzMinuteStep=\"1\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试分钟选项间隔
-        /// </summary>
-        [Fact]
-        public void TestBindMinuteStep() {
-            _wrapper.SetContextAttribute( AngularConst.BindMinuteStep, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzMinuteStep]=\"a\"></nz-time-picker>" );
+            result.Append( "<nz-time-picker [nzMinuteStep]=\"1\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -298,20 +232,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestSecondStep() {
-            _wrapper.SetContextAttribute( UiConst.SecondStep, 1 );
+            _wrapper.SetContextAttribute( UiConst.SecondStep, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-time-picker nzSecondStep=\"1\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试秒选项间隔
-        /// </summary>
-        [Fact]
-        public void TestBindSecondStep() {
-            _wrapper.SetContextAttribute( AngularConst.BindSecondStep, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzSecondStep]=\"a\"></nz-time-picker>" );
+            result.Append( "<nz-time-picker [nzSecondStep]=\"1\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -320,20 +243,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestOpen() {
-            _wrapper.SetContextAttribute( UiConst.Open, true );
+            _wrapper.SetContextAttribute( UiConst.Open, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-time-picker [nzOpen]=\"true\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试面板是否打开
-        /// </summary>
-        [Fact]
-        public void TestBindOpen() {
-            _wrapper.SetContextAttribute( AngularConst.BindOpen, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzOpen]=\"a\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -397,20 +309,9 @@ namespace Util.Ui.NgZorro.Tests.TimePickers {
         /// </summary>
         [Fact]
         public void TestUse12Hours() {
-            _wrapper.SetContextAttribute( UiConst.Use12Hours, true );
+            _wrapper.SetContextAttribute( UiConst.Use12Hours, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-time-picker [nzUse12Hours]=\"true\"></nz-time-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试12小时制
-        /// </summary>
-        [Fact]
-        public void TestBindUse12Hours() {
-            _wrapper.SetContextAttribute( AngularConst.BindUse12Hours, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-time-picker [nzUse12Hours]=\"a\"></nz-time-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

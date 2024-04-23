@@ -87,20 +87,9 @@ namespace Util.Ui.NgZorro.Tests.Switches {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-switch [nzDisabled]=\"true\"></nz-switch>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-switch [nzDisabled]=\"a\"></nz-switch>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -197,20 +186,9 @@ namespace Util.Ui.NgZorro.Tests.Switches {
         /// </summary>
         [Fact]
         public void TestControl() {
-            _wrapper.SetContextAttribute( UiConst.Control, true );
+            _wrapper.SetContextAttribute( UiConst.Control, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-switch [nzControl]=\"true\"></nz-switch>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试用户控制状态
-        /// </summary>
-        [Fact]
-        public void TestBindControl() {
-            _wrapper.SetContextAttribute( AngularConst.BindControl, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-switch [nzControl]=\"a\"></nz-switch>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

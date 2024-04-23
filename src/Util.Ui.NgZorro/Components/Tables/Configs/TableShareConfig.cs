@@ -248,6 +248,11 @@ public class TableShareConfig {
     public bool SelectOnlyOnClickRow { get; set; }
 
     /// <summary>
+    /// 点击行是否选中复选框
+    /// </summary>
+    public bool CheckOnClickRow { get; set; }
+
+    /// <summary>
     /// 滚动宽度
     /// </summary>
     public string ScrollWidth { get; set; }

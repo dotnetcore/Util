@@ -62,10 +62,28 @@ public class ButtonBuilder : ButtonBuilderBase<ButtonBuilder> {
     }
 
     /// <summary>
+    /// 配置全屏
+    /// </summary>
+    public ButtonBuilder Fullscreen() {
+        var value = _config.GetValue( UiConst.Fullscreen );
+        if ( value.IsEmpty() )
+            return this;
+        this.OnClick( $"{GetButtonExtendId()}.fullscreen({value}{GetFullscreenWrapClass()}{GetFullscreenPack()}{GetFullscreenTitle()})" );
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            AppendContent( "{{" + $"({GetButtonExtendId()}.isFullscreen?'{I18nKeys.FullscreenExit}':'{I18nKeys.Fullscreen}')|i18n" + "}}" );
+            return this;
+        }
+        AppendContent( "{{"+ $"{GetButtonExtendId()}.isFullscreen?'退出全屏':'全屏'" + "}}" );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         CopyToClipboard();
+        Fullscreen();
         ConfigButton();
         base.Config();
         IsSubmit().ButtonType();
@@ -75,7 +93,7 @@ public class ButtonBuilder : ButtonBuilderBase<ButtonBuilder> {
     /// 是否启用扩展
     /// </summary>
     protected override bool IsEnableExtend() {
-        if ( IsValidateForm() )
+        if ( base.IsEnableExtend() )
             return true;
         if ( IsCopyToClipboard() )
             return true;

@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Dropdowns.Builders; 
@@ -61,8 +60,7 @@ public class DropdownMenuBuilder : AngularTagBuilder {
     /// 配置允许选中
     /// </summary>
     private void ConfigSelectable( TagBuilder builder ) {
-        builder.AttributeIfNotEmpty( "[nzSelectable]", _config.GetBoolValue( UiConst.Selectable ) );
-        builder.AttributeIfNotEmpty( "[nzSelectable]", _config.GetBoolValue( AngularConst.BindSelectable ) );
+        builder.AttributeIfNotEmpty( "[nzSelectable]", _config.GetValue( UiConst.Selectable ) );
     }
 
     /// <summary>

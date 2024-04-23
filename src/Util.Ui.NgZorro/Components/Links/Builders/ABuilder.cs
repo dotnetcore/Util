@@ -90,7 +90,7 @@ public class ABuilder : ButtonBuilderBase<ABuilder> {
         if ( tableId.IsEmpty() )
             return this;
         this.OnClick( $"ts_{tableId}.show()" );
-        Class( "btn-table-settings" );
+        Class( "card-tool-icon-btn" );
         var options = NgZorroOptionsService.GetOptions();
         this.TooltipTitle( options.EnableI18n ? "util.tableSettings" : "表格设置" );
         var icon = new IconBuilder( _config );
@@ -106,5 +106,48 @@ public class ABuilder : ButtonBuilderBase<ABuilder> {
         base.Config();
         ConfigButton().Href().Target().Rel().RouterLink().DropdownMenu()
             .DropdownMenuPlacement().IsSearch().ShowTableSettings();
+        Fullscreen();
+    }
+
+    /// <summary>
+    /// 配置全屏
+    /// </summary>
+    public ABuilder Fullscreen() {
+        var value = _config.GetValue( UiConst.Fullscreen );
+        if ( value.IsEmpty() )
+            return this;
+        this.OnClick( $"{GetButtonExtendId()}.fullscreen({value}{GetFullscreenWrapClass()}{GetFullscreenPack()}{GetFullscreenTitle()})" );
+        Class( "card-tool-icon-btn" );
+        AppendContent( GetFullscreenIcon() );
+        AppendContent( GetFullscreenExitIcon() );
+        var options = NgZorroOptionsService.GetOptions();
+        if (options.EnableI18n) {
+            this.BindTooltipTitle( $"({GetButtonExtendId()}.isFullscreen?'util.fullscreenExit':'util.fullscreen')|i18n" );
+            return this;
+        }
+        this.BindTooltipTitle( $"{GetButtonExtendId()}.isFullscreen?'退出全屏':'全屏'" );
+        return this;
+    }
+
+    /// <summary>
+    /// 获取全屏图标
+    /// </summary>
+    private IconBuilder GetFullscreenIcon() {
+        var icon = new IconBuilder( _config );
+        icon.Theme( IconTheme.Outline );
+        icon.Type( AntDesignIcon.Fullscreen );
+        icon.NgIf( $"!{GetButtonExtendId()}.isFullscreen" );
+        return icon;
+    }
+
+    /// <summary>
+    /// 获取退出全屏图标
+    /// </summary>
+    private IconBuilder GetFullscreenExitIcon() {
+        var icon = new IconBuilder( _config );
+        icon.Theme( IconTheme.Outline );
+        icon.Type( AntDesignIcon.FullscreenExit );
+        icon.NgIf( $"{GetButtonExtendId()}.isFullscreen" );
+        return icon;
     }
 }

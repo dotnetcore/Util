@@ -138,6 +138,7 @@ public class TableService {
         _shareConfig.OnClickRow = _config.GetValue( UiConst.OnClickRow );
         _shareConfig.SelectOnClickRow = _config.GetValue<bool>( UiConst.SelectOnClickRow );
         _shareConfig.SelectOnlyOnClickRow = _config.GetValue<bool>( UiConst.SelectOnlyOnClickRow );
+        _shareConfig.CheckOnClickRow = _config.GetValue<bool>( UiConst.CheckOnClickRow );
     }
 
     /// <summary>

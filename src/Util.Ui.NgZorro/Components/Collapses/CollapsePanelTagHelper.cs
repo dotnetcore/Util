@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Collapses.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -15,11 +14,7 @@ public class CollapsePanelTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用,默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用,默认值: false
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzHeader,面板头内容,类型: string | TemplateRef&lt;void>
     /// </summary>
@@ -47,19 +42,11 @@ public class CollapsePanelTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowArrow],是否显示箭头,默认值: true
     /// </summary>
-    public bool ShowArrow { get; set; }
-    /// <summary>
-    /// [nzShowArrow],是否显示箭头,默认值: true
-    /// </summary>
-    public string BindShowArrow { get; set; }
+    public string ShowArrow { get; set; }
     /// <summary>
     /// [nzActive],是否展开面板
     /// </summary>
-    public bool Active { get; set; }
-    /// <summary>
-    /// [nzActive],是否展开面板
-    /// </summary>
-    public string BindActive { get; set; }
+    public string Active { get; set; }
     /// <summary>
     /// [(nzActive)],是否展开面板
     /// </summary>

@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestClosable() {
-            _wrapper.SetContextAttribute( UiConst.Closable, true );
+            _wrapper.SetContextAttribute( UiConst.Closable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzClosable]=\"true\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否可关闭
-        /// </summary>
-        [Fact]
-        public void TestBindClosable() {
-            _wrapper.SetContextAttribute( AngularConst.BindClosable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzClosable]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -97,20 +86,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestMaskClosable() {
-            _wrapper.SetContextAttribute( UiConst.MaskClosable, true );
+            _wrapper.SetContextAttribute( UiConst.MaskClosable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzMaskClosable]=\"true\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试点击遮罩是否允许关闭
-        /// </summary>
-        [Fact]
-        public void TestBindMaskClosable() {
-            _wrapper.SetContextAttribute( AngularConst.BindMaskClosable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzMaskClosable]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +97,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestMask() {
-            _wrapper.SetContextAttribute( UiConst.Mask, true );
+            _wrapper.SetContextAttribute( UiConst.Mask, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzMask]=\"true\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示遮罩
-        /// </summary>
-        [Fact]
-        public void TestBindMask() {
-            _wrapper.SetContextAttribute( AngularConst.BindMask, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzMask]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -141,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestCloseOnNavigation() {
-            _wrapper.SetContextAttribute( UiConst.CloseOnNavigation, true );
+            _wrapper.SetContextAttribute( UiConst.CloseOnNavigation, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzCloseOnNavigation]=\"true\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试导航时是否关闭
-        /// </summary>
-        [Fact]
-        public void TestBindCloseOnNavigation() {
-            _wrapper.SetContextAttribute( AngularConst.BindCloseOnNavigation, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzCloseOnNavigation]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -174,20 +130,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestKeyboard() {
-            _wrapper.SetContextAttribute( UiConst.Keyboard, true );
+            _wrapper.SetContextAttribute( UiConst.Keyboard, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzKeyboard]=\"true\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否支持键盘ESC键关闭
-        /// </summary>
-        [Fact]
-        public void TestBindKeyboard() {
-            _wrapper.SetContextAttribute( AngularConst.BindKeyboard, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzKeyboard]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -251,20 +196,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestVisible() {
-            _wrapper.SetContextAttribute( UiConst.Visible, true );
+            _wrapper.SetContextAttribute( UiConst.Visible, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzVisible]=\"true\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否可见
-        /// </summary>
-        [Fact]
-        public void TestBindVisible() {
-            _wrapper.SetContextAttribute( AngularConst.BindVisible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzVisible]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -306,20 +240,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestWidth() {
-            _wrapper.SetContextAttribute( UiConst.Width, 1 );
+            _wrapper.SetContextAttribute( UiConst.Width, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-drawer nzWidth=\"1\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试宽度
-        /// </summary>
-        [Fact]
-        public void TestBindWidth() {
-            _wrapper.SetContextAttribute( AngularConst.BindWidth, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzWidth]=\"a\"></nz-drawer>" );
+            result.Append( "<nz-drawer [nzWidth]=\"1\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -328,20 +251,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestHeight() {
-            _wrapper.SetContextAttribute( UiConst.Height, 1 );
+            _wrapper.SetContextAttribute( UiConst.Height, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-drawer nzHeight=\"1\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试高度
-        /// </summary>
-        [Fact]
-        public void TestBindHeight() {
-            _wrapper.SetContextAttribute( AngularConst.BindHeight, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzHeight]=\"a\"></nz-drawer>" );
+            result.Append( "<nz-drawer [nzHeight]=\"1\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -350,20 +262,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestOffsetX() {
-            _wrapper.SetContextAttribute( UiConst.OffsetX, 1 );
+            _wrapper.SetContextAttribute( UiConst.OffsetX, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-drawer nzOffsetX=\"1\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试X坐标偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffsetX() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffsetX, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzOffsetX]=\"a\"></nz-drawer>" );
+            result.Append( "<nz-drawer [nzOffsetX]=\"1\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -372,20 +273,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestOffsetY() {
-            _wrapper.SetContextAttribute( UiConst.OffsetY, 1 );
+            _wrapper.SetContextAttribute( UiConst.OffsetY, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-drawer nzOffsetY=\"1\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试Y坐标偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffsetY() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffsetY, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzOffsetY]=\"a\"></nz-drawer>" );
+            result.Append( "<nz-drawer [nzOffsetY]=\"1\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -416,20 +306,9 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         /// </summary>
         [Fact]
         public void TestZIndex() {
-            _wrapper.SetContextAttribute( UiConst.ZIndex, 1 );
+            _wrapper.SetContextAttribute( UiConst.ZIndex, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-drawer nzZIndex=\"1\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试z-index
-        /// </summary>
-        [Fact]
-        public void TestBindZIndex() {
-            _wrapper.SetContextAttribute( AngularConst.BindZIndex, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzZIndex]=\"a\"></nz-drawer>" );
+            result.Append( "<nz-drawer [nzZIndex]=\"1\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

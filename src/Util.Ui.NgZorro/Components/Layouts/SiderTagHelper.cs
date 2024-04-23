@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Layouts.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -13,13 +12,9 @@ namespace Util.Ui.NgZorro.Components.Layouts;
 [HtmlTargetElement( "util-sider" )]
 public class SiderTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzWidth,宽度,范例:200px
+    /// [nzWidth],宽度, 默认值: 200
     /// </summary>
     public string Width { get; set; }
-    /// <summary>
-    /// [nzWidth],宽度
-    /// </summary>
-    public string BindWidth { get; set; }
     /// <summary>
     /// nzTheme,主题颜色,可选值: 'light' | 'dark'
     /// </summary>
@@ -37,41 +32,25 @@ public class SiderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindBreakpoint { get; set; }
     /// <summary>
-    /// [nzCollapsedWidth],收缩宽度，设置为 0 会出现特殊触发器,默认值: 64
+    /// [nzCollapsedWidth],收缩宽度，设置为 0 会出现特殊触发器, 默认值: 64
     /// </summary>
-    public double CollapsedWidth { get; set; }
+    public string CollapsedWidth { get; set; }
     /// <summary>
-    /// [nzCollapsedWidth],收缩宽度，设置为 0 会出现特殊触发器,默认值: 64
+    /// [nzCollapsible],是否可收缩, 默认值: false
     /// </summary>
-    public string BindCollapsedWidth { get; set; }
+    public string Collapsible { get; set; }
     /// <summary>
-    /// [nzCollapsible],是否可收缩
+    /// [nzCollapsed],收缩状态, 默认值: false
     /// </summary>
-    public bool Collapsible { get; set; }
+    public string Collapsed { get; set; }
     /// <summary>
-    /// [nzCollapsible],是否可收缩
-    /// </summary>
-    public string BindCollapsible { get; set; }
-    /// <summary>
-    /// [nzCollapsed],收缩状态
-    /// </summary>
-    public bool Collapsed { get; set; }
-    /// <summary>
-    /// [nzCollapsed],收缩状态
-    /// </summary>
-    public string BindCollapsed { get; set; }
-    /// <summary>
-    /// [(nzCollapsed)],收缩状态
+    /// [(nzCollapsed)],收缩状态, 默认值: false
     /// </summary>
     public string BindonCollapsed { get; set; }
     /// <summary>
-    /// [nzReverseArrow],翻转折叠提示箭头的方向，当侧边栏在右边时使用
+    /// [nzReverseArrow],翻转折叠提示箭头的方向，当侧边栏在右边时使用, 默认值: false
     /// </summary>
-    public bool ReverseArrow { get; set; }
-    /// <summary>
-    /// [nzReverseArrow],翻转折叠提示箭头的方向，当侧边栏在右边时使用
-    /// </summary>
-    public string BindReverseArrow { get; set; }
+    public string ReverseArrow { get; set; }
     /// <summary>
     /// [nzTrigger],自定义触发器,即收缩按钮,设置为 null 时隐藏触发器
     /// </summary>

@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Tables.Builders;
+using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeTables.Builders; 
 

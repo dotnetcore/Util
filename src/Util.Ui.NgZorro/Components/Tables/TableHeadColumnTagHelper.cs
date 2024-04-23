@@ -36,19 +36,11 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowCheckbox],是否显示复选框
     /// </summary>
-    public bool ShowCheckbox { get; set; }
-    /// <summary>
-    /// [nzShowCheckbox],是否显示复选框
-    /// </summary>
-    public string BindShowCheckbox { get; set; }
+    public string ShowCheckbox { get; set; }
     /// <summary>
     /// [nzDisabled],是否禁用复选框
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用复选框
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzIndeterminate],复选框是否中间状态
     /// </summary>
@@ -56,11 +48,7 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzChecked],是否选中复选框
     /// </summary>
-    public bool Checked { get; set; }
-    /// <summary>
-    /// [nzChecked],是否选中复选框
-    /// </summary>
-    public string BindChecked { get; set; }
+    public string Checked { get; set; }
     /// <summary>
     /// [(nzChecked)],是否选中复选框
     /// </summary>
@@ -68,11 +56,7 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowRowSelection],是否显示下拉选择
     /// </summary>
-    public bool ShowRowSelection { get; set; }
-    /// <summary>
-    /// [nzShowRowSelection],是否显示下拉选择
-    /// </summary>
-    public string BindShowRowSelection { get; set; }
+    public string ShowRowSelection { get; set; }
     /// <summary>
     /// [nzSelections],下拉选择的内容,类型: Array&lt;{ text: string, onSelect: any }>
     /// </summary>
@@ -80,11 +64,7 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowSort],是否显示排序
     /// </summary>
-    public bool ShowSort { get; set; }
-    /// <summary>
-    /// [nzShowSort],是否显示排序
-    /// </summary>
-    public string BindShowSort { get; set; }
+    public string ShowSort { get; set; }
     /// <summary>
     /// [nzSortFn],排序函数，前端排序传入函数，服务端排序传入 true,函数定义: (a: any, b: any, sortOrder?: string) => number,说明:参考 Array.sort 的 compareFunction
     /// </summary>
@@ -108,11 +88,7 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowFilter],是否显示过滤
     /// </summary>
-    public bool ShowFilter { get; set; }
-    /// <summary>
-    /// [nzShowFilter],是否显示过滤
-    /// </summary>
-    public string BindShowFilter { get; set; }
+    public string ShowFilter { get; set; }
     /// <summary>
     /// [nzFilterFn],过滤函数，前端排序过滤传入函数，服务端排序传入 true,函数定义: (value: any, data: any) => boolean
     /// </summary>
@@ -124,11 +100,7 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzFilterMultiple],是否多选过滤器,默认值: true
     /// </summary>
-    public bool FilterMultiple { get; set; }
-    /// <summary>
-    /// [nzFilterMultiple],是否多选过滤器,默认值: true
-    /// </summary>
-    public string BindFilterMultiple { get; set; }
+    public string FilterMultiple { get; set; }
     /// <summary>
     /// nzWidth,列宽度,表头未分组时可用,设置数值,则默认单位为px，范例：100，表示100px，也可以使用百分比,范例: 20%
     /// </summary>
@@ -172,35 +144,19 @@ public class TableHeadColumnTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBreakWord],是否折行显示,默认值: false
     /// </summary>
-    public bool BreakWord { get; set; }
-    /// <summary>
-    /// [nzBreakWord],是否折行显示,默认值: false
-    /// </summary>
-    public string BindBreakWord { get; set; }
+    public string BreakWord { get; set; }
     /// <summary>
     /// [nzEllipsis],超过宽度将自动省略，暂不支持和排序筛选一起使用,仅当表格布局为 nzTableLayout="fixed" 时可用,默认值: false
     /// </summary>
-    public bool Ellipsis { get; set; }
-    /// <summary>
-    /// [nzEllipsis],超过宽度将自动省略，暂不支持和排序筛选一起使用,仅当表格布局为 nzTableLayout="fixed" 时可用,默认值: false
-    /// </summary>
-    public string BindEllipsis { get; set; }
-    /// <summary>
-    /// colSpan,列跨度,每单元格中扩展列的数量
-    /// </summary>
-    public int Colspan { get; set; }
+    public string Ellipsis { get; set; }
     /// <summary>
     /// [colSpan],列跨度,每单元格中扩展列的数量
     /// </summary>
-    public string BindColspan { get; set; }
-    /// <summary>
-    /// rowSpan,行跨度,每单元格中扩展行的数量
-    /// </summary>
-    public int Rowspan { get; set; }
+    public string Colspan { get; set; }
     /// <summary>
     /// [rowSpan],行跨度,每单元格中扩展行的数量
     /// </summary>
-    public string BindRowspan { get; set; }
+    public string Rowspan { get; set; }
     /// <summary>
     /// nzColumnKey,当前列标识，用于服务端筛选和排序使用
     /// </summary>

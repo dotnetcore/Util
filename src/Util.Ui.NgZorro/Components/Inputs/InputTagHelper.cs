@@ -77,21 +77,13 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindPlaceholder { get; set; }
     /// <summary>
-    /// [disabled],是否禁用
+    /// [disabled],是否禁用, 默认值: false
     /// </summary>
-    public bool Disabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
-    /// [disabled],是否禁用
+    /// [readOnly],只读, 默认值: false
     /// </summary>
-    public string BindDisabled { get; set; }
-    /// <summary>
-    /// [readOnly],只读
-    /// </summary>
-    public bool Readonly { get; set; }
-    /// <summary>
-    /// [readOnly],只读
-    /// </summary>
-    public string BindReadonly { get; set; }
+    public string Readonly { get; set; }
     /// <summary>
     /// nzSize,输入框大小, 可选值: 'default' | 'small' |  'large'
     /// </summary>
@@ -173,7 +165,7 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindSuffixIcon { get; set; }
     /// <summary>
-    /// 是否允许清除内容,设置为 true 将显示清除图标,注意:必须设置ngModel
+    /// 扩展属性, 是否允许清除内容,设置为 true 将显示清除图标,注意:必须设置ngModel
     /// </summary>
     public bool AllowClear { get; set; }
     /// <summary>

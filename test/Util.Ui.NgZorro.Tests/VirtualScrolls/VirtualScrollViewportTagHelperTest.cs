@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.VirtualScrolls {
         /// </summary>
         [Fact]
         public void TestItemSize() {
-            _wrapper.SetContextAttribute( UiConst.ItemSize, 1 );
+            _wrapper.SetContextAttribute( UiConst.ItemSize, "1" );
             var result = new StringBuilder();
-            result.Append( "<cdk-virtual-scroll-viewport itemSize=\"1\"></cdk-virtual-scroll-viewport>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试列高
-        /// </summary>
-        [Fact]
-        public void TestBindItemSize() {
-            _wrapper.SetContextAttribute( AngularConst.BindItemSize, "a" );
-            var result = new StringBuilder();
-            result.Append( "<cdk-virtual-scroll-viewport [itemSize]=\"a\"></cdk-virtual-scroll-viewport>" );
+            result.Append( "<cdk-virtual-scroll-viewport [itemSize]=\"1\"></cdk-virtual-scroll-viewport>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

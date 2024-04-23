@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
-using Util.Ui.NgZorro.Components.Drawers.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Drawers.Builders;
@@ -27,8 +25,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置是否可关闭
     /// </summary>
     public DrawerBuilder Closable() {
-        AttributeIfNotEmpty( "[nzClosable]", _config.GetBoolValue( UiConst.Closable ) );
-        AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( AngularConst.BindClosable ) );
+        AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( UiConst.Closable ) );
         return this;
     }
 
@@ -45,8 +42,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置点击遮罩是否允许关闭
     /// </summary>
     public DrawerBuilder MaskClosable() {
-        AttributeIfNotEmpty( "[nzMaskClosable]", _config.GetBoolValue( UiConst.MaskClosable ) );
-        AttributeIfNotEmpty( "[nzMaskClosable]", _config.GetValue( AngularConst.BindMaskClosable ) );
+        AttributeIfNotEmpty( "[nzMaskClosable]", _config.GetValue( UiConst.MaskClosable ) );
         return this;
     }
 
@@ -54,7 +50,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置是否显示遮罩
     /// </summary>
     public DrawerBuilder Mask() {
-        AttributeIfNotEmpty( "[nzMask]", _config.GetBoolValue( UiConst.Mask ) );
+        AttributeIfNotEmpty( "[nzMask]", _config.GetValue( UiConst.Mask ) );
         AttributeIfNotEmpty( "[nzMask]", _config.GetValue( AngularConst.BindMask ) );
         return this;
     }
@@ -63,8 +59,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置导航时是否关闭
     /// </summary>
     public DrawerBuilder CloseOnNavigation() {
-        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetBoolValue( UiConst.CloseOnNavigation ) );
-        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetValue( AngularConst.BindCloseOnNavigation ) );
+        AttributeIfNotEmpty( "[nzCloseOnNavigation]", _config.GetValue( UiConst.CloseOnNavigation ) );
         return this;
     }
 
@@ -80,8 +75,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置是否支持键盘ESC键关闭
     /// </summary>
     public DrawerBuilder Keyboard() {
-        AttributeIfNotEmpty( "[nzKeyboard]", _config.GetBoolValue( UiConst.Keyboard ) );
-        AttributeIfNotEmpty( "[nzKeyboard]", _config.GetValue( AngularConst.BindKeyboard ) );
+        AttributeIfNotEmpty( "[nzKeyboard]", _config.GetValue( UiConst.Keyboard ) );
         return this;
     }
 
@@ -115,8 +109,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置是否可见
     /// </summary>
     public DrawerBuilder Visible() {
-        AttributeIfNotEmpty( "[nzVisible]", _config.GetBoolValue( UiConst.Visible ) );
-        AttributeIfNotEmpty( "[nzVisible]", _config.GetValue( AngularConst.BindVisible ) );
+        AttributeIfNotEmpty( "[nzVisible]", _config.GetValue( UiConst.Visible ) );
         AttributeIfNotEmpty( "[(nzVisible)]", _config.GetValue( AngularConst.BindonVisible ) );
         return this;
     }
@@ -134,8 +127,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置宽度
     /// </summary>
     public DrawerBuilder Width() {
-        AttributeIfNotEmpty( "nzWidth", _config.GetValue( UiConst.Width ) );
-        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( AngularConst.BindWidth ) );
+        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( UiConst.Width ) );
         return this;
     }
 
@@ -143,8 +135,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置高度
     /// </summary>
     public DrawerBuilder Height() {
-        AttributeIfNotEmpty( "nzHeight", _config.GetValue( UiConst.Height ) );
-        AttributeIfNotEmpty( "[nzHeight]", _config.GetValue( AngularConst.BindHeight ) );
+        AttributeIfNotEmpty( "[nzHeight]", _config.GetValue( UiConst.Height ) );
         return this;
     }
 
@@ -152,8 +143,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置X坐标偏移量
     /// </summary>
     public DrawerBuilder OffsetX() {
-        AttributeIfNotEmpty( "nzOffsetX", _config.GetValue( UiConst.OffsetX ) );
-        AttributeIfNotEmpty( "[nzOffsetX]", _config.GetValue( AngularConst.BindOffsetX ) );
+        AttributeIfNotEmpty( "[nzOffsetX]", _config.GetValue( UiConst.OffsetX ) );
         return this;
     }
 
@@ -161,8 +151,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置Y坐标偏移量
     /// </summary>
     public DrawerBuilder OffsetY() {
-        AttributeIfNotEmpty( "nzOffsetY", _config.GetValue( UiConst.OffsetY ) );
-        AttributeIfNotEmpty( "[nzOffsetY]", _config.GetValue( AngularConst.BindOffsetY ) );
+        AttributeIfNotEmpty( "[nzOffsetY]", _config.GetValue( UiConst.OffsetY ) );
         return this;
     }
 
@@ -179,8 +168,7 @@ public class DrawerBuilder : AngularTagBuilder {
     /// 配置z-index
     /// </summary>
     public DrawerBuilder ZIndex() {
-        AttributeIfNotEmpty( "nzZIndex", _config.GetValue( UiConst.ZIndex ) );
-        AttributeIfNotEmpty( "[nzZIndex]", _config.GetValue( AngularConst.BindZIndex ) );
+        AttributeIfNotEmpty( "[nzZIndex]", _config.GetValue( UiConst.ZIndex ) );
         return this;
     }
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Skeletons.Renders;
 using Util.Ui.Renders;
 
@@ -14,11 +13,7 @@ public class SkeletonTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzActive],是否显示动画效果,类型: boolean,默认值: false
     /// </summary>
-    public bool Active { get; set; }
-    /// <summary>
-    /// [nzActive],是否显示动画效果,类型: boolean,默认值: false
-    /// </summary>
-    public string BindActive { get; set; }
+    public string Active { get; set; }
     /// <summary>
     /// [nzAvatar],是否显示头像占位图,类型: boolean | NzSkeletonAvatar,默认值: false
     /// </summary>
@@ -38,11 +33,7 @@ public class SkeletonTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzRound],段落和标题是否显示圆角,类型: boolean,默认值: false
     /// </summary>
-    public bool Round { get; set; }
-    /// <summary>
-    /// [nzRound],段落和标题是否显示圆角,类型: boolean,默认值: false
-    /// </summary>
-    public string BindRound { get; set; }
+    public string Round { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

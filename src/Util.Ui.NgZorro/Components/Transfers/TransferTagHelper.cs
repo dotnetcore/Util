@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Transfers.Renders;
 using Util.Ui.Renders;
 
@@ -18,11 +17,7 @@ public class TransferTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzTitles],标题集合，顺序从左至右,类型: string[],默认值: ['', ''],范例: ['Source', 'Target']
     /// </summary>
@@ -66,11 +61,7 @@ public class TransferTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowSearch],是否显示搜索框,默认值: false
     /// </summary>
-    public bool ShowSearch { get; set; }
-    /// <summary>
-    /// [nzShowSearch],是否显示搜索框,默认值: false
-    /// </summary>
-    public string BindShowSearch { get; set; }
+    public string ShowSearch { get; set; }
     /// <summary>
     /// [nzFilterOption],过滤项函数，接收 inputValue,item 两个参数，当 item 符合筛选条件时，应返回 true，反之则返回 false。函数定义: (inputValue: string, item: TransferItem) => boolean;
     /// </summary>

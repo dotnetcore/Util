@@ -13,11 +13,7 @@ public class TextareaCountTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzMaxCharacterCount],文本域数字提示显示的最大值
     /// </summary>
-    public int MaxCharacterCount { get; set; }
-    /// <summary>
-    /// [nzMaxCharacterCount],文本域数字提示显示的最大值
-    /// </summary>
-    public string BindMaxCharacterCount { get; set; }
+    public string MaxCharacterCount { get; set; }
     /// <summary>
     /// [nzComputeCharacterCount],文本域数字提示最大值计算函数
     /// </summary>

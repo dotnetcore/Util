@@ -8,7 +8,7 @@ namespace Util.Ui.Angular.Builders;
 /// <summary>
 /// Angular标签生成器
 /// </summary>
-public class AngularTagBuilder : Util.Ui.Builders.TagBuilder {
+public abstract class AngularTagBuilder : Util.Ui.Builders.TagBuilder {
     /// <summary>
     /// 配置
     /// </summary>
@@ -20,7 +20,7 @@ public class AngularTagBuilder : Util.Ui.Builders.TagBuilder {
     /// <param name="config">配置</param>
     /// <param name="tagName">标签名称，范例：div</param>
     /// <param name="renderMode">渲染模式</param>
-    public AngularTagBuilder( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( tagName, renderMode ) {
+    protected AngularTagBuilder( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( tagName, renderMode ) {
         _config = config ?? throw new ArgumentNullException( nameof( config ) );
     }
 

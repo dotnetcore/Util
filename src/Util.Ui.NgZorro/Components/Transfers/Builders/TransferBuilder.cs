@@ -33,8 +33,7 @@ public class TransferBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public TransferBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -108,8 +107,7 @@ public class TransferBuilder : AngularTagBuilder {
     /// 配置显示搜索
     /// </summary>
     public TransferBuilder ShowSearch() {
-        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetBoolValue( UiConst.ShowSearch ) );
-        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( AngularConst.BindShowSearch ) );
+        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( UiConst.ShowSearch ) );
         return this;
     }
 

@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Trees.Helpers;
 
 namespace Util.Ui.NgZorro.Components.Trees.Builders; 
@@ -51,8 +50,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否节点占一行
     /// </summary>
     public TreeBuilder BlockNode() {
-        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetBoolValue( UiConst.BlockNode ) );
-        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetValue( AngularConst.BindBlockNode ) );
+        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetValue( UiConst.BlockNode ) );
         return this;
     }
 
@@ -60,8 +58,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置节点前是否显示复选框
     /// </summary>
     public TreeBuilder Checkable() {
-        Checkable( _config.GetBoolValue( UiConst.Checkable ) );
-        AttributeIfNotEmpty( "[nzCheckable]", _config.GetValue( AngularConst.BindCheckable ) );
+        Checkable( _config.GetValue( UiConst.Checkable ) );
         return this;
     }
 
@@ -77,8 +74,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置节点前是否显示展开图标
     /// </summary>
     public TreeBuilder ShowExpand() {
-        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetBoolValue( UiConst.ShowExpand ) );
-        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetValue( AngularConst.BindShowExpand ) );
+        AttributeIfNotEmpty( "[nzShowExpand]", _config.GetValue( UiConst.ShowExpand ) );
         return this;
     }
 
@@ -86,8 +82,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否显示连接线
     /// </summary>
     public TreeBuilder ShowLine() {
-        AttributeIfNotEmpty( "[nzShowLine]", _config.GetBoolValue( UiConst.ShowLine ) );
-        AttributeIfNotEmpty( "[nzShowLine]", _config.GetValue( AngularConst.BindShowLine ) );
+        AttributeIfNotEmpty( "[nzShowLine]", _config.GetValue( UiConst.ShowLine ) );
         return this;
     }
 
@@ -103,8 +98,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否显示节点文本前图标
     /// </summary>
     public TreeBuilder ShowIcon() {
-        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetBoolValue( UiConst.ShowIcon ) );
-        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( AngularConst.BindShowIcon ) );
+        AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( UiConst.ShowIcon ) );
         return this;
     }
 
@@ -112,8 +106,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否异步加载
     /// </summary>
     public TreeBuilder AsyncData() {
-        AsyncData( _config.GetBoolValue( UiConst.AsyncData ) );
-        AsyncData( _config.GetValue( AngularConst.BindAsyncData ) );
+        AsyncData( _config.GetValue( UiConst.AsyncData ) );
         return this;
     }
 
@@ -129,8 +122,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置节点是否可拖拽
     /// </summary>
     public TreeBuilder Draggable() {
-        AttributeIfNotEmpty( "[nzDraggable]", _config.GetBoolValue( UiConst.Draggable ) );
-        AttributeIfNotEmpty( "[nzDraggable]", _config.GetValue( AngularConst.BindDraggable ) );
+        AttributeIfNotEmpty( "[nzDraggable]", _config.GetValue( UiConst.Draggable ) );
         return this;
     }
 
@@ -138,8 +130,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否支持点选多个节点
     /// </summary>
     public TreeBuilder Multiple() {
-        AttributeIfNotEmpty( "[nzMultiple]", _config.GetBoolValue( UiConst.Multiple ) );
-        AttributeIfNotEmpty( "[nzMultiple]", _config.GetValue( AngularConst.BindMultiple ) );
+        AttributeIfNotEmpty( "[nzMultiple]", _config.GetValue( UiConst.Multiple ) );
         return this;
     }
 
@@ -147,8 +138,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否隐藏未匹配节点
     /// </summary>
     public TreeBuilder HideUnMatched() {
-        AttributeIfNotEmpty( "[nzHideUnMatched]", _config.GetBoolValue( UiConst.HideUnmatched ) );
-        AttributeIfNotEmpty( "[nzHideUnMatched]", _config.GetValue( AngularConst.BindHideUnmatched ) );
+        AttributeIfNotEmpty( "[nzHideUnMatched]", _config.GetValue( UiConst.HideUnmatched ) );
         return this;
     }
 
@@ -156,8 +146,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置严格勾选
     /// </summary>
     public TreeBuilder CheckStrictly() {
-        AttributeIfNotEmpty( "[nzCheckStrictly]", _config.GetBoolValue( UiConst.CheckStrictly ) );
-        AttributeIfNotEmpty( "[nzCheckStrictly]", _config.GetValue( AngularConst.BindCheckStrictly ) );
+        AttributeIfNotEmpty( "[nzCheckStrictly]", _config.GetValue( UiConst.CheckStrictly ) );
         return this;
     }
 
@@ -173,8 +162,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置是否默认展开所有节点
     /// </summary>
     public TreeBuilder ExpandAll() {
-        AttributeIfNotEmpty( "[nzExpandAll]", _config.GetBoolValue( UiConst.ExpandAll ) );
-        AttributeIfNotEmpty( "[nzExpandAll]", _config.GetValue( AngularConst.BindExpandAll ) );
+        AttributeIfNotEmpty( "[nzExpandAll]", _config.GetValue( UiConst.ExpandAll ) );
         return this;
     }
 
@@ -268,8 +256,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置虚拟滚动列高
     /// </summary>
     public TreeBuilder VirtualItemSize() {
-        AttributeIfNotEmpty( "nzVirtualItemSize", _config.GetValue( UiConst.VirtualItemSize ) );
-        AttributeIfNotEmpty( "[nzVirtualItemSize]", _config.GetValue( AngularConst.BindVirtualItemSize ) );
+        AttributeIfNotEmpty( "[nzVirtualItemSize]", _config.GetValue( UiConst.VirtualItemSize ) );
         return this;
     }
 
@@ -277,8 +264,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置虚拟滚动缓冲区最大高度
     /// </summary>
     public TreeBuilder VirtualMaxBufferPx() {
-        AttributeIfNotEmpty( "nzVirtualMaxBufferPx", _config.GetValue( UiConst.VirtualMaxBufferPx ) );
-        AttributeIfNotEmpty( "[nzVirtualMaxBufferPx]", _config.GetValue( AngularConst.BindVirtualMaxBufferPx ) );
+        AttributeIfNotEmpty( "[nzVirtualMaxBufferPx]", _config.GetValue( UiConst.VirtualMaxBufferPx ) );
         return this;
     }
 
@@ -286,8 +272,7 @@ public class TreeBuilder : AngularTagBuilder {
     /// 配置虚拟滚动缓冲区最小高度
     /// </summary>
     public TreeBuilder VirtualMinBufferPx() {
-        AttributeIfNotEmpty( "nzVirtualMinBufferPx", _config.GetValue( UiConst.VirtualMinBufferPx ) );
-        AttributeIfNotEmpty( "[nzVirtualMinBufferPx]", _config.GetValue( AngularConst.BindVirtualMinBufferPx ) );
+        AttributeIfNotEmpty( "[nzVirtualMinBufferPx]", _config.GetValue( UiConst.VirtualMinBufferPx ) );
         return this;
     }
 

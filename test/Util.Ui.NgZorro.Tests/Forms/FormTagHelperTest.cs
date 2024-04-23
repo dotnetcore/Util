@@ -116,21 +116,9 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestNoColon() {
-            _wrapper.SetContextAttribute( UiConst.NoColon, true );
+            _wrapper.SetContextAttribute( UiConst.NoColon, "true" );
             var result = new StringBuilder();
             result.Append( "<form nz-form=\"\" [nzNoColon]=\"true\">" );
-            result.Append( "</form>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试不显示标签冒号
-        /// </summary>
-        [Fact]
-        public void TestBindNoColon() {
-            _wrapper.SetContextAttribute( AngularConst.BindNoColon, "a" );
-            var result = new StringBuilder();
-            result.Append( "<form nz-form=\"\" [nzNoColon]=\"a\">" );
             result.Append( "</form>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

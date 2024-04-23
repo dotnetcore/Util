@@ -64,20 +64,9 @@ public class FilterTriggerTagHelperTest {
     /// </summary>
     [Fact]
     public void TestVisible() {
-        _wrapper.SetContextAttribute( UiConst.Visible, true );
+        _wrapper.SetContextAttribute( UiConst.Visible, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-filter-trigger [nzVisible]=\"true\"></nz-filter-trigger>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示下拉菜单
-    /// </summary>
-    [Fact]
-    public void TestBindVisible() {
-        _wrapper.SetContextAttribute( AngularConst.BindVisible, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-filter-trigger [nzVisible]=\"a\"></nz-filter-trigger>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -97,20 +86,9 @@ public class FilterTriggerTagHelperTest {
     /// </summary>
     [Fact]
     public void TestActive() {
-        _wrapper.SetContextAttribute( UiConst.Active, true );
+        _wrapper.SetContextAttribute( UiConst.Active, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-filter-trigger [nzActive]=\"true\"></nz-filter-trigger>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否激活选中图标效果
-    /// </summary>
-    [Fact]
-    public void TestBindActive() {
-        _wrapper.SetContextAttribute( AngularConst.BindActive, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-filter-trigger [nzActive]=\"a\"></nz-filter-trigger>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -119,20 +97,9 @@ public class FilterTriggerTagHelperTest {
     /// </summary>
     [Fact]
     public void TestHasBackdrop() {
-        _wrapper.SetContextAttribute( UiConst.HasBackdrop, true );
+        _wrapper.SetContextAttribute( UiConst.HasBackdrop, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-filter-trigger [nzHasBackdrop]=\"true\"></nz-filter-trigger>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否附带背景
-    /// </summary>
-    [Fact]
-    public void TestBindHasBackdrop() {
-        _wrapper.SetContextAttribute( AngularConst.BindHasBackdrop, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-filter-trigger [nzHasBackdrop]=\"a\"></nz-filter-trigger>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

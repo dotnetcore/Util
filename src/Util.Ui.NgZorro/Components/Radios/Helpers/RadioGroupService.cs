@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Helpers;
 using Util.Ui.NgZorro.Components.Radios.Configs;
 using Util.Ui.NgZorro.Components.Selects.Helpers;
@@ -31,14 +30,22 @@ public class RadioGroupService {
     /// 初始化
     /// </summary>
     public void Init() {
-        InitShareConfig();
         LoadExpression();
+        InitShareConfig();
         InitValidationService();
         InitFormShareService();
         InitFormItemShareService();
         EnableExtend();
         DisableAutoCreateRadioGroup();
         EnableAutoCreateRadio();
+    }
+
+    /// <summary>
+    /// 加载表达式
+    /// </summary>
+    private void LoadExpression() {
+        var loader = new SelectExpressionLoader();
+        loader.Load( _config );
     }
 
     /// <summary>
@@ -54,14 +61,6 @@ public class RadioGroupService {
     /// </summary>
     private string GetRadioId() {
         return _config.GetValue( UiConst.Id );
-    }
-
-    /// <summary>
-    /// 加载表达式
-    /// </summary>
-    private void LoadExpression() {
-        var loader = new SelectExpressionLoader();
-        loader.Load( _config );
     }
 
     /// <summary>

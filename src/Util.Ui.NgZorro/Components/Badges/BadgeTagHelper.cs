@@ -15,11 +15,7 @@ public class BadgeTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzStandalone],是否独立使用
     /// </summary>
-    public bool Standalone { get; set; }
-    /// <summary>
-    /// [nzStandalone],是否独立使用
-    /// </summary>
-    public string BindStandalone { get; set; }
+    public string Standalone { get; set; }
     /// <summary>
     /// nzColor,自定义小圆点的颜色
     /// </summary>
@@ -29,45 +25,25 @@ public class BadgeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindColor { get; set; }
     /// <summary>
-    /// nzCount,显示的数字，nzCount 大于 nzOverflowCount 时显示为 ${nzOverflowCount}+，为 0 时隐藏,类型: number | TemplateRef&lt;void>
-    /// </summary>
-    public int Count { get; set; }
-    /// <summary>
     /// [nzCount],显示的数字，nzCount 大于 nzOverflowCount 时显示为 ${nzOverflowCount}+，为 0 时隐藏,类型: number | TemplateRef&lt;void>
     /// </summary>
-    public string BindCount { get; set; }
+    public string Count { get; set; }
     /// <summary>
     /// [nzDot],是否不显示数字，只显示一个小红点,默认值: false
     /// </summary>
-    public bool Dot { get; set; }
-    /// <summary>
-    /// [nzDot],是否不显示数字，只显示一个小红点,默认值: false
-    /// </summary>
-    public string BindDot { get; set; }
+    public string Dot { get; set; }
     /// <summary>
     /// [nzShowDot],是否显示小红点,默认值: true
     /// </summary>
-    public bool ShowDot { get; set; }
-    /// <summary>
-    /// [nzShowDot],是否显示小红点,默认值: true
-    /// </summary>
-    public string BindShowDot { get; set; }
-    /// <summary>
-    /// nzOverflowCount,封顶数字，nzCount 大于 nzOverflowCount 时显示为 ${nzOverflowCount}+,默认值: 99
-    /// </summary>
-    public int OverflowCount { get; set; }
+    public string ShowDot { get; set; }
     /// <summary>
     /// [nzOverflowCount],封顶数字，nzCount 大于 nzOverflowCount 时显示为 ${nzOverflowCount}+,默认值: 99
     /// </summary>
-    public string BindOverflowCount { get; set; }
+    public string OverflowCount { get; set; }
     /// <summary>
     /// [nzShowZero],当数值为 0 时，是否显示徽标,默认值: false
     /// </summary>
-    public bool ShowZero { get; set; }
-    /// <summary>
-    /// [nzShowZero],当数值为 0 时，是否显示徽标,默认值: false
-    /// </summary>
-    public string BindShowZero { get; set; }
+    public string ShowZero { get; set; }
     /// <summary>
     /// nzStatus,设置徽标为状态点,可选值: 'success' | 'processing' | 'default' | 'error' | 'warning'
     /// </summary>

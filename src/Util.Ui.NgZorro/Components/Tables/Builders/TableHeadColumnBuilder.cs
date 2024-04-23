@@ -37,8 +37,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否显示复选框
     /// </summary>
     public TableHeadColumnBuilder ShowCheckbox() {
-        AttributeIfNotEmpty( "[nzShowCheckbox]", _config.GetBoolValue( UiConst.ShowCheckbox ) );
-        AttributeIfNotEmpty( "[nzShowCheckbox]", _config.GetValue( AngularConst.BindShowCheckbox ) );
+        AttributeIfNotEmpty( "[nzShowCheckbox]", _config.GetValue( UiConst.ShowCheckbox ) );
         return this;
     }
 
@@ -46,8 +45,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否禁用复选框
     /// </summary>
     public TableHeadColumnBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -63,8 +61,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否选中复选框
     /// </summary>
     public TableHeadColumnBuilder Checked() {
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetBoolValue( UiConst.Checked ) );
-        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( AngularConst.BindChecked ) );
+        AttributeIfNotEmpty( "[nzChecked]", _config.GetValue( UiConst.Checked ) );
         AttributeIfNotEmpty( "[(nzChecked)]", _config.GetValue( AngularConst.BindonChecked ) );
         return this;
     }
@@ -73,8 +70,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否显示下拉选择
     /// </summary>
     public TableHeadColumnBuilder ShowRowSelection() {
-        AttributeIfNotEmpty( "[nzShowRowSelection]", _config.GetBoolValue( UiConst.ShowRowSelection ) );
-        AttributeIfNotEmpty( "[nzShowRowSelection]", _config.GetValue( AngularConst.BindShowRowSelection ) );
+        AttributeIfNotEmpty( "[nzShowRowSelection]", _config.GetValue( UiConst.ShowRowSelection ) );
         return this;
     }
 
@@ -90,8 +86,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否显示排序
     /// </summary>
     public TableHeadColumnBuilder ShowSort() {
-        ShowSort( _config.GetBoolValue( UiConst.ShowSort ) );
-        ShowSort( _config.GetValue( AngularConst.BindShowSort ) );
+        ShowSort( _config.GetValue( UiConst.ShowSort ) );
         return this;
     }
 
@@ -160,8 +155,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否显示过滤
     /// </summary>
     public TableHeadColumnBuilder ShowFilter() {
-        AttributeIfNotEmpty( "[nzShowFilter]", _config.GetBoolValue( UiConst.ShowFilter ) );
-        AttributeIfNotEmpty( "[nzShowFilter]", _config.GetValue( AngularConst.BindShowFilter ) );
+        AttributeIfNotEmpty( "[nzShowFilter]", _config.GetValue( UiConst.ShowFilter ) );
         return this;
     }
 
@@ -185,8 +179,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否多选过滤器
     /// </summary>
     public TableHeadColumnBuilder FilterMultiple() {
-        AttributeIfNotEmpty( "[nzFilterMultiple]", _config.GetBoolValue( UiConst.FilterMultiple ) );
-        AttributeIfNotEmpty( "[nzFilterMultiple]", _config.GetValue( AngularConst.BindFilterMultiple ) );
+        AttributeIfNotEmpty( "[nzFilterMultiple]", _config.GetValue( UiConst.FilterMultiple ) );
         return this;
     }
 
@@ -361,8 +354,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置是否折行显示
     /// </summary>
     public TableHeadColumnBuilder BreakWord() {
-        AttributeIfNotEmpty( "[nzBreakWord]", _config.GetBoolValue( UiConst.BreakWord ) );
-        AttributeIfNotEmpty( "[nzBreakWord]", _config.GetValue( AngularConst.BindBreakWord ) );
+        AttributeIfNotEmpty( "[nzBreakWord]", _config.GetValue( UiConst.BreakWord ) );
         return this;
     }
 
@@ -372,8 +364,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     public TableHeadColumnBuilder Ellipsis() {
         if ( _shareConfig.IsEnableTableSettings )
             return this;
-        AttributeIfNotEmpty( "[nzEllipsis]", _config.GetBoolValue( UiConst.Ellipsis ) );
-        AttributeIfNotEmpty( "[nzEllipsis]", _config.GetValue( AngularConst.BindEllipsis ) );
+        AttributeIfNotEmpty( "[nzEllipsis]", _config.GetValue( UiConst.Ellipsis ) );
         return this;
     }
 
@@ -381,8 +372,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置列跨度
     /// </summary>
     public TableHeadColumnBuilder Colspan() {
-        AttributeIfNotEmpty( "colSpan", _config.GetValue( UiConst.Colspan ) );
-        AttributeIfNotEmpty( "[colSpan]", _config.GetValue( AngularConst.BindColspan ) );
+        AttributeIfNotEmpty( "[colSpan]", _config.GetValue( UiConst.Colspan ) );
         return this;
     }
 
@@ -391,7 +381,6 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// </summary>
     public TableHeadColumnBuilder Rowspan() {
         Rowspan( _config.GetValue( UiConst.Rowspan ) );
-        AttributeIfNotEmpty( "[rowSpan]", _config.GetValue( AngularConst.BindRowspan ) );
         return this;
     }
 
@@ -399,7 +388,7 @@ public class TableHeadColumnBuilder : AngularTagBuilder {
     /// 配置行跨度
     /// </summary>
     public TableHeadColumnBuilder Rowspan( string value ) {
-        AttributeIfNotEmpty( "rowSpan", value );
+        AttributeIfNotEmpty( "[rowSpan]", value );
         return this;
     }
 

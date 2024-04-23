@@ -109,18 +109,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestSpin() {
-            _wrapper.SetContextAttribute( UiConst.Spin, true );
-            var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzSpin]=\"true\"></i>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试图标持续旋转
-        /// </summary>
-        [Fact]
-        public void TestBindSpin() {
-            _wrapper.SetContextAttribute( AngularConst.BindSpin, "true" );
+            _wrapper.SetContextAttribute( UiConst.Spin, "true" );
             var result = new StringBuilder();
             result.Append( "<i nz-icon=\"\" [nzSpin]=\"true\"></i>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -131,18 +120,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestRotate() {
-            _wrapper.SetContextAttribute( UiConst.Rotate, 180 );
-            var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzRotate]=\"180\"></i>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试图标旋转角度
-        /// </summary>
-        [Fact]
-        public void TestBindRotate() {
-            _wrapper.SetContextAttribute( AngularConst.BindRotate, "180" );
+            _wrapper.SetContextAttribute( UiConst.Rotate, "180" );
             var result = new StringBuilder();
             result.Append( "<i nz-icon=\"\" [nzRotate]=\"180\"></i>" );
             Assert.Equal( result.ToString(), GetResult() );

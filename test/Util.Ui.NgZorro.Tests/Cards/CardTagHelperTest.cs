@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Cards;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -11,7 +12,7 @@ namespace Util.Ui.NgZorro.Tests.Cards {
     /// <summary>
     /// 卡片测试
     /// </summary>
-    public partial class CardTagHelperTest {
+    public class CardTagHelperTest {
         /// <summary>
         /// 输出工具
         /// </summary>
@@ -49,6 +50,40 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         }
 
         /// <summary>
+        /// 测试标题
+        /// </summary>
+        [Fact]
+        public void TestTitle() {
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-card nzTitle=\"a\"></nz-card>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-card [nzTitle]=\"'a'|i18n\"></nz-card>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题
+        /// </summary>
+        [Fact]
+        public void TestBindTitle() {
+            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-card [nzTitle]=\"a\"></nz-card>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试操作组
         /// </summary>
         [Fact]
@@ -75,20 +110,9 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         /// </summary>
         [Fact]
         public void TestBorderless() {
-            _wrapper.SetContextAttribute( UiConst.Borderless, true );
+            _wrapper.SetContextAttribute( UiConst.Borderless, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-card [nzBorderless]=\"true\"></nz-card>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否移除边框
-        /// </summary>
-        [Fact]
-        public void TestBindBorderless() {
-            _wrapper.SetContextAttribute( AngularConst.BindBorderless, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-card [nzBorderless]=\"a\"></nz-card>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +143,9 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         /// </summary>
         [Fact]
         public void TestHoverable() {
-            _wrapper.SetContextAttribute( UiConst.Hoverable, true );
+            _wrapper.SetContextAttribute( UiConst.Hoverable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-card [nzHoverable]=\"true\"></nz-card>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试鼠标滑过时是否可浮起
-        /// </summary>
-        [Fact]
-        public void TestBindHoverable() {
-            _wrapper.SetContextAttribute( AngularConst.BindHoverable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-card [nzHoverable]=\"a\"></nz-card>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -141,20 +154,9 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         /// </summary>
         [Fact]
         public void TestLoading() {
-            _wrapper.SetContextAttribute( UiConst.Loading, true );
+            _wrapper.SetContextAttribute( UiConst.Loading, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-card [nzLoading]=\"true\"></nz-card>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否加载状态
-        /// </summary>
-        [Fact]
-        public void TestBindLoading() {
-            _wrapper.SetContextAttribute( AngularConst.BindLoading, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-card [nzLoading]=\"a\"></nz-card>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

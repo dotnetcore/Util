@@ -89,13 +89,17 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSort { get; set; }
     /// <summary>
-    /// 扩展属性,点击表格行时是否选中该行,可同时选中多行,选中行被添加名为 table-row-selected 的 class类名
+    /// 扩展属性,点击表格行时是否选中该行,可同时选中多行,选中行被添加名为 table-row-selected 的 class类名, 默认值: false
     /// </summary>
     public bool SelectOnClickRow { get; set; }
     /// <summary>
-    /// 扩展属性,点击表格行时是否选中该行,仅选中该行,取消其它选中的行,选中行被添加名为 table-row-selected 的 class类名
+    /// 扩展属性,点击表格行时是否选中该行,仅选中该行,取消其它选中的行,选中行被添加名为 table-row-selected 的 class类名, 默认值: false
     /// </summary>
     public bool SelectOnlyOnClickRow { get; set; }
+    /// <summary>
+    /// 扩展属性, 点击表格行时是否选中复选框或单选框, 默认值: false
+    /// </summary>
+    public bool CheckOnClickRow { get; set; }
     /// <summary>
     /// [nzData],数据,类型: any[]
     /// </summary>
@@ -103,35 +107,23 @@ public class TableTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzFrontPagination],是否前端分页,默认值: true
     /// </summary>
-    public bool FrontPagination { get; set; }
-    /// <summary>
-    /// [nzFrontPagination],是否前端分页,默认值: true
-    /// </summary>
-    public string BindFrontPagination { get; set; }
+    public string FrontPagination { get; set; }
     /// <summary>
     /// [nzTotal],数据总行数,当服务端渲染时传入
     /// </summary>
     public string Total { get; set; }
     /// <summary>
-    /// nzPageIndex,当前页
-    /// </summary>
-    public int PageIndex { get; set; }
-    /// <summary>
     /// [nzPageIndex],当前页
     /// </summary>
-    public string BindPageIndex { get; set; }
+    public string PageIndex { get; set; }
     /// <summary>
     /// [(nzPageIndex)],当前页
     /// </summary>
     public string BindonPageIndex { get; set; }
     /// <summary>
-    /// nzPageSize,每页显示行数
-    /// </summary>
-    public int PageSize { get; set; }
-    /// <summary>
     /// [nzPageSize],每页显示行数
     /// </summary>
-    public string BindPageSize { get; set; }
+    public string PageSize { get; set; }
     /// <summary>
     /// [(nzPageSize)],每页显示行数
     /// </summary>
@@ -139,11 +131,7 @@ public class TableTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowPagination],是否显示分页,默认值: true
     /// </summary>
-    public bool ShowPagination { get; set; }
-    /// <summary>
-    /// [nzShowPagination],是否显示分页,默认值: true
-    /// </summary>
-    public string BindShowPagination { get; set; }
+    public string ShowPagination { get; set; }
     /// <summary>
     /// nzPaginationPosition,指定分页显示的位置,可选值: 'top' | 'bottom' | 'both',默认值: 'bottom'
     /// </summary>
@@ -163,19 +151,11 @@ public class TableTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBordered],是否显示外边框和列边框,默认值: false
     /// </summary>
-    public bool Bordered { get; set; }
-    /// <summary>
-    /// [nzBordered],是否显示外边框和列边框,默认值: false
-    /// </summary>
-    public string BindBordered { get; set; }
+    public string Bordered { get; set; }
     /// <summary>
     /// [nzOuterBordered],是否显示外边框,默认值: false
     /// </summary>
-    public bool OuterBordered { get; set; }
-    /// <summary>
-    /// [nzOuterBordered],是否显示外边框,默认值: false
-    /// </summary>
-    public string BindOuterBordered { get; set; }
+    public string OuterBordered { get; set; }
     /// <summary>
     /// [nzWidthConfig],表头分组时指定每列宽度，与 th 的 [nzWidth] 不可混用,类型: string[],默认值: []
     /// </summary>
@@ -197,13 +177,9 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public string LoadingIndicator { get; set; }
     /// <summary>
-    /// nzLoadingDelay,延迟显示加载效果的时间（防止闪烁）,默认值: 0
-    /// </summary>
-    public int LoadingDelay { get; set; }
-    /// <summary>
     /// [nzLoadingDelay],延迟显示加载效果的时间（防止闪烁）,默认值: 0
     /// </summary>
-    public string BindLoadingDelay { get; set; }
+    public string LoadingDelay { get; set; }
     /// <summary>
     /// [nzScroll],用于支持横向或纵向滚动,设置滚动区域的宽高度,范例: { x: "300px", y: "300px" }
     /// </summary>
@@ -247,19 +223,11 @@ public class TableTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowQuickJumper],是否显示分页快速跳转,默认值: false
     /// </summary>
-    public bool ShowQuickJumper { get; set; }
-    /// <summary>
-    /// [nzShowQuickJumper],是否显示分页快速跳转,默认值: false
-    /// </summary>
-    public string BindShowQuickJumper { get; set; }
+    public string ShowQuickJumper { get; set; }
     /// <summary>
     /// [nzShowSizeChanger],是否显示改变分页大小按钮,默认值: false,当启用扩展时自动设置为 true
     /// </summary>
-    public bool ShowSizeChanger { get; set; }
-    /// <summary>
-    /// [nzShowSizeChanger],是否显示改变分页大小按钮,默认值: false,当启用扩展时自动设置为 true
-    /// </summary>
-    public string BindShowSizeChanger { get; set; }
+    public string ShowSizeChanger { get; set; }
     /// <summary>
     /// [nzShowTotal],设置显示总行数和当前数据范围的模板,类型: TemplateRef&lt;{ $implicit: number, range: [ number, number ] }>
     /// </summary>
@@ -271,51 +239,27 @@ public class TableTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzHideOnSinglePage],只有一页时是否隐藏分页器,默认值: false
     /// </summary>
-    public bool HideOnSinglePage { get; set; }
-    /// <summary>
-    /// [nzHideOnSinglePage],只有一页时是否隐藏分页器,默认值: false
-    /// </summary>
-    public string BindHideOnSinglePage { get; set; }
+    public string HideOnSinglePage { get; set; }
     /// <summary>
     /// [nzSimple],是否显示简单分页
     /// </summary>
-    public bool Simple { get; set; }
-    /// <summary>
-    /// [nzSimple],是否显示简单分页
-    /// </summary>
-    public string BindSimple { get; set; }
+    public string Simple { get; set; }
     /// <summary>
     /// [nzTemplateMode],是否模板模式,无需将数据传递给 nzData,默认值: false
     /// </summary>
-    public bool TemplateMode { get; set; }
-    /// <summary>
-    /// [nzTemplateMode],是否模板模式,无需将数据传递给 nzData,默认值: false
-    /// </summary>
-    public string BindTemplateMode { get; set; }
-    /// <summary>
-    /// nzVirtualItemSize,虚拟滚动时每一列的高度,单位:像素,默认值: 0
-    /// </summary>
-    public int VirtualItemSize { get; set; }
+    public string TemplateMode { get; set; }
     /// <summary>
     /// [nzVirtualItemSize],虚拟滚动时每一列的高度,单位:像素,默认值: 0
     /// </summary>
-    public string BindVirtualItemSize { get; set; }
-    /// <summary>
-    /// nzVirtualMaxBufferPx,虚拟滚动缓冲区最大高度,单位:像素,默认值: 200
-    /// </summary>
-    public int VirtualMaxBufferPx { get; set; }
+    public string VirtualItemSize { get; set; }
     /// <summary>
     /// [nzVirtualMaxBufferPx],虚拟滚动缓冲区最大高度,单位:像素,默认值: 200
     /// </summary>
-    public string BindVirtualMaxBufferPx { get; set; }
-    /// <summary>
-    /// nzVirtualMinBufferPx,虚拟滚动缓冲区最小高度，低于该值时将加载新结构,单位:像素,默认值: 100
-    /// </summary>
-    public int VirtualMinBufferPx { get; set; }
+    public string VirtualMaxBufferPx { get; set; }
     /// <summary>
     /// [nzVirtualMinBufferPx],虚拟滚动缓冲区最小高度，低于该值时将加载新结构,单位:像素,默认值: 100
     /// </summary>
-    public string BindVirtualMinBufferPx { get; set; }
+    public string VirtualMinBufferPx { get; set; }
     /// <summary>
     /// [nzVirtualForTrackBy],虚拟滚动数据 TrackByFunction 函数，类型: TrackByFunction&lt;T>
     /// </summary>
@@ -349,6 +293,10 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public bool EnableFixedColumn { get; set; }
     /// <summary>
+    /// 扩展属性 [isBatch],是否批量编辑, false表示单行编辑模式,true表示批量编辑模式,一次性保存所有更改, 默认值: false
+    /// </summary>
+    public bool IsBatchEdit { get; set; }
+    /// <summary>
     /// (nzPageIndexChange),页码变化事件,类型: EventEmitter&lt;number>
     /// </summary>
     public string OnPageIndexChange { get; set; }
@@ -365,7 +313,7 @@ public class TableTagHelper : AngularTagHelperBase {
     /// </summary>
     public string OnQueryParams { get; set; }
     /// <summary>
-    /// 扩展属性 (onLoad),数据加载完成事件,类型: EventEmitter&lt;any>,参数为服务端返回结果
+    /// 扩展事件 (onLoad),数据加载完成事件,类型: EventEmitter&lt;any>,参数为服务端返回结果
     /// </summary>
     public string OnLoad { get; set; }
     /// <summary>

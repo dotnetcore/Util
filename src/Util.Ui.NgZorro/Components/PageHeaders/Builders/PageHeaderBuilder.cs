@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.PageHeaders.Builders; 
@@ -25,8 +24,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// 配置透明背景
     /// </summary>
     public PageHeaderBuilder Ghost() {
-        AttributeIfNotEmpty( "[nzGhost]", _config.GetBoolValue( UiConst.Ghost ) );
-        AttributeIfNotEmpty( "[nzGhost]", _config.GetValue( AngularConst.BindGhost ) );
+        AttributeIfNotEmpty( "[nzGhost]", _config.GetValue( UiConst.Ghost ) );
         return this;
     }
 

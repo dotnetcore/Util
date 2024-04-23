@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Autocompletes.Builders; 
@@ -59,8 +58,7 @@ public class AutoOptionBuilder : AngularTagBuilder {
     /// 配置禁用
     /// </summary>
     public AutoOptionBuilder Disabled() {
-        Disabled( _config.GetBoolValue( UiConst.Disabled ) );
-        Disabled( _config.GetValue( AngularConst.BindDisabled ) );
+        Disabled( _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 

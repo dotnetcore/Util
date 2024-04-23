@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestTotal() {
-            _wrapper.SetContextAttribute( UiConst.Total, 1 );
+            _wrapper.SetContextAttribute( UiConst.Total, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzTotal]=\"1\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试总数
-        /// </summary>
-        [Fact]
-        public void TestBindTotal() {
-            _wrapper.SetContextAttribute( AngularConst.BindTotal, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzTotal]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -75,20 +64,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestPageIndex() {
-            _wrapper.SetContextAttribute( UiConst.PageIndex, 1 );
+            _wrapper.SetContextAttribute( UiConst.PageIndex, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzPageIndex]=\"1\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试当前页
-        /// </summary>
-        [Fact]
-        public void TestBindPageIndex() {
-            _wrapper.SetContextAttribute( AngularConst.BindPageIndex, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzPageIndex]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -108,20 +86,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestPageSize() {
-            _wrapper.SetContextAttribute( UiConst.PageSize, 1 );
+            _wrapper.SetContextAttribute( UiConst.PageSize, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzPageSize]=\"1\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试每页显示行数
-        /// </summary>
-        [Fact]
-        public void TestBindPageSize() {
-            _wrapper.SetContextAttribute( AngularConst.BindPageSize, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzPageSize]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -141,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestShowSizeChanger() {
-            _wrapper.SetContextAttribute( UiConst.ShowSizeChanger, true );
+            _wrapper.SetContextAttribute( UiConst.ShowSizeChanger, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzShowSizeChanger]=\"true\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示改变分页大小按钮
-        /// </summary>
-        [Fact]
-        public void TestBindShowSizeChanger() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowSizeChanger, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzShowSizeChanger]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -163,20 +119,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestShowQuickJumper() {
-            _wrapper.SetContextAttribute( UiConst.ShowQuickJumper, true );
+            _wrapper.SetContextAttribute( UiConst.ShowQuickJumper, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzShowQuickJumper]=\"true\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示快速跳转
-        /// </summary>
-        [Fact]
-        public void TestBindShowQuickJumper() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowQuickJumper, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzShowQuickJumper]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -185,20 +130,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzDisabled]=\"true\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzDisabled]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -240,20 +174,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestSimple() {
-            _wrapper.SetContextAttribute( UiConst.Simple, true );
+            _wrapper.SetContextAttribute( UiConst.Simple, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzSimple]=\"true\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试简单分页
-        /// </summary>
-        [Fact]
-        public void TestBindSimple() {
-            _wrapper.SetContextAttribute( AngularConst.BindSimple, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzSimple]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -262,20 +185,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestResponsive() {
-            _wrapper.SetContextAttribute( UiConst.Responsive, true );
+            _wrapper.SetContextAttribute( UiConst.Responsive, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzResponsive]=\"true\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试响应式
-        /// </summary>
-        [Fact]
-        public void TestBindResponsive() {
-            _wrapper.SetContextAttribute( AngularConst.BindResponsive, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzResponsive]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -306,20 +218,9 @@ namespace Util.Ui.NgZorro.Tests.Paginations {
         /// </summary>
         [Fact]
         public void TestHideOnSinglePage() {
-            _wrapper.SetContextAttribute( UiConst.HideOnSinglePage, true );
+            _wrapper.SetContextAttribute( UiConst.HideOnSinglePage, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-pagination [nzHideOnSinglePage]=\"true\"></nz-pagination>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试只有一页时是否隐藏分页器
-        /// </summary>
-        [Fact]
-        public void TestBindHideOnSinglePage() {
-            _wrapper.SetContextAttribute( AngularConst.BindHideOnSinglePage, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-pagination [nzHideOnSinglePage]=\"a\"></nz-pagination>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

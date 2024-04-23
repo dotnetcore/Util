@@ -8,7 +8,7 @@ using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Descriptions.Builders; 
+namespace Util.Ui.NgZorro.Components.Descriptions.Builders;
 
 /// <summary>
 /// 描述列表项标签生成器
@@ -23,7 +23,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
     /// 初始化描述列表项标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public DescriptionItemBuilder( Config config ) : base( config,"nz-descriptions-item" ) {
+    public DescriptionItemBuilder( Config config ) : base( config, "nz-descriptions-item" ) {
         _config = config;
     }
 
@@ -86,7 +86,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
         if ( value.IsEmpty() )
             return;
         if ( dataType == DataType.Bool ) {
-            LoadBool(value);
+            LoadBool( value );
             return;
         }
         if ( dataType == DataType.Date ) {
@@ -97,7 +97,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
             LoadNumber( value );
             return;
         }
-        SetContent( "{{" + GetValue(value) + "}}");
+        SetContent( "{{" + GetValue( value ) + "}}" );
     }
 
     /// <summary>
@@ -114,7 +114,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
     protected void LoadDate( string value ) {
         var format = _config.GetValue( UiConst.DateFormat );
         if ( format.IsEmpty() )
-            format = "yyyy-MM-dd HH:mm";
+            format = "yyyy-MM-dd HH:mm:ss";
         SetContent( $"{{{{{value}|date:\"{format}\"}}}}" );
     }
 
@@ -129,8 +129,8 @@ public class DescriptionItemBuilder : AngularTagBuilder {
     /// 获取值
     /// </summary>
     private string GetValue( string value ) {
-        var options = NgZorroOptionsService.GetOptions();
-        if ( options.EnableI18n )
+        var enabledI18n = _config.GetValue<bool>( UiConst.ValueI18n );
+        if ( enabledI18n )
             return $"{value}|i18n";
         return value;
     }
@@ -142,6 +142,8 @@ public class DescriptionItemBuilder : AngularTagBuilder {
         if ( _config.GetValue<bool?>( UiConst.Clipboard ) != true )
             return;
         var value = _config.GetValue( UiConst.Value );
+        if ( value.IsEmpty() )
+            return;
         _config.SetAttribute( UiConst.CopyToClipboard, value );
         var buttonBuilder = new ButtonBuilder( _config );
         buttonBuilder.Attribute( "nz-button" );

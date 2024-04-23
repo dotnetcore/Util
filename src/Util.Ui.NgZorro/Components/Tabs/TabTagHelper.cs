@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Tabs.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -27,27 +26,15 @@ public class TabTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzForceRender],隐藏时是否强制渲染DOM结构,默认值: false
     /// </summary>
-    public bool ForceRender { get; set; }
-    /// <summary>
-    /// [nzForceRender],隐藏时是否强制渲染DOM结构,默认值: false
-    /// </summary>
-    public string BindForceRender { get; set; }
+    public string ForceRender { get; set; }
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// [nzClosable],是否显示关闭按钮,当父标签页 nz-tabset 的 nzType 为 'editable-card'时可用,默认值: false
     /// </summary>
-    public bool Closable { get; set; }
-    /// <summary>
-    /// [nzClosable],是否显示关闭按钮,当父标签页 nz-tabset 的 nzType 为 'editable-card'时可用,默认值: false
-    /// </summary>
-    public string BindClosable { get; set; }
+    public string Closable { get; set; }
     /// <summary>
     /// nzCloseIcon,关闭按钮图标,当父标签页 nz-tabset 的 nzType 为 'editable-card'时可用,类型: string | TemplateRef&lt;void>
     /// </summary>

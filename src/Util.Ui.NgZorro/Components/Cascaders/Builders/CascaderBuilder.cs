@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 
@@ -26,8 +25,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置允许清除
     /// </summary>
     public CascaderBuilder AllowClear() {
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetBoolValue( UiConst.AllowClear ) );
-        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( AngularConst.BindAllowClear ) );
+        AttributeIfNotEmpty( "[nzAllowClear]", _config.GetValue( UiConst.AllowClear ) );
         return this;
     }
 
@@ -35,8 +33,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置自动聚焦
     /// </summary>
     public CascaderBuilder AutoFocus() {
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetBoolValue( UiConst.AutoFocus ) );
-        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( AngularConst.BindAutoFocus ) );
+        AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
         return this;
     }
 
@@ -52,8 +49,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置选择变更
     /// </summary>
     public CascaderBuilder ChangeOnSelect() {
-        AttributeIfNotEmpty( "[nzChangeOnSelect]", _config.GetBoolValue( UiConst.ChangeOnSelect ) );
-        AttributeIfNotEmpty( "[nzChangeOnSelect]", _config.GetValue( AngularConst.BindChangeOnSelect ) );
+        AttributeIfNotEmpty( "[nzChangeOnSelect]", _config.GetValue( UiConst.ChangeOnSelect ) );
         return this;
     }
 
@@ -61,7 +57,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置列类名
     /// </summary>
     public CascaderBuilder ColumnClassName() {
-        AttributeIfNotEmpty( "nzColumnClassName", _config.GetBoolValue( UiConst.ColumnClassName ) );
+        AttributeIfNotEmpty( "nzColumnClassName", _config.GetValue( UiConst.ColumnClassName ) );
         AttributeIfNotEmpty( "[nzColumnClassName]", _config.GetValue( AngularConst.BindColumnClassName ) );
         return this;
     }
@@ -70,8 +66,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置禁用
     /// </summary>
     public CascaderBuilder Disabled() {
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetBoolValue( UiConst.Disabled ) );
-        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( AngularConst.BindDisabled ) );
+        AttributeIfNotEmpty( "[nzDisabled]", _config.GetValue( UiConst.Disabled ) );
         return this;
     }
 
@@ -174,8 +169,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置显示箭头
     /// </summary>
     public CascaderBuilder ShowArrow() {
-        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetBoolValue( UiConst.ShowArrow ) );
-        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetValue( AngularConst.BindShowArrow ) );
+        AttributeIfNotEmpty( "[nzShowArrow]", _config.GetValue( UiConst.ShowArrow ) );
         return this;
     }
 
@@ -183,8 +177,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置显示输入框
     /// </summary>
     public CascaderBuilder ShowInput() {
-        AttributeIfNotEmpty( "[nzShowInput]", _config.GetBoolValue( UiConst.ShowInput ) );
-        AttributeIfNotEmpty( "[nzShowInput]", _config.GetValue( AngularConst.BindShowInput ) );
+        AttributeIfNotEmpty( "[nzShowInput]", _config.GetValue( UiConst.ShowInput ) );
         return this;
     }
 
@@ -192,8 +185,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置显示搜索
     /// </summary>
     public CascaderBuilder ShowSearch() {
-        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetBoolValue( UiConst.ShowSearch ) );
-        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( AngularConst.BindShowSearch ) );
+        AttributeIfNotEmpty( "[nzShowSearch]", _config.GetValue( UiConst.ShowSearch ) );
         return this;
     }
 
@@ -219,7 +211,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置值属性名
     /// </summary>
     public CascaderBuilder ValueProperty() {
-        AttributeIfNotEmpty( "nzValueProperty", _config.GetBoolValue( UiConst.ValueProperty ) );
+        AttributeIfNotEmpty( "nzValueProperty", _config.GetValue( UiConst.ValueProperty ) );
         AttributeIfNotEmpty( "[nzValueProperty]", _config.GetValue( AngularConst.BindValueProperty ) );
         return this;
     }

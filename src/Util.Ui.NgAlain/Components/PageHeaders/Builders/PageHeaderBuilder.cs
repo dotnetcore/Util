@@ -28,7 +28,6 @@ public class PageHeaderBuilder : AngularTagBuilder {
     public PageHeaderBuilder Title() {
         SetTitle( _config.GetValue( UiConst.Title ) );
         AttributeIfNotEmpty( "[title]", _config.GetValue( AngularConst.BindTitle ) );
-        SetCreateUpdateTitle();
         return this;
     }
 
@@ -45,30 +44,10 @@ public class PageHeaderBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 设置创建修改标题
-    /// </summary>
-    private void SetCreateUpdateTitle() {
-        var createTitle = _config.GetValue( UiConst.TitleCreate );
-        var updateTitle = _config.GetValue( UiConst.TitleUpdate );
-        if ( createTitle.IsEmpty() == false && updateTitle.IsEmpty() == false ) {
-            var options = NgZorroOptionsService.GetOptions();
-            if ( options.EnableI18n ) {
-                Attribute( "[title]", ( $"(isNew?'{createTitle}':'{updateTitle}')|i18n" ) );
-                return;
-            }
-            Attribute( "[title]", ( $"isNew?'{createTitle}':'{updateTitle}'" ) );
-            return;
-        }
-        SetTitle( createTitle );
-        SetTitle( updateTitle );
-    }
-
-    /// <summary>
     /// 配置自动设置标题
     /// </summary>
     public PageHeaderBuilder AutoTitle() {
-        AttributeIfNotEmpty( "[autoTitle]", _config.GetBoolValue( UiConst.AutoTitle ) );
-        AttributeIfNotEmpty( "[autoTitle]", _config.GetValue( AngularConst.BindAutoTitle ) );
+        AttributeIfNotEmpty( "[autoTitle]", _config.GetValue( UiConst.AutoTitle ) );
         return this;
     }
 
@@ -76,8 +55,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// 配置同步标题
     /// </summary>
     public PageHeaderBuilder SyncTitle() {
-        AttributeIfNotEmpty( "[syncTitle]", _config.GetBoolValue( UiConst.SyncTitle ) );
-        AttributeIfNotEmpty( "[syncTitle]", _config.GetValue( AngularConst.BindSyncTitle ) );
+        AttributeIfNotEmpty( "[syncTitle]", _config.GetValue( UiConst.SyncTitle ) );
         return this;
     }
 
@@ -112,8 +90,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// 配置自动生成导航
     /// </summary>
     public PageHeaderBuilder AutoBreadcrumb() {
-        AttributeIfNotEmpty( "[autoBreadcrumb]", _config.GetBoolValue( UiConst.AutoBreadcrumb ) );
-        AttributeIfNotEmpty( "[autoBreadcrumb]", _config.GetValue( AngularConst.BindAutoBreadcrumb ) );
+        AttributeIfNotEmpty( "[autoBreadcrumb]", _config.GetValue( UiConst.AutoBreadcrumb ) );
         return this;
     }
 
@@ -121,8 +98,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// 配置递归查找导航
     /// </summary>
     public PageHeaderBuilder RecursiveBreadcrumb() {
-        AttributeIfNotEmpty( "[recursiveBreadcrumb]", _config.GetBoolValue( UiConst.RecursiveBreadcrumb ) );
-        AttributeIfNotEmpty( "[recursiveBreadcrumb]", _config.GetValue( AngularConst.BindRecursiveBreadcrumb ) );
+        AttributeIfNotEmpty( "[recursiveBreadcrumb]", _config.GetValue( UiConst.RecursiveBreadcrumb ) );
         return this;
     }
 
@@ -138,8 +114,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// 配置是否定宽
     /// </summary>
     public PageHeaderBuilder Wide() {
-        AttributeIfNotEmpty( "[wide]", _config.GetBoolValue( UiConst.Wide ) );
-        AttributeIfNotEmpty( "[wide]", _config.GetValue( AngularConst.BindWide ) );
+        AttributeIfNotEmpty( "[wide]", _config.GetValue( UiConst.Wide ) );
         return this;
     }
 
@@ -147,8 +122,7 @@ public class PageHeaderBuilder : AngularTagBuilder {
     /// 配置是否固定模式
     /// </summary>
     public PageHeaderBuilder Fixed() {
-        AttributeIfNotEmpty( "[fixed]", _config.GetBoolValue( UiConst.Fixed ) );
-        AttributeIfNotEmpty( "[fixed]", _config.GetValue( AngularConst.BindFixed ) );
+        AttributeIfNotEmpty( "[fixed]", _config.GetValue( UiConst.Fixed ) );
         return this;
     }
 

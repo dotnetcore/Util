@@ -78,20 +78,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestFrontPagination() {
-        _wrapper.SetContextAttribute( UiConst.FrontPagination, true );
+        _wrapper.SetContextAttribute( UiConst.FrontPagination, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzFrontPagination]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否前端分页
-    /// </summary>
-    [Fact]
-    public void TestBindFrontPagination() {
-        _wrapper.SetContextAttribute( AngularConst.BindFrontPagination, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzFrontPagination]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -111,20 +100,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestPageIndex() {
-        _wrapper.SetContextAttribute( UiConst.PageIndex, 1 );
+        _wrapper.SetContextAttribute( UiConst.PageIndex, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-table nzPageIndex=\"1\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试当前页
-    /// </summary>
-    [Fact]
-    public void TestBindPageIndex() {
-        _wrapper.SetContextAttribute( AngularConst.BindPageIndex, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzPageIndex]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzPageIndex]=\"1\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -144,20 +122,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestPageSize() {
-        _wrapper.SetContextAttribute( UiConst.PageSize, 1 );
+        _wrapper.SetContextAttribute( UiConst.PageSize, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-table nzPageSize=\"1\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试每页显示行数
-    /// </summary>
-    [Fact]
-    public void TestBindPageSize() {
-        _wrapper.SetContextAttribute( AngularConst.BindPageSize, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzPageSize]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzPageSize]=\"1\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -177,20 +144,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestShowPagination() {
-        _wrapper.SetContextAttribute( UiConst.ShowPagination, true );
+        _wrapper.SetContextAttribute( UiConst.ShowPagination, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzShowPagination]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示分页
-    /// </summary>
-    [Fact]
-    public void TestBindShowPagination() {
-        _wrapper.SetContextAttribute( AngularConst.BindShowPagination, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzShowPagination]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -243,20 +199,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestBordered() {
-        _wrapper.SetContextAttribute( UiConst.Bordered, true );
+        _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzBordered]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示边框
-    /// </summary>
-    [Fact]
-    public void TestBindBordered() {
-        _wrapper.SetContextAttribute( AngularConst.BindBordered, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzBordered]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -265,20 +210,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestOuterBordered() {
-        _wrapper.SetContextAttribute( UiConst.OuterBordered, true );
+        _wrapper.SetContextAttribute( UiConst.OuterBordered, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzOuterBordered]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示外边框
-    /// </summary>
-    [Fact]
-    public void TestBindOuterBordered() {
-        _wrapper.SetContextAttribute( AngularConst.BindOuterBordered, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzOuterBordered]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -342,20 +276,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestLoadingDelay() {
-        _wrapper.SetContextAttribute( UiConst.LoadingDelay, 1 );
+        _wrapper.SetContextAttribute( UiConst.LoadingDelay, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-table nzLoadingDelay=\"1\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试延迟显示加载时间
-    /// </summary>
-    [Fact]
-    public void TestBindLoadingDelay() {
-        _wrapper.SetContextAttribute( AngularConst.BindLoadingDelay, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzLoadingDelay]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzLoadingDelay]=\"1\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -474,20 +397,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestShowQuickJumper() {
-        _wrapper.SetContextAttribute( UiConst.ShowQuickJumper, true );
+        _wrapper.SetContextAttribute( UiConst.ShowQuickJumper, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzShowQuickJumper]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示快速跳转
-    /// </summary>
-    [Fact]
-    public void TestBindShowQuickJumper() {
-        _wrapper.SetContextAttribute( AngularConst.BindShowQuickJumper, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzShowQuickJumper]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -496,20 +408,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestShowSizeChanger() {
-        _wrapper.SetContextAttribute( UiConst.ShowSizeChanger, true );
+        _wrapper.SetContextAttribute( UiConst.ShowSizeChanger, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzShowSizeChanger]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示改变分页大小按钮
-    /// </summary>
-    [Fact]
-    public void TestBindShowSizeChanger() {
-        _wrapper.SetContextAttribute( AngularConst.BindShowSizeChanger, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzShowSizeChanger]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -540,20 +441,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestHideOnSinglePage() {
-        _wrapper.SetContextAttribute( UiConst.HideOnSinglePage, true );
+        _wrapper.SetContextAttribute( UiConst.HideOnSinglePage, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzHideOnSinglePage]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试只有一页时是否隐藏分页器
-    /// </summary>
-    [Fact]
-    public void TestBindHideOnSinglePage() {
-        _wrapper.SetContextAttribute( AngularConst.BindHideOnSinglePage, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzHideOnSinglePage]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -562,7 +452,7 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestSimple() {
-        _wrapper.SetContextAttribute( UiConst.Simple, true );
+        _wrapper.SetContextAttribute( UiConst.Simple, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzSimple]=\"true\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
@@ -572,32 +462,10 @@ public partial class TableTagHelperTest {
     /// 测试是否显示简单分页
     /// </summary>
     [Fact]
-    public void TestBindSimple() {
-        _wrapper.SetContextAttribute( AngularConst.BindSimple, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzSimple]=\"a\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示简单分页
-    /// </summary>
-    [Fact]
     public void TestTemplateMode() {
-        _wrapper.SetContextAttribute( UiConst.TemplateMode, true );
+        _wrapper.SetContextAttribute( UiConst.TemplateMode, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-table [nzTemplateMode]=\"true\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试是否显示简单分页
-    /// </summary>
-    [Fact]
-    public void TestBindTemplateMode() {
-        _wrapper.SetContextAttribute( AngularConst.BindTemplateMode, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzTemplateMode]=\"a\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -606,20 +474,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestVirtualItemSize() {
-        _wrapper.SetContextAttribute( UiConst.VirtualItemSize, 1 );
+        _wrapper.SetContextAttribute( UiConst.VirtualItemSize, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-table nzVirtualItemSize=\"1\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试虚拟滚动列高
-    /// </summary>
-    [Fact]
-    public void TestBindVirtualItemSize() {
-        _wrapper.SetContextAttribute( AngularConst.BindVirtualItemSize, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzVirtualItemSize]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzVirtualItemSize]=\"1\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -628,20 +485,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestVirtualMaxBufferPx() {
-        _wrapper.SetContextAttribute( UiConst.VirtualMaxBufferPx, 1 );
+        _wrapper.SetContextAttribute( UiConst.VirtualMaxBufferPx, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-table nzVirtualMaxBufferPx=\"1\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试虚拟滚动缓冲区最大高度
-    /// </summary>
-    [Fact]
-    public void TestBindVirtualMaxBufferPx() {
-        _wrapper.SetContextAttribute( AngularConst.BindVirtualMaxBufferPx, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzVirtualMaxBufferPx]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzVirtualMaxBufferPx]=\"1\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -650,20 +496,9 @@ public partial class TableTagHelperTest {
     /// </summary>
     [Fact]
     public void TestVirtualMinBufferPx() {
-        _wrapper.SetContextAttribute( UiConst.VirtualMinBufferPx, 1 );
+        _wrapper.SetContextAttribute( UiConst.VirtualMinBufferPx, "1" );
         var result = new StringBuilder();
-        result.Append( "<nz-table nzVirtualMinBufferPx=\"1\"></nz-table>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试虚拟滚动缓冲区最小高度
-    /// </summary>
-    [Fact]
-    public void TestBindVirtualMinBufferPx() {
-        _wrapper.SetContextAttribute( AngularConst.BindVirtualMinBufferPx, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-table [nzVirtualMinBufferPx]=\"a\"></nz-table>" );
+        result.Append( "<nz-table [nzVirtualMinBufferPx]=\"1\"></nz-table>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

@@ -40,8 +40,7 @@ public class TreeViewBuilder : AngularTagBuilder {
     /// 配置是否文件夹样式
     /// </summary>
     public TreeViewBuilder DirectoryTree() {
-        AttributeIfNotEmpty( "[nzDirectoryTree]", _config.GetBoolValue( UiConst.DirectoryTree ) );
-        AttributeIfNotEmpty( "[nzDirectoryTree]", _config.GetValue( AngularConst.BindDirectoryTree ) );
+        AttributeIfNotEmpty( "[nzDirectoryTree]", _config.GetValue( UiConst.DirectoryTree ) );
         return this;
     }
 
@@ -49,8 +48,7 @@ public class TreeViewBuilder : AngularTagBuilder {
     /// 配置节点是否占整行
     /// </summary>
     public TreeViewBuilder BlockNode() {
-        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetBoolValue( UiConst.BlockNode ) );
-        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetValue( AngularConst.BindBlockNode ) );
+        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetValue( UiConst.BlockNode ) );
         return this;
     }
 

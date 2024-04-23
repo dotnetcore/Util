@@ -16,7 +16,7 @@ public class TableHeadTagHelper : AngularTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// 是否启用自动创建嵌套结构,默认为 true
+    /// 扩展属性,是否启用自动创建嵌套结构,默认为 true
     /// </summary>
     public bool EnableAutoCreate { get; set; }
 

@@ -44,7 +44,7 @@ public class ExpressionResolver : IExpressionResolver {
             return null;
         if ( metadata.ContainerType == null )
             return null;
-        var members = metadata.ContainerType.GetMember( metadata.PropertyName );
+        var members = metadata.ContainerType.GetMember( metadata.PropertyName! );
         return members.Length == 0 ? null : members[0];
     }
 

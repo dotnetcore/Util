@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.TreeViews.Builders; 
 
@@ -41,8 +40,7 @@ public class TreeVirtualScrollViewBuilder : AngularTagBuilder {
     /// 配置是否文件夹样式
     /// </summary>
     public TreeVirtualScrollViewBuilder DirectoryTree() {
-        AttributeIfNotEmpty( "[nzDirectoryTree]", _config.GetBoolValue( UiConst.DirectoryTree ) );
-        AttributeIfNotEmpty( "[nzDirectoryTree]", _config.GetValue( AngularConst.BindDirectoryTree ) );
+        AttributeIfNotEmpty( "[nzDirectoryTree]", _config.GetValue( UiConst.DirectoryTree ) );
         return this;
     }
 
@@ -50,8 +48,7 @@ public class TreeVirtualScrollViewBuilder : AngularTagBuilder {
     /// 配置节点是否占整行
     /// </summary>
     public TreeVirtualScrollViewBuilder BlockNode() {
-        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetBoolValue( UiConst.BlockNode ) );
-        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetValue( AngularConst.BindBlockNode ) );
+        AttributeIfNotEmpty( "[nzBlockNode]", _config.GetValue( UiConst.BlockNode ) );
         return this;
     }
 
@@ -59,8 +56,7 @@ public class TreeVirtualScrollViewBuilder : AngularTagBuilder {
     /// 配置虚拟滚动列高
     /// </summary>
     public TreeVirtualScrollViewBuilder ItemSize() {
-        AttributeIfNotEmpty( "nzItemSize", _config.GetValue( UiConst.ItemSize ) );
-        AttributeIfNotEmpty( "[nzItemSize]", _config.GetValue( AngularConst.BindItemSize ) );
+        AttributeIfNotEmpty( "[nzItemSize]", _config.GetValue( UiConst.ItemSize ) );
         return this;
     }
 
@@ -68,8 +64,7 @@ public class TreeVirtualScrollViewBuilder : AngularTagBuilder {
     /// 配置虚拟滚动缓冲区最大高度
     /// </summary>
     public TreeVirtualScrollViewBuilder MaxBufferPx() {
-        AttributeIfNotEmpty( "nzMaxBufferPx", _config.GetValue( UiConst.MaxBufferPx ) );
-        AttributeIfNotEmpty( "[nzMaxBufferPx]", _config.GetValue( AngularConst.BindMaxBufferPx ) );
+        AttributeIfNotEmpty( "[nzMaxBufferPx]", _config.GetValue( UiConst.MaxBufferPx ) );
         return this;
     }
 
@@ -77,8 +72,7 @@ public class TreeVirtualScrollViewBuilder : AngularTagBuilder {
     /// 配置虚拟滚动缓冲区最小高度
     /// </summary>
     public TreeVirtualScrollViewBuilder MinBufferPx() {
-        AttributeIfNotEmpty( "nzMinBufferPx", _config.GetValue( UiConst.MinBufferPx ) );
-        AttributeIfNotEmpty( "[nzMinBufferPx]", _config.GetValue( AngularConst.BindMinBufferPx ) );
+        AttributeIfNotEmpty( "[nzMinBufferPx]", _config.GetValue( UiConst.MinBufferPx ) );
         return this;
     }
 

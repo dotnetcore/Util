@@ -52,20 +52,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestChecked() {
-            _wrapper.SetContextAttribute( UiConst.Checked, true );
+            _wrapper.SetContextAttribute( UiConst.Checked, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-node-checkbox [nzChecked]=\"true\"></nz-tree-node-checkbox>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否勾选
-        /// </summary>
-        [Fact]
-        public void TestBindChecked() {
-            _wrapper.SetContextAttribute( AngularConst.BindChecked, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-node-checkbox [nzChecked]=\"a\"></nz-tree-node-checkbox>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -85,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-node-checkbox [nzDisabled]=\"true\"></nz-tree-node-checkbox>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-node-checkbox [nzDisabled]=\"a\"></nz-tree-node-checkbox>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

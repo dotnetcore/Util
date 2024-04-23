@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Steps.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -55,11 +54,7 @@ public class StepTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用点击
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用点击
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

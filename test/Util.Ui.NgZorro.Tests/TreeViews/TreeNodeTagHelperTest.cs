@@ -62,20 +62,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestTreeNodePadding() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodePadding, true );
+            _wrapper.SetContextAttribute( UiConst.TreeNodePadding, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-node nzTreeNodePadding=\"\"></nz-tree-node>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试树节点内边距 - 值为false不添加nzTreeNodePadding
-        /// </summary>
-        [Fact]
-        public void TestTreeNodePadding_False() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodePadding, false );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-node></nz-tree-node>" );
+            result.Append( "<nz-tree-node [nzTreeNodePadding]=\"true\"></nz-tree-node>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -84,20 +73,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestTreeNodeIndentLine() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodeIndentLine, true );
+            _wrapper.SetContextAttribute( UiConst.TreeNodeIndentLine, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-node nzTreeNodeIndentLine=\"\"></nz-tree-node>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试树节点缩进线 - 值为false不添加nzTreeNodeIndentLine
-        /// </summary>
-        [Fact]
-        public void TestTreeNodeIndentLine_Flase() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodeIndentLine, false );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-node></nz-tree-node>" );
+            result.Append( "<nz-tree-node [nzTreeNodeIndentLine]=\"true\"></nz-tree-node>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

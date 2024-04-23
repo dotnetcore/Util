@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Paginations.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -15,59 +14,35 @@ public class PaginationTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzTotal],总行数
     /// </summary>
-    public int Total { get; set; }
+    public string Total { get; set; }
     /// <summary>
-    /// [nzTotal],总行数
+    /// [nzPageIndex],当前页, 默认值: 1
     /// </summary>
-    public string BindTotal { get; set; }
+    public string PageIndex { get; set; }
     /// <summary>
-    /// [nzPageIndex],当前页
-    /// </summary>
-    public int PageIndex { get; set; }
-    /// <summary>
-    /// [nzPageIndex],当前页
-    /// </summary>
-    public string BindPageIndex { get; set; }
-    /// <summary>
-    /// [(nzPageIndex)],当前页
+    /// [(nzPageIndex)],当前页, 默认值: 1
     /// </summary>
     public string BindonPageIndex { get; set; }
     /// <summary>
-    /// [nzPageSize],每页显示行数
+    /// [nzPageSize],每页显示行数, 默认值: 10
     /// </summary>
-    public int PageSize { get; set; }
+    public string PageSize { get; set; }
     /// <summary>
-    /// [nzPageSize],每页显示行数
-    /// </summary>
-    public string BindPageSize { get; set; }
-    /// <summary>
-    /// [(nzPageSize)],每页显示行数
+    /// [(nzPageSize)],每页显示行数, 默认值: 10
     /// </summary>
     public string BindonPageSize { get; set; }
     /// <summary>
-    /// [nzShowSizeChanger],是否显示改变分页大小按钮
+    /// [nzShowSizeChanger],是否显示改变分页大小按钮, 默认值: false
     /// </summary>
-    public bool ShowSizeChanger { get; set; }
+    public string ShowSizeChanger { get; set; }
     /// <summary>
-    /// [nzShowSizeChanger],是否显示改变分页大小按钮
+    /// [nzShowQuickJumper],是否显示快速跳转, 默认值: false
     /// </summary>
-    public string BindShowSizeChanger { get; set; }
+    public string ShowQuickJumper { get; set; }
     /// <summary>
-    /// [nzShowQuickJumper],是否显示快速跳转
+    /// [nzDisabled],是否禁用, 默认值: false
     /// </summary>
-    public bool ShowQuickJumper { get; set; }
-    /// <summary>
-    /// [nzShowQuickJumper],是否显示快速跳转
-    /// </summary>
-    public string BindShowQuickJumper { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzSize,分页尺寸,可选值: 'default' | 'small'
     /// </summary>
@@ -81,21 +56,13 @@ public class PaginationTagHelper : AngularTagHelperBase {
     /// </summary>
     public string ShowTotal { get; set; }
     /// <summary>
-    /// [nzSimple],是否显示简单分页
+    /// [nzSimple],是否显示为简单分页
     /// </summary>
-    public bool Simple { get; set; }
+    public string Simple { get; set; }
     /// <summary>
-    /// [nzSimple],是否显示简单分页
+    /// [nzResponsive],响应式,根据屏幕宽度自动调整尺寸,未指定 nzSize 时有效, 默认值: false
     /// </summary>
-    public string BindSimple { get; set; }
-    /// <summary>
-    /// [nzResponsive],响应式,根据屏幕宽度自动调整尺寸,未指定 nzSize 时有效
-    /// </summary>
-    public bool Responsive { get; set; }
-    /// <summary>
-    /// [nzResponsive],响应式,根据屏幕宽度自动调整尺寸,未指定 nzSize 时有效
-    /// </summary>
-    public string BindResponsive { get; set; }
+    public string Responsive { get; set; }
     /// <summary>
     /// [nzPageSizeOptions],设置每页显示行数选择列表,默认值: [10, 20, 30, 40]
     /// </summary>
@@ -105,13 +72,9 @@ public class PaginationTagHelper : AngularTagHelperBase {
     /// </summary>
     public string ItemRender { get; set; }
     /// <summary>
-    /// [nzHideOnSinglePage],只有一页时是否隐藏分页器
+    /// [nzHideOnSinglePage],只有一页时是否隐藏分页器, 默认值: false
     /// </summary>
-    public bool HideOnSinglePage { get; set; }
-    /// <summary>
-    /// [nzHideOnSinglePage],只有一页时是否隐藏分页器
-    /// </summary>
-    public string BindHideOnSinglePage { get; set; }
+    public string HideOnSinglePage { get; set; }
     /// <summary>
     /// (nzPageIndexChange),页码变化事件,类型: EventEmitter&lt;number>
     /// </summary>

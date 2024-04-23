@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Collapses {
         /// </summary>
         [Fact]
         public void TestAccordion() {
-            _wrapper.SetContextAttribute( UiConst.Accordion, true );
+            _wrapper.SetContextAttribute( UiConst.Accordion, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-collapse [nzAccordion]=\"true\"></nz-collapse>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否手风琴
-        /// </summary>
-        [Fact]
-        public void TestBindAccordion() {
-            _wrapper.SetContextAttribute( AngularConst.BindAccordion, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-collapse [nzAccordion]=\"a\"></nz-collapse>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -75,20 +64,9 @@ namespace Util.Ui.NgZorro.Tests.Collapses {
         /// </summary>
         [Fact]
         public void TestBordered() {
-            _wrapper.SetContextAttribute( UiConst.Bordered, true );
+            _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-collapse [nzBordered]=\"true\"></nz-collapse>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否有边框
-        /// </summary>
-        [Fact]
-        public void TestBindBordered() {
-            _wrapper.SetContextAttribute( AngularConst.BindBordered, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-collapse [nzBordered]=\"a\"></nz-collapse>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -97,20 +75,9 @@ namespace Util.Ui.NgZorro.Tests.Collapses {
         /// </summary>
         [Fact]
         public void TestGhost() {
-            _wrapper.SetContextAttribute( UiConst.Ghost, true );
+            _wrapper.SetContextAttribute( UiConst.Ghost, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-collapse [nzGhost]=\"true\"></nz-collapse>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否幽灵面板
-        /// </summary>
-        [Fact]
-        public void TestBindGhost() {
-            _wrapper.SetContextAttribute( AngularConst.BindGhost, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-collapse [nzGhost]=\"a\"></nz-collapse>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

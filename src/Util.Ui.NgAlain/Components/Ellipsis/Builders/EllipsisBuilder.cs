@@ -24,8 +24,7 @@ public class EllipsisBuilder : AngularTagBuilder {
     /// 配置工具提示
     /// </summary>
     public EllipsisBuilder Tooltip() {
-        AttributeIfNotEmpty( "[tooltip]", _config.GetBoolValue( UiConst.Tooltip ) );
-        AttributeIfNotEmpty( "[tooltip]", _config.GetValue( AngularConst.BindTooltip ) );
+        AttributeIfNotEmpty( "[tooltip]", _config.GetValue( UiConst.Tooltip ) );
         return this;
     }
 
@@ -33,8 +32,7 @@ public class EllipsisBuilder : AngularTagBuilder {
     /// 配置文本最大长度
     /// </summary>
     public EllipsisBuilder Length() {
-        AttributeIfNotEmpty( "length", _config.GetValue( UiConst.Length ) );
-        AttributeIfNotEmpty( "[length]", _config.GetValue( AngularConst.BindLength ) );
+        AttributeIfNotEmpty( "[length]", _config.GetValue( UiConst.Length ) );
         return this;
     }
 
@@ -42,8 +40,7 @@ public class EllipsisBuilder : AngularTagBuilder {
     /// 配置文本最大行数
     /// </summary>
     public EllipsisBuilder Lines() {
-        AttributeIfNotEmpty( "lines", _config.GetValue( UiConst.Lines ) );
-        AttributeIfNotEmpty( "[lines]", _config.GetValue( AngularConst.BindLines ) );
+        AttributeIfNotEmpty( "[lines]", _config.GetValue( UiConst.Lines ) );
         return this;
     }
 
@@ -51,8 +48,7 @@ public class EllipsisBuilder : AngularTagBuilder {
     /// 配置是否将全角字符的长度视为2来计算字符串长度
     /// </summary>
     public EllipsisBuilder FullWidthRecognition() {
-        AttributeIfNotEmpty( "[fullWidthRecognition]", _config.GetBoolValue( UiConst.FullWidthRecognition ) );
-        AttributeIfNotEmpty( "[fullWidthRecognition]", _config.GetValue( AngularConst.BindFullWidthRecognition ) );
+        AttributeIfNotEmpty( "[fullWidthRecognition]", _config.GetValue( UiConst.FullWidthRecognition ) );
         return this;
     }
 

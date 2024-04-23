@@ -51,20 +51,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestTreeNodeNoopToggle() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodeNoopToggle, true );
+            _wrapper.SetContextAttribute( UiConst.TreeNodeNoopToggle, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-node-toggle nzTreeNodeNoopToggle=\"\"></nz-tree-node-toggle>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试空操作切换 - 值为false不添加nzTreeNodeNoopToggle
-        /// </summary>
-        [Fact]
-        public void TestTreeNodeNoopToggle_False() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodeNoopToggle, false );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-node-toggle></nz-tree-node-toggle>" );
+            result.Append( "<nz-tree-node-toggle [nzTreeNodeNoopToggle]=\"true\"></nz-tree-node-toggle>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

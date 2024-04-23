@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Containers.Builders;
 using Util.Ui.NgZorro.Configs;
 
@@ -48,8 +47,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
     /// 配置回填选中项
     /// </summary>
     public AutocompleteBuilder Backfill() {
-        AttributeIfNotEmpty( "[nzBackfill]", _config.GetBoolValue( UiConst.Backfill ) );
-        AttributeIfNotEmpty( "[nzBackfill]", _config.GetValue( AngularConst.BindBackfill ) );
+        AttributeIfNotEmpty( "[nzBackfill]", _config.GetValue( UiConst.Backfill ) );
         return this;
     }
 
@@ -65,8 +63,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
     /// 配置高亮第一项
     /// </summary>
     public AutocompleteBuilder DefaultActiveFirstOption() {
-        AttributeIfNotEmpty( "[nzDefaultActiveFirstOption]", _config.GetBoolValue( UiConst.DefaultActiveFirstOption ) );
-        AttributeIfNotEmpty( "[nzDefaultActiveFirstOption]", _config.GetValue( AngularConst.BindDefaultActiveFirstOption ) );
+        AttributeIfNotEmpty( "[nzDefaultActiveFirstOption]", _config.GetValue( UiConst.DefaultActiveFirstOption ) );
         return this;
     }
 
@@ -74,8 +71,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
     /// 配置宽度
     /// </summary>
     public AutocompleteBuilder Width() {
-        AttributeIfNotEmpty( "[nzWidth]", _config.GetBoolValue( UiConst.Width ) );
-        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( AngularConst.BindWidth ) );
+        AttributeIfNotEmpty( "[nzWidth]", _config.GetValue( UiConst.Width ) );
         return this;
     }
 
@@ -109,7 +105,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
     /// 配置自动加载
     /// </summary>
     private AutocompleteBuilder AutoLoad() {
-        AttributeIfNotEmpty( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+        AttributeIfNotEmpty( "[autoLoad]", _config.GetValue( UiConst.AutoLoad ) );
         return this;
     }
 

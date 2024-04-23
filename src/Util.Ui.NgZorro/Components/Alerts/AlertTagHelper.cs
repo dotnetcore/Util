@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Alerts.Helpers;
 using Util.Ui.NgZorro.Components.Alerts.Renders;
 using Util.Ui.NgZorro.Enums;
@@ -20,19 +19,11 @@ public class AlertTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzBanner],是否顶部公告,默认值: false
     /// </summary>
-    public bool Banner { get; set; }
-    /// <summary>
-    /// [nzBanner],是否顶部公告,默认值: false
-    /// </summary>
-    public string BindBanner { get; set; }
+    public string Banner { get; set; }
     /// <summary>
     /// [nzCloseable],是否可关闭
     /// </summary>
-    public bool Closeable { get; set; }
-    /// <summary>
-    /// [nzCloseable],是否可关闭
-    /// </summary>
-    public string BindCloseable { get; set; }
+    public string Closeable { get; set; }
     /// <summary>
     /// nzCloseText,自定义关闭按钮显示文字,类型: string | TemplateRef&lt;void>
     /// </summary>
@@ -60,11 +51,7 @@ public class AlertTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzShowIcon],是否显示图标,默认值: false,nzBanner 模式下默认值为 true
     /// </summary>
-    public bool ShowIcon { get; set; }
-    /// <summary>
-    /// [nzShowIcon],是否显示图标,默认值: false,nzBanner 模式下默认值为 true
-    /// </summary>
-    public string BindShowIcon { get; set; }
+    public string ShowIcon { get; set; }
     /// <summary>
     /// nzIconType,自定义图标类型，nzShowIcon 为 true 时有效
     /// </summary>

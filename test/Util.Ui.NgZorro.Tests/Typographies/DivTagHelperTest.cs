@@ -50,6 +50,17 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         /// 测试排版指令
         /// </summary>
         [Fact]
+        public void TestId() {
+            _wrapper.SetContextAttribute( UiConst.Id, "a" );
+            var result = new StringBuilder();
+            result.Append( "<div #a=\"\"></div>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试排版指令
+        /// </summary>
+        [Fact]
         public void TestTypography() {
             _wrapper.SetContextAttribute( UiConst.Typography, true );
             var result = new StringBuilder();

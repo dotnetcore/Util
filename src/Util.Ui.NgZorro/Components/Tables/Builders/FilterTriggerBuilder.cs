@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders; 
 
@@ -33,8 +32,7 @@ public class FilterTriggerBuilder : AngularTagBuilder {
     /// 配置是否显示下拉菜单
     /// </summary>
     public FilterTriggerBuilder Visible() {
-        AttributeIfNotEmpty( "[nzVisible]", _config.GetBoolValue( UiConst.Visible ) );
-        AttributeIfNotEmpty( "[nzVisible]", _config.GetValue( AngularConst.BindVisible ) );
+        AttributeIfNotEmpty( "[nzVisible]", _config.GetValue( UiConst.Visible ) );
         AttributeIfNotEmpty( "[(nzVisible)]", _config.GetValue( AngularConst.BindonVisible ) );
         return this;
     }
@@ -43,8 +41,7 @@ public class FilterTriggerBuilder : AngularTagBuilder {
     /// 配置是否激活选中图标效果
     /// </summary>
     public FilterTriggerBuilder Active() {
-        AttributeIfNotEmpty( "[nzActive]", _config.GetBoolValue( UiConst.Active ) );
-        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( AngularConst.BindActive ) );
+        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( UiConst.Active ) );
         return this;
     }
 
@@ -52,8 +49,7 @@ public class FilterTriggerBuilder : AngularTagBuilder {
     /// 配置是否附带背景
     /// </summary>
     public FilterTriggerBuilder HasBackdrop() {
-        AttributeIfNotEmpty( "[nzHasBackdrop]", _config.GetBoolValue( UiConst.HasBackdrop ) );
-        AttributeIfNotEmpty( "[nzHasBackdrop]", _config.GetValue( AngularConst.BindHasBackdrop ) );
+        AttributeIfNotEmpty( "[nzHasBackdrop]", _config.GetValue( UiConst.HasBackdrop ) );
         return this;
     }
 

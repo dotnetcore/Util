@@ -43,8 +43,7 @@ public class TimelineBuilder : AngularTagBuilder {
     /// 配置是否倒序排列
     /// </summary>
     public TimelineBuilder Reverse() {
-        AttributeIfNotEmpty( "[nzReverse]", _config.GetBoolValue( UiConst.Reverse ) );
-        AttributeIfNotEmpty( "[nzReverse]", _config.GetValue( AngularConst.BindReverse ) );
+        AttributeIfNotEmpty( "[nzReverse]", _config.GetValue( UiConst.Reverse ) );
         return this;
     }
 

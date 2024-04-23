@@ -68,7 +68,7 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// </summary>
         [Fact]
         public void TestAutoLoad() {
-            _wrapper.SetContextAttribute( UiConst.AutoLoad, false );
+            _wrapper.SetContextAttribute( UiConst.AutoLoad, "false" );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete [autoLoad]=\"false\">" );
             result.Append( "</nz-autocomplete>" );

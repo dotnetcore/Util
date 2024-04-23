@@ -90,13 +90,9 @@ public class InputNumberGroupTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzCompact],是否紧凑模式
+    /// [nzCompact],是否紧凑模式, 默认值: false
     /// </summary>
-    public bool Compact { get; set; }
-    /// <summary>
-    /// [nzCompact],是否紧凑模式
-    /// </summary>
-    public string BindCompact { get; set; }
+    public string Compact { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

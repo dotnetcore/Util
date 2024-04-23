@@ -1,9 +1,10 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Forms.Builders; 
+namespace Util.Ui.NgZorro.Components.Forms.Builders;
 
 /// <summary>
 /// 表单标签生成器
@@ -13,14 +14,19 @@ public class FormBuilder : AngularTagBuilder {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 表单共享配置
+    /// </summary>
+    private readonly FormShareConfig _shareConfig;
 
     /// <summary>
     /// 初始化表单标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public FormBuilder( Config config ) : base( config,"form" ) {
+    public FormBuilder( Config config ) : base( config, "form" ) {
         base.Attribute( "nz-form" );
         _config = config;
+        _shareConfig = _config.GetValueFromItems<FormShareConfig>();
     }
 
     /// <summary>
@@ -52,8 +58,7 @@ public class FormBuilder : AngularTagBuilder {
     /// 配置不显示标签冒号
     /// </summary>
     public FormBuilder NoColon() {
-        AttributeIfNotEmpty( "[nzNoColon]", _config.GetBoolValue( UiConst.NoColon ) );
-        AttributeIfNotEmpty( "[nzNoColon]", _config.GetValue( AngularConst.BindNoColon ) );
+        AttributeIfNotEmpty( "[nzNoColon]", _config.GetValue( UiConst.NoColon ) );
         return this;
     }
 
@@ -73,7 +78,7 @@ public class FormBuilder : AngularTagBuilder {
         var isAutoComplete = _config.GetValue<bool?>( UiConst.Autocomplete );
         if ( isAutoComplete == null )
             return this;
-        if( isAutoComplete == true ) {
+        if ( isAutoComplete == true ) {
             Attribute( "autocomplete", "on" );
             return this;
         }
@@ -110,7 +115,10 @@ public class FormBuilder : AngularTagBuilder {
     /// </summary>
     protected override void ConfigId( Config config ) {
         this.RawId( _config );
-        if ( config.Contains( UiConst.Id ) )
-            Attribute( $"#{_config.GetValue( UiConst.Id )}", "ngForm" );
+        if ( Util.Helpers.Environment.IsTest && _config.Contains( UiConst.Id ) == false )
+            return;
+        if ( _shareConfig.IsSearch.SafeValue() && _config.Contains( UiConst.Id ) == false )
+            return;
+        Attribute( $"#{_shareConfig.FormId}", "ngForm" );
     }
 }

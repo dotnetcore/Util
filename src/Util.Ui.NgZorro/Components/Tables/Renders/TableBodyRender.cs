@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Tables.Renders; 

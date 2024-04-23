@@ -63,23 +63,10 @@ namespace Util.Ui.NgZorro.Tests.Dropdowns {
         /// </summary>
         [Fact]
         public void TestSelectable() {
-            _wrapper.SetContextAttribute( UiConst.Selectable, false );
+            _wrapper.SetContextAttribute( UiConst.Selectable, "false" );
             var result = new StringBuilder();
             result.Append( "<nz-dropdown-menu>" );
             result.Append( "<ul nz-menu=\"\" [nzSelectable]=\"false\"></ul>" );
-            result.Append( "</nz-dropdown-menu>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许选中
-        /// </summary>
-        [Fact]
-        public void TestBindSelectable() {
-            _wrapper.SetContextAttribute( AngularConst.BindSelectable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-dropdown-menu>" );
-            result.Append( "<ul nz-menu=\"\" [nzSelectable]=\"a\"></ul>" );
             result.Append( "</nz-dropdown-menu>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

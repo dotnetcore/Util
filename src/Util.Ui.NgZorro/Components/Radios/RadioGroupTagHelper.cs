@@ -35,11 +35,7 @@ public class RadioGroupTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzButtonStyle,风格样式,可选值: 'outline' | 'solid',默认值: 'outline'
     /// </summary>

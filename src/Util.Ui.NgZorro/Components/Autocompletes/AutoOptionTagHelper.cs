@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Autocompletes.Renders;
 using Util.Ui.Renders;
 
@@ -30,11 +29,7 @@ public class AutoOptionTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzDisabled],禁用选项
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],禁用选项
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

@@ -124,20 +124,9 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestPopoverVisible() {
-            _wrapper.SetContextAttribute( UiConst.PopoverVisible, true );
+            _wrapper.SetContextAttribute( UiConst.PopoverVisible, "true" );
             var result = new StringBuilder();
             result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverVisible]=\"true\"></i>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示气泡卡片
-        /// </summary>
-        [Fact]
-        public void TestBindPopoverVisible() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopoverVisible, "a" );
-            var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverVisible]=\"a\"></i>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -157,20 +146,9 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestPopoverMouseEnterDelay() {
-            _wrapper.SetContextAttribute( UiConst.PopoverMouseEnterDelay, 1 );
+            _wrapper.SetContextAttribute( UiConst.PopoverMouseEnterDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-popover=\"\" nzPopoverMouseEnterDelay=\"1\"></i>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡卡片移入延时
-        /// </summary>
-        [Fact]
-        public void TestBindPopoverMouseEnterDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopoverMouseEnterDelay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverMouseEnterDelay]=\"a\"></i>" );
+            result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverMouseEnterDelay]=\"1\"></i>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -179,20 +157,9 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestPopoverMouseLeaveDelay() {
-            _wrapper.SetContextAttribute( UiConst.PopoverMouseLeaveDelay, 1 );
+            _wrapper.SetContextAttribute( UiConst.PopoverMouseLeaveDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-popover=\"\" nzPopoverMouseLeaveDelay=\"1\"></i>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡卡片移出延时
-        /// </summary>
-        [Fact]
-        public void TestBindPopoverMouseLeaveDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopoverMouseLeaveDelay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverMouseLeaveDelay]=\"a\"></i>" );
+            result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverMouseLeaveDelay]=\"1\"></i>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -234,20 +201,9 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestPopoverBackdrop() {
-            _wrapper.SetContextAttribute( UiConst.PopoverBackdrop, true );
+            _wrapper.SetContextAttribute( UiConst.PopoverBackdrop, "true" );
             var result = new StringBuilder();
             result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverBackdrop]=\"true\"></i>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡卡片浮层是否带背景
-        /// </summary>
-        [Fact]
-        public void TestBindPopoverBackdrop() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopoverBackdrop, "a" );
-            var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-popover=\"\" [nzPopoverBackdrop]=\"a\"></i>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

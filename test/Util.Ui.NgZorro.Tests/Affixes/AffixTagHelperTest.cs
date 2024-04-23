@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Affixes;
 using Util.Ui.TagHelpers;
@@ -59,17 +58,6 @@ namespace Util.Ui.NgZorro.Tests.Affixes {
         }
 
         /// <summary>
-        /// 测试顶部偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffsetTop() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffsetTop, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-affix [nzOffsetTop]=\"a\"></nz-affix>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试底部偏移量
         /// </summary>
         [Fact]
@@ -77,17 +65,6 @@ namespace Util.Ui.NgZorro.Tests.Affixes {
             _wrapper.SetContextAttribute( UiConst.OffsetBottom, 1 );
             var result = new StringBuilder();
             result.Append( "<nz-affix [nzOffsetBottom]=\"1\"></nz-affix>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试底部偏移量
-        /// </summary>
-        [Fact]
-        public void TestBindOffsetBottom() {
-            _wrapper.SetContextAttribute( AngularConst.BindOffsetBottom, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-affix [nzOffsetBottom]=\"a\"></nz-affix>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

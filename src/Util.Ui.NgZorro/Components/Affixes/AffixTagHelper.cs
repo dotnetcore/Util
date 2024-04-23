@@ -13,19 +13,11 @@ public class AffixTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzOffsetTop],顶部偏移量,距离窗口顶部达到指定偏移量后触发,默认值为0,范例: 10
     /// </summary>
-    public double OffsetTop { get; set; }
-    /// <summary>
-    /// [nzOffsetTop],顶部偏移量,距离窗口顶部达到指定偏移量后触发,默认值为0,范例: 10
-    /// </summary>
-    public string BindOffsetTop { get; set; }
+    public string OffsetTop { get; set; }
     /// <summary>
     /// [nzOffsetBottom],底部偏移量,距离窗口底部达到指定偏移量后触发,范例: 10
     /// </summary>
-    public double OffsetBottom { get; set; }
-    /// <summary>
-    /// [nzOffsetBottom],底部偏移量,距离窗口底部达到指定偏移量后触发,范例: 10
-    /// </summary>
-    public string BindOffsetBottom { get; set; }
+    public string OffsetBottom { get; set; }
     /// <summary>
     /// [nzTarget],相对该目标元素进行固定,需要监听其滚动事件的元素,默认为 window
     /// </summary>

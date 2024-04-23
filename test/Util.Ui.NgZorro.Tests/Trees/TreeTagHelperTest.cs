@@ -65,20 +65,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestBlockNode() {
-            _wrapper.SetContextAttribute( UiConst.BlockNode, true );
+            _wrapper.SetContextAttribute( UiConst.BlockNode, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzBlockNode]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否节点占一行
-        /// </summary>
-        [Fact]
-        public void TestBindBlockNode() {
-            _wrapper.SetContextAttribute( AngularConst.BindBlockNode, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzBlockNode]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -87,20 +76,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestCheckable() {
-            _wrapper.SetContextAttribute( UiConst.Checkable, true );
+            _wrapper.SetContextAttribute( UiConst.Checkable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzCheckable]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试节点前是否显示复选框
-        /// </summary>
-        [Fact]
-        public void TestBindCheckable() {
-            _wrapper.SetContextAttribute( AngularConst.BindCheckable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzCheckable]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -109,20 +87,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestShowExpand() {
-            _wrapper.SetContextAttribute( UiConst.ShowExpand, true );
+            _wrapper.SetContextAttribute( UiConst.ShowExpand, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzShowExpand]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试节点前是否显示展开图标
-        /// </summary>
-        [Fact]
-        public void TestBindShowExpand() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowExpand, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzShowExpand]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -131,20 +98,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestShowLine() {
-            _wrapper.SetContextAttribute( UiConst.ShowLine, true );
+            _wrapper.SetContextAttribute( UiConst.ShowLine, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzShowLine]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示连接线
-        /// </summary>
-        [Fact]
-        public void TestBindShowLine() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowLine, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzShowLine]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -164,20 +120,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestShowIcon() {
-            _wrapper.SetContextAttribute( UiConst.ShowIcon, true );
+            _wrapper.SetContextAttribute( UiConst.ShowIcon, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzShowIcon]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示节点文本前图标
-        /// </summary>
-        [Fact]
-        public void TestBindShowIcon() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowIcon, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzShowIcon]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -186,20 +131,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestAsyncData() {
-            _wrapper.SetContextAttribute( UiConst.AsyncData, true );
+            _wrapper.SetContextAttribute( UiConst.AsyncData, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzAsyncData]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否异步加载
-        /// </summary>
-        [Fact]
-        public void TestBindAsyncData() {
-            _wrapper.SetContextAttribute( AngularConst.BindAsyncData, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzAsyncData]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -208,20 +142,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestDraggable() {
-            _wrapper.SetContextAttribute( UiConst.Draggable, true );
+            _wrapper.SetContextAttribute( UiConst.Draggable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzDraggable]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试节点是否可拖拽
-        /// </summary>
-        [Fact]
-        public void TestBindDraggable() {
-            _wrapper.SetContextAttribute( AngularConst.BindDraggable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzDraggable]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -230,20 +153,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestMultiple() {
-            _wrapper.SetContextAttribute( UiConst.Multiple, true );
+            _wrapper.SetContextAttribute( UiConst.Multiple, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzMultiple]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否支持点选多个节点
-        /// </summary>
-        [Fact]
-        public void TestBindMultiple() {
-            _wrapper.SetContextAttribute( AngularConst.BindMultiple, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzMultiple]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -252,20 +164,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestHideUnMatched() {
-            _wrapper.SetContextAttribute( UiConst.HideUnmatched, true );
+            _wrapper.SetContextAttribute( UiConst.HideUnmatched, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzHideUnMatched]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否隐藏未匹配节点
-        /// </summary>
-        [Fact]
-        public void TestBindHideUnMatched() {
-            _wrapper.SetContextAttribute( AngularConst.BindHideUnmatched, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzHideUnMatched]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -274,20 +175,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestCheckStrictly() {
-            _wrapper.SetContextAttribute( UiConst.CheckStrictly, true );
+            _wrapper.SetContextAttribute( UiConst.CheckStrictly, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzCheckStrictly]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试严格勾选
-        /// </summary>
-        [Fact]
-        public void TestBindCheckStrictly() {
-            _wrapper.SetContextAttribute( AngularConst.BindCheckStrictly, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzCheckStrictly]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -307,20 +197,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestExpandAll() {
-            _wrapper.SetContextAttribute( UiConst.ExpandAll, true );
+            _wrapper.SetContextAttribute( UiConst.ExpandAll, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree [nzExpandAll]=\"true\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试默认展开所有节点
-        /// </summary>
-        [Fact]
-        public void TestBindExpandAll() {
-            _wrapper.SetContextAttribute( AngularConst.BindExpandAll, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzExpandAll]=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -441,18 +320,7 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         public void TestVirtualItemSize() {
             _wrapper.SetContextAttribute( UiConst.VirtualItemSize, 1 );
             var result = new StringBuilder();
-            result.Append( "<nz-tree nzVirtualItemSize=\"1\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚拟滚动列高
-        /// </summary>
-        [Fact]
-        public void TestBindVirtualItemSize() {
-            _wrapper.SetContextAttribute( AngularConst.BindVirtualItemSize, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzVirtualItemSize]=\"a\"></nz-tree>" );
+            result.Append( "<nz-tree [nzVirtualItemSize]=\"1\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -461,20 +329,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestVirtualMaxBufferPx() {
-            _wrapper.SetContextAttribute( UiConst.VirtualMaxBufferPx, 1 );
+            _wrapper.SetContextAttribute( UiConst.VirtualMaxBufferPx, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree nzVirtualMaxBufferPx=\"1\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚拟滚动缓冲区最大高度
-        /// </summary>
-        [Fact]
-        public void TestBindVirtualMaxBufferPx() {
-            _wrapper.SetContextAttribute( AngularConst.BindVirtualMaxBufferPx, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzVirtualMaxBufferPx]=\"a\"></nz-tree>" );
+            result.Append( "<nz-tree [nzVirtualMaxBufferPx]=\"1\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -483,20 +340,9 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestVirtualMinBufferPx() {
-            _wrapper.SetContextAttribute( UiConst.VirtualMinBufferPx, 1 );
+            _wrapper.SetContextAttribute( UiConst.VirtualMinBufferPx, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree nzVirtualMinBufferPx=\"1\"></nz-tree>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试虚拟滚动缓冲区最小高度
-        /// </summary>
-        [Fact]
-        public void TestBindVirtualMinBufferPx() {
-            _wrapper.SetContextAttribute( AngularConst.BindVirtualMinBufferPx, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree [nzVirtualMinBufferPx]=\"a\"></nz-tree>" );
+            result.Append( "<nz-tree [nzVirtualMinBufferPx]=\"1\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

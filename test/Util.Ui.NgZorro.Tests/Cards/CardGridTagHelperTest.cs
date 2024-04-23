@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Cards;
 using Util.Ui.TagHelpers;
@@ -52,20 +51,9 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         /// </summary>
         [Fact]
         public void TestHoverable() {
-            _wrapper.SetContextAttribute( UiConst.Hoverable, true );
+            _wrapper.SetContextAttribute( UiConst.Hoverable, "true" );
             var result = new StringBuilder();
             result.Append( "<div nz-card-grid=\"\" [nzHoverable]=\"true\"></div>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试鼠标滑过时是否可浮起
-        /// </summary>
-        [Fact]
-        public void TestBindHoverable() {
-            _wrapper.SetContextAttribute( AngularConst.BindHoverable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<div nz-card-grid=\"\" [nzHoverable]=\"a\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

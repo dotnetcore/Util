@@ -74,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-option [nzDisabled]=\"true\"></nz-option>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-option [nzDisabled]=\"a\"></nz-option>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -118,20 +107,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestHide() {
-            _wrapper.SetContextAttribute( UiConst.Hide, true );
+            _wrapper.SetContextAttribute( UiConst.Hide, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-option [nzHide]=\"true\"></nz-option>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试隐藏
-        /// </summary>
-        [Fact]
-        public void TestBindHide() {
-            _wrapper.SetContextAttribute( AngularConst.BindHide, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-option [nzHide]=\"a\"></nz-option>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -140,20 +118,9 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestCustomContent() {
-            _wrapper.SetContextAttribute( UiConst.CustomContent, true );
+            _wrapper.SetContextAttribute( UiConst.CustomContent, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-option [nzCustomContent]=\"true\"></nz-option>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否自定义内容
-        /// </summary>
-        [Fact]
-        public void TestBindCustomContent() {
-            _wrapper.SetContextAttribute( AngularConst.BindCustomContent, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-option [nzCustomContent]=\"a\"></nz-option>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

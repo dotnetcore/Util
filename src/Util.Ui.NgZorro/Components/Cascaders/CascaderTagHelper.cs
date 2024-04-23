@@ -19,19 +19,11 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzAllowClear],是否允许清除,默认值: true
     /// </summary>
-    public bool AllowClear { get; set; }
-    /// <summary>
-    /// [nzAllowClear],是否允许清除,默认值: true
-    /// </summary>
-    public string BindAllowClear { get; set; }
+    public string AllowClear { get; set; }
     /// <summary>
     /// [nzAutoFocus],是否自动聚焦，当存在输入框时
     /// </summary>
-    public bool AutoFocus { get; set; }
-    /// <summary>
-    /// [nzAutoFocus],是否自动聚焦，当存在输入框时
-    /// </summary>
-    public string BindAutoFocus { get; set; }
+    public string AutoFocus { get; set; }
     /// <summary>
     /// [nzChangeOn],点击父级菜单项时，可通过该函数判断是否允许值的变化,函数定义: (option: any, index: number) => boolean
     /// </summary>
@@ -39,11 +31,7 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzChangeOnSelect],点选每级菜单项时,是否值都会变化
     /// </summary>
-    public bool ChangeOnSelect { get; set; }
-    /// <summary>
-    /// [nzChangeOnSelect],点选每级菜单项时,是否值都会变化
-    /// </summary>
-    public string BindChangeOnSelect { get; set; }
+    public string ChangeOnSelect { get; set; }
     /// <summary>
     /// nzColumnClassName,自定义浮层列类名
     /// </summary>
@@ -55,11 +43,7 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzDisabled],是否禁用
     /// </summary>
-    public bool Disabled { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string BindDisabled { get; set; }
+    public string Disabled { get; set; }
     /// <summary>
     /// nzExpandIcon,自定义次级菜单展开图标
     /// </summary>
@@ -135,27 +119,15 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// [nzShowArrow],是否显示箭头,默认值: true
     /// </summary>
-    public bool ShowArrow { get; set; }
-    /// <summary>
-    /// [nzShowArrow],是否显示箭头,默认值: true
-    /// </summary>
-    public string BindShowArrow { get; set; }
+    public string ShowArrow { get; set; }
     /// <summary>
     /// [nzShowInput],是否显示输入框,默认值: true
     /// </summary>
-    public bool ShowInput { get; set; }
-    /// <summary>
-    /// [nzShowInput],是否显示输入框,默认值: true
-    /// </summary>
-    public string BindShowInput { get; set; }
+    public string ShowInput { get; set; }
     /// <summary>
     /// [nzShowSearch],是否支持搜索，默认情况下对 label 进行全匹配搜索，不能和 [nzLoadData] 同时使用
     /// </summary>
-    public bool ShowSearch { get; set; }
-    /// <summary>
-    /// [nzShowSearch],是否支持搜索，默认情况下对 label 进行全匹配搜索，不能和 [nzLoadData] 同时使用
-    /// </summary>
-    public string BindShowSearch { get; set; }
+    public string ShowSearch { get; set; }
     /// <summary>
     /// nzSize,输入框大小，可选值: 'large'|'small'|'default'
     /// </summary>

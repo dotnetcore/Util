@@ -55,20 +55,9 @@ namespace Util.Ui.NgZorro.Tests.Alerts {
         /// </summary>
         [Fact]
         public void TestBanner() {
-            _wrapper.SetContextAttribute( UiConst.Banner, true );
+            _wrapper.SetContextAttribute( UiConst.Banner, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-alert [nzBanner]=\"true\"></nz-alert>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否顶部公告
-        /// </summary>
-        [Fact]
-        public void TestBindBanner() {
-            _wrapper.SetContextAttribute( AngularConst.BindBanner, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-alert [nzBanner]=\"a\"></nz-alert>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -77,20 +66,9 @@ namespace Util.Ui.NgZorro.Tests.Alerts {
         /// </summary>
         [Fact]
         public void TestCloseable() {
-            _wrapper.SetContextAttribute( UiConst.Closeable, true );
+            _wrapper.SetContextAttribute( UiConst.Closeable, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-alert [nzCloseable]=\"true\"></nz-alert>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否可关闭
-        /// </summary>
-        [Fact]
-        public void TestBindCloseable() {
-            _wrapper.SetContextAttribute( AngularConst.BindCloseable, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-alert [nzCloseable]=\"a\"></nz-alert>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -165,20 +143,9 @@ namespace Util.Ui.NgZorro.Tests.Alerts {
         /// </summary>
         [Fact]
         public void TestShowIcon() {
-            _wrapper.SetContextAttribute( UiConst.ShowIcon, true );
+            _wrapper.SetContextAttribute( UiConst.ShowIcon, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-alert [nzShowIcon]=\"true\"></nz-alert>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示图标
-        /// </summary>
-        [Fact]
-        public void TestBindShowIcon() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowIcon, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-alert [nzShowIcon]=\"a\"></nz-alert>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

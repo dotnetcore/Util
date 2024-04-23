@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.Carousels {
         /// </summary>
         [Fact]
         public void TestAutoPlay() {
-            _wrapper.SetContextAttribute( UiConst.AutoPlay, true );
+            _wrapper.SetContextAttribute( UiConst.AutoPlay, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-carousel [nzAutoPlay]=\"true\"></nz-carousel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否自动切换
-        /// </summary>
-        [Fact]
-        public void TestBindAutoPlay() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoPlay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-carousel [nzAutoPlay]=\"a\"></nz-carousel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -75,20 +64,9 @@ namespace Util.Ui.NgZorro.Tests.Carousels {
         /// </summary>
         [Fact]
         public void TestAutoPlaySpeed() {
-            _wrapper.SetContextAttribute( UiConst.AutoPlaySpeed, 1 );
+            _wrapper.SetContextAttribute( UiConst.AutoPlaySpeed, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-carousel nzAutoPlaySpeed=\"1\"></nz-carousel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试切换时间
-        /// </summary>
-        [Fact]
-        public void TestBindAutoPlaySpeed() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoPlaySpeed, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-carousel [nzAutoPlaySpeed]=\"a\"></nz-carousel>" );
+            result.Append( "<nz-carousel [nzAutoPlaySpeed]=\"1\"></nz-carousel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -130,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Carousels {
         /// </summary>
         [Fact]
         public void TestDots() {
-            _wrapper.SetContextAttribute( UiConst.Dots, true );
+            _wrapper.SetContextAttribute( UiConst.Dots, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-carousel [nzDots]=\"true\"></nz-carousel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否显示指示点
-        /// </summary>
-        [Fact]
-        public void TestBindDots() {
-            _wrapper.SetContextAttribute( AngularConst.BindDots, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-carousel [nzDots]=\"a\"></nz-carousel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -174,20 +141,9 @@ namespace Util.Ui.NgZorro.Tests.Carousels {
         /// </summary>
         [Fact]
         public void TestEnableSwipe() {
-            _wrapper.SetContextAttribute( UiConst.EnableSwipe, true );
+            _wrapper.SetContextAttribute( UiConst.EnableSwipe, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-carousel [nzEnableSwipe]=\"true\"></nz-carousel>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否支持手势划动切换
-        /// </summary>
-        [Fact]
-        public void TestBindEnableSwipe() {
-            _wrapper.SetContextAttribute( AngularConst.BindEnableSwipe, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-carousel [nzEnableSwipe]=\"a\"></nz-carousel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
         

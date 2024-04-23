@@ -53,20 +53,9 @@ namespace Util.Ui.NgZorro.Tests.PageHeaders {
         /// </summary>
         [Fact]
         public void TestGhost() {
-            _wrapper.SetContextAttribute( UiConst.Ghost, true );
+            _wrapper.SetContextAttribute( UiConst.Ghost, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-page-header [nzGhost]=\"true\"></nz-page-header>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试透明背景
-        /// </summary>
-        [Fact]
-        public void TestBindGhost() {
-            _wrapper.SetContextAttribute( AngularConst.BindGhost, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-page-header [nzGhost]=\"a\"></nz-page-header>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

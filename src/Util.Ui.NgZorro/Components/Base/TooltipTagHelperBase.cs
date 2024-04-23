@@ -58,27 +58,15 @@ public abstract class TooltipTagHelperBase : AngularTagHelperBase {
     /// <summary>
     /// [nzTooltipVisible],提示框是否可见,默认值: false
     /// </summary>
-    public bool TooltipVisible { get; set; }
-    /// <summary>
-    /// [nzTooltipVisible],提示框是否可见,默认值: false
-    /// </summary>
-    public string BindTooltipVisible { get; set; }
-    /// <summary>
-    /// nzTooltipMouseEnterDelay,鼠标移入后延时多久才显示提示框，单位：秒,默认值: 0.15
-    /// </summary>
-    public double TooltipMouseEnterDelay { get; set; }
+    public string TooltipVisible { get; set; }
     /// <summary>
     /// [nzTooltipMouseEnterDelay],鼠标移入后延时多久才显示提示框，单位：秒,默认值: 0.15
     /// </summary>
-    public string BindTooltipMouseEnterDelay { get; set; }
-    /// <summary>
-    /// nzTooltipMouseLeaveDelay,鼠标移出后延时多久才隐藏提示框，单位：秒,默认值: 0.1
-    /// </summary>
-    public double TooltipMouseLeaveDelay { get; set; }
+    public string TooltipMouseEnterDelay { get; set; }
     /// <summary>
     /// [nzTooltipMouseLeaveDelay],鼠标移出后延时多久才隐藏提示框，单位：秒,默认值: 0.1
     /// </summary>
-    public string BindTooltipMouseLeaveDelay { get; set; }
+    public string TooltipMouseLeaveDelay { get; set; }
     /// <summary>
     /// nzTooltipOverlayClassName,提示框样式类名
     /// </summary>

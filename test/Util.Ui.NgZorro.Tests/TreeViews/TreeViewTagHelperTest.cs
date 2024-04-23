@@ -74,20 +74,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestDirectoryTree() {
-            _wrapper.SetContextAttribute( UiConst.DirectoryTree, true );
+            _wrapper.SetContextAttribute( UiConst.DirectoryTree, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-view [nzDirectoryTree]=\"true\"></nz-tree-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试是否文件夹样式
-        /// </summary>
-        [Fact]
-        public void TestBindDirectoryTree() {
-            _wrapper.SetContextAttribute( AngularConst.BindDirectoryTree, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-view [nzDirectoryTree]=\"a\"></nz-tree-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,20 +85,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestBlockNode() {
-            _wrapper.SetContextAttribute( UiConst.BlockNode, true );
+            _wrapper.SetContextAttribute( UiConst.BlockNode, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-view [nzBlockNode]=\"true\"></nz-tree-view>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试节点是否占整行
-        /// </summary>
-        [Fact]
-        public void TestBindBlockNode() {
-            _wrapper.SetContextAttribute( AngularConst.BindBlockNode, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-tree-view [nzBlockNode]=\"a\"></nz-tree-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

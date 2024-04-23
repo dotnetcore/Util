@@ -86,20 +86,9 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<label nz-checkbox=\"\" [nzAutoFocus]=\"true\"></label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动获取焦点
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "a" );
-            var result = new StringBuilder();
-            result.Append( "<label nz-checkbox=\"\" [nzAutoFocus]=\"a\"></label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,20 +108,9 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<label nz-checkbox=\"\" [nzDisabled]=\"true\"></label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<label nz-checkbox=\"\" [nzDisabled]=\"a\"></label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

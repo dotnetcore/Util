@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Calendars.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -35,11 +34,7 @@ public class CalendarTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzFullscreen],是否全屏显示,默认值: true
     /// </summary>
-    public bool Fullscreen { get; set; }
-    /// <summary>
-    /// [nzFullscreen],是否全屏显示,默认值: true
-    /// </summary>
-    public string BindFullscreen { get; set; }
+    public string Fullscreen { get; set; }
     /// <summary>
     /// [nzDateCell],自定义渲染日期单元格模板，模版内容会被追加到单元格,类型: TemplateRef&lt;Date>
     /// </summary>

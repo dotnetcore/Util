@@ -89,20 +89,9 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestAutoFocus() {
-            _wrapper.SetContextAttribute( UiConst.AutoFocus, true );
+            _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-input-number [nzAutoFocus]=\"true\"></nz-input-number>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试自动聚焦
-        /// </summary>
-        [Fact]
-        public void TestBindAutoFocus() {
-            _wrapper.SetContextAttribute( AngularConst.BindAutoFocus, "Ab" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number [nzAutoFocus]=\"Ab\"></nz-input-number>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -111,20 +100,9 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-input-number [nzDisabled]=\"true\"></nz-input-number>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number [nzDisabled]=\"a\"></nz-input-number>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -133,18 +111,7 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestMax() {
-            _wrapper.SetContextAttribute( UiConst.Max, 1 );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number nzMax=\"1\"></nz-input-number>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试最大值
-        /// </summary>
-        [Fact]
-        public void TestBindMax() {
-            _wrapper.SetContextAttribute( AngularConst.BindMax, 1 );
+            _wrapper.SetContextAttribute( UiConst.Max, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-input-number [nzMax]=\"1\"></nz-input-number>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -155,18 +122,7 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestMin() {
-            _wrapper.SetContextAttribute( UiConst.Min, 1 );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number nzMin=\"1\"></nz-input-number>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试最小值
-        /// </summary>
-        [Fact]
-        public void TestBindMin() {
-            _wrapper.SetContextAttribute( AngularConst.BindMin, 1 );
+            _wrapper.SetContextAttribute( UiConst.Min, "1" );
             var result = new StringBuilder();
             result.Append( "<nz-input-number [nzMin]=\"1\"></nz-input-number>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -199,20 +155,9 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestPrecision() {
-            _wrapper.SetContextAttribute( UiConst.Precision, 1 );
+            _wrapper.SetContextAttribute( UiConst.Precision, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-input-number nzPrecision=\"1\"></nz-input-number>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试精度
-        /// </summary>
-        [Fact]
-        public void TestBindPrecision() {
-            _wrapper.SetContextAttribute( AngularConst.BindPrecision, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number [nzPrecision]=\"a\"></nz-input-number>" );
+            result.Append( "<nz-input-number [nzPrecision]=\"1\"></nz-input-number>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -265,20 +210,9 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestStep() {
-            _wrapper.SetContextAttribute( UiConst.Step, 1 );
+            _wrapper.SetContextAttribute( UiConst.Step, "1" );
             var result = new StringBuilder();
-            result.Append( "<nz-input-number nzStep=\"1\"></nz-input-number>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试步数
-        /// </summary>
-        [Fact]
-        public void TestBindStep() {
-            _wrapper.SetContextAttribute( AngularConst.BindStep, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number [nzStep]=\"a\"></nz-input-number>" );
+            result.Append( "<nz-input-number [nzStep]=\"1\"></nz-input-number>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

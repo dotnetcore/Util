@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Lists.Renders;
 using Util.Ui.Renders;
 
@@ -14,11 +13,7 @@ public class ListItemTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzNoFlex],是否非 flex 布局渲染,默认值: false
     /// </summary>
-    public bool NoFlex { get; set; }
-    /// <summary>
-    /// [nzNoFlex],是否非 flex 布局渲染,默认值: false
-    /// </summary>
-    public string BindNoFlex { get; set; }
+    public string NoFlex { get; set; }
     /// <summary>
     /// *cdkVirtualFor,虚拟滚动循环,范例: let item of items
     /// </summary>

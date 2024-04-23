@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.PageHeaders.Configs;
 using Util.Ui.NgZorro.Components.PageHeaders.Renders;
@@ -17,11 +16,7 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// <summary>
     /// [nzGhost],是否使背景色透明,默认值:true
     /// </summary>
-    public bool Ghost { get; set; }
-    /// <summary>
-    /// [nzGhost],是否使背景色透明,默认值:true
-    /// </summary>
-    public string BindGhost { get; set; }
+    public string Ghost { get; set; }
     /// <summary>
     /// nzTitle,标题
     /// </summary>
@@ -39,7 +34,7 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSubtitle { get; set; }
     /// <summary>
-    /// nzBackIcon,显示返回按钮
+    /// 扩展属性,显示默认返回按钮
     /// </summary>
     public bool ShowBack { get; set; }
     /// <summary>

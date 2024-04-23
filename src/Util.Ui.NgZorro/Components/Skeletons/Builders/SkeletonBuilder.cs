@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 
 namespace Util.Ui.NgZorro.Components.Skeletons.Builders; 
 
@@ -25,8 +24,7 @@ public class SkeletonBuilder : AngularTagBuilder {
     /// 配置是否显示动画效果
     /// </summary>
     public SkeletonBuilder Active() {
-        AttributeIfNotEmpty( "[nzActive]", _config.GetBoolValue( UiConst.Active ) );
-        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( AngularConst.BindActive ) );
+        AttributeIfNotEmpty( "[nzActive]", _config.GetValue( UiConst.Active ) );
         return this;
     }
 
@@ -66,8 +64,7 @@ public class SkeletonBuilder : AngularTagBuilder {
     /// 配置是否显示圆角
     /// </summary>
     public SkeletonBuilder Round() {
-        AttributeIfNotEmpty( "[nzRound]", _config.GetBoolValue( UiConst.Round ) );
-        AttributeIfNotEmpty( "[nzRound]", _config.GetValue( AngularConst.BindRound ) );
+        AttributeIfNotEmpty( "[nzRound]", _config.GetValue( UiConst.Round ) );
         return this;
     }
 

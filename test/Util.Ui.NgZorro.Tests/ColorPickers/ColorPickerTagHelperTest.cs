@@ -135,20 +135,9 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
         /// </summary>
         [Fact]
         public void TestShowText() {
-            _wrapper.SetContextAttribute( UiConst.ShowText, true );
+            _wrapper.SetContextAttribute( UiConst.ShowText, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-color-picker [nzShowText]=\"true\"></nz-color-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试显示颜色文本
-        /// </summary>
-        [Fact]
-        public void TestBindShowText() {
-            _wrapper.SetContextAttribute( AngularConst.BindShowText, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-color-picker [nzShowText]=\"a\"></nz-color-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -179,20 +168,9 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
         /// </summary>
         [Fact]
         public void TestDisabled() {
-            _wrapper.SetContextAttribute( UiConst.Disabled, true );
+            _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-color-picker [nzDisabled]=\"true\"></nz-color-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用
-        /// </summary>
-        [Fact]
-        public void TestBindDisabled() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabled, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-color-picker [nzDisabled]=\"a\"></nz-color-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -201,20 +179,9 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
         /// </summary>
         [Fact]
         public void TestDisabledAlpha() {
-            _wrapper.SetContextAttribute( UiConst.DisabledAlpha, true );
+            _wrapper.SetContextAttribute( UiConst.DisabledAlpha, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-color-picker [nzDisabledAlpha]=\"true\"></nz-color-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试禁用透明度
-        /// </summary>
-        [Fact]
-        public void TestBindDisabledAlpha() {
-            _wrapper.SetContextAttribute( AngularConst.BindDisabledAlpha, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-color-picker [nzDisabledAlpha]=\"a\"></nz-color-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -245,20 +212,9 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
         /// </summary>
         [Fact]
         public void TestAllowClear() {
-            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-color-picker [nzAllowClear]=\"true\"></nz-color-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试允许清除
-        /// </summary>
-        [Fact]
-        public void TestBindAllowClear() {
-            _wrapper.SetContextAttribute( AngularConst.BindAllowClear, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-color-picker [nzAllowClear]=\"a\"></nz-color-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

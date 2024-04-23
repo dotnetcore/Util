@@ -253,20 +253,9 @@ namespace Util.Ui.NgZorro.Tests.InputNumbers {
         /// </summary>
         [Fact]
         public void TestCompact() {
-            _wrapper.SetContextAttribute( UiConst.Compact, true );
+            _wrapper.SetContextAttribute( UiConst.Compact, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-input-number-group [nzCompact]=\"true\"></nz-input-number-group>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试紧凑模式
-        /// </summary>
-        [Fact]
-        public void TestBindCompact() {
-            _wrapper.SetContextAttribute( AngularConst.BindCompact, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-input-number-group [nzCompact]=\"a\"></nz-input-number-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
