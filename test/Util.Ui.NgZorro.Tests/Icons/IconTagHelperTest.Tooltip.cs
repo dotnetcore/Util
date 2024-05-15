@@ -14,7 +14,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestTooltipTitle() {
             _wrapper.SetContextAttribute( UiConst.TooltipTitle, "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nz-tooltip=\"\" nzTooltipTitle=\"a\"></i>" );
+            result.Append( "<span nz-icon=\"\" nz-tooltip=\"\" nzTooltipTitle=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

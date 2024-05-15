@@ -108,7 +108,29 @@ namespace Util.Ui.NgZorro.Tests.Skeletons {
         /// </summary>
         [Fact]
         public void TestShape() {
-            _wrapper.SetContextAttribute( UiConst.Shape, SkeletonElementShape.Circle );
+            _wrapper.SetContextAttribute( UiConst.Shape, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-skeleton-element nzShape=\"a\"></nz-skeleton-element>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试按钮形状
+        /// </summary>
+        [Fact]
+        public void TestButtonShape() {
+            _wrapper.SetContextAttribute( UiConst.ButtonShape, SkeletonButtonShape.Round );
+            var result = new StringBuilder();
+            result.Append( "<nz-skeleton-element nzShape=\"round\"></nz-skeleton-element>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试头像形状
+        /// </summary>
+        [Fact]
+        public void TestAvatarShape() {
+            _wrapper.SetContextAttribute( UiConst.AvatarShape, SkeletonAvatarShape.Circle );
             var result = new StringBuilder();
             result.Append( "<nz-skeleton-element nzShape=\"circle\"></nz-skeleton-element>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -133,6 +155,17 @@ namespace Util.Ui.NgZorro.Tests.Skeletons {
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
             result.Append( "<nz-skeleton-element>a</nz-skeleton-element>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-skeleton-element *nzSpaceItem=\"\"></nz-skeleton-element>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

@@ -32,13 +32,25 @@ public class SkeletonElementTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
+    /// nzShape,形状,当 nzType="avatar" 时,可选值为: 'circle' | 'square',当 nzType="button" 时,可选值为: 'square' | 'circle' | 'round' | 'default'
+    /// </summary>
+    public string Shape { get; set; }
+    /// <summary>
     /// nzShape,形状,当 nzType="avatar" 时有效,可选值: 'circle' | 'square',默认值: 'square'
     /// </summary>
-    public SkeletonElementShape Shape { get; set; }
+    public SkeletonAvatarShape AvatarShape { get; set; }
+    /// <summary>
+    /// nzShape,形状,当 nzType="button" 时有效,可选值: 'square' | 'circle' | 'round' | 'default',默认值: 'default'
+    /// </summary>
+    public SkeletonButtonShape ButtonShape { get; set; }
     /// <summary>
     /// [nzShape],形状,当 nzType="avatar" 时有效,可选值: 'circle' | 'square',默认值: 'square'
     /// </summary>
     public string BindShape { get; set; }
+    /// <summary>
+    /// *nzSpaceItem,值为 true 时设置为间距项,放入 &lt;util-space> 中使用
+    /// </summary>
+    public bool SpaceItem { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

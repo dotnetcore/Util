@@ -44,7 +44,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
             result.Append( "{{model.code}}" );
             result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(model.code)\" *ngIf=\"model.code\" " );
             result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
             result.Append( "</button>" );
             result.Append( "</nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -58,8 +58,8 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
             result.Append( "<nz-descriptions-item nzTitle=\"启用\">" );
-            result.Append( "<i *ngIf=\"model.enabled\" nz-icon=\"\" nzType=\"check\"></i>" );
-            result.Append( "<i *ngIf=\"!(model.enabled)\" nz-icon=\"\" nzType=\"close\"></i>" );
+            result.Append( "<span *ngIf=\"model.enabled\" nz-icon=\"\" nzType=\"check\"></span>" );
+            result.Append( "<span *ngIf=\"!(model.enabled)\" nz-icon=\"\" nzType=\"close\"></span>" );
             result.Append( "</nz-descriptions-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

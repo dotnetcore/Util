@@ -2,6 +2,8 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 
@@ -20,7 +22,7 @@ public class IconBuilder : AngularTagBuilder {
     /// 初始化图标标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public IconBuilder( Config config ) : base( config, "i" ) {
+    public IconBuilder( Config config ) : base( config, "span" ) {
         base.Attribute( "nz-icon" );
         _config = config;
     }
@@ -147,7 +149,7 @@ public class IconBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        this.Tooltip( _config );
+        this.Tooltip( _config ).Popover( _config ).Popconfirm( _config );
         Type().Theme().Color().Spin().Rotate().IconFont().Events();
     }
 }

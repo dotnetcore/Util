@@ -30,7 +30,7 @@
 	  <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
 	  <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
 	  <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-	  <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.0" />
+	  <PackageReference Include="Serilog.Sinks.Seq" Version="7.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>

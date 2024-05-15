@@ -4,9 +4,9 @@ using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Icons.Builders;
-using Util.Ui.NgZorro.Components.Popover;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
@@ -713,13 +713,11 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// 配置按钮
     /// </summary>
     protected TBuilder ConfigButton() {
-        var popoverRender = new PopoverRender( _config, this );
-        popoverRender.Config();
         EnableExtend();
         return Type().Size().Shape().Disabled().Danger().Loading().Ghost().Block().Icon().RouterLink()
             .DropdownMenu().DropdownMenuPlacement().DropdownMenuTrigger().DropdownMenuClickHide()
             .DropdownMenuVisible().DropdownMenuOverlayClassName().DropdownMenuOverlayStyle()
-            .SpaceItem().Tooltip( _config ).Popconfirm( _config )
+            .SpaceItem().Tooltip( _config ).Popconfirm( _config ).Popover( _config )
             .TextOk().TextCancel().TextCreate().TextUpdate().TextDelete()
             .TextDetail().TextQuery().TextRefresh().TextSave().TextEnable()
             .TextDisable().TextSelectAll().TextDeselectAll()

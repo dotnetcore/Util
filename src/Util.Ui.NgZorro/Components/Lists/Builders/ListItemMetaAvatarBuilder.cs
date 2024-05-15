@@ -1,5 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
-using Util.Ui.Configs;
+using Util.Ui.Angular.Configs;
 
 namespace Util.Ui.NgZorro.Components.Lists.Builders; 
 
@@ -18,5 +18,22 @@ public class ListItemMetaAvatarBuilder : AngularTagBuilder {
     /// <param name="config">配置</param>
     public ListItemMetaAvatarBuilder( Config config ) : base( config,"nz-list-item-meta-avatar" ) {
         _config = config;
+    }
+
+    /// <summary>
+    /// 配置头像地址
+    /// </summary>
+    public ListItemMetaAvatarBuilder Src() {
+        AttributeIfNotEmpty( "nzSrc", _config.GetValue( UiConst.Src ) );
+        AttributeIfNotEmpty( "[nzSrc]", _config.GetValue( AngularConst.BindSrc ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置
+    /// </summary>
+    public override void Config() {
+        base.Config();
+        Src();
     }
 }

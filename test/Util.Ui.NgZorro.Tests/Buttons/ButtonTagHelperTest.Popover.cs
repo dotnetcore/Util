@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
 
@@ -17,6 +18,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             _wrapper.SetContextAttribute( UiConst.PopoverTitle, "a" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-popover=\"\" nzPopoverTitle=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试气泡卡片标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestPopoverTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.PopoverTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverTitle]=\"'a'|i18n\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -60,7 +73,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverTrigger() {
             _wrapper.SetContextAttribute( UiConst.PopoverTrigger, PopoverTrigger.Focus );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" nzPopoverTrigger=\"focus\"></button>" );
+            result.Append( "<button nz-button=\"\" nzPopoverTrigger=\"focus\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -71,7 +84,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopoverTrigger() {
             _wrapper.SetContextAttribute( AngularConst.BindPopoverTrigger, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverTrigger]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverTrigger]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -82,7 +95,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverPlacement() {
             _wrapper.SetContextAttribute( UiConst.PopoverPlacement, PopoverPlacement.BottomLeft );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" nzPopoverPlacement=\"bottomLeft\"></button>" );
+            result.Append( "<button nz-button=\"\" nzPopoverPlacement=\"bottomLeft\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -93,7 +106,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopoverPlacement() {
             _wrapper.SetContextAttribute( AngularConst.BindPopoverPlacement, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverPlacement]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverPlacement]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试箭头是否指向锚点的中心
+        /// </summary>
+        [Fact]
+        public void TestPopoverArrowPointAtCenter() {
+            _wrapper.SetContextAttribute( UiConst.PopoverArrowPointAtCenter, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzPopoverArrowPointAtCenter]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -104,18 +128,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverOrigin() {
             _wrapper.SetContextAttribute( UiConst.PopoverOrigin, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" nzPopoverOrigin=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试气泡卡片定位元素
-        /// </summary>
-        [Fact]
-        public void TestBindPopoverOrigin() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopoverOrigin, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverOrigin]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverOrigin]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -126,7 +139,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverVisible() {
             _wrapper.SetContextAttribute( UiConst.PopoverVisible, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverVisible]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverVisible]=\"true\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -137,7 +150,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindonPopoverVisible() {
             _wrapper.SetContextAttribute( AngularConst.BindonPopoverVisible, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [(nzPopoverVisible)]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [(nzPopoverVisible)]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -148,7 +161,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverMouseEnterDelay() {
             _wrapper.SetContextAttribute( UiConst.PopoverMouseEnterDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverMouseEnterDelay]=\"1\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverMouseEnterDelay]=\"1\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -159,7 +172,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverMouseLeaveDelay() {
             _wrapper.SetContextAttribute( UiConst.PopoverMouseLeaveDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverMouseLeaveDelay]=\"1\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverMouseLeaveDelay]=\"1\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -170,7 +183,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverOverlayClassName() {
             _wrapper.SetContextAttribute( UiConst.PopoverOverlayClassName, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" nzPopoverOverlayClassName=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nzPopoverOverlayClassName=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -181,7 +194,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopoverOverlayClassName() {
             _wrapper.SetContextAttribute( AngularConst.BindPopoverOverlayClassName, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverOverlayClassName]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverOverlayClassName]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -192,7 +205,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverOverlayStyle() {
             _wrapper.SetContextAttribute( UiConst.PopoverOverlayStyle, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverOverlayStyle]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverOverlayStyle]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -203,7 +216,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopoverBackdrop() {
             _wrapper.SetContextAttribute( UiConst.PopoverBackdrop, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popover=\"\" [nzPopoverBackdrop]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopoverBackdrop]=\"true\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

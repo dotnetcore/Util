@@ -93,6 +93,14 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
+    /// nzStatus,校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public InputStatus Status { get; set; }
+    /// <summary>
+    /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public string BindStatus { get; set; }
+    /// <summary>
     /// type,输入框类型, 可选值: 'text' | 'password' |  'number' |  'email'
     /// </summary>
     public InputType Type { get; set; }
@@ -173,7 +181,7 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string Autocomplete { get; set; }
     /// <summary>
-    /// 扩展属性,自动完成是否启用服务端搜索关键字,在搜索框输入时,设置查询参数的Keyword属性并发送请求,默认值：false
+    /// 扩展属性,自动完成是否启用服务端搜索关键字,当在文本框中输入时, 将输入值以查询参数 keyword 发送到 Api,默认值：false
     /// </summary>
     public bool AutocompleteSearchKeyword { get; set; }
     /// <summary>

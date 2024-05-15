@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.Enums;
 
 namespace Util.Ui.NgZorro.Components.Anchors.Builders; 
 
@@ -29,6 +30,15 @@ public class LinkBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置链接打开目标
+    /// </summary>
+    public LinkBuilder Target() {
+        AttributeIfNotEmpty( "nzTarget", _config.GetValue<ATarget?>( UiConst.Target )?.Description() );
+        AttributeIfNotEmpty( "[nzTarget]", _config.GetValue( AngularConst.BindTarget ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置标题
     /// </summary>
     public LinkBuilder Title() {
@@ -42,6 +52,6 @@ public class LinkBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Href().Title();
+        Href().Target().Title();
     }
 }

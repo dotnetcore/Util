@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using Util.Ui.Angular.Configs;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Lists;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -42,6 +44,28 @@ namespace Util.Ui.NgZorro.Tests.Lists {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<nz-list-item-meta-avatar></nz-list-item-meta-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试头像地址
+        /// </summary>
+        [Fact]
+        public void TestSrc() {
+            _wrapper.SetContextAttribute( UiConst.Src, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-list-item-meta-avatar nzSrc=\"a\"></nz-list-item-meta-avatar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试头像地址
+        /// </summary>
+        [Fact]
+        public void TestBindSrc() {
+            _wrapper.SetContextAttribute( AngularConst.BindSrc, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-list-item-meta-avatar [nzSrc]=\"a\"></nz-list-item-meta-avatar>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

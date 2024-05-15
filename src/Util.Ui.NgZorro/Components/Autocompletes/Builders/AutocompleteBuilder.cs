@@ -4,7 +4,7 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Containers.Builders;
 using Util.Ui.NgZorro.Configs;
 
-namespace Util.Ui.NgZorro.Components.Autocompletes.Builders; 
+namespace Util.Ui.NgZorro.Components.Autocompletes.Builders;
 
 /// <summary>
 /// 自动完成标签生成器
@@ -147,7 +147,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
     /// 配置
     /// </summary>
     public override void Config() {
-        base.ConfigBase( _config );
+        base.Config();
         Backfill().DataSource().DefaultActiveFirstOption().Width()
             .OverlayClassName().OverlayStyle().CompareWith()
             .AutoLoad().QueryParam().Sort().Url().Data();
@@ -233,7 +233,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
         var options = NgZorroOptionsService.GetOptions();
         if ( options.EnableI18n ) {
             optionBuilder.BindLabel( "item.text|i18n" );
-            optionBuilder.SetContent( "{{" + "item.text|i18n" + "}}");
+            optionBuilder.SetContent( "{{" + "item.text|i18n" + "}}" );
             return;
         }
         optionBuilder.BindLabel( "item.text" );
@@ -244,12 +244,13 @@ public class AutocompleteBuilder : AngularTagBuilder {
     /// 配置选项组
     /// </summary>
     private void ConfigOptionGroup() {
+        var options = NgZorroOptionsService.GetOptions();
         var containerBuilder = new ContainerBuilder( _config );
         containerBuilder.NgIf( $"{ExtendId}.isGroup" );
         var groupBuilder = new AutoOptionGroupBuilder( _config );
         containerBuilder.AppendContent( groupBuilder );
         groupBuilder.NgFor( $"let group of {ExtendId}.optionGroups" );
-        groupBuilder.BindLabel( "group.text" );
+        groupBuilder.BindLabel( options.EnableI18n ? "group.text|i18n" : "group.text" );
         var optionBuilder = new AutoOptionBuilder( _config );
         groupBuilder.AppendContent( optionBuilder );
         optionBuilder.NgFor( "let item of group.value" );

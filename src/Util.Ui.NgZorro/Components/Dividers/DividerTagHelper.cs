@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Dividers;
 [HtmlTargetElement( "util-divider")]
 public class DividerTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// [nzDashed],是否虚线
+    /// [nzDashed],是否虚线, 默认值: false
     /// </summary>
     public string Dashed { get; set; }
     /// <summary>
@@ -40,7 +40,7 @@ public class DividerTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindOrientation { get; set; }
     /// <summary>
-    /// [nzPlain],文字是否显示为普通正文样式
+    /// [nzPlain],文字是否显示为普通正文样式, 默认值: false
     /// </summary>
     public string Plain { get; set; }
 

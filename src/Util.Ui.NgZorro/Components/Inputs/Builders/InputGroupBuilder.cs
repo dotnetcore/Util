@@ -2,8 +2,12 @@
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
 using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
+using Util.Ui.NgZorro.Components.Icons.Builders;
+using Util.Ui.NgZorro.Components.Templates.Builders;
 
-namespace Util.Ui.NgZorro.Components.Inputs.Builders; 
+namespace Util.Ui.NgZorro.Components.Inputs.Builders;
 
 /// <summary>
 /// 输入框组合标签生成器
@@ -22,7 +26,7 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 初始化输入框组合标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public InputGroupBuilder( Config config ) : base( config,"nz-input-group" ) {
+    public InputGroupBuilder( Config config ) : base( config, "nz-input-group" ) {
         _config = config;
         _shareConfig = GetInputGroupShareConfig();
     }
@@ -38,7 +42,7 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 配置前置标签
     /// </summary>
     public InputGroupBuilder AddOnBefore() {
-        AttributeIfNotEmpty( "nzAddOnBefore", _config.GetValue( UiConst.AddOnBefore ));
+        AttributeIfNotEmpty( "nzAddOnBefore", _config.GetValue( UiConst.AddOnBefore ) );
         AttributeIfNotEmpty( "[nzAddOnBefore]", _config.GetValue( AngularConst.BindAddOnBefore ) );
         AttributeIfNotEmpty( "nzAddOnBefore", _shareConfig.AddOnBefore );
         AttributeIfNotEmpty( "[nzAddOnBefore]", _shareConfig.BindAddOnBefore );
@@ -97,7 +101,38 @@ public class InputGroupBuilder : AngularTagBuilder {
         AttributeIfNotEmpty( "[nzSuffix]", _config.GetValue( AngularConst.BindSuffix ) );
         AttributeIfNotEmpty( "nzSuffix", _shareConfig.Suffix );
         AttributeIfNotEmpty( "[nzSuffix]", _shareConfig.BindSuffix );
+        SetSuffixAttribute();
         return this;
+    }
+
+    /// <summary>
+    /// 设置后置图标模板属性
+    /// </summary>
+    protected void SetSuffixAttribute() {
+        if ( IsAllowClear() || IsPassword() ) {
+            AttributeIfNotEmpty( "[nzSuffix]", GetSuffixTemplateId() );
+        }
+    }
+
+    /// <summary>
+    /// 是否允许清除
+    /// </summary>
+    private bool IsAllowClear() {
+        return _shareConfig.AllowClear;
+    }
+
+    /// <summary>
+    /// 是否密码类型
+    /// </summary>
+    private bool IsPassword() {
+        return _shareConfig.IsPassword;
+    }
+
+    /// <summary>
+    /// 获取后置图标模板标识
+    /// </summary>
+    protected string GetSuffixTemplateId() {
+        return $"tmp_{_shareConfig.InputId}";
     }
 
     /// <summary>
@@ -134,8 +169,17 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 配置输入框大小
     /// </summary>
     public InputGroupBuilder Size() {
-        AttributeIfNotEmpty( "nzSize", _config.GetValue<InputSize?>( UiConst.Size )?.Description() );
-        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
+        AttributeIfNotEmpty( "nzSize", _shareConfig.Size?.Description() );
+        AttributeIfNotEmpty( "[nzSize]", _shareConfig.BindSize );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public InputGroupBuilder Status() {
+        AttributeIfNotEmpty( "nzStatus", _shareConfig.Status?.Description() );
+        AttributeIfNotEmpty( "[nzStatus]", _shareConfig.BindStatus );
         return this;
     }
 
@@ -154,6 +198,69 @@ public class InputGroupBuilder : AngularTagBuilder {
         base.ConfigBase( _config );
         AddOnBefore().AddOnAfter().AddOnBeforeIcon().AddOnAfterIcon()
             .Prefix().Suffix().PrefixIcon().SuffixIcon()
-            .Search().Size().Compact();
+            .Search().Size().Status().Compact();
+        Class( _shareConfig.Class );
+        PostBuilder = GetSuffixTemplate();
+    }
+
+    /// <summary>
+    /// 获取后置图标模板
+    /// </summary>
+    private TagBuilder GetSuffixTemplate() {
+        if ( NeedCreateSuffixTemplate() == false )
+            return new EmptyTagBuilder();
+        var templateBuilder = new TemplateBuilder( _config );
+        templateBuilder.Id( GetSuffixTemplateId() );
+        templateBuilder.AppendContent( GetPasswordIconBuilder() );
+        templateBuilder.AppendContent( GetClearIconBuilder() );
+        return templateBuilder;
+    }
+
+    /// <summary>
+    /// 是否需要创建后置图标模板
+    /// </summary>
+    private bool NeedCreateSuffixTemplate() {
+        if ( _config.GetValue( UiConst.Suffix ).IsEmpty() == false )
+            return false;
+        if ( _config.GetValue( AngularConst.BindSuffix ).IsEmpty() == false )
+            return false;
+        if ( _shareConfig.Suffix.IsEmpty() == false )
+            return false;
+        if ( _shareConfig.BindSuffix.IsEmpty() == false )
+            return false;
+        return IsAllowClear() || IsPassword();
+    }
+
+    /// <summary>
+    /// 获取密码图标标签生成器
+    /// </summary>
+    private TagBuilder GetPasswordIconBuilder() {
+        if ( IsPassword() == false )
+            return new EmptyTagBuilder();
+        var builder = new IconBuilder( _config );
+        builder.BindType( $"xi_{_shareConfig.InputId}.passwordVisible?'eye-invisible':'eye'" );
+        builder.OnClick( $"xi_{_shareConfig.InputId}.passwordVisible = !xi_{_shareConfig.InputId}.passwordVisible" );
+        return builder;
+    }
+
+    /// <summary>
+    /// 获取清除图标标签生成器
+    /// </summary>
+    private TagBuilder GetClearIconBuilder() {
+        if ( IsAllowClear() == false )
+            return new EmptyTagBuilder();
+        var builder = new IconBuilder( _config );
+        builder.Class( "ant-input-clear-icon" );
+        builder.Theme( IconTheme.Fill ).Type( AntDesignIcon.CloseCircle );
+        builder.NgIf( $"{GetNgModelId()}.value" );
+        builder.OnClick( $"{GetNgModelId()}.reset()" );
+        return builder;
+    }
+
+    /// <summary>
+    /// 获取ngModel引用变量名称
+    /// </summary>
+    protected string GetNgModelId() {
+        return $"model_{_shareConfig.InputId}";
     }
 }

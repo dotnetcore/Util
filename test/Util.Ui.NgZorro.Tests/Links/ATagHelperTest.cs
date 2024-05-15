@@ -321,7 +321,7 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a (click)=\"expand=!expand\">" );
             result.Append( "{{expand?'收起':'展开'}}" );
-            result.Append( "<i nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -342,7 +342,7 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a (click)=\"expand=!expand\">" );
             result.Append( "{{expand?('util.collapse'|i18n):('util.expand'|i18n)}}" );
-            result.Append( "<i nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzType]=\"expand?'up':'down'\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -369,7 +369,7 @@ namespace Util.Ui.NgZorro.Tests.Links {
             _wrapper.SetContextAttribute( UiConst.ShowTableSettings, "a" );
             var result = new StringBuilder();
             result.Append( "<a (click)=\"ts_a.show()\" class=\"card-tool-icon-btn\" nz-tooltip=\"\" nzTooltipTitle=\"表格设置\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"setting\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"setting\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -383,7 +383,7 @@ namespace Util.Ui.NgZorro.Tests.Links {
             _wrapper.SetContextAttribute( UiConst.ShowTableSettings, "a" );
             var result = new StringBuilder();
             result.Append( "<a (click)=\"ts_a.show()\" class=\"card-tool-icon-btn\" nz-tooltip=\"\" [nzTooltipTitle]=\"'util.tableSettings'|i18n\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"setting\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"setting\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -397,8 +397,8 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a)\" class=\"card-tool-icon-btn\" " );
             result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
-            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
-            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+            result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -413,8 +413,8 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a)\" class=\"card-tool-icon-btn\" " );
             result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"(x_id.isFullscreen?'util.fullscreenExit':'util.fullscreen')|i18n\">" );
-            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
-            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+            result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -429,8 +429,8 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,'b')\" class=\"card-tool-icon-btn\" " );
             result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
-            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
-            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+            result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -445,8 +445,8 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,null,false)\" class=\"card-tool-icon-btn\" " );
             result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
-            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
-            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+            result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -461,8 +461,8 @@ namespace Util.Ui.NgZorro.Tests.Links {
             var result = new StringBuilder();
             result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,null,true,'b')\" class=\"card-tool-icon-btn\" " );
             result.Append( "nz-tooltip=\"\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
-            result.Append( "<i *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></i>" );
-            result.Append( "<i *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></i>" );
+            result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+            result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
             result.Append( "</a>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

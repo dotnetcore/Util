@@ -1,9 +1,9 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Skeletons.Builders; 
+namespace Util.Ui.NgZorro.Components.Skeletons.Builders;
 
 /// <summary>
 /// 骨架屏元素标签生成器
@@ -18,7 +18,7 @@ public class SkeletonElementBuilder : AngularTagBuilder {
     /// 初始化骨架屏元素标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public SkeletonElementBuilder( Config config ) : base( config,"nz-skeleton-element" ) {
+    public SkeletonElementBuilder( Config config ) : base( config, "nz-skeleton-element" ) {
         _config = config;
     }
 
@@ -52,7 +52,9 @@ public class SkeletonElementBuilder : AngularTagBuilder {
     /// 配置形状
     /// </summary>
     public SkeletonElementBuilder Shape() {
-        AttributeIfNotEmpty( "nzShape", _config.GetValue<SkeletonElementShape?>( UiConst.Shape )?.Description() );
+        AttributeIfNotEmpty( "nzShape", _config.GetValue( UiConst.Shape ) );
+        AttributeIfNotEmpty( "nzShape", _config.GetValue<SkeletonButtonShape?>( UiConst.ButtonShape )?.Description() );
+        AttributeIfNotEmpty( "nzShape", _config.GetValue<SkeletonAvatarShape?>( UiConst.AvatarShape )?.Description() );
         AttributeIfNotEmpty( "[nzShape]", _config.GetValue( AngularConst.BindShape ) );
         return this;
     }
@@ -62,6 +64,7 @@ public class SkeletonElementBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
+        this.SpaceItem( _config );
         Type().Active().Size().Shape();
     }
 }

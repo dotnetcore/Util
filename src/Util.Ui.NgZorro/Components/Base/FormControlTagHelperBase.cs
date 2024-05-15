@@ -43,7 +43,7 @@ public abstract class FormControlTagHelperBase : FormControlContainerTagHelperBa
     /// </summary>
     public string BindName { get; set; }
     /// <summary>
-    /// *nzSpaceItem,值为true时设置为间距项,放入 nz-space 组件中使用
+    /// *nzSpaceItem,值为 true 时设置为间距项,放入 &lt;util-space> 中使用
     /// </summary>
     public bool SpaceItem { get; set; }
 }

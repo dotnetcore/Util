@@ -143,12 +143,19 @@ public class RazorWatchService : IRazorWatchService {
         InitRazorViewContainer();
         await Task.Factory.StartNew( async () => {
             await Task.Delay( _options.StartInitDelay, cancellationToken );
-            await GenerateAllHtml();
-            await GenerateMissingHtml();
-            await Preheat();
-            IsStartComplete = true;
-            WriteLog( "初始化完成." );
-            await StartWatch();
+            try {
+                await GenerateAllHtml();
+                await GenerateMissingHtml();
+                await Preheat();
+                IsStartComplete = true;
+                WriteLog( "初始化完成." );
+                await StartWatch();
+            }
+            catch ( Exception exception ) {
+                WriteLog( exception.Message );
+                throw;
+            }
+
         }, cancellationToken );
     }
 
@@ -215,7 +222,7 @@ public class RazorWatchService : IRazorWatchService {
         WriteLog( "准备生成缺失的html..." );
         EnableGenerateHtml();
         EnableOverrideHtml( false );
-        var fileBasePath = GetProjectPath( _options.GenerateHtmlBasePath );
+        var fileBasePath = GetProjectPath( _options.RazorRootDirectory );
         var files = Util.Helpers.File.GetAllFiles( fileBasePath, "*.html" );
         foreach ( var path in _container.GetMainViewPaths() ) {
             if ( Exists( files.Select( t => t.FullName ).ToList(), path ) )

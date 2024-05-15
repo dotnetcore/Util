@@ -134,6 +134,28 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestStatus() {
+            _wrapper.SetContextAttribute( UiConst.Status, InputStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<input nz-input=\"\" nzStatus=\"error\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestBindStatus() {
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<input nz-input=\"\" [nzStatus]=\"a\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试类型 - 电子邮件
         /// </summary>
         [Fact]

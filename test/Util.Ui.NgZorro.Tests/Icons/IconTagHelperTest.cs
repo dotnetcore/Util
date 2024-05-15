@@ -45,7 +45,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         [Fact]
         public void TestDefault() {
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\"></i>" );
+            result.Append( "<span nz-icon=\"\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -56,7 +56,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestId() {
             _wrapper.SetContextAttribute( UiConst.Id, "a" );
             var result = new StringBuilder();
-            result.Append( "<i #a=\"\" nz-icon=\"\"></i>" );
+            result.Append( "<span #a=\"\" nz-icon=\"\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -67,7 +67,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestType() {
             _wrapper.SetContextAttribute( UiConst.Type, AntDesignIcon.InfoCircle );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nzType=\"info-circle\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"info-circle\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -78,7 +78,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestBindType() {
             _wrapper.SetContextAttribute( AngularConst.BindType, "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzType]=\"a\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzType]=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -89,7 +89,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestTheme() {
             _wrapper.SetContextAttribute( UiConst.Theme, IconTheme.Outline );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nzTheme=\"outline\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzTheme=\"outline\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -100,7 +100,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestBindThme() {
             _wrapper.SetContextAttribute( AngularConst.BindTheme, "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzTheme]=\"a\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzTheme]=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -111,7 +111,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestSpin() {
             _wrapper.SetContextAttribute( UiConst.Spin, "true" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzSpin]=\"true\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzSpin]=\"true\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -122,7 +122,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestRotate() {
             _wrapper.SetContextAttribute( UiConst.Rotate, "180" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzRotate]=\"180\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzRotate]=\"180\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -133,7 +133,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestTwotoneColor() {
             _wrapper.SetContextAttribute( AntDesignConst.TwotoneColor, "#eb2f96" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"#eb2f96\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"#eb2f96\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -144,7 +144,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestTwotoneColor_2() {
             _wrapper.SetContextAttribute( UiConst.Theme, IconTheme.Twotone ).SetContextAttribute( AntDesignConst.TwotoneColor, "#eb2f96" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"#eb2f96\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"#eb2f96\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -155,7 +155,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestBindTwotoneColor() {
             _wrapper.SetContextAttribute( AntDesignConst.BindTwotoneColor, "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nzTheme=\"twotone\" [nzTwotoneColor]=\"a\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" [nzTwotoneColor]=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -166,7 +166,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestIconfont() {
             _wrapper.SetContextAttribute( AntDesignConst.IconFont, "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" nzIconfont=\"a\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzIconfont=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -177,7 +177,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestBindIconfont() {
             _wrapper.SetContextAttribute( AntDesignConst.BindIconFont, "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\" [nzIconfont]=\"a\"></i>" );
+            result.Append( "<span nz-icon=\"\" [nzIconfont]=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -188,7 +188,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestContent() {
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
-            result.Append( "<i nz-icon=\"\">a</i>" );
+            result.Append( "<span nz-icon=\"\">a</span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -199,7 +199,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         public void TestOnClick() {
             _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
             var result = new StringBuilder();
-            result.Append( "<i (click)=\"a\" nz-icon=\"\"></i>" );
+            result.Append( "<span (click)=\"a\" nz-icon=\"\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

@@ -93,6 +93,14 @@ public class TextareaTagHelper : FormControlTagHelperBase {
     /// </summary>
     public bool AllowClear { get; set; }
     /// <summary>
+    /// [nzAutocomplete],设置自动完成组件的引用
+    /// </summary>
+    public string Autocomplete { get; set; }
+    /// <summary>
+    /// 扩展属性,自动完成是否启用服务端搜索关键字,在搜索框输入时,设置查询参数的Keyword属性并发送请求,默认值：false
+    /// </summary>
+    public bool AutocompleteSearchKeyword { get; set; }
+    /// <summary>
     /// (input),输入事件
     /// </summary>
     public string OnInput { get; set; }
@@ -108,7 +116,7 @@ public class TextareaTagHelper : FormControlTagHelperBase {
     /// <param name="output">输出</param>
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
         _config = new Config( context, output );
-        var service = new InputService( _config );
+        var service = new InputService( _config, "ant-input-affix-wrapper-textarea-with-clear-btn" );
         service.Init();
     }
 

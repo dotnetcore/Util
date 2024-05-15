@@ -267,7 +267,7 @@ public partial class SvTagHelperTest {
         result.Append( "{{model.code}}" );
         result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(model.code)\" *ngIf=\"model.code\" " );
         result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
         result.Append( "</button>" );
         result.Append( "</sv>" );
         Assert.Equal( result.ToString(), GetResult() );
@@ -287,7 +287,7 @@ public partial class SvTagHelperTest {
         result.Append( "{{model.code|i18n}}" );
         result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(model.code)\" *ngIf=\"model.code\" " );
         result.Append( "nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" x-button-extend=\"\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
         result.Append( "</button>" );
         result.Append( "</sv>" );
         Assert.Equal( result.ToString(), GetResult() );

@@ -25,6 +25,62 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试前置标签 - 设置大小
+        /// </summary>
+        [Fact]
+        public void TestAddOnBefore_Size() {
+            _wrapper.SetContextAttribute( UiConst.AddOnBefore, "a" );
+            _wrapper.SetContextAttribute( UiConst.Size, InputSize.Large );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzAddOnBefore=\"a\" nzSize=\"large\">" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试前置标签 - 设置大小
+        /// </summary>
+        [Fact]
+        public void TestAddOnBefore_BindSize() {
+            _wrapper.SetContextAttribute( UiConst.AddOnBefore, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindSize, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzAddOnBefore=\"a\" [nzSize]=\"b\">" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试前置标签 - 设置状态
+        /// </summary>
+        [Fact]
+        public void TestAddOnBefore_Status() {
+            _wrapper.SetContextAttribute( UiConst.AddOnBefore, "a" );
+            _wrapper.SetContextAttribute( UiConst.Status, InputStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzAddOnBefore=\"a\" nzStatus=\"error\">" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试前置标签 - 设置状态
+        /// </summary>
+        [Fact]
+        public void TestAddOnBefore_BindStatus() {
+            _wrapper.SetContextAttribute( UiConst.AddOnBefore, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzAddOnBefore=\"a\" [nzStatus]=\"b\">" );
+            result.Append( "<input nz-input=\"\" />" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试前置标签
         /// </summary>
         [Fact]
@@ -253,12 +309,13 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         [Fact]
         public void TestAllowClear() {
             _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" />" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
-            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -269,13 +326,67 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         [Fact]
         public void TestAllowClear_2() {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" />" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
-            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试允许清除 - 手工创建输入框组
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_3() {
+            //设置输入框允许清除
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
+            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+
+            //创建输入框组
+            var inputGroup = new InputGroupTagHelper().ToWrapper();
+            inputGroup.SetContextAttribute( UiConst.Size, InputSize.Small );
+            inputGroup.AppendContent( _wrapper );
+
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzSize=\"small\" [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
+            result.Append( "</ng-template>" );
+
+            //执行
+            var html = inputGroup.GetResult();
+            _output.WriteLine( html );
+
+            //验证
+            Assert.Equal( result.ToString(), html );
+        }
+
+        /// <summary>
+        /// 测试允许清除 - 设置表单控件实例 ,禁用允许清除
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_4() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            _wrapper.SetContextAttribute( UiConst.FormControl, "a" );
+            var result = new StringBuilder();
+            result.Append( "<input nz-input=\"\" [formControl]=\"a\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试允许清除 - 未设置ngModel,禁用允许清除
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_5() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            var result = new StringBuilder();
+            result.Append( "<input nz-input=\"\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -290,7 +401,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
-            result.Append( "<i (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></i>" );
+            result.Append( "<span (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></span>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -302,13 +413,14 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         public void TestPassword_AllowClear() {
             _wrapper.SetContextAttribute( UiConst.Type, InputType.Password );
             _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
+            result.Append( "<input #model_id=\"ngModel\" #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [(ngModel)]=\"code\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
-            result.Append( "<i (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></i>" );
-            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "<span (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></span>" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

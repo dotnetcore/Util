@@ -1,6 +1,4 @@
-﻿using Util.Ui.NgZorro.Components.Selects.Helpers;
-
-namespace Util.Ui.NgZorro.Components.Autocompletes.Helpers; 
+﻿namespace Util.Ui.NgZorro.Components.Autocompletes.Helpers; 
 
 /// <summary>
 /// 自动完成服务
@@ -30,7 +28,7 @@ public class AutocompleteService {
     /// 加载表达式
     /// </summary>
     private void LoadExpression() {
-        var loader = new SelectExpressionLoader();
+        var loader = new AutocompleteExpressionLoader();
         loader.Load( _config );
     }
 }

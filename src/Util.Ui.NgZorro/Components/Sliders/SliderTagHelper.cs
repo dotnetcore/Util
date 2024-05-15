@@ -32,7 +32,7 @@ public class SliderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string Max { get; set; }
     /// <summary>
-    /// nzMin,最小值,默认值: 0
+    /// [nzMin],最小值,默认值: 0
     /// </summary>
     public string Min { get; set; }
     /// <summary>

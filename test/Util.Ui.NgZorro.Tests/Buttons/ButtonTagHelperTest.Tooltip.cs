@@ -114,35 +114,13 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         }
 
         /// <summary>
-        /// 测试文字提示触发行为
-        /// </summary>
-        [Fact]
-        public void TestTooltipTrigger() {
-            _wrapper.SetContextAttribute( UiConst.TooltipTrigger, TooltipTrigger.Click );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipTrigger=\"click\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试文字提示触发行为
-        /// </summary>
-        [Fact]
-        public void TestBindTooltipTrigger() {
-            _wrapper.SetContextAttribute( AngularConst.BindTooltipTrigger, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipTrigger]=\"a\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试提示框位置
         /// </summary>
         [Fact]
         public void TestTooltipPlacement() {
             _wrapper.SetContextAttribute( UiConst.TooltipPlacement, TooltipPlacement.BottomLeft );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipPlacement=\"bottomLeft\"></button>" );
+            result.Append( "<button nz-button=\"\" nzTooltipPlacement=\"bottomLeft\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -153,7 +131,51 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindTooltipPlacement() {
             _wrapper.SetContextAttribute( AngularConst.BindTooltipPlacement, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipPlacement]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipPlacement]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试箭头是否指向锚点的中心
+        /// </summary>
+        [Fact]
+        public void TestTooltipArrowPointAtCenter() {
+            _wrapper.SetContextAttribute( UiConst.TooltipArrowPointAtCenter, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzTooltipArrowPointAtCenter]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字模板上下文
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitleContext() {
+            _wrapper.SetContextAttribute( UiConst.TooltipTitleContext, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzTooltipTitleContext]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文字提示触发行为
+        /// </summary>
+        [Fact]
+        public void TestTooltipTrigger() {
+            _wrapper.SetContextAttribute( UiConst.TooltipTrigger, TooltipTrigger.Click );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nzTooltipTrigger=\"click\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文字提示触发行为
+        /// </summary>
+        [Fact]
+        public void TestBindTooltipTrigger() {
+            _wrapper.SetContextAttribute( AngularConst.BindTooltipTrigger, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzTooltipTrigger]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -162,9 +184,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestTooltipColor() {
-            _wrapper.SetContextAttribute( UiConst.TooltipColor, "a" );
+            _wrapper.SetContextAttribute( UiConst.TooltipColor, AntDesignColor.Blue );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipColor=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nzTooltipColor=\"blue\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -175,7 +197,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindTooltipColor() {
             _wrapper.SetContextAttribute( AngularConst.BindTooltipColor, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipColor]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipColor]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -186,7 +208,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestTooltipOrigin() {
             _wrapper.SetContextAttribute( UiConst.TooltipOrigin, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipOrigin]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipOrigin]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -197,7 +219,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestTooltipVisible() {
             _wrapper.SetContextAttribute( UiConst.TooltipVisible, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipVisible]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipVisible]=\"true\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示框是否可见
+        /// </summary>
+        [Fact]
+        public void TestBindonTooltipVisible() {
+            _wrapper.SetContextAttribute( AngularConst.BindonTooltipVisible, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [(nzTooltipVisible)]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -206,20 +239,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestTooltipMouseEnterDelay() {
-            _wrapper.SetContextAttribute( UiConst.TooltipMouseEnterDelay, 1 );
+            _wrapper.SetContextAttribute( UiConst.TooltipMouseEnterDelay, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipMouseEnterDelay=\"1\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试提示框移入延时
-        /// </summary>
-        [Fact]
-        public void TestBindTooltipMouseEnterDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindTooltipMouseEnterDelay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipMouseEnterDelay]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipMouseEnterDelay]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -228,20 +250,9 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// </summary>
         [Fact]
         public void TestTooltipMouseLeaveDelay() {
-            _wrapper.SetContextAttribute( UiConst.TooltipMouseLeaveDelay, 1 );
+            _wrapper.SetContextAttribute( UiConst.TooltipMouseLeaveDelay, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipMouseLeaveDelay=\"1\"></button>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试提示框移出延时
-        /// </summary>
-        [Fact]
-        public void TestBindTooltipMouseLeaveDelay() {
-            _wrapper.SetContextAttribute( AngularConst.BindTooltipMouseLeaveDelay, "a" );
-            var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipMouseLeaveDelay]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipMouseLeaveDelay]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -252,7 +263,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestTooltipOverlayClassName() {
             _wrapper.SetContextAttribute( UiConst.TooltipOverlayClassName, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" nzTooltipOverlayClassName=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nzTooltipOverlayClassName=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -263,7 +274,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindTooltipOverlayClassName() {
             _wrapper.SetContextAttribute( AngularConst.BindTooltipOverlayClassName, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipOverlayClassName]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipOverlayClassName]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -274,7 +285,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestTooltipOverlayStyle() {
             _wrapper.SetContextAttribute( UiConst.TooltipOverlayStyle, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-tooltip=\"\" [nzTooltipOverlayStyle]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzTooltipOverlayStyle]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -285,7 +296,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestOnTooltipVisibleChange() {
             _wrapper.SetContextAttribute( UiConst.OnTooltipVisibleChange, "a" );
             var result = new StringBuilder();
-            result.Append( "<button (nzTooltipVisibleChange)=\"a\" nz-button=\"\" nz-tooltip=\"\"></button>" );
+            result.Append( "<button (nzTooltipVisibleChange)=\"a\" nz-button=\"\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

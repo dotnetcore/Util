@@ -174,9 +174,42 @@ namespace Util.Ui.NgZorro.Tests.Lists {
         /// </summary>
         [Fact]
         public void TestGrid() {
+            _wrapper.SetContextAttribute( UiConst.Grid, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-list [nzGrid]=\"a\"></nz-list>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试栅格
+        /// </summary>
+        [Fact]
+        public void TestGrid_2() {
             _wrapper.SetContextAttribute( UiConst.Grid, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-list [nzGrid]=\"true\"></nz-list>" );
+            result.Append( "<nz-list nzGrid=\"\"></nz-list>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试数据源
+        /// </summary>
+        [Fact]
+        public void TestDataSource() {
+            _wrapper.SetContextAttribute( UiConst.Datasource, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-list [nzDataSource]=\"a\"></nz-list>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自定义项模板
+        /// </summary>
+        [Fact]
+        public void TestRenderItem() {
+            _wrapper.SetContextAttribute( UiConst.RenderItem, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-list [nzRenderItem]=\"a\"></nz-list>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

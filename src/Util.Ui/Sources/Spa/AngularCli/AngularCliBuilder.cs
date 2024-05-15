@@ -1,7 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Hosting;
 using Util.Ui.Sources.Spa.Npm;
 using Util.Ui.Sources.Spa.Prerendering;
@@ -13,7 +12,6 @@ namespace Util.Ui.Sources.Spa.AngularCli;
 /// Provides an implementation of <see cref="ISpaPrerendererBuilder"/> that can build
 /// an Angular application by invoking the Angular CLI.
 /// </summary>
-[Obsolete("Prerendering is no longer supported out of box")]
 public class AngularCliBuilder : ISpaPrerendererBuilder
 {
     private static readonly TimeSpan RegexMatchTimeout = TimeSpan.FromSeconds(5); // This is a development-time only feature, so a very long timeout is fine
@@ -60,27 +58,22 @@ public class AngularCliBuilder : ISpaPrerendererBuilder
             applicationStoppingToken);
         scriptRunner.AttachToLogger(logger);
 
-        using (var stdOutReader = new EventedStreamStringReader(scriptRunner.StdOut))
-        using (var stdErrReader = new EventedStreamStringReader(scriptRunner.StdErr))
-        {
-            try
-            {
-                await scriptRunner.StdOut.WaitForMatch( ["Date"] );
-            }
-            catch (EndOfStreamException ex)
-            {
-                throw new InvalidOperationException(
-                    $"The {pkgManagerCommand} script '{_scriptName}' exited without indicating success.\n" +
-                    $"Output was: {stdOutReader.ReadAsString()}\n" +
-                    $"Error output was: {stdErrReader.ReadAsString()}", ex);
-            }
-            catch (OperationCanceledException ex)
-            {
-                throw new InvalidOperationException(
-                    $"The {pkgManagerCommand} script '{_scriptName}' timed out without indicating success. " +
-                    $"Output was: {stdOutReader.ReadAsString()}\n" +
-                    $"Error output was: {stdErrReader.ReadAsString()}", ex);
-            }
+        using var stdOutReader = new EventedStreamStringReader(scriptRunner.StdOut);
+        using var stdErrReader = new EventedStreamStringReader( scriptRunner.StdErr );
+        try {
+            await scriptRunner.StdOut.WaitForMatch( ["Date"] );
+        }
+        catch ( EndOfStreamException ex ) {
+            throw new InvalidOperationException(
+                $"The {pkgManagerCommand} script '{_scriptName}' exited without indicating success.\n" +
+                $"Output was: {stdOutReader.ReadAsString()}\n" +
+                $"Error output was: {stdErrReader.ReadAsString()}", ex );
+        }
+        catch ( OperationCanceledException ex ) {
+            throw new InvalidOperationException(
+                $"The {pkgManagerCommand} script '{_scriptName}' timed out without indicating success. " +
+                $"Output was: {stdOutReader.ReadAsString()}\n" +
+                $"Error output was: {stdErrReader.ReadAsString()}", ex );
         }
     }
 }

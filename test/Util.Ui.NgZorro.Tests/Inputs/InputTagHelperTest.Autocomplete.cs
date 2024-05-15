@@ -26,7 +26,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             _wrapper.SetContextAttribute( UiConst.Autocomplete, "a" );
             _wrapper.SetContextAttribute( UiConst.AutocompleteSearchKeyword, true );
             var result = new StringBuilder();
-            result.Append( "<input (input)=\"x_a.search($event.target.value)\" nz-input=\"\" [nzAutocomplete]=\"a\" />" );
+            result.Append( "<input (input)=\"x_a.search($event.target)\" nz-input=\"\" [nzAutocomplete]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

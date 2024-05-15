@@ -4,6 +4,8 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tables.Builders.Contents;
 using Util.Ui.NgZorro.Components.Tables.Configs;
+using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
 
 namespace Util.Ui.NgZorro.Components.Tables.Builders;
@@ -292,11 +294,12 @@ public class TableColumnBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
+        this.Tooltip( _config ).Popover( _config ).Popconfirm( _config );
         ShowCheckbox().Disabled().Indeterminate().Checked()
             .ShowExpand().Expand()
             .Left().Right().Align().BreakWord().Ellipsis()
             .IndentSize().CellControl().EnableCustomColumn()
-            .Tooltip( _config ).Events();
+            .Events();
         ConfigContent();
     }
 

@@ -6,7 +6,7 @@ using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Dividers.Builders; 
+namespace Util.Ui.NgZorro.Components.Dividers.Builders;
 
 /// <summary>
 /// 分隔线标签生成器
@@ -16,12 +16,16 @@ public class DividerBuilder : AngularTagBuilder {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 标识
+    /// </summary>
+    private string _id;
 
     /// <summary>
     /// 初始化分隔线标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public DividerBuilder( Config config ) : base( config,"nz-divider" ) {
+    public DividerBuilder( Config config ) : base( config, "nz-divider" ) {
         _config = config;
     }
 
@@ -96,11 +100,23 @@ public class DividerBuilder : AngularTagBuilder {
     protected override void ConfigContent( Config config ) {
         if ( config.Content.IsEmpty() )
             return;
-        var id = $"m_{Util.Helpers.Id.Create()}";
+        var id = $"m_{GetId()}";
         Attribute( "[nzText]", id );
         var templateBuilder = new TemplateBuilder( config );
         templateBuilder.Attribute( $"#{id}" );
         templateBuilder.AppendContent( config.Content );
         AppendContent( templateBuilder );
+    }
+
+    /// <summary>
+    /// 获取标识
+    /// </summary>
+    private string GetId() {
+        if ( _id.IsEmpty() == false )
+            return _id;
+        _id = _config.GetValue( UiConst.Id );
+        if ( _id.IsEmpty() )
+            _id = Util.Helpers.Id.Create();
+        return _id;
     }
 }

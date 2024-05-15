@@ -2,7 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Lists.Builders; 
+namespace Util.Ui.NgZorro.Components.Lists.Builders;
 
 /// <summary>
 /// 列表标签生成器
@@ -16,7 +16,7 @@ public class ListBuilder : AngularTagBuilder {
     /// <summary>
     /// 初始化列表标签生成器
     /// </summary>
-    public ListBuilder( Config config ) : base( config,"nz-list" ) {
+    public ListBuilder( Config config ) : base( config, "nz-list" ) {
         _config = config;
     }
 
@@ -84,7 +84,30 @@ public class ListBuilder : AngularTagBuilder {
     /// 配置栅格
     /// </summary>
     public ListBuilder Grid() {
-        AttributeIfNotEmpty( "[nzGrid]", _config.GetValue( UiConst.Grid ) );
+        var value = _config.GetValue( UiConst.Grid );
+        if ( value.IsEmpty() )
+            return this;
+        if ( value == "true" ) {
+            Attribute( "nzGrid" );
+            return this;
+        }
+        Attribute( "[nzGrid]", value );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置数据源
+    /// </summary>
+    public ListBuilder DataSource() {
+        AttributeIfNotEmpty( "[nzDataSource]", _config.GetValue( UiConst.Datasource ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自定义项模板
+    /// </summary>
+    public ListBuilder RenderItem() {
+        AttributeIfNotEmpty( "[nzRenderItem]", _config.GetValue( UiConst.RenderItem ) );
         return this;
     }
 
@@ -93,6 +116,8 @@ public class ListBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Bordered().Footer().Header().ItemLayout().Loading().Size().Split().Grid();
+        Bordered().Footer().Header().ItemLayout()
+            .Loading().Size().Split().Grid()
+            .DataSource().RenderItem();
     }
 }

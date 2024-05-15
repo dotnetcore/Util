@@ -181,7 +181,7 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
             result.Append( "</nz-auto-option>" );
             result.Append( "</ng-container>" );
             result.Append( "<ng-container *ngIf=\"x_id.isGroup\">" );
-            result.Append( "<nz-auto-optgroup *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text\">" );
+            result.Append( "<nz-auto-optgroup *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text|i18n\">" );
             result.Append( "<nz-auto-option *ngFor=\"let item of group.value\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text|i18n}}" );
             result.Append( "</nz-auto-option>" );

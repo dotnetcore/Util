@@ -175,6 +175,17 @@ namespace Util.Generators.Tests.Contexts {
         }
 
         /// <summary>
+        /// 测试UI项目端口
+        /// </summary>
+        [Fact]
+        public void TestProjectContext_UiPort() {
+            var projectContext = _context.Projects[0];
+            Assert.Equal( "666", projectContext.UiPort );
+            var projectContext2 = _context.Projects[1];
+            Assert.Equal( "888", projectContext2.UiPort );
+        }
+
+        /// <summary>
         /// 测试是否启用架构
         /// </summary>
         [Fact]

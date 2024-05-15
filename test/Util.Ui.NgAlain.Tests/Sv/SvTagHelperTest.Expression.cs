@@ -46,7 +46,7 @@ public partial class SvTagHelperTest {
         result.Append( "{{model.code}}" );
         result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(model.code)\" *ngIf=\"model.code\" " );
         result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
         result.Append( "</button>" );
         result.Append( "</sv>" );
         Assert.Equal( result.ToString(), GetResult() );
@@ -60,8 +60,8 @@ public partial class SvTagHelperTest {
         _wrapper.SetExpression( t => t.Enabled );
         var result = new StringBuilder();
         result.Append( "<sv label=\"启用\">" );
-        result.Append( "<i *ngIf=\"model.enabled\" nz-icon=\"\" nzType=\"check\"></i>" );
-        result.Append( "<i *ngIf=\"!(model.enabled)\" nz-icon=\"\" nzType=\"close\"></i>" );
+        result.Append( "<span *ngIf=\"model.enabled\" nz-icon=\"\" nzType=\"check\"></span>" );
+        result.Append( "<span *ngIf=\"!(model.enabled)\" nz-icon=\"\" nzType=\"close\"></span>" );
         result.Append( "</sv>" );
         Assert.Equal( result.ToString(), GetResult() );
     }

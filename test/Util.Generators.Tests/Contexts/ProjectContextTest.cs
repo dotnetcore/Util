@@ -35,6 +35,7 @@ namespace Util.Generators.Tests.Contexts {
                 EnableSchema = true,
                 ProjectType = ProjectType.Ui,
                 ApiPort = "80",
+                UiPort = "90",
                 Extend = "{\"Id\":\"1\",\"Name\":\"Name\"}"
             };
 
@@ -67,6 +68,7 @@ namespace Util.Generators.Tests.Contexts {
             Assert.Equal( projectContext.I18n, clone.I18n );
             Assert.Equal( projectContext.ProjectType, clone.ProjectType );
             Assert.Equal( projectContext.ApiPort, clone.ApiPort );
+            Assert.Equal( projectContext.UiPort, clone.UiPort );
             Assert.Equal( projectContext.EnableSchema, clone.EnableSchema );
             Assert.Equal( projectContext.GetExtend<TestExtend>().Id, clone.GetExtend<TestExtend>().Id );
             Assert.Equal( projectContext.GetExtend<TestExtend>().Name, clone.GetExtend<TestExtend>().Name );

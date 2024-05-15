@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.Enums;
 using Util.Ui.NgZorro.Components.Anchors;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -66,6 +67,28 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
             _wrapper.SetContextAttribute( AngularConst.BindHref, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-link [nzHref]=\"a\"></nz-link>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试链接打开目标
+        /// </summary>
+        [Fact]
+        public void TestTarget() {
+            _wrapper.SetContextAttribute( UiConst.Target, ATarget.Parent );
+            var result = new StringBuilder();
+            result.Append( "<nz-link nzTarget=\"_parent\"></nz-link>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试链接打开目标
+        /// </summary>
+        [Fact]
+        public void TestBindTarget() {
+            _wrapper.SetContextAttribute( AngularConst.BindTarget, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-link [nzTarget]=\"a\"></nz-link>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -97,6 +97,14 @@ public class InputGroupTagHelper : AngularTagHelperBase {
     /// [nzCompact],是否紧凑模式, 默认值: false
     /// </summary>
     public string Compact { get; set; }
+    /// <summary>
+    /// nzStatus,校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public InputStatus Status { get; set; }
+    /// <summary>
+    /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public string BindStatus { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
@@ -107,6 +115,7 @@ public class InputGroupTagHelper : AngularTagHelperBase {
         var inputGroupShareService = new InputGroupShareService( _config );
         inputGroupShareService.Init();
         inputGroupShareService.AutoCreateInputGroup( false );
+        inputGroupShareService.Created();
     }
 
     /// <inheritdoc />

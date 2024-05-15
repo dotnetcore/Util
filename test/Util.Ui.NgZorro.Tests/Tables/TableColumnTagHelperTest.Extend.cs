@@ -657,7 +657,7 @@ public partial class TableColumnTagHelperTest {
         result.Append( "{{row.code}}" );
         result.Append( "<button #btn_a_code=\"\" #x_btn_a_code=\"xButtonExtend\" (click)=\"x_btn_a_code.copyToClipboard(row.code)\" *ngIf=\"row.code\" " );
         result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
         result.Append( "</button>" );
         result.Append( "</td>" );
         Assert.Equal( result.ToString(), GetResult() );

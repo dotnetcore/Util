@@ -92,6 +92,20 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     }
 
     /// <summary>
+    /// 配置自动完成
+    /// </summary>
+    public TextareaBuilder Autocomplete() {
+        var autocompleteId = _config.GetValue( UiConst.Autocomplete );
+        if ( autocompleteId.IsEmpty() )
+            return this;
+        AttributeIfNotEmpty( "[nzAutocomplete]", autocompleteId );
+        var autocompleteSearchKeyword = _config.GetValue<bool?>( UiConst.AutocompleteSearchKeyword );
+        if ( autocompleteSearchKeyword == true )
+            OnInput( $"x_{autocompleteId}.search($event.target)" );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TextareaBuilder Events() {
@@ -122,7 +136,8 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     public override void Config() {
         base.ConfigBase( _config );
         ConfigForm().Name().Placeholder().Disabled().Readonly().Size().Rows().Columns()
-            .Autosize().Size().Events()
+            .Autosize().Size().Autocomplete()
+            .Events()
             .Required().RequiredMessage()
             .MinLength().MinLengthMessage()
             .MaxLength()

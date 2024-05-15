@@ -7,6 +7,10 @@ namespace Util.Ui.NgZorro.Components.Inputs.Configs;
 /// </summary>
 public class InputGroupShareConfig {
     /// <summary>
+    /// 是否已创建 nz-input-group
+    /// </summary>
+    public bool IsInputGroupCreated { get; set; }
+    /// <summary>
     /// 自动创建nz-input-group
     /// </summary>
     public bool? AutoCreateInputGroup { get; set; }
@@ -74,4 +78,36 @@ public class InputGroupShareConfig {
     /// 设置后缀图标
     /// </summary>
     public string BindSuffixIcon { get; set; }
+    /// <summary>
+    /// 尺寸
+    /// </summary>
+    public InputSize? Size { get; set; }
+    /// <summary>
+    /// 尺寸
+    /// </summary>
+    public string BindSize { get; set; }
+    /// <summary>
+    /// 检验状态
+    /// </summary>
+    public InputStatus? Status { get; set; }
+    /// <summary>
+    /// 检验状态
+    /// </summary>
+    public string BindStatus { get; set; }
+    /// <summary>
+    /// 是否允许清除内容
+    /// </summary>
+    public bool AllowClear { get; set; }
+    /// <summary>
+    /// 是否密码框
+    /// </summary>
+    public bool IsPassword { get; set; }
+    /// <summary>
+    /// 输入框标识
+    /// </summary>
+    public string InputId { get; set; }
+    /// <summary>
+    /// 样式类
+    /// </summary>
+    public string Class { get; set; }
 }

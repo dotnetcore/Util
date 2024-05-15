@@ -26,7 +26,6 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     public RadioBuilder( Config config ) : base( config,"label" ) {
         _config = config;
         _shareConfig = GetShareConfig();
-        base.Attribute( "nz-radio" );
     }
 
     /// <summary>

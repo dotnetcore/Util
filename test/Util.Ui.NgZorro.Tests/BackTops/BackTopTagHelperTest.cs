@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.BackTops;
 using Util.Ui.TagHelpers;
@@ -26,6 +27,7 @@ public class BackTopTagHelperTest {
     public BackTopTagHelperTest( ITestOutputHelper output ) {
         _output = output;
         _wrapper = new BackTopTagHelper().ToWrapper();
+        Id.SetId( "id" );
     }
 
     /// <summary>
@@ -98,7 +100,11 @@ public class BackTopTagHelperTest {
     public void TestContent() {
         _wrapper.AppendContent( "a" );
         var result = new StringBuilder();
-        result.Append( "<nz-back-top>a</nz-back-top>" );
+        result.Append( "<nz-back-top [nzTemplate]=\"tpl_id\">" );
+        result.Append( "<ng-template #tpl_id=\"\">" );
+        result.Append( "a" );
+        result.Append( "</ng-template>" );
+        result.Append( "</nz-back-top>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

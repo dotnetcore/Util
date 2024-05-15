@@ -43,7 +43,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input #password=\"\" #xi_password=\"xInputExtend\" name=\"password\" nz-input=\"\" x-input-extend=\"\" [(ngModel)]=\"model.password\" [type]=\"xi_password.passwordVisible?'text':'password'\" />" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_password=\"\">" );
-            result.Append( "<i (click)=\"xi_password.passwordVisible = !xi_password.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_password.passwordVisible?'eye-invisible':'eye'\"></i>" );
+            result.Append( "<span (click)=\"xi_password.passwordVisible = !xi_password.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_password.passwordVisible?'eye-invisible':'eye'\"></span>" );
             result.Append( "</ng-template>" );
 	        result.Append( "</nz-form-control>" );
 	        result.Append( "</nz-form-item>" );

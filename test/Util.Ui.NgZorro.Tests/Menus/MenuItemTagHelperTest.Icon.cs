@@ -16,7 +16,7 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             _wrapper.SetContextAttribute( UiConst.Icon, AntDesignIcon.InfoCircle );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\">" );
-            result.Append( "<i class=\"mr-sm\" nz-icon=\"\" nzType=\"info-circle\"></i>" );
+            result.Append( "<span class=\"mr-sm\" nz-icon=\"\" nzType=\"info-circle\"></span>" );
             result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -30,7 +30,7 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             _wrapper.SetContextAttribute( UiConst.Icon, AntDesignIcon.InfoCircle );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\">" );
-            result.Append( "<i class=\"mr-sm\" nz-icon=\"\" nzType=\"info-circle\"></i>a" );
+            result.Append( "<span class=\"mr-sm\" nz-icon=\"\" nzType=\"info-circle\"></span>a" );
             result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

@@ -1,8 +1,9 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Inputs.Configs;
 
-namespace Util.Ui.NgZorro.Components.Inputs.Builders; 
+namespace Util.Ui.NgZorro.Components.Inputs.Builders;
 
 /// <summary>
 /// 输入框标签生成器
@@ -30,7 +31,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         AttributeIfNotEmpty( "[placeholder]", _config.GetValue( AngularConst.BindPlaceholder ) );
         return this;
     }
-        
+
     /// <summary>
     /// 配置禁用
     /// </summary>
@@ -51,9 +52,73 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// 配置输入框大小
     /// </summary>
     public InputBuilder Size() {
-        AttributeIfNotEmpty( "nzSize", _config.GetValue<InputSize?>( UiConst.Size )?.Description() );
-        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
+        SetSize();
+        SetBindSize();
         return this;
+    }
+
+    /// <summary>
+    /// 设置输入框大小
+    /// </summary>
+    private void SetSize() {
+        var shareConfig = GetInputGroupShareConfig();
+        if ( shareConfig.Size == null )
+            return;
+        if ( shareConfig.IsInputGroupCreated )
+            return;
+        AttributeIfNotEmpty( "nzSize", shareConfig.Size?.Description() );
+    }
+
+    /// <summary>
+    /// 设置输入框大小
+    /// </summary>
+    private void SetBindSize() {
+        var shareConfig = GetInputGroupShareConfig();
+        if ( shareConfig.BindSize.IsEmpty() )
+            return;
+        if ( shareConfig.IsInputGroupCreated )
+            return;
+        AttributeIfNotEmpty( "[nzSize]", shareConfig.BindSize );
+    }
+
+    /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public InputBuilder Status() {
+        SetStatus();
+        SetBindStatus();
+        return this;
+    }
+
+    /// <summary>
+    /// 设置校验状态
+    /// </summary>
+    private void SetStatus() {
+        var shareConfig = GetInputGroupShareConfig();
+        if ( shareConfig.Status == null )
+            return;
+        if ( shareConfig.IsInputGroupCreated )
+            return;
+        AttributeIfNotEmpty( "nzStatus", shareConfig.Status?.Description() );
+    }
+
+    /// <summary>
+    /// 设置校验状态
+    /// </summary>
+    private void SetBindStatus() {
+        var shareConfig = GetInputGroupShareConfig();
+        if ( shareConfig.BindStatus.IsEmpty() )
+            return;
+        if ( shareConfig.IsInputGroupCreated )
+            return;
+        AttributeIfNotEmpty( "[nzStatus]", shareConfig.BindStatus );
+    }
+
+    /// <summary>
+    /// 获取输入框组合共享配置
+    /// </summary>
+    private InputGroupShareConfig GetInputGroupShareConfig() {
+        return _config.GetValueFromItems<InputGroupShareConfig>() ?? new InputGroupShareConfig();
     }
 
     /// <summary>
@@ -81,7 +146,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         AttributeIfNotEmpty( "[nzAutocomplete]", autocompleteId );
         var autocompleteSearchKeyword = _config.GetValue<bool?>( UiConst.AutocompleteSearchKeyword );
         if ( autocompleteSearchKeyword == true )
-            OnInput($"x_{autocompleteId}.search($event.target.value)" );
+            OnInput( $"x_{autocompleteId}.search($event.target)" );
         return this;
     }
 
@@ -139,7 +204,8 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().Name().Placeholder().Disabled().Readonly().Size()
+        ConfigForm().Name().Placeholder().Disabled().Readonly()
+            .Size().Status()
             .Type().Autocomplete()
             .ValidatePhone().ValidateIdCard()
             .Events().AutocompleteOff();

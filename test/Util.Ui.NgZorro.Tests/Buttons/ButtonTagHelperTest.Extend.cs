@@ -2,6 +2,7 @@
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Enums;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.Buttons;
@@ -50,7 +51,7 @@ public partial class ButtonTagHelperTest {
         var result = new StringBuilder();
         result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(a)\" " );
         result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
         result.Append( "</button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -65,7 +66,7 @@ public partial class ButtonTagHelperTest {
         var result = new StringBuilder();
         result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(a)\" " );
         result.Append( "nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" x-button-extend=\"\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
         result.Append( "</button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -190,6 +191,56 @@ public partial class ButtonTagHelperTest {
         result.Append( "nz-button=\"\" x-button-extend=\"\">" );
         result.Append( "{{x_id.isFullscreen?'退出全屏':'全屏'}}" );
         result.Append( "</button>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试全屏
+    /// </summary>
+    [Fact]
+    public void TestFullscreen_LinkType() {
+        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link );
+        _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+        var result = new StringBuilder();
+        result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a)\" class=\"card-tool-icon-btn\" nz-button=\"\" " );
+        result.Append( "nz-tooltip=\"\" nzType=\"link\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+        result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+        result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
+        result.Append( "</a>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试全屏包装
+    /// </summary>
+    [Fact]
+    public void TestFullscreenPack_LinkType() {
+        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link );
+        _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+        _wrapper.SetContextAttribute( UiConst.FullscreenPack, false );
+        var result = new StringBuilder();
+        result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,null,false)\" class=\"card-tool-icon-btn\" nz-button=\"\" " );
+        result.Append( "nz-tooltip=\"\" nzType=\"link\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+        result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+        result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
+        result.Append( "</a>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试测试全屏标题
+    /// </summary>
+    [Fact]
+    public void TestFullscreenTitle_LinkType() {
+        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link );
+        _wrapper.SetContextAttribute( UiConst.Fullscreen, "a" );
+        _wrapper.SetContextAttribute( UiConst.FullscreenTitle, "b" );
+        var result = new StringBuilder();
+        result.Append( "<a #x_id=\"xButtonExtend\" (click)=\"x_id.fullscreen(a,null,true,'b')\" class=\"card-tool-icon-btn\" nz-button=\"\" " );
+        result.Append( "nz-tooltip=\"\" nzType=\"link\" x-button-extend=\"\" [nzTooltipTitle]=\"x_id.isFullscreen?'退出全屏':'全屏'\">" );
+        result.Append( "<span *ngIf=\"!x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen\"></span>" );
+        result.Append( "<span *ngIf=\"x_id.isFullscreen\" nz-icon=\"\" nzTheme=\"outline\" nzType=\"fullscreen-exit\"></span>" );
+        result.Append( "</a>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 }

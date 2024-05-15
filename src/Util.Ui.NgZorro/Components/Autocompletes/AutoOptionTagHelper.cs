@@ -27,7 +27,7 @@ public class AutoOptionTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindLabel { get; set; }
     /// <summary>
-    /// [nzDisabled],禁用选项
+    /// [nzDisabled],禁用选项, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
 

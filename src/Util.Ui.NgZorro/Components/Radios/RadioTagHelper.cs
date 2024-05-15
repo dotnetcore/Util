@@ -4,7 +4,20 @@ using Util.Ui.NgZorro.Components.Radios.Helpers;
 using Util.Ui.NgZorro.Components.Radios.Renders;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Radios; 
+namespace Util.Ui.NgZorro.Components.Radios;
+
+/// <summary>
+/// 按钮样式的单选框,生成的标签为&lt;label nz-radio-button&gt;&lt;/label&gt;
+/// </summary>
+[HtmlTargetElement( "util-radio-button" )]
+public class RadioButtonTagHelper : RadioTagHelper {
+    /// <summary>
+    /// 获取指令名称
+    /// </summary>
+    protected override string GetDirectiveName() {
+        return "nz-radio-button";
+    }
+}
 
 /// <summary>
 /// 单选框,生成的标签为&lt;label nz-radio&gt;&lt;/label&gt;
@@ -62,6 +75,13 @@ public class RadioTagHelper : FormControlTagHelperBase {
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {
         _config.Content = content;
-        return new RadioRender( _config );
+        return new RadioRender( _config, GetDirectiveName() );
+    }
+
+    /// <summary>
+    /// 获取指令名称
+    /// </summary>
+    protected virtual string GetDirectiveName() {
+        return "nz-radio";
     }
 }

@@ -42,6 +42,7 @@ namespace Util.Generators.Tests.Configuration {
             Assert.Equal( "UnitOfWorkName_Test", project.UnitOfWorkName );
             Assert.Equal( ProjectType.WebApi, project.ProjectType );
             Assert.Equal( "123", project.ApiPort );
+            Assert.Equal( "666", project.UiPort );
             Assert.Equal( "ClientAppName_Test", project.Client.AppName );
             Assert.Equal( "1", project.Client.Port );
             Assert.True( project.Enabled );
@@ -64,6 +65,7 @@ namespace Util.Generators.Tests.Configuration {
             Assert.Equal( "UnitOfWorkName_Test2", project.UnitOfWorkName );
             Assert.Equal( ProjectType.Ui, project.ProjectType );
             Assert.Equal( "456", project.ApiPort );
+            Assert.Equal( "888", project.UiPort );
             Assert.Equal( "ClientAppName_Test2", project.Client.AppName );
             Assert.Equal( "2", project.Client.Port );
             Assert.False( project.Enabled );

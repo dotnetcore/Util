@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Xunit;
 
@@ -17,6 +18,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
             _wrapper.SetContextAttribute( UiConst.PopconfirmTitle, "a" );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzPopconfirmTitle=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试气泡确认框标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestPopconfirmTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.PopconfirmTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmTitle]=\"'a'|i18n\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -38,7 +51,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmTrigger() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmTrigger, PopconfirmTrigger.Click );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzPopconfirmTrigger=\"click\"></button>" );
+            result.Append( "<button nz-button=\"\" nzPopconfirmTrigger=\"click\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -49,7 +62,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmTrigger() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmTrigger, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmTrigger]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmTrigger]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -60,7 +73,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmPlacement() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmPlacement, PopconfirmPlacement.BottomLeft );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzPopconfirmPlacement=\"bottomLeft\"></button>" );
+            result.Append( "<button nz-button=\"\" nzPopconfirmPlacement=\"bottomLeft\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -71,7 +84,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmPlacement() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmPlacement, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmPlacement]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmPlacement]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -82,7 +95,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmOrigin() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmOrigin, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmOrigin]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmOrigin]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -93,7 +106,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmVisible() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmVisible, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmVisible]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmVisible]=\"true\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试气泡框是否可见
+        /// </summary>
+        [Fact]
+        public void TestBindonPopconfirmVisible() {
+            _wrapper.SetContextAttribute( AngularConst.BindonPopconfirmVisible, "true" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [(nzPopconfirmVisible)]=\"true\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -104,7 +128,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmShowArrow() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmShowArrow, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmShowArrow]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmShowArrow]=\"true\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试箭头是否指向锚点的中心
+        /// </summary>
+        [Fact]
+        public void TestPopconfirmArrowPointAtCenter() {
+            _wrapper.SetContextAttribute( UiConst.PopconfirmArrowPointAtCenter, "true" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzPopconfirmArrowPointAtCenter]=\"true\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -115,7 +150,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmMouseEnterDelay() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmMouseEnterDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmMouseEnterDelay]=\"1\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmMouseEnterDelay]=\"1\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -126,7 +161,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmMouseLeaveDelay() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmMouseLeaveDelay, "1" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmMouseLeaveDelay]=\"1\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmMouseLeaveDelay]=\"1\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -137,7 +172,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmOverlayClassName() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmOverlayClassName, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzPopconfirmOverlayClassName=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nzPopconfirmOverlayClassName=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -148,7 +183,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmOverlayClassName() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmOverlayClassName, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmOverlayClassName]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmOverlayClassName]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -159,7 +194,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmOverlayStyle() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmOverlayStyle, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmOverlayStyle]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmOverlayStyle]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -170,7 +205,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmBackdrop() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmBackdrop, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzPopconfirmBackdrop]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzPopconfirmBackdrop]=\"true\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -181,7 +216,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmCancelText() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmCancelText, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzCancelText=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nzCancelText=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -192,7 +227,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmCancelText() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmCancelText, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzCancelText]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzCancelText]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -203,7 +238,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmOkText() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmOkText, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzOkText=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" nzOkText=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -214,7 +249,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmOkText() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmOkText, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzOkText]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzOkText]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -225,7 +260,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmOkType() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmOkType, ButtonType.Primary );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzOkType=\"primary\"></button>" );
+            result.Append( "<button nz-button=\"\" nzOkType=\"primary\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -236,7 +271,40 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmOkType() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmOkType, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzOkType]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzOkType]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试气泡框确认按钮是否为危险按钮
+        /// </summary>
+        [Fact]
+        public void TestPopconfirmOkDanger() {
+            _wrapper.SetContextAttribute( UiConst.PopconfirmOkDanger, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzOkDanger]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试气泡确认框按钮自动聚焦
+        /// </summary>
+        [Fact]
+        public void TestPopconfirmAutoFocus() {
+            _wrapper.SetContextAttribute( UiConst.PopconfirmAutoFocus, PopconfirmAutoFocus.Cancel );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nzAutoFocus=\"cancel\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试气泡确认框按钮自动聚焦
+        /// </summary>
+        [Fact]
+        public void TestBindPopconfirmAutoFocus() {
+            _wrapper.SetContextAttribute( AngularConst.BindPopconfirmAutoFocus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzAutoFocus]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -247,7 +315,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmCondition() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmCondition, "true" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzCondition]=\"true\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzCondition]=\"true\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -258,7 +326,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestPopconfirmIcon() {
             _wrapper.SetContextAttribute( UiConst.PopconfirmIcon, AntDesignIcon.AccountBook );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" nzIcon=\"account-book\"></button>" );
+            result.Append( "<button nz-button=\"\" nzIcon=\"account-book\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -269,7 +337,18 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestBindPopconfirmIcon() {
             _wrapper.SetContextAttribute( AngularConst.BindPopconfirmIcon, "a" );
             var result = new StringBuilder();
-            result.Append( "<button nz-button=\"\" nz-popconfirm=\"\" [nzIcon]=\"a\"></button>" );
+            result.Append( "<button nz-button=\"\" [nzIcon]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试确认前操作钩子
+        /// </summary>
+        [Fact]
+        public void TestPopconfirmBeforeConfirm() {
+            _wrapper.SetContextAttribute( UiConst.PopconfirmBeforeConfirm, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzBeforeConfirm]=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -280,7 +359,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestOnPopconfirmVisibleChange() {
             _wrapper.SetContextAttribute( UiConst.OnPopconfirmVisibleChange, "a" );
             var result = new StringBuilder();
-            result.Append( "<button (nzPopconfirmVisibleChange)=\"a\" nz-button=\"\" nz-popconfirm=\"\"></button>" );
+            result.Append( "<button (nzPopconfirmVisibleChange)=\"a\" nz-button=\"\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -291,7 +370,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestOnPopconfirmCancel() {
             _wrapper.SetContextAttribute( UiConst.OnPopconfirmCancel, "a" );
             var result = new StringBuilder();
-            result.Append( "<button (nzOnCancel)=\"a\" nz-button=\"\" nz-popconfirm=\"\"></button>" );
+            result.Append( "<button (nzOnCancel)=\"a\" nz-button=\"\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -302,7 +381,7 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         public void TestOnPopconfirmConfirm() {
             _wrapper.SetContextAttribute( UiConst.OnPopconfirmConfirm, "a" );
             var result = new StringBuilder();
-            result.Append( "<button (nzOnConfirm)=\"a\" nz-button=\"\" nz-popconfirm=\"\"></button>" );
+            result.Append( "<button (nzOnConfirm)=\"a\" nz-button=\"\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

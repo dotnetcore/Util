@@ -55,7 +55,7 @@ namespace Util.Ui.NgZorro.Tests.Upload {
         private string GetButton() {
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"upload\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"upload\"></span>" );
             result.Append( "{{'util.upload'|i18n}}" );
             result.Append( "</button>" );
             return result.ToString();

@@ -11,6 +11,22 @@ namespace Util.Ui.NgZorro.Components.Lists;
 [HtmlTargetElement( "util-list-item" )]
 public class ListItemTagHelper : AngularTagHelperBase {
     /// <summary>
+    /// [nzActions],设置列表项操作,类型: Array&lt;TemplateRef&lt;void>>,默认值: []
+    /// </summary>
+    public string Actions { get; set; }
+    /// <summary>
+    /// nzContent,设置列表项内容,类型: string
+    /// </summary>
+    public string Content { get; set; }
+    /// <summary>
+    /// [nzContent],设置列表项内容,类型: TemplateRef&lt;void>
+    /// </summary>
+    public string BindContent { get; set; }
+    /// <summary>
+    /// [nzExtra],设置列表项扩展,类型: TemplateRef&lt;void>
+    /// </summary>
+    public string Extra { get; set; }
+    /// <summary>
     /// [nzNoFlex],是否非 flex 布局渲染,默认值: false
     /// </summary>
     public string NoFlex { get; set; }

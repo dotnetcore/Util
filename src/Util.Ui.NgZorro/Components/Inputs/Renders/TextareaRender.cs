@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
-using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Renders; 
 
@@ -29,28 +27,6 @@ public class TextareaRender : InputRenderBase {
         var builder = new TextareaBuilder( _config );
         builder.Config();
         return builder;
-    }
-
-    /// <summary>
-    /// 获取输入框组合的样式类
-    /// </summary>
-    protected override string GetInputGroupClass() {
-        if( IsAllowClear() )
-            return "ant-input-affix-wrapper-textarea-with-clear-btn";
-        return null;
-    }
-
-    /// <summary>
-    /// 是否允许清除
-    /// </summary>
-    private bool IsAllowClear() {
-        var isAllowClear = _config.GetValue<bool?>( UiConst.AllowClear );
-        if( isAllowClear == null ) {
-            var options = NgZorroOptionsService.GetOptions();
-            if( options.EnableAllowClear )
-                return true;
-        }
-        return isAllowClear.SafeValue();
     }
 
     /// <inheritdoc />

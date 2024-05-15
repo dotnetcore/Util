@@ -32,11 +32,11 @@ public class UploadTagHelper : FormControlContainerTagHelperBase {
     /// <summary>
     /// 扩展属性 [isClearFiles],是否清除文件列表
     /// </summary>
-    public bool ClearFiles { get; set; }
+    public string ClearFiles { get; set; }
     /// <summary>
     /// 扩展属性 [modelToFilesDebounceTime],模型数据转换为上传文件列表的延迟时间,单位:毫秒,默认值: 100
     /// </summary>
-    public double ModelToFilesDebounceTime { get; set; }
+    public string ModelToFilesDebounceTime { get; set; }
     /// <summary>
     /// 扩展属性 [required],是否必填项
     /// </summary>

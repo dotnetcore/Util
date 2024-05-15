@@ -176,12 +176,13 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         [Fact]
         public void TestAllowClear() {
             _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\"></textarea>" );
+            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
-            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -192,12 +193,13 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         [Fact]
         public void TestAllowClear_2() {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\"></textarea>" );
+            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
             result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
-            result.Append( "<i (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></i>" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

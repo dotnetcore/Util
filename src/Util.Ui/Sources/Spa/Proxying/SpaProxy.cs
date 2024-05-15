@@ -22,14 +22,14 @@ internal static class SpaProxy
 
     // Don't forward User-Agent/Accept because of https://github.com/aspnet/JavaScriptServices/issues/1469
     // Others just aren't applicable in proxy scenarios
-    private static readonly HashSet<string> NotForwardedWebSocketHeaders = new HashSet<string>(
-        new[] { "Accept", "Connection", "Host", "User-Agent", "Upgrade", "Sec-WebSocket-Key", "Sec-WebSocket-Protocol", "Sec-WebSocket-Version" },
+    private static readonly HashSet<string> NotForwardedWebSocketHeaders = new (
+        ["Accept", "Connection", "Host", "User-Agent", "Upgrade", "Sec-WebSocket-Key", "Sec-WebSocket-Protocol", "Sec-WebSocket-Version"],
         StringComparer.OrdinalIgnoreCase
     );
 
     // In case the connection to the client is HTTP/2 or HTTP/3 and to the server HTTP/1.1 or less, let's get rid of the HTTP/1.1 only headers
-    private static readonly HashSet<string> InvalidH2H3Headers = new HashSet<string>(
-        new[] { "Connection", "Transfer-Encoding", "Keep-Alive", "Upgrade", "Proxy-Connection" },
+    private static readonly HashSet<string> InvalidH2H3Headers = new(
+        ["Connection", "Transfer-Encoding", "Keep-Alive", "Upgrade", "Proxy-Connection"],
         StringComparer.OrdinalIgnoreCase
     );
 

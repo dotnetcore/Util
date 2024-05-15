@@ -37,7 +37,7 @@ public class ButtonRender : RenderBase {
     /// 创建标签生成器
     /// </summary>
     private TagBuilder CreateTagBuilder() {
-        if( GetButtonType() == "link" )
+        if( GetButtonType() == ButtonType.Link )
             return new ABuilder( _config );
         return new ButtonBuilder( _config );
     }
@@ -45,8 +45,8 @@ public class ButtonRender : RenderBase {
     /// <summary>
     /// 获取按钮类型
     /// </summary>
-    private string GetButtonType() {
-        return _config.GetValue<ButtonType?>( UiConst.Type )?.Description();
+    private ButtonType? GetButtonType() {
+        return _config.GetValue<ButtonType?>( UiConst.Type );
     }
 
     /// <inheritdoc />

@@ -1,4 +1,9 @@
-﻿using Util.Ui.Angular.Builders;
+﻿using Util.Applications;
+using Util.Helpers;
+using Util.Ui.Angular.Builders;
+using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Templates.Builders;
+using Config = Util.Ui.Configs.Config;
 
 namespace Util.Ui.NgZorro.Components.BackTops.Builders;
 
@@ -10,6 +15,10 @@ public class BackTopBuilder : AngularTagBuilder {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 模板标识
+    /// </summary>
+    private string _templateId;
 
     /// <summary>
     /// 初始化回到顶部标签生成器
@@ -23,7 +32,16 @@ public class BackTopBuilder : AngularTagBuilder {
     /// 配置自定义内容
     /// </summary>
     public BackTopBuilder Template() {
-        AttributeIfNotEmpty( "[nzTemplate]", _config.GetValue( UiConst.Template ) );
+        Template( _config.GetValue( UiConst.Template ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置模板标识
+    /// </summary>
+    /// <param name="templateId">模板标识</param>
+    public BackTopBuilder Template( string templateId ) {
+        AttributeIfNotEmpty( "[nzTemplate]", templateId );
         return this;
     }
 
@@ -65,5 +83,34 @@ public class BackTopBuilder : AngularTagBuilder {
     public override void Config() {
         base.Config();
         Template().VisibilityHeight().Target().Duration().Events();
+    }
+
+    /// <summary>
+    /// 配置内容
+    /// </summary>
+    protected override void ConfigContent( Config config ) {
+        if ( config.Content.IsEmpty() )
+            return;
+        Template( GetTemplateId() );
+        var templateBuilder = new TemplateBuilder( _config );
+        templateBuilder.Attribute( $"#{GetTemplateId()}" );
+        templateBuilder.AppendContent( config.Content );
+        AppendContent( templateBuilder );
+    }
+
+    /// <summary>
+    /// 获取模板标识
+    /// </summary>
+    private string GetTemplateId() {
+        if ( _templateId.IsEmpty() == false )
+            return _templateId;
+        _templateId = _config.GetValue( UiConst.Template );
+        if ( _templateId.IsEmpty() == false )
+            return _templateId;
+        var id = _config.GetValue( UiConst.Id );
+        if ( id.IsEmpty() )
+            id = Id.Create();
+        _templateId = $"tpl_{id}";
+        return _templateId;
     }
 }

@@ -261,6 +261,28 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestStatus() {
+            _wrapper.SetContextAttribute( UiConst.Status, InputStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzStatus=\"error\"></nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestBindStatus() {
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group [nzStatus]=\"a\"></nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试紧凑模式
         /// </summary>
         [Fact]

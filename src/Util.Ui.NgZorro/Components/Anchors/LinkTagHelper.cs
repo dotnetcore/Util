@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
+using Util.Ui.Enums;
 using Util.Ui.NgZorro.Components.Anchors.Renders;
 using Util.Ui.Renders;
 
@@ -18,6 +19,14 @@ public class LinkTagHelper : AngularTagHelperBase {
     /// [nzHref],锚点链接
     /// </summary>
     public string BindHref { get; set; }
+    /// <summary>
+    /// nzTarget,链接打开目标
+    /// </summary>
+    public ATarget Target { get; set; }
+    /// <summary>
+    /// [nzTarget],链接打开目标
+    /// </summary>
+    public string BindTarget { get; set; }
     /// <summary>
     /// nzTitle,标题,类型: string | TemplateRef&lt;void>
     /// </summary>

@@ -50,6 +50,10 @@ public class ProjectOptions {
     /// </summary>
     public string ApiPort { get; set; }
     /// <summary>
+    /// UI项目端口
+    /// </summary>
+    public string UiPort { get; set; }
+    /// <summary>
     /// 是否启用架构
     /// </summary>
     public bool EnableSchema { get; set; }

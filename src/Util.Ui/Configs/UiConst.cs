@@ -41,9 +41,45 @@ public static class UiConst {
     /// </summary>
     public const string OptionalHelp = "optional-help";
     /// <summary>
+    /// 渲染项
+    /// </summary>
+    public const string RenderItem = "render-item";
+    /// <summary>
+    /// 当前锚点
+    /// </summary>
+    public const string CurrentAnchor = "current-anchor";
+    /// <summary>
+    /// 确认气泡框确认前操作
+    /// </summary>
+    public const string PopconfirmBeforeConfirm = "popconfirm-before-confirm";
+    /// <summary>
+    /// 确认气泡框确认按钮是否危险按钮
+    /// </summary>
+    public const string PopconfirmOkDanger = "popconfirm-ok-danger";
+    /// <summary>
+    /// 确认气泡框箭头是否指向锚点的中心
+    /// </summary>
+    public const string PopconfirmArrowPointAtCenter = "popconfirm-arrow-point-at-center";
+    /// <summary>
+    /// 目标偏移量
+    /// </summary>
+    public const string TargetOffset = "target-offset";
+    /// <summary>
     /// 可选帮助颜色
     /// </summary>
     public const string OptionalHelpColor = "optional-help-color";
+    /// <summary>
+    /// 提示箭头指向锚点中心
+    /// </summary>
+    public const string TooltipArrowPointAtCenter = "tooltip-arrow-point-at-center";
+    /// <summary>
+    /// 气泡箭头指向锚点中心
+    /// </summary>
+    public const string PopoverArrowPointAtCenter = "popover-arrow-point-at-center";
+    /// <summary>
+    /// 提示文字上下文
+    /// </summary>
+    public const string TooltipTitleContext = "tooltip-title-context";
     /// <summary>
     /// 隐藏标签
     /// </summary>
@@ -1160,6 +1196,14 @@ public static class UiConst {
     /// 形状
     /// </summary>
     public const string Shape = "shape";
+    /// <summary>
+    /// 头像形状
+    /// </summary>
+    public const string AvatarShape = "avatar-shape";
+    /// <summary>
+    /// 按钮形状
+    /// </summary>
+    public const string ButtonShape = "button-shape";
     /// <summary>
     /// 加载状态
     /// </summary>
@@ -3692,6 +3736,10 @@ public static class UiConst {
     /// 弹出确认确定类型
     /// </summary>
     public const string PopconfirmOkType = "popconfirm-ok-type";
+    /// <summary>
+    /// 弹出确认自动聚焦
+    /// </summary>
+    public const string PopconfirmAutoFocus = "popconfirm-auto-focus";
     /// <summary>
     /// 弹出确认条件
     /// </summary>

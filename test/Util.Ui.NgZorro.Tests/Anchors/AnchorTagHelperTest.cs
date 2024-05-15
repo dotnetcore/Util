@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Anchors;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -114,6 +115,61 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
         }
 
         /// <summary>
+        /// 测试自定义高亮的锚点
+        /// </summary>
+        [Fact]
+        public void TestCurrentAnchor() {
+            _wrapper.SetContextAttribute( UiConst.CurrentAnchor, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-anchor nzCurrentAnchor=\"a\"></nz-anchor>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自定义高亮的锚点
+        /// </summary>
+        [Fact]
+        public void TestBindCurrentAnchor() {
+            _wrapper.SetContextAttribute( AngularConst.BindCurrentAnchor, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-anchor [nzCurrentAnchor]=\"a\"></nz-anchor>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试锚点滚动偏移量
+        /// </summary>
+        [Fact]
+        public void TestTargetOffset() {
+            _wrapper.SetContextAttribute( UiConst.TargetOffset, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-anchor [nzTargetOffset]=\"a\"></nz-anchor>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试方向
+        /// </summary>
+        [Fact]
+        public void TestDirection() {
+            _wrapper.SetContextAttribute( UiConst.Direction, AnchorDirection.Horizontal );
+            var result = new StringBuilder();
+            result.Append( "<nz-anchor nzDirection=\"horizontal\"></nz-anchor>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试方向
+        /// </summary>
+        [Fact]
+        public void TestBindDirection() {
+            _wrapper.SetContextAttribute( AngularConst.BindDirection, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-anchor [nzDirection]=\"a\"></nz-anchor>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]
@@ -132,6 +188,17 @@ namespace Util.Ui.NgZorro.Tests.Anchors {
             _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-anchor (nzClick)=\"a\"></nz-anchor>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试锚点链接变更事件
+        /// </summary>
+        [Fact]
+        public void TestOnChange() {
+            _wrapper.SetContextAttribute( UiConst.OnChange, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-anchor (nzChange)=\"a\"></nz-anchor>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

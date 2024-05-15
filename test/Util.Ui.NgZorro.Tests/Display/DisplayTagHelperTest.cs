@@ -107,7 +107,7 @@ namespace Util.Ui.NgZorro.Tests.Display {
             result.Append( "</span>" );
             result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(a)\" *ngIf=\"a\" " );
             result.Append( "nz-button=\"\" nz-tooltip=\"\" nzTooltipTitle=\"复制到剪贴板\" nzType=\"text\" x-button-extend=\"\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
             result.Append( "</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
@@ -126,7 +126,7 @@ namespace Util.Ui.NgZorro.Tests.Display {
             result.Append( "</span>" );
             result.Append( "<button #x_id=\"xButtonExtend\" (click)=\"x_id.copyToClipboard(a)\" *ngIf=\"a\" " );
             result.Append( "nz-button=\"\" nz-tooltip=\"\" nzType=\"text\" x-button-extend=\"\" [nzTooltipTitle]=\"'util.copyToClipboard'|i18n\">" );
-            result.Append( "<i nz-icon=\"\" nzType=\"copy\"></i>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"copy\"></span>" );
             result.Append( "</button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

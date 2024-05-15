@@ -1,8 +1,6 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
-using System;
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Util.Ui.Razor;
@@ -14,11 +12,8 @@ namespace Util.Ui.Sources.Spa.AngularCli;
 
 internal static class AngularCliMiddleware {
     private const string LogCategoryName = "Microsoft.AspNetCore.SpaServices";
-    private static readonly TimeSpan RegexMatchTimeout = TimeSpan.FromSeconds( 5 ); // This is a development-time only feature, so a very long timeout is fine
 
-    public static void Attach(
-        ISpaBuilder spaBuilder,
-        string scriptName ) {
+    public static void Attach( ISpaBuilder spaBuilder, string scriptName ) {
         var pkgManagerCommand = spaBuilder.Options.PackageManagerCommand;
         var sourcePath = spaBuilder.Options.SourcePath;
         var devServerPort = spaBuilder.Options.DevServerPort;

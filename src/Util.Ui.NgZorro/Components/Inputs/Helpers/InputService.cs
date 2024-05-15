@@ -1,6 +1,6 @@
 ﻿using Util.Ui.NgZorro.Components.Forms.Helpers;
 
-namespace Util.Ui.NgZorro.Components.Inputs.Helpers; 
+namespace Util.Ui.NgZorro.Components.Inputs.Helpers;
 
 /// <summary>
 /// 输入框服务
@@ -10,13 +10,19 @@ public class InputService {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 输入框组样式类
+    /// </summary>
+    private string _inputGroupClass;
 
     /// <summary>
     /// 初始化输入框服务
     /// </summary>
     /// <param name="config">配置</param>
-    public InputService( Config config ) {
+    /// <param name="inputGroupClass">输入框组样式类</param>
+    public InputService( Config config, string inputGroupClass = null ) {
         _config = config;
+        _inputGroupClass = inputGroupClass;
     }
 
     /// <summary>
@@ -69,5 +75,15 @@ public class InputService {
     private void InitInputGroupShareService() {
         var service = new InputGroupShareService( _config );
         service.Init();
+        service.SetInputId( GetId() );
+        service.SetClass( _inputGroupClass );
+    }
+
+    /// <summary>
+    /// 获取输入框标识
+    /// </summary>
+    private string GetId() {
+        var id = _config.GetValue( UiConst.Id );
+        return id.IsEmpty() ? Util.Helpers.Id.Create() : id;
     }
 }

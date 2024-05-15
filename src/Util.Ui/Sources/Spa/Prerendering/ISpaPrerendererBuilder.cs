@@ -8,7 +8,6 @@ namespace Util.Ui.Sources.Spa.Prerendering;
 /// so that it can be prerendered. This is only intended to be used at development
 /// time. In production, a SPA should already have been built during publishing.
 /// </summary>
-[Obsolete("Prerendering is no longer supported out of box")]
 public interface ISpaPrerendererBuilder
 {
     /// <summary>

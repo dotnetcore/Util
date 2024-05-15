@@ -72,6 +72,11 @@ public class ProjectContext {
     public string ApiPort { get; set; }
 
     /// <summary>
+    /// UI项目端口
+    /// </summary>
+    public string UiPort { get; set; }
+
+    /// <summary>
     /// 项目类型
     /// </summary>
     public ProjectType? ProjectType { get; set; }
@@ -141,6 +146,7 @@ public class ProjectContext {
             I18n = I18n,
             ProjectType = ProjectType,
             ApiPort = ApiPort,
+            UiPort = UiPort,
             EnableSchema = EnableSchema,
             Extend = Extend
         };

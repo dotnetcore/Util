@@ -1,4 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 
 namespace Util.Ui.NgZorro.Components.Lists.Builders; 
 
@@ -16,6 +17,31 @@ public class ListItemBuilder : AngularTagBuilder {
     /// </summary>
     public ListItemBuilder( Config config ) : base( config,"nz-list-item" ) {
         _config = config;
+    }
+
+    /// <summary>
+    /// 配置列表项操作
+    /// </summary>
+    public ListItemBuilder Actions() {
+        AttributeIfNotEmpty( "[nzActions]", _config.GetValue( UiConst.Actions ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置列表项内容
+    /// </summary>
+    public ListItemBuilder Content() {
+        AttributeIfNotEmpty( "nzContent", _config.GetValue( UiConst.Content ) );
+        AttributeIfNotEmpty( "[nzContent]", _config.GetValue( AngularConst.BindContent ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置列表项扩展
+    /// </summary>
+    public ListItemBuilder Extra() {
+        AttributeIfNotEmpty( "[nzExtra]", _config.GetValue( UiConst.Extra ) );
+        return this;
     }
 
     /// <summary>
@@ -39,6 +65,6 @@ public class ListItemBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        NoFlex().VirtualFor();
+        Actions().Content().Extra().NoFlex().VirtualFor();
     }
 }

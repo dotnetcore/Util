@@ -49,6 +49,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindOptional = "bind-optional";
     /// <summary>
+    /// 当前锚点
+    /// </summary>
+    public const string BindCurrentAnchor = "bind-current-anchor";
+    /// <summary>
     /// 可选帮助
     /// </summary>
     public const string BindOptionalHelp = "bind-optional-help";
@@ -56,6 +60,10 @@ public static class AngularConst {
     /// 可选帮助颜色
     /// </summary>
     public const string BindOptionalHelpColor = "bind-optional-help-color";
+    /// <summary>
+    /// 弹出确认自动聚焦
+    /// </summary>
+    public const string BindPopconfirmAutoFocus = "bind-popconfirm-auto-focus";
     /// <summary>
     /// 间距
     /// </summary>
@@ -1505,6 +1513,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindTooltipColor = "bind-tooltip-color";
     /// <summary>
+    /// 提示可见性
+    /// </summary>
+    public const string BindonTooltipVisible = "bindon-tooltip-visible";
+    /// <summary>
     /// 提示移入延时
     /// </summary>
     public const string BindTooltipMouseEnterDelay = "bind-tooltip-mouse-enter-delay";
@@ -1643,7 +1655,7 @@ public static class AngularConst {
     /// <summary>
     /// 弹出确认是否可见
     /// </summary>
-    public const string BindPopconfirmVisible = "bind-popconfirm-visible";
+    public const string BindonPopconfirmVisible = "bindon-popconfirm-visible";
     /// <summary>
     /// 弹出确认显示箭头
     /// </summary>

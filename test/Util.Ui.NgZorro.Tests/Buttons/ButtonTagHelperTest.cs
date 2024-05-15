@@ -248,7 +248,7 @@ public partial class ButtonTagHelperTest {
         _wrapper.AppendContent( "a" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>a" );
+        result.Append( "<span nz-icon=\"\" nzType=\"check\"></span>a" );
         result.Append( "</button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -263,7 +263,7 @@ public partial class ButtonTagHelperTest {
         _wrapper.AppendContent( icon );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\">" );
-        result.Append( "<i nz-icon=\"\" nzType=\"check\"></i>" );
+        result.Append( "<span nz-icon=\"\" nzType=\"check\"></span>" );
         result.Append( "</button>" );
         Assert.Equal( result.ToString(), GetResult() );
     }

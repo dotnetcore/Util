@@ -5,7 +5,7 @@ using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Builders;
 using Util.Ui.NgZorro.Components.Radios.Configs;
 
-namespace Util.Ui.NgZorro.Components.Radios.Renders; 
+namespace Util.Ui.NgZorro.Components.Radios.Renders;
 
 /// <summary>
 /// 单选框组合渲染器
@@ -52,7 +52,7 @@ public class RadioGroupRender : FormControlRenderBase {
         var builder = new RadioGroupBuilder( _config );
         builder.Config();
         _config.Content.AppendTo( builder );
-        if ( _shareConfig.IsRadioGroupExtend ) 
+        if ( _shareConfig.IsRadioGroupExtend )
             builder.SelectExtend();
         return builder;
     }
@@ -64,6 +64,7 @@ public class RadioGroupRender : FormControlRenderBase {
         if ( _shareConfig.IsAutoCreateRadio != true )
             return new EmptyContainerTagBuilder();
         var builder = new RadioBuilder( _config );
+        builder.Attribute( "nz-radio" );
         if ( _shareConfig.IsRadioExtend )
             builder.Extend();
         return builder;

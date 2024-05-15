@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Anchors.Builders; 
 
@@ -61,10 +62,37 @@ public class AnchorBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置自定义高亮的锚点
+    /// </summary>
+    public AnchorBuilder CurrentAnchor() {
+        AttributeIfNotEmpty( "nzCurrentAnchor", _config.GetValue( UiConst.CurrentAnchor ) );
+        AttributeIfNotEmpty( "[nzCurrentAnchor]", _config.GetValue( AngularConst.BindCurrentAnchor ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置锚点滚动偏移量
+    /// </summary>
+    public AnchorBuilder TargetOffset() {
+        AttributeIfNotEmpty( "[nzTargetOffset]", _config.GetValue( UiConst.TargetOffset ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置方向
+    /// </summary>
+    public AnchorBuilder Direction() {
+        AttributeIfNotEmpty( "nzDirection", _config.GetValue<AnchorDirection?>( UiConst.Direction )?.Description() );
+        AttributeIfNotEmpty( "[nzDirection]", _config.GetValue( AngularConst.BindDirection ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public AnchorBuilder Events() {
         AttributeIfNotEmpty( "(nzClick)", _config.GetValue( UiConst.OnClick ) );
+        AttributeIfNotEmpty( "(nzChange)", _config.GetValue( UiConst.OnChange ) );
         AttributeIfNotEmpty( "(nzScroll)", _config.GetValue( UiConst.OnScroll ) );
         return this;
     }
@@ -74,6 +102,9 @@ public class AnchorBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Affix().Bounds().OffsetTop().ShowInkInFixed().Container().Events();
+        Affix().Bounds().OffsetTop().ShowInkInFixed()
+            .Container().CurrentAnchor().TargetOffset()
+            .Direction()
+            .Events();
     }
 }

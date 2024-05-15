@@ -1,16 +1,42 @@
 ﻿namespace Util.Ui.NgZorro.Enums; 
 
 /// <summary>
-/// 骨架屏元素形状
+/// 骨架屏按钮形状
 /// </summary>
-public enum SkeletonElementShape {
+public enum SkeletonButtonShape {
     /// <summary>
-    /// 圆形
+    /// default, 默认
+    /// </summary>
+    [Description( "default" )]
+    Default,
+    /// <summary>
+    /// circle, 圆形
     /// </summary>
     [Description( "circle" )]
     Circle,
     /// <summary>
-    /// 方形
+    /// square, 方形
+    /// </summary>
+    [Description( "square" )]
+    Square,
+    /// <summary>
+    /// round, 圆角
+    /// </summary>
+    [Description( "round" )]
+    Round
+}
+
+/// <summary>
+/// 骨架屏头像形状
+/// </summary>
+public enum SkeletonAvatarShape {
+    /// <summary>
+    /// circle, 圆形
+    /// </summary>
+    [Description( "circle" )]
+    Circle,
+    /// <summary>
+    /// square,方形
     /// </summary>
     [Description( "square" )]
     Square

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Configs;
 using Xunit;
 
@@ -12,6 +13,7 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// </summary>
         [Fact]
         public void TestFor_Bool() {
+            _wrapper.SetContextAttribute( UiConst.Id, "enabled" );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete #enabled=\"\" #x_enabled=\"xSelectExtend\" x-select-extend=\"\" " );
@@ -38,6 +40,7 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         [Fact]
         public void TestFor_Bool_I18n() {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Id, "enabled" );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete #enabled=\"\" #x_enabled=\"xSelectExtend\" x-select-extend=\"\" " );
@@ -48,7 +51,7 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
             result.Append( "</nz-auto-option>" );
             result.Append( "</ng-container>" );
             result.Append( "<ng-container *ngIf=\"x_enabled.isGroup\">" );
-            result.Append( "<nz-auto-optgroup *ngFor=\"let group of x_enabled.optionGroups\" [nzLabel]=\"group.text\">" );
+            result.Append( "<nz-auto-optgroup *ngFor=\"let group of x_enabled.optionGroups\" [nzLabel]=\"group.text|i18n\">" );
             result.Append( "<nz-auto-option *ngFor=\"let item of group.value\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text|i18n}}" );
             result.Append( "</nz-auto-option>" );

@@ -28,8 +28,8 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Humanizer.Core" Version="2.14.1" />
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.4" />
-	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.4" />
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.5" />
+	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="8.0.5" />
 	  <PackageReference Include="System.Reactive.Async" Version="6.0.0-alpha.18" />
 	</ItemGroup>
 

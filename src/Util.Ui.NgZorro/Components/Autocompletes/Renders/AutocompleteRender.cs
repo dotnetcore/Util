@@ -1,15 +1,13 @@
 ﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
-using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Autocompletes.Builders;
-using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Autocompletes.Renders; 
 
 /// <summary>
 /// 自动完成渲染器
 /// </summary>
-public class AutocompleteRender : FormControlRenderBase {
+public class AutocompleteRender : RenderBase {
     /// <summary>
     /// 配置
     /// </summary>
@@ -19,18 +17,17 @@ public class AutocompleteRender : FormControlRenderBase {
     /// 初始化自动完成渲染器
     /// </summary>
     /// <param name="config">配置</param>
-    public AutocompleteRender( Config config ) : base( config ) {
+    public AutocompleteRender( Config config ){
         _config = config;
     }
 
     /// <summary>
-    /// 添加表单控件
+    /// 获取标签生成器
     /// </summary>
-    protected override void AppendControl( TagBuilder formControlBuilder ) {
+    protected override TagBuilder GetTagBuilder() {
         var builder = new AutocompleteBuilder( _config );
         builder.Config();
-        _config.Content.AppendTo( builder );
-        formControlBuilder.AppendContent( builder );
+        return builder;
     }
 
     /// <inheritdoc />

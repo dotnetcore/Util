@@ -35,6 +35,7 @@ namespace Util.Generators.Tests.Mocks {
                         },
                         ProjectType = ProjectType.WebApi,
                         ApiPort = "123",
+                        UiPort = "666",
                         EnableSchema = true,
                         Extend = "Extend1"
                     }},
@@ -53,6 +54,7 @@ namespace Util.Generators.Tests.Mocks {
                         },
                         ProjectType = ProjectType.Ui,
                         ApiPort = "456",
+                        UiPort = "888",
                         Extend = "Extend2"
                     }},
                     {"Test3",new ProjectOptions {
@@ -70,7 +72,7 @@ namespace Util.Generators.Tests.Mocks {
                             Port =  "3"
                         },
                         ProjectType = ProjectType.WebApi,
-                        ApiPort = "789",
+                        ApiPort = "789"
                     }},
                 }
             };

@@ -1,8 +1,9 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Inputs.Helpers; 
+namespace Util.Ui.NgZorro.Components.Inputs.Helpers;
 
 /// <summary>
 /// 输入框组合共享服务
@@ -26,6 +27,13 @@ public class InputGroupShareService {
     }
 
     /// <summary>
+    /// 设置nz-input-group已创建
+    /// </summary>
+    public void Created() {
+        _shareConfig.IsInputGroupCreated = true;
+    }
+
+    /// <summary>
     /// 设置自动创建nz-input-group
     /// </summary>
     /// <param name="value">是否自动创建</param>
@@ -33,6 +41,22 @@ public class InputGroupShareService {
         if ( _shareConfig.AutoCreateInputGroup == false )
             return;
         _shareConfig.AutoCreateInputGroup = value;
+    }
+
+    /// <summary>
+    /// 设置输入框标识
+    /// </summary>
+    /// <param name="id">输入框标识</param>
+    public void SetInputId( string id ) {
+        _shareConfig.InputId = id;
+    }
+
+    /// <summary>
+    /// 设置样式类
+    /// </summary>
+    /// <param name="value">样式类</param>
+    public void SetClass( string value ) {
+        _shareConfig.Class = value;
     }
 
     /// <summary>
@@ -63,22 +87,79 @@ public class InputGroupShareService {
     /// 设置共享配置
     /// </summary>
     private void SetShareConfig() {
-        _shareConfig.AddOnBefore = _config.GetValue( UiConst.AddOnBefore );
-        _shareConfig.BindAddOnBefore = _config.GetValue( AngularConst.BindAddOnBefore );
-        _shareConfig.AddOnAfter = _config.GetValue( UiConst.AddOnAfter );
-        _shareConfig.BindAddOnAfter = _config.GetValue( AngularConst.BindAddOnAfter );
-        _shareConfig.AddOnBeforeIcon = _config.GetValue<AntDesignIcon?>( UiConst.AddOnBeforeIcon );
-        _shareConfig.BindAddOnBeforeIcon = _config.GetValue( AngularConst.BindAddOnBeforeIcon );
-        _shareConfig.AddOnAfterIcon = _config.GetValue<AntDesignIcon?>( UiConst.AddOnAfterIcon );
-        _shareConfig.BindAddOnAfterIcon = _config.GetValue( AngularConst.BindAddOnAfterIcon );
-        _shareConfig.Prefix = _config.GetValue( UiConst.Prefix );
-        _shareConfig.BindPrefix = _config.GetValue( AngularConst.BindPrefix );
-        _shareConfig.Suffix = _config.GetValue( UiConst.Suffix );
-        _shareConfig.BindSuffix = _config.GetValue( AngularConst.BindSuffix );
-        _shareConfig.PrefixIcon = _config.GetValue<AntDesignIcon?>( UiConst.PrefixIcon );
-        _shareConfig.BindPrefixIcon = _config.GetValue( AngularConst.BindPrefixIcon );
-        _shareConfig.SuffixIcon = _config.GetValue<AntDesignIcon?>( UiConst.SuffixIcon );
-        _shareConfig.BindSuffixIcon = _config.GetValue( AngularConst.BindSuffixIcon );
+        if ( _shareConfig.AddOnBefore.IsEmpty() )
+            _shareConfig.AddOnBefore = _config.GetValue( UiConst.AddOnBefore );
+        if ( _shareConfig.BindAddOnBefore.IsEmpty() )
+            _shareConfig.BindAddOnBefore = _config.GetValue( AngularConst.BindAddOnBefore );
+        if ( _shareConfig.AddOnAfter.IsEmpty() )
+            _shareConfig.AddOnAfter = _config.GetValue( UiConst.AddOnAfter );
+        if ( _shareConfig.BindAddOnAfter.IsEmpty() )
+            _shareConfig.BindAddOnAfter = _config.GetValue( AngularConst.BindAddOnAfter );
+        _shareConfig.AddOnBeforeIcon ??= _config.GetValue<AntDesignIcon?>( UiConst.AddOnBeforeIcon );
+        if ( _shareConfig.BindAddOnBeforeIcon.IsEmpty() )
+            _shareConfig.BindAddOnBeforeIcon = _config.GetValue( AngularConst.BindAddOnBeforeIcon );
+        _shareConfig.AddOnAfterIcon ??= _config.GetValue<AntDesignIcon?>( UiConst.AddOnAfterIcon );
+        if ( _shareConfig.BindAddOnAfterIcon.IsEmpty() )
+            _shareConfig.BindAddOnAfterIcon = _config.GetValue( AngularConst.BindAddOnAfterIcon );
+        if ( _shareConfig.Prefix.IsEmpty() )
+            _shareConfig.Prefix = _config.GetValue( UiConst.Prefix );
+        if ( _shareConfig.BindPrefix.IsEmpty() )
+            _shareConfig.BindPrefix = _config.GetValue( AngularConst.BindPrefix );
+        if ( _shareConfig.Suffix.IsEmpty() )
+            _shareConfig.Suffix = _config.GetValue( UiConst.Suffix );
+        if ( _shareConfig.BindSuffix.IsEmpty() )
+            _shareConfig.BindSuffix = _config.GetValue( AngularConst.BindSuffix );
+        _shareConfig.PrefixIcon ??= _config.GetValue<AntDesignIcon?>( UiConst.PrefixIcon );
+        if ( _shareConfig.BindPrefixIcon.IsEmpty() )
+            _shareConfig.BindPrefixIcon = _config.GetValue( AngularConst.BindPrefixIcon );
+        _shareConfig.SuffixIcon ??= _config.GetValue<AntDesignIcon?>( UiConst.SuffixIcon );
+        if ( _shareConfig.BindSuffixIcon.IsEmpty() )
+            _shareConfig.BindSuffixIcon = _config.GetValue( AngularConst.BindSuffixIcon );
+        _shareConfig.Size ??= _config.GetValue<InputSize?>( UiConst.Size );
+        if ( _shareConfig.BindSize.IsEmpty() )
+            _shareConfig.BindSize = _config.GetValue( AngularConst.BindSize );
+        _shareConfig.Status ??= _config.GetValue<InputStatus?>( UiConst.Status );
+        if ( _shareConfig.BindStatus.IsEmpty() )
+            _shareConfig.BindStatus = _config.GetValue( AngularConst.BindStatus );
+        _shareConfig.AllowClear = IsAllowClear();
+        _shareConfig.IsPassword = IsPassword();
+    }
+
+    /// <summary>
+    /// 是否允许清除
+    /// </summary>
+    private bool IsAllowClear() {
+        if ( IsFormControl() )
+            return false;
+        if ( _config.GetValue( AngularConst.NgModel ).IsEmpty() )
+            return false;
+        var isAllowClear = _config.GetValue<bool?>( UiConst.AllowClear );
+        if ( isAllowClear == null ) {
+            var options = NgZorroOptionsService.GetOptions();
+            if ( options.EnableAllowClear )
+                return true;
+        }
+        return isAllowClear.SafeValue();
+    }
+
+    /// <summary>
+    /// 是否表单控件
+    /// </summary>
+    private bool IsFormControl() {
+        if ( _config.GetValue( UiConst.FormControl ).IsEmpty() == false )
+            return true;
+        if ( _config.GetValue( UiConst.FormControlName ).IsEmpty() == false )
+            return true;
+        if ( _config.GetValue( AngularConst.BindFormControlName ).IsEmpty() == false )
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// 是否密码类型
+    /// </summary>
+    private bool IsPassword() {
+        return _config.GetValue<InputType?>( UiConst.Type ) == InputType.Password;
     }
 
     /// <summary>
@@ -94,6 +175,8 @@ public class InputGroupShareService {
     /// 是否自动创建nz-input-group
     /// </summary>
     private bool IsAutoCreateInputGroup() {
+        if ( _shareConfig.AutoCreateInputGroup == false )
+            return false;
         if ( string.IsNullOrWhiteSpace( _shareConfig.AddOnBefore ) == false )
             return true;
         if ( string.IsNullOrWhiteSpace( _shareConfig.BindAddOnBefore ) == false )

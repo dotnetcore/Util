@@ -46,7 +46,7 @@ public static class TagHelperExtensions {
         key ??= typeof(T);
         var exists = context.Items.TryGetValue( key, out var value );
         if( exists == false )
-            return default( T );
+            return default;
         if( !( value is TagHelperAttribute tagHelperAttribute ) )
             return Util.Helpers.Convert.To<T>( value );
         return Util.Helpers.Convert.To<T>( tagHelperAttribute.Value );
@@ -101,9 +101,7 @@ public static class TagHelperExtensions {
     public static T GetValueFromAttributes<T>( this TagHelperContext context, string key ) {
         var exists = context.AllAttributes.TryGetAttribute( key, out var value );
         if( exists == false )
-            return default( T );
-        if( !( value is { } tagHelperAttribute ) )
-            return default( T );
-        return Util.Helpers.Convert.To<T>( tagHelperAttribute?.Value );
+            return default;
+        return value is not { } tagHelperAttribute ? default : Util.Helpers.Convert.To<T>( tagHelperAttribute?.Value );
     }
 }

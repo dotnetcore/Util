@@ -2,6 +2,8 @@
 using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -53,7 +55,7 @@ public class TypographyRender : RenderBase {
         ConfigEvents();
         Config( _builder );
         _builder.Angular( _config );
-        _builder.Tooltip( _config );
+        _builder.Tooltip( _config ).Popconfirm( _config ).Popover( _config );
         _builder.ConfigBase( _config );
         ConfigContent( _builder );
         return _builder;

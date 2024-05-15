@@ -1,11 +1,10 @@
 ﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Builders;
 using Util.Ui.NgZorro.Components.Radios.Configs;
 
-namespace Util.Ui.NgZorro.Components.Radios.Renders; 
+namespace Util.Ui.NgZorro.Components.Radios.Renders;
 
 /// <summary>
 /// 单选框渲染器
@@ -19,14 +18,20 @@ public class RadioRender : FormControlRenderBase {
     /// 单选框组合共享配置
     /// </summary>
     private readonly RadioGroupShareConfig _shareConfig;
+    /// <summary>
+    /// 指令名称
+    /// </summary>
+    private readonly string _directiveName;
 
     /// <summary>
     /// 初始化单选框渲染器
     /// </summary>
     /// <param name="config">配置</param>
-    public RadioRender( Config config ) : base( config ) {
+    /// <param name="directiveName">指令名称</param>
+    public RadioRender( Config config, string directiveName ) : base( config ) {
         _config = config;
         _shareConfig = GetShareConfig();
+        _directiveName = directiveName;
     }
 
     /// <summary>
@@ -71,6 +76,7 @@ public class RadioRender : FormControlRenderBase {
     /// </summary>
     private TagBuilder GetRadioBuilder() {
         var builder = new RadioBuilder( _config );
+        builder.Attribute( _directiveName );
         builder.Config();
         if ( _config.Content.IsEmpty() == false )
             builder.SetContent( _config.Content );
@@ -81,6 +87,6 @@ public class RadioRender : FormControlRenderBase {
 
     /// <inheritdoc />
     public override IHtmlContent Clone() {
-        return new RadioRender( _config.Copy() );
+        return new RadioRender( _config.Copy(), _directiveName );
     }
 }
