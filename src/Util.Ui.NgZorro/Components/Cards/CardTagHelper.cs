@@ -64,6 +64,10 @@ public class CardTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
+    /// *nzSpaceItem,值为 true 时设置为间距项,放入 &lt;util-space> 中使用
+    /// </summary>
+    public bool SpaceItem { get; set; }
+    /// <summary>
     /// (click),单击事件
     /// </summary>
     public string OnClick { get; set; }

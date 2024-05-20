@@ -282,7 +282,6 @@ public class TreeBuilder : AngularTagBuilder {
     public TreeBuilder Events() {
         AttributeIfNotEmpty( "(nzClick)", _config.GetValue( UiConst.OnClick ) );
         AttributeIfNotEmpty( "(nzDblClick)", _config.GetValue( UiConst.OnDblClick ) );
-        AttributeIfNotEmpty( "(nzContextMenu)", _config.GetValue( UiConst.OnContextmenu ) );
         AttributeIfNotEmpty( "(nzCheckBoxChange)", _config.GetValue( UiConst.OnCheckBoxChange ) );
         OnExpandChange( _config.GetValue( UiConst.OnExpandChange ) );
         AttributeIfNotEmpty( "(nzSearchValueChange)", _config.GetValue( UiConst.OnSearchValueChange ) );
@@ -330,5 +329,12 @@ public class TreeBuilder : AngularTagBuilder {
             .CheckedKeys( $"{ExtendId}.checkedKeys" )
             .SelectedKeys( $"{ExtendId}.selectedKeys" )
             .OnExpandChange( $"{ExtendId}.expandChange($event)" );
+    }
+
+    /// <summary>
+    /// 配置右键上下文菜单事件
+    /// </summary>
+    protected override void ConfigOnContextmenu( Config config ) {
+        AttributeIfNotEmpty( "(nzContextMenu)", _config.GetValue( UiConst.OnContextmenu ) );
     }
 }

@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
@@ -305,6 +306,24 @@ public class UploadBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public UploadBuilder SpaceItem() {
+        var shareConfig = GetShareConfig();
+        if ( shareConfig.FormItemCreated )
+            return this;
+        this.SpaceItem( shareConfig.SpaceItem );
+        return this;
+    }
+
+    /// <summary>
+    /// 获取表单项共享配置
+    /// </summary>
+    private FormItemShareConfig GetShareConfig() {
+        return _config.GetValueFromItems<FormItemShareConfig>() ?? new FormItemShareConfig();
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
@@ -317,7 +336,7 @@ public class UploadBuilder : AngularTagBuilder {
             .Remove().Download().TransformFile()
             .IconRender().FileListRender()
             .Events();
-        Model();
+        Model().SpaceItem();
         AddButton();
         EnableExtend();
     }

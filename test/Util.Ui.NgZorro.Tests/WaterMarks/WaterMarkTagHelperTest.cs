@@ -196,6 +196,17 @@ public class WaterMarkTagHelperTest {
     /// 测试字体颜色
     /// </summary>
     [Fact]
+    public void TestFontColorType() {
+        _wrapper.SetContextAttribute( UiConst.FontColorType, AntDesignColor.Red );
+        var result = new StringBuilder();
+        result.Append( "<nz-water-mark [nzFont]=\"{'color':'red'}\"></nz-water-mark>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试字体颜色
+    /// </summary>
+    [Fact]
     public void TestFontColor() {
         _wrapper.SetContextAttribute( UiConst.FontColor, "a" );
         var result = new StringBuilder();

@@ -211,7 +211,19 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
         /// 测试间距项
         /// </summary>
         [Fact]
-        public void TestSpaceItem() {
+        public void TestSpaceItem_1() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
+            var result = new StringBuilder();
+            result.Append( "<label *nzSpaceItem=\"\" nz-checkbox=\"\"></label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem_2() {
             _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
 

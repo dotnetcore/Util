@@ -269,6 +269,28 @@ namespace Util.Ui.NgZorro.Tests.Tabs {
         }
 
         /// <summary>
+        /// 测试关闭按钮图标
+        /// </summary>
+        [Fact]
+        public void TestCloseIcon() {
+            _wrapper.SetContextAttribute( UiConst.CloseIcon, AntDesignIcon.AccountBook );
+            var result = new StringBuilder();
+            result.Append( "<nz-tabset nzCloseIcon=\"account-book\"></nz-tabset>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试关闭按钮图标
+        /// </summary>
+        [Fact]
+        public void TestBindCloseIcon() {
+            _wrapper.SetContextAttribute( AngularConst.BindCloseIcon, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tabset [nzCloseIcon]=\"a\"></nz-tabset>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

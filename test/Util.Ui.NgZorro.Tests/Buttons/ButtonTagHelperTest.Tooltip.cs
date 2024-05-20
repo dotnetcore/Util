@@ -183,10 +183,21 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         /// 测试文字提示背景颜色
         /// </summary>
         [Fact]
-        public void TestTooltipColor() {
-            _wrapper.SetContextAttribute( UiConst.TooltipColor, AntDesignColor.Blue );
+        public void TestTooltipColorType() {
+            _wrapper.SetContextAttribute( UiConst.TooltipColorType, AntDesignColor.Blue );
             var result = new StringBuilder();
             result.Append( "<button nz-button=\"\" nzTooltipColor=\"blue\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文字提示背景颜色
+        /// </summary>
+        [Fact]
+        public void TestTooltipColor() {
+            _wrapper.SetContextAttribute( UiConst.TooltipColor, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" nzTooltipColor=\"a\"></button>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

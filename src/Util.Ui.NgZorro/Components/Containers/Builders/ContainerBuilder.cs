@@ -1,4 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Containers.Builders; 
 
@@ -20,6 +22,14 @@ public class ContainerBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置模板出口
+    /// </summary>
+    public ContainerBuilder NgTemplateOutlet() {
+        AttributeIfNotEmpty( "*ngTemplateOutlet", _config.GetValue( AngularConst.NgTemplateOutlet ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置提及建议
     /// </summary>
     public ContainerBuilder MentionSuggestion() {
@@ -32,6 +42,6 @@ public class ContainerBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        MentionSuggestion();
+        NgTemplateOutlet().MentionSuggestion().SpaceItem( _config );
     }
 }

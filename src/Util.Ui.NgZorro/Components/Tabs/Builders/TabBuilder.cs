@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Templates.Builders;
 using Util.Ui.NgZorro.Configs;
@@ -84,7 +83,6 @@ public class TabBuilder : AngularTagBuilder {
     /// </summary>
     public TabBuilder Events() {
         AttributeIfNotEmpty( "(nzClick)", _config.GetValue( UiConst.OnClick ) );
-        AttributeIfNotEmpty( "(nzContextmenu)", _config.GetValue( UiConst.OnContextmenu ) );
         AttributeIfNotEmpty( "(nzSelect)", _config.GetValue( UiConst.OnSelect ) );
         AttributeIfNotEmpty( "(nzDeselect)", _config.GetValue( UiConst.OnDeselect ) );
         return this;
@@ -112,5 +110,12 @@ public class TabBuilder : AngularTagBuilder {
         templateBuilder.Tab( true );
         config.Content.AppendTo( templateBuilder );
         SetContent( templateBuilder );
+    }
+
+    /// <summary>
+    /// 配置右键上下文菜单事件
+    /// </summary>
+    protected override void ConfigOnContextmenu( Config config ) {
+        AttributeIfNotEmpty( "(nzContextmenu)", _config.GetValue( UiConst.OnContextmenu ) );
     }
 }

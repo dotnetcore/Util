@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -56,6 +57,18 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
             result.Append( "<li nz-submenu=\"\" nzTitle=\"a\"><ul></ul></li>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<li nz-submenu=\"\" [nzTitle]=\"'a'|i18n\"><ul></ul></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -144,6 +157,39 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             _wrapper.SetContextAttribute( AngularConst.BindMenuClassName, "a" );
             var result = new StringBuilder();
             result.Append( "<li nz-submenu=\"\" [nzMenuClassName]=\"a\"><ul></ul></li>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试菜单弹出位置
+        /// </summary>
+        [Fact]
+        public void TestPlacement() {
+            _wrapper.SetContextAttribute( UiConst.Placement, DropdownMenuPlacement.BottomLeft );
+            var result = new StringBuilder();
+            result.Append( "<li nz-submenu=\"\" nzPlacement=\"bottomLeft\"><ul></ul></li>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试菜单弹出位置
+        /// </summary>
+        [Fact]
+        public void TestBindPlacement() {
+            _wrapper.SetContextAttribute( AngularConst.BindPlacement, "a" );
+            var result = new StringBuilder();
+            result.Append( "<li nz-submenu=\"\" [nzPlacement]=\"a\"><ul></ul></li>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试左内边距
+        /// </summary>
+        [Fact]
+        public void TestPaddingLeft() {
+            _wrapper.SetContextAttribute( UiConst.PaddingLeft, "a" );
+            var result = new StringBuilder();
+            result.Append( "<li nz-submenu=\"\" [nzPaddingLeft]=\"a\"><ul></ul></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

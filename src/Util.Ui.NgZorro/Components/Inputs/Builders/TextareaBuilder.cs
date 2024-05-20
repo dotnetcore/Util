@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Inputs.Configs;
 using Util.Ui.NgZorro.Components.Inputs.Helpers;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Builders; 
 
@@ -110,7 +112,9 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// </summary>
     public TextareaBuilder Events() {
         OnInput( _config.GetValue( UiConst.OnInput ) );
-        OnEnter( _config.GetValue( UiConst.OnEnter ) );
+        AttributeIfNotEmpty( "(blur)", _config.GetValue( UiConst.OnBlur ) );
+        AttributeIfNotEmpty( "(keyup.enter)", _config.GetValue( UiConst.OnKeyupEnter ) );
+        AttributeIfNotEmpty( "(keydown.enter)", _config.GetValue( UiConst.OnKeydownEnter ) );
         return this;
     }
 
@@ -119,14 +123,6 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
     /// </summary>
     public TextareaBuilder OnInput( string value ) {
         AttributeIfNotEmpty( "(input)", value );
-        return this;
-    }
-
-    /// <summary>
-    /// 回车事件
-    /// </summary>
-    public TextareaBuilder OnEnter( string value ) {
-        AttributeIfNotEmpty( "(keyup.enter)", value );
         return this;
     }
 
@@ -142,5 +138,25 @@ public class TextareaBuilder : FormControlBuilderBase<TextareaBuilder> {
             .MinLength().MinLengthMessage()
             .MaxLength()
             .ValidationExtend().AutocompleteOff();
+    }
+
+    /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public override TextareaBuilder SpaceItem() {
+        if ( FormItemShareConfig.FormItemCreated )
+            return this;
+        var inputGroupShareConfig = GetInputGroupShareConfig();
+        if ( inputGroupShareConfig.InputGroupCreated )
+            return this;
+        this.SpaceItem( FormItemShareConfig.SpaceItem );
+        return this;
+    }
+
+    /// <summary>
+    /// 获取输入框组合共享配置
+    /// </summary>
+    private InputGroupShareConfig GetInputGroupShareConfig() {
+        return _config.GetValueFromItems<InputGroupShareConfig>() ?? new InputGroupShareConfig();
     }
 }

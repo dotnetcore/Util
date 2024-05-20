@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Timelines.Builders; 
@@ -25,6 +24,7 @@ public class TimelineItemBuilder : AngularTagBuilder {
     /// 配置颜色
     /// </summary>
     public TimelineItemBuilder Color() {
+        AttributeIfNotEmpty( "nzColor", _config.GetValue<AntDesignColor?>( UiConst.ColorType )?.Description() );
         AttributeIfNotEmpty( "nzColor", _config.GetValue( UiConst.Color ) );
         AttributeIfNotEmpty( "[nzColor]", _config.GetValue( AngularConst.BindColor ) );
         return this;
@@ -48,10 +48,19 @@ public class TimelineItemBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置标签
+    /// </summary>
+    public TimelineItemBuilder Label() {
+        AttributeIfNotEmpty( "nzLabel", _config.GetValue( UiConst.Label ) );
+        AttributeIfNotEmpty( "[nzLabel]", _config.GetValue( AngularConst.BindLabel ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        Color().Dot().Position();
+        Color().Dot().Position().Label();
     }
 }

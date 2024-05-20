@@ -30,13 +30,35 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试失去焦点事件
+        /// </summary>
+        [Fact]
+        public void TestOnBlur() {
+            _wrapper.SetContextAttribute( UiConst.OnBlur, "a" );
+            var result = new StringBuilder();
+            result.Append( "<input (blur)=\"a\" nz-input=\"\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试回车事件
         /// </summary>
         [Fact]
-        public void TestOnEnter() {
-            _wrapper.SetContextAttribute( UiConst.OnEnter, "a" );
+        public void TestOnKeyupEnter() {
+            _wrapper.SetContextAttribute( UiConst.OnKeyupEnter, "a" );
             var result = new StringBuilder();
             result.Append( "<input (keyup.enter)=\"a\" nz-input=\"\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试回车事件
+        /// </summary>
+        [Fact]
+        public void TestOnKeydownEnter() {
+            _wrapper.SetContextAttribute( UiConst.OnKeydownEnter, "a" );
+            var result = new StringBuilder();
+            result.Append( "<input (keydown.enter)=\"a\" nz-input=\"\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

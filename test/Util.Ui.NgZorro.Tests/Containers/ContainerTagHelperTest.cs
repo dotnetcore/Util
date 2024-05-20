@@ -200,5 +200,27 @@ namespace Util.Ui.NgZorro.Tests.Containers {
             result.Append( "<ng-container *nzMentionSuggestion=\"a\"></ng-container>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<ng-container *nzSpaceItem=\"\"></ng-container>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试*ngTemplateOutlet
+        /// </summary>
+        [Fact]
+        public void TestNgTemplateOutlet() {
+            _wrapper.SetContextAttribute( AngularConst.NgTemplateOutlet, "a" );
+            var result = new StringBuilder();
+            result.Append( "<ng-container *ngTemplateOutlet=\"a\"></ng-container>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

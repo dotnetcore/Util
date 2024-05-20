@@ -60,9 +60,17 @@ public class TagTagBuilder : AngularTagBuilder {
     /// 配置颜色
     /// </summary>
     public TagTagBuilder Color() {
-        AttributeIfNotEmpty( "nzColor", _config.GetValue<AntDesignColor?>( UiConst.ColorType )?.Description() );
+        AttributeIfNotEmpty( "nzColor", _config.GetValue<TagColor?>( UiConst.ColorType )?.Description() );
         AttributeIfNotEmpty( "nzColor", _config.GetValue( UiConst.Color ) );
         AttributeIfNotEmpty( "[nzColor]", _config.GetValue( AngularConst.BindColor ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置边框
+    /// </summary>
+    public TagTagBuilder Bordered() {
+        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 
@@ -70,6 +78,7 @@ public class TagTagBuilder : AngularTagBuilder {
     /// 配置事件
     /// </summary>
     public TagTagBuilder Events() {
+        AttributeIfNotEmpty( "(click)", _config.GetValue( UiConst.OnClick ) );
         AttributeIfNotEmpty( "(nzOnClose)", _config.GetValue( UiConst.OnClose ) );
         AttributeIfNotEmpty( "(nzCheckedChange)", _config.GetValue( UiConst.OnCheckedChange ) );
         return this;
@@ -128,7 +137,7 @@ public class TagTagBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Mode().Checked().Color().Events();
+        Mode().Checked().Color().Bordered().Events();
         TextEnabled().TextNotEnabled().Text();
         SetForeach();
         SetChecked();
@@ -139,7 +148,7 @@ public class TagTagBuilder : AngularTagBuilder {
     /// </summary>
     private void SetForeach() {
         if(IsEnableExtend)
-            this.NgFor( $"let item of {ExtendId}.data" );
+            this.NgFor( $"let item of {ExtendId}.options" );
     }
 
     /// <summary>

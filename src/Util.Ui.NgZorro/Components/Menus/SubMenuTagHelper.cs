@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Menus;
 [HtmlTargetElement( "util-submenu" )]
 public class SubMenuTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzTitle,标题
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -36,7 +36,7 @@ public class SubMenuTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Open { get; set; }
     /// <summary>
-    /// [(nzOpen)],是否展开
+    /// [(nzOpen)],是否展开, 默认值: false
     /// </summary>
     public string BindonOpen { get; set; }
     /// <summary>
@@ -48,7 +48,19 @@ public class SubMenuTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindMenuClassName { get; set; }
     /// <summary>
-    /// (nzOpenChange),展开变更事件
+    /// nzPlacement,菜单弹出位置, 可选值: bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight', 默认值: 'bottomLeft'
+    /// </summary>
+    public DropdownMenuPlacement Placement { get; set; }
+    /// <summary>
+    /// [nzPlacement],菜单弹出位置, 可选值: bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight', 默认值: 'bottomLeft'
+    /// </summary>
+    public string BindPlacement { get; set; }
+    /// <summary>
+    /// [nzPaddingLeft],左内边距,单位: 像素, 类型: number
+    /// </summary>
+    public string PaddingLeft { get; set; }
+    /// <summary>
+    /// (nzOpenChange),展开状态变化事件, 类型: EventEmitter&lt;boolean>
     /// </summary>
     public string OnOpenChange { get; set; }
 

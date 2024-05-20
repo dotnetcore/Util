@@ -103,6 +103,17 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         }
 
         /// <summary>
+        /// 测试左内边距
+        /// </summary>
+        [Fact]
+        public void TestPaddingLeft() {
+            _wrapper.SetContextAttribute( UiConst.PaddingLeft, "a" );
+            var result = new StringBuilder();
+            result.Append( "<li nz-menu-item=\"\" [nzPaddingLeft]=\"a\"></li>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试设置内容
         /// </summary>
         [Fact]

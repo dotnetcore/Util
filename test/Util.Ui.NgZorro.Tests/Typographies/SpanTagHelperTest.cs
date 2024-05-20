@@ -184,6 +184,17 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         }
 
         /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<span *nzSpaceItem=\"\"></span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试提示框显示状态变化事件
         /// </summary>
         [Fact]

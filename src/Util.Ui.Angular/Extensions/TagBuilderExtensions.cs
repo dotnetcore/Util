@@ -16,7 +16,8 @@ public static class TagBuilderExtensions {
     /// <param name="builder">生成器实例</param>
     /// <param name="config">配置</param>
     public static TBuilder Angular<TBuilder>( this TBuilder builder, Config config ) where TBuilder : TagBuilder {
-        builder.NgIf( config )
+        builder
+            .NgIf( config )
             .NgSwitch( config ).NgSwitchCase( config ).NgSwitchDefault( config )
             .NgFor( config )
             .NgClass( config )

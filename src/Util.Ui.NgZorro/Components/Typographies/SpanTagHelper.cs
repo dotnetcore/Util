@@ -28,10 +28,6 @@ public class SpanTagHelper : TypographyTagHelper {
     /// [innerHTML], 设置Html
     /// </summary>
     public string BindHtml { get; set; }
-    /// <summary>
-    /// (contextmenu),上下文菜单事件
-    /// </summary>
-    public string OnContextmenu { get; set; }
 
     /// <inheritdoc />
     protected override bool IsEnableTypography() {

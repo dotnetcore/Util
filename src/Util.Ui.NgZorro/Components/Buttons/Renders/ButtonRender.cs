@@ -1,10 +1,10 @@
 ﻿using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Buttons.Builders;
-using Util.Ui.NgZorro.Components.Links.Builders;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Buttons.Renders; 
+namespace Util.Ui.NgZorro.Components.Buttons.Renders;
 
 /// <summary>
 /// 按钮渲染器
@@ -37,9 +37,11 @@ public class ButtonRender : RenderBase {
     /// 创建标签生成器
     /// </summary>
     private TagBuilder CreateTagBuilder() {
-        if( GetButtonType() == ButtonType.Link )
-            return new ABuilder( _config );
-        return new ButtonBuilder( _config );
+        if ( GetButtonType() != ButtonType.Link )
+            return new ButtonBuilder( _config );
+        if ( IsHide() )
+            return new EmptyTagBuilder();
+        return new ABuilder( _config );
     }
 
     /// <summary>
@@ -47,6 +49,24 @@ public class ButtonRender : RenderBase {
     /// </summary>
     private ButtonType? GetButtonType() {
         return _config.GetValue<ButtonType?>( UiConst.Type );
+    }
+
+    /// <summary>
+    /// 是否隐藏标签
+    /// </summary>
+    private bool IsHide() {
+        var isSearch = _config.GetValue<bool?>( UiConst.IsSearch );
+        if ( isSearch != true )
+            return false;
+        var formShareConfig = GetFormShareConfig();
+        return formShareConfig.GetConditionCount() <= formShareConfig.SearchFormShowNumber;
+    }
+
+    /// <summary>
+    /// 获取表单共享配置
+    /// </summary>
+    private FormShareConfig GetFormShareConfig() {
+        return _config.GetValueFromItems<FormShareConfig>() ?? new FormShareConfig();
     }
 
     /// <inheritdoc />

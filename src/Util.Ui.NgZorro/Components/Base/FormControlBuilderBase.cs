@@ -6,9 +6,10 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Components.Tables.Configs;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 using Config = Util.Ui.Configs.Config;
 
-namespace Util.Ui.NgZorro.Components.Base; 
+namespace Util.Ui.NgZorro.Components.Base;
 
 /// <summary>
 /// 表单控件标签生成器基类
@@ -29,7 +30,7 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
     /// <param name="config">配置</param>
     /// <param name="tagName">标签名称，范例：div</param>
     /// <param name="renderMode">渲染模式</param>
-    protected FormControlBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config,tagName, renderMode ) {
+    protected FormControlBuilderBase( Config config, string tagName, TagRenderMode renderMode = TagRenderMode.Normal ) : base( config, tagName, renderMode ) {
         _config = config;
         FormItemShareConfig = GetShareConfig();
     }
@@ -151,6 +152,16 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
     }
 
     /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public virtual TBuilder SpaceItem() {
+        if ( FormItemShareConfig.FormItemCreated )
+            return (TBuilder)this;
+        this.SpaceItem( FormItemShareConfig.SpaceItem );
+        return (TBuilder)this;
+    }
+
+    /// <summary>
     /// 配置表单属性
     /// </summary>
     protected TBuilder ConfigForm() {
@@ -158,7 +169,7 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
             .Required().RequiredMessage()
             .MinLength().MinLengthMessage()
             .MaxLength().EmailMessage()
-            .Pattern()
+            .Pattern().SpaceItem()
             .TableEdit().ValidationExtend();
     }
 
@@ -203,7 +214,7 @@ public abstract class FormControlBuilderBase<TBuilder> : AngularTagBuilder where
     /// </summary>
     protected TBuilder AutocompleteOff() {
         var options = NgZorroOptionsService.GetOptions();
-        if( options.EnableAutocompleteOff )
+        if ( options.EnableAutocompleteOff )
             Attribute( "autocomplete", "off" );
         return (TBuilder)this;
     }

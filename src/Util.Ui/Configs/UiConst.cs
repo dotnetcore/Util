@@ -33,6 +33,14 @@ public static class UiConst {
     /// </summary>
     public const string Unit = "unit";
     /// <summary>
+    /// 左内边距
+    /// </summary>
+    public const string PaddingLeft = "padding-left";
+    /// <summary>
+    /// 选项卡链接
+    /// </summary>
+    public const string TabLink = "tab-link";
+    /// <summary>
     /// 可选
     /// </summary>
     public const string Optional = "optional";
@@ -613,6 +621,10 @@ public static class UiConst {
     /// </summary>
     public const string FontColor = "font-color";
     /// <summary>
+    /// 字体颜色
+    /// </summary>
+    public const string FontColorType = "font-color-type";
+    /// <summary>
     /// 字体大小
     /// </summary>
     public const string FontSize = "font-size";
@@ -956,6 +968,10 @@ public static class UiConst {
     /// 查询参数
     /// </summary>
     public const string QueryParams = "query-params";
+    /// <summary>
+    /// 查询参数处理方式
+    /// </summary>
+    public const string QueryParamsHandling = "query-params-handling";
     /// <summary>
     /// 删除地址
     /// </summary>
@@ -1649,6 +1665,10 @@ public static class UiConst {
     /// </summary>
     public const string SelectedRowBackgroundColor = "selected-row-background-color";
     /// <summary>
+    /// 全部选中变化事件
+    /// </summary>
+    public const string OnAllSelectedChange = "on-all-selected-change";
+    /// <summary>
     /// 危险
     /// </summary>
     public const string Danger = "danger";
@@ -2160,6 +2180,14 @@ public static class UiConst {
     /// 回车事件
     /// </summary>
     public const string OnEnter = "on-enter";
+    /// <summary>
+    /// 回车事件
+    /// </summary>
+    public const string OnKeyupEnter = "on-keyup-enter";
+    /// <summary>
+    /// 回车事件
+    /// </summary>
+    public const string OnKeydownEnter = "on-keydown-enter";
     /// <summary>
     /// 隐藏
     /// </summary>
@@ -3477,6 +3505,10 @@ public static class UiConst {
     /// </summary>
     public const string TooltipColor = "tooltip-color";
     /// <summary>
+    /// 提示颜色类型
+    /// </summary>
+    public const string TooltipColorType = "tooltip-color-type";
+    /// <summary>
     /// 提示源元素
     /// </summary>
     public const string TooltipOrigin = "tooltip-origin";
@@ -3772,6 +3804,10 @@ public static class UiConst {
     /// 线条颜色
     /// </summary>
     public const string StrokeColor = "stroke-color";
+    /// <summary>
+    /// 线条颜色
+    /// </summary>
+    public const string StrokeColorType = "stroke-color-type";
     /// <summary>
     /// 成功百分比
     /// </summary>

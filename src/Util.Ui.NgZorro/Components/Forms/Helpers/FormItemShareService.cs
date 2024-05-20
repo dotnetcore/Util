@@ -26,6 +26,13 @@ public class FormItemShareService {
     }
 
     /// <summary>
+    /// 设置 nz-form-item 已创建
+    /// </summary>
+    public void Created() {
+        _shareConfig.FormItemCreated = true;
+    }
+
+    /// <summary>
     /// 初始化控件Id
     /// </summary>
     public void InitId() {

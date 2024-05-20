@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Menus.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -10,9 +10,9 @@ namespace Util.Ui.NgZorro.Components.Menus;
 /// 菜单项,生成的标签为&lt;li nz-menu-item&gt;&lt;/li&gt;
 /// </summary>
 [HtmlTargetElement( "util-menu-item")]
-public class MenuItemTagHelper : AngularTagHelperBase {
+public class MenuItemTagHelper : TooltipTagHelperBase {
     /// <summary>
-    /// 扩展属性,内容文本,支持i18n
+    /// 扩展属性,内容文本,支持多语言
     /// </summary>
     public string Text { get; set; }
     /// <summary>
@@ -60,7 +60,11 @@ public class MenuItemTagHelper : AngularTagHelperBase {
     /// </summary>
     public string MatchRouterExact { get; set; }
     /// <summary>
-    /// (click),单击事件处理函数
+    /// [nzPaddingLeft],左内边距,单位: 像素, 类型: number
+    /// </summary>
+    public string PaddingLeft { get; set; }
+    /// <summary>
+    /// (click),单击事件
     /// </summary>
     public string OnClick { get; set; }
 

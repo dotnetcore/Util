@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.WaterMarks.Renders;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.WaterMarks;
@@ -46,6 +47,10 @@ public class WaterMarkTagHelper : AngularTagHelperBase {
     /// [nzFont],文字样式
     /// </summary>
     public string Font { get; set; }
+    /// <summary>
+    /// [nzFont],扩展属性, 字体颜色
+    /// </summary>
+    public AntDesignColor FontColorType { get; set; }
     /// <summary>
     /// [nzFont],字体颜色, 默认值: rgba(0,0,0,.15)
     /// </summary>

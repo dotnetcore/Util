@@ -89,8 +89,10 @@ public abstract class FormControlRenderBase : IRender {
     /// </summary>
     protected virtual TagBuilder GetFormItem() {
         TagBuilder builder = new EmptyContainerTagBuilder();
-        if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormItem == true )
-            builder = new FormItemBuilder( _config.CopyRemoveAttributes() );
+        if (_config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormItem == true) {
+            builder = new FormItemBuilder(_config.CopyRemoveAttributes());
+            _shareConfig.FormItemCreated = true;
+        }
         builder.Config();
         return builder;
     }

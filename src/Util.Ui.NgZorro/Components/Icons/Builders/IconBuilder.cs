@@ -7,7 +7,7 @@ using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Icons.Builders; 
+namespace Util.Ui.NgZorro.Components.Icons.Builders;
 
 /// <summary>
 /// 图标标签生成器
@@ -34,7 +34,7 @@ public class IconBuilder : AngularTagBuilder {
         AttributeIfNotEmpty( "nzType", _config.GetValue<AntDesignIcon?>( UiConst.Icon )?.Description() );
         return this;
     }
-        
+
     /// <summary>
     /// 配置图标类型
     /// </summary>
@@ -49,7 +49,7 @@ public class IconBuilder : AngularTagBuilder {
     public IconBuilder Type( AntDesignIcon? type ) {
         return Type( type?.Description() );
     }
-        
+
     /// <summary>
     /// 配置图标类型
     /// </summary>
@@ -81,7 +81,7 @@ public class IconBuilder : AngularTagBuilder {
     public IconBuilder Theme( IconTheme? theme ) {
         return Theme( theme?.Description() );
     }
-        
+
     /// <summary>
     /// 配置图标主题
     /// </summary>
@@ -104,7 +104,10 @@ public class IconBuilder : AngularTagBuilder {
     /// 配置双色图标主题色
     /// </summary>
     public IconBuilder Color() {
-        if( _config.Contains( AntDesignConst.TwotoneColor ) || _config.Contains( AntDesignConst.BindTwotoneColor ) )
+        var value = _config.GetValue<AntDesignColor?>( AntDesignConst.TwotoneColorType )?.Description();
+        if ( value.IsEmpty() == false )
+            _config.SetAttribute( AntDesignConst.TwotoneColor, value );
+        if ( _config.Contains( AntDesignConst.TwotoneColor ) || _config.Contains( AntDesignConst.BindTwotoneColor ) )
             Attribute( "nzTheme", IconTheme.Twotone.Description() );
         AttributeIfNotEmpty( "nzTwotoneColor", _config.GetValue( AntDesignConst.TwotoneColor ) );
         AttributeIfNotEmpty( "[nzTwotoneColor]", _config.GetValue( AntDesignConst.BindTwotoneColor ) );

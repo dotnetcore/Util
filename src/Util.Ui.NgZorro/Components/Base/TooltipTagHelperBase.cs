@@ -52,9 +52,13 @@ public abstract class TooltipTagHelperBase : AngularTagHelperBase {
     /// </summary>
     public string BindTooltipTrigger { get; set; }
     /// <summary>
+    /// nzTooltipColor,扩展属性, 文字提示背景颜色
+    /// </summary>
+    public AntDesignColor TooltipColorType { get; set; }
+    /// <summary>
     /// nzTooltipColor,文字提示背景颜色
     /// </summary>
-    public AntDesignColor TooltipColor { get; set; }
+    public string TooltipColor { get; set; }
     /// <summary>
     /// [nzTooltipColor],文字提示背景颜色
     /// </summary>

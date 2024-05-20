@@ -1,5 +1,8 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Configs;
+using Util.Ui.Angular.Extensions;
+using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Components.Containers.Builders;
 using Util.Ui.NgZorro.Components.Inputs.Builders;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
 using Util.Ui.NgZorro.Components.Mentions.Configs;
@@ -25,20 +28,39 @@ public abstract class InputRenderBase : FormControlRenderBase {
     }
 
     /// <summary>
-    /// 添加表单控件
-    /// </summary>
-    protected override void AppendControl( TagBuilder formControlBuilder ) {
-        var inputGroup = GetInputGroup();
-        var input = GetInput();
-        inputGroup.AppendContent( input );
-        formControlBuilder.AppendContent( inputGroup );
-    }
-
-    /// <summary>
     /// 初始化
     /// </summary>
     protected override void Init() {
         SetControlId();
+    }
+
+    /// <summary>
+    /// 添加表单控件
+    /// </summary>
+    protected override void AppendControl( TagBuilder formControlBuilder ) {
+        var container = GetInputGroupContainerBuilder();
+        var inputGroup = GetInputGroup();
+        var input = GetInput();
+        inputGroup.AppendContent( input );
+        container.AppendContent( inputGroup );
+        formControlBuilder.AppendContent( container );
+    }
+
+    /// <summary>
+    /// 获取容器生成器
+    /// </summary>
+    public TagBuilder GetInputGroupContainerBuilder() {
+        TagBuilder container = new EmptyContainerTagBuilder();
+        var ngIf = _config.GetValue( AngularConst.NgIf );
+        var shareConfig = GetInputGroupShareConfig();
+        if ( ngIf.IsEmpty() )
+            ngIf = shareConfig.NgIf;
+        if ( ngIf.IsEmpty() )
+            return container;
+        _config.RemoveAttribute( AngularConst.NgIf );
+        container = new ContainerBuilder( _config );
+        container.NgIf( ngIf );
+        return container;
     }
 
     /// <summary>
@@ -68,9 +90,9 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// 获取输入框组合
     /// </summary>
     private TagBuilder GetInputGroup() {
-        if (NeedCreateInputGroup()) {
+        if ( NeedCreateInputGroup() ) {
             var shareConfig = GetInputGroupShareConfig();
-            shareConfig.IsInputGroupCreated = true;
+            shareConfig.InputGroupCreated = true;
             return GetInputGroupBuilder();
         }
         return new EmptyContainerTagBuilder();
@@ -87,7 +109,7 @@ public abstract class InputRenderBase : FormControlRenderBase {
             return true;
         if ( IsAllowClear() )
             return true;
-        if( IsPassword() )
+        if ( IsPassword() )
             return true;
         return false;
     }
@@ -139,7 +161,7 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// 是否需要导出ngModel
     /// </summary>
     private bool NeedExportNgModel() {
-        if( IsAllowClear() )
+        if ( IsAllowClear() )
             return true;
         return false;
     }
@@ -159,7 +181,7 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// 是否需要添加输入框扩展指令
     /// </summary>
     private bool NeedAddInputExtendDirective() {
-        if( IsPassword() )
+        if ( IsPassword() )
             return true;
         return false;
     }
@@ -179,7 +201,7 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// </summary>
     private void ConfigMentionTrigger( TagBuilder builder ) {
         var shareConfig = _config.GetValueFromItems<MentionShareConfig>();
-        if( shareConfig == null )
+        if ( shareConfig == null )
             return;
         builder.Attribute( "nzMentionTrigger" );
     }

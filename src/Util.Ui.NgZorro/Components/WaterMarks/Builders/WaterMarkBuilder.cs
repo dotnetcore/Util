@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.WaterMarks.Helpers;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.WaterMarks.Builders;
 
@@ -91,7 +92,7 @@ public class WaterMarkBuilder : AngularTagBuilder {
         if ( result.IsEmpty() == false )
             return result;
         var fontType = new FontType {
-            Color = _config.GetValue( UiConst.FontColor ),
+            Color = GetFontColor(),
             FontSize = _config.GetValue<double?>( UiConst.FontSize ),
             FontWeight = _config.GetValue( UiConst.FontWeight ),
             FontFamily = _config.GetValue( UiConst.FontFamily ),
@@ -101,6 +102,14 @@ public class WaterMarkBuilder : AngularTagBuilder {
         if ( result == "{}" )
             result = null;
         return result;
+    }
+
+    /// <summary>
+    /// 获取字体颜色
+    /// </summary>
+    private string GetFontColor() {
+        var result = _config.GetValue( UiConst.FontColor );
+        return result.IsEmpty() ?  _config.GetValue<AntDesignColor?>( UiConst.FontColorType )?.Description() : result;
     }
 
     /// <summary>

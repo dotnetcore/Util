@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Menus;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -55,6 +56,18 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-group=\"\" nzTitle=\"a\"><ul></ul></li>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<li nz-menu-group=\"\" [nzTitle]=\"'a'|i18n\"><ul></ul></li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

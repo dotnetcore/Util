@@ -105,9 +105,17 @@ public class TextareaTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string OnInput { get; set; }
     /// <summary>
-    /// (keyup.enter),按下回车键事件
+    /// (blur),失去焦点事件
     /// </summary>
-    public string OnEnter { get; set; }
+    public string OnBlur { get; set; }
+    /// <summary>
+    /// (keyup.enter),按下回车键事件,按键被松开时触发
+    /// </summary>
+    public string OnKeyupEnter { get; set; }
+    /// <summary>
+    /// (keydown.enter),按下回车键事件,按键被按下时触发
+    /// </summary>
+    public string OnKeydownEnter { get; set; }
 
     /// <summary>
     /// 渲染前操作

@@ -12,19 +12,19 @@ namespace Util.Ui.NgZorro.Components.Timelines;
 [HtmlTargetElement( "util-timeline" )]
 public class TimelineTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzPending,指定最后一个幽灵节点是否存在或内容,类型: string | boolean | TemplateRef&lt;void>,默认值: false
+    /// nzPending,设置幽灵节点的内容,幽灵节点显示在最后
     /// </summary>
     public string Pending { get; set; }
     /// <summary>
-    /// [nzPending],指定最后一个幽灵节点是否存在或内容,类型: string | boolean | TemplateRef&lt;void>,默认值: false
+    /// [nzPending],设置幽灵节点的内容,幽灵节点显示在最后,如果设置为 true 则显示默认幽灵节点,也可使用模板进行内容定制, 类型: string | boolean | TemplateRef&lt;void>,默认值: false
     /// </summary>
     public string BindPending { get; set; }
     /// <summary>
-    /// nzPendingDot,当最后一个幽灵节点存在時，指定其时间图点,类型: string | TemplateRef&lt;void>,默认值: &lt;i nz-icon nzType="loading">&lt;/i>
+    /// nzPendingDot,设置幽灵节点时间轴点
     /// </summary>
     public string PendingDot { get; set; }
     /// <summary>
-    /// [nzPendingDot],当最后一个幽灵节点存在時，指定其时间图点,类型: string | TemplateRef&lt;void>,默认值: &lt;i nz-icon nzType="loading">&lt;/i>
+    /// [nzPendingDot],设置幽灵节点时间轴点,类型: string | TemplateRef&lt;void>,默认值: &lt;i nz-icon nzType="loading">&lt;/i>
     /// </summary>
     public string BindPendingDot { get; set; }
     /// <summary>
@@ -32,11 +32,11 @@ public class TimelineTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Reverse { get; set; }
     /// <summary>
-    /// nzMode,模式,可以改变时间轴和内容的相对位置,可选值: 'left' | 'alternate' | 'right' | 'custom'
+    /// nzMode,显示模式,可以改变时间轴和内容的相对位置,可选值: 'left' | 'alternate' | 'right' | 'custom'
     /// </summary>
     public TimelineMode Mode { get; set; }
     /// <summary>
-    /// [nzMode],模式,可以改变时间轴和内容的相对位置,可选值: 'left' | 'alternate' | 'right' | 'custom'
+    /// [nzMode],显示模式,可以改变时间轴和内容的相对位置,可选值: 'left' | 'alternate' | 'right' | 'custom'
     /// </summary>
     public string BindMode { get; set; }
 

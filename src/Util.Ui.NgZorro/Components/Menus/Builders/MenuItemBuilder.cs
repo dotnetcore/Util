@@ -2,9 +2,11 @@
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Configs;
-using Util.Ui.NgZorro.Extensions;
+using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
+using Util.Ui.NgZorro.Directives.Tooltips;
 
-namespace Util.Ui.NgZorro.Components.Menus.Builders; 
+namespace Util.Ui.NgZorro.Components.Menus.Builders;
 
 /// <summary>
 /// 菜单项标签生成器
@@ -18,7 +20,7 @@ public class MenuItemBuilder : AngularTagBuilder {
     /// <summary>
     /// 初始化菜单项标签生成器
     /// </summary>
-    public MenuItemBuilder( Config config ) : base( config,"li" ) {
+    public MenuItemBuilder( Config config ) : base( config, "li" ) {
         _config = config;
         base.Attribute( "nz-menu-item" );
     }
@@ -112,10 +114,16 @@ public class MenuItemBuilder : AngularTagBuilder {
         if ( text.IsEmpty() )
             return this;
         if ( options.EnableI18n ) {
-            this.AppendContentByI18n( text );
+            var result = new StringBuilder();
+            result.Append( "<span>" );
+            result.Append( "{{" );
+            result.Append( $"'{text}'|i18n" );
+            result.Append( "}}" );
+            result.Append( "</span>" );
+            AppendContent( result.ToString() );
             return this;
         }
-        AppendContent( text );
+        AppendContent( $"<span>{text}</span>" );
         return this;
     }
 
@@ -166,6 +174,14 @@ public class MenuItemBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置左内边距
+    /// </summary>
+    public MenuItemBuilder PaddingLeft() {
+        AttributeIfNotEmpty( "[nzPaddingLeft]", _config.GetValue( UiConst.PaddingLeft ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public MenuItemBuilder Events() {
@@ -178,8 +194,10 @@ public class MenuItemBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
+        this.Tooltip( _config ).Popover( _config ).Popconfirm( _config );
         Icon();
         TextUpdate().TextDelete().TextDetail().TextEnable().TextDisable().Text().
-            Disabled().Selected().Danger().MatchRouter().Events();
+            Disabled().Selected().Danger().MatchRouter().PaddingLeft()
+            .Events();
     }
 }

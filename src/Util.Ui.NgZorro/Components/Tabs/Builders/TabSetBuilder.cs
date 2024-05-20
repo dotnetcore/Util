@@ -147,6 +147,15 @@ public class TabSetBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置关闭按钮图标
+    /// </summary>
+    public TabSetBuilder CloseIcon() {
+        AttributeIfNotEmpty( "nzCloseIcon", _config.GetValue<AntDesignIcon?>( UiConst.CloseIcon )?.Description() );
+        AttributeIfNotEmpty( "[nzCloseIcon]", _config.GetValue( AngularConst.BindCloseIcon ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TabSetBuilder Events() {
@@ -165,7 +174,7 @@ public class TabSetBuilder : AngularTagBuilder {
         SelectedIndex().Animated().Size().Type()
             .TabBarExtraContent().TabBarStyle().TabPosition().TabBarGutter()
             .HideAll().LinkRouter().LinkExact().CanDeactivate().Centered()
-            .HideAdd().AddIcon()
+            .HideAdd().AddIcon().CloseIcon()
             .Events();
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Tags.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Tags.Renders; 
+namespace Util.Ui.NgZorro.Components.Tags.Renders;
 
 /// <summary>
 /// 标签渲染器
@@ -26,7 +27,9 @@ public class TagRender : RenderBase {
     /// 获取标签生成器
     /// </summary>
     protected override TagBuilder GetTagBuilder() {
-        var containerTagBuilder = new TagContainerTagBuilder( _config );
+        var config = _config.Copy();
+        config.RemoveAttribute( UiConst.Id );
+        var containerTagBuilder = new TagContainerTagBuilder( config, _config.GetValue( UiConst.Id ) );
         containerTagBuilder.Config();
         TagBuilder container = IsEnableExtend() ? containerTagBuilder : new EmptyContainerTagBuilder();
         var builder = new TagTagBuilder( _config, IsEnableExtend(), containerTagBuilder.ExtendId );
@@ -39,7 +42,7 @@ public class TagRender : RenderBase {
     /// 是否启用基础扩展
     /// </summary>
     public bool IsEnableExtend() {
-        if( GetEnableExtend() == false )
+        if ( GetEnableExtend() == false )
             return false;
         return GetEnableExtend() == true ||
                GetUrl().IsEmpty() == false ||

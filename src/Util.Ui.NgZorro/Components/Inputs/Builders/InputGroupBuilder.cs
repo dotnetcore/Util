@@ -6,6 +6,8 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Icons.Builders;
 using Util.Ui.NgZorro.Components.Templates.Builders;
+using Util.Ui.NgZorro.Extensions;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Builders;
 
@@ -192,15 +194,33 @@ public class InputGroupBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public InputGroupBuilder SpaceItem() {
+        var formItemShareConfig = GetShareConfig();
+        if ( formItemShareConfig.FormItemCreated )
+            return this;
+        this.SpaceItem( formItemShareConfig.SpaceItem );
+        return this;
+    }
+
+    /// <summary>
+    /// 获取表单项共享配置
+    /// </summary>
+    private FormItemShareConfig GetShareConfig() {
+        return _config.GetValueFromItems<FormItemShareConfig>() ?? new FormItemShareConfig();
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
         AddOnBefore().AddOnAfter().AddOnBeforeIcon().AddOnAfterIcon()
             .Prefix().Suffix().PrefixIcon().SuffixIcon()
-            .Search().Size().Status().Compact();
+            .Search().Size().Status().Compact().SpaceItem();
         Class( _shareConfig.Class );
-        PostBuilder = GetSuffixTemplate();
+        AppendContent( GetSuffixTemplate() );
     }
 
     /// <summary>

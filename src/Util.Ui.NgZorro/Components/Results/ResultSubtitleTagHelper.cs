@@ -6,7 +6,7 @@ using Util.Ui.Renders;
 namespace Util.Ui.NgZorro.Components.Results; 
 
 /// <summary>
-/// 结果副标题,生成的标签为&lt;div nz-result-subtitle>&lt;/div>
+/// 结果副标题区,生成的标签为&lt;div nz-result-subtitle>&lt;/div>
 /// </summary>
 [HtmlTargetElement( "util-result-subtitle" )]
 public class ResultSubtitleTagHelper : AngularTagHelperBase {

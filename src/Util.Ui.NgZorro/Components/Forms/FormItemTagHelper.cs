@@ -22,6 +22,7 @@ public class FormItemTagHelper : RowTagHelperBase {
         var service = new FormItemShareService( _config );
         service.Init();
         service.AutoCreateFormItem( false );
+        service.Created();
     }
 
     /// <inheritdoc />

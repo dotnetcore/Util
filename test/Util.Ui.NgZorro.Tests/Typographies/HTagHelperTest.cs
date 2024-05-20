@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using Org.BouncyCastle.Crypto;
+using System.Text;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Typographies;
 using Xunit;
 using Xunit.Abstractions;
@@ -83,6 +85,18 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
             var component = new H6TagHelper().ToWrapper();
             var result = new StringBuilder();
             result.Append( "<h6 nz-typography=\"\"></h6>" );
+            Assert.Equal( result.ToString(), component.GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            var component = new H6TagHelper().ToWrapper();
+            component.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<h6 *nzSpaceItem=\"\" nz-typography=\"\"></h6>" );
             Assert.Equal( result.ToString(), component.GetResult() );
         }
     }

@@ -2,6 +2,7 @@
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Inputs.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Inputs.Builders;
 
@@ -64,7 +65,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         var shareConfig = GetInputGroupShareConfig();
         if ( shareConfig.Size == null )
             return;
-        if ( shareConfig.IsInputGroupCreated )
+        if ( shareConfig.InputGroupCreated )
             return;
         AttributeIfNotEmpty( "nzSize", shareConfig.Size?.Description() );
     }
@@ -76,7 +77,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         var shareConfig = GetInputGroupShareConfig();
         if ( shareConfig.BindSize.IsEmpty() )
             return;
-        if ( shareConfig.IsInputGroupCreated )
+        if ( shareConfig.InputGroupCreated )
             return;
         AttributeIfNotEmpty( "[nzSize]", shareConfig.BindSize );
     }
@@ -97,7 +98,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         var shareConfig = GetInputGroupShareConfig();
         if ( shareConfig.Status == null )
             return;
-        if ( shareConfig.IsInputGroupCreated )
+        if ( shareConfig.InputGroupCreated )
             return;
         AttributeIfNotEmpty( "nzStatus", shareConfig.Status?.Description() );
     }
@@ -109,7 +110,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
         var shareConfig = GetInputGroupShareConfig();
         if ( shareConfig.BindStatus.IsEmpty() )
             return;
-        if ( shareConfig.IsInputGroupCreated )
+        if ( shareConfig.InputGroupCreated )
             return;
         AttributeIfNotEmpty( "[nzStatus]", shareConfig.BindStatus );
     }
@@ -179,7 +180,9 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// </summary>
     public InputBuilder Events() {
         OnInput( _config.GetValue( UiConst.OnInput ) );
-        OnEnter( _config.GetValue( UiConst.OnEnter ) );
+        AttributeIfNotEmpty( "(blur)", _config.GetValue( UiConst.OnBlur ) );
+        AttributeIfNotEmpty( "(keyup.enter)", _config.GetValue( UiConst.OnKeyupEnter ) );
+        AttributeIfNotEmpty( "(keydown.enter)", _config.GetValue( UiConst.OnKeydownEnter ) );
         return this;
     }
 
@@ -188,14 +191,6 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
     /// </summary>
     public InputBuilder OnInput( string value ) {
         AttributeIfNotEmpty( "(input)", value );
-        return this;
-    }
-
-    /// <summary>
-    /// 回车事件
-    /// </summary>
-    public InputBuilder OnEnter( string value ) {
-        AttributeIfNotEmpty( "(keyup.enter)", value );
         return this;
     }
 
@@ -209,5 +204,18 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
             .Type().Autocomplete()
             .ValidatePhone().ValidateIdCard()
             .Events().AutocompleteOff();
+    }
+
+    /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public override InputBuilder SpaceItem() {
+        if ( FormItemShareConfig.FormItemCreated )
+            return this;
+        var inputGroupShareConfig = GetInputGroupShareConfig();
+        if ( inputGroupShareConfig.InputGroupCreated )
+            return this;
+        this.SpaceItem( FormItemShareConfig.SpaceItem );
+        return this;
     }
 }

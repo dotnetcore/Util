@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Spaces.Builders; 
@@ -50,10 +49,26 @@ public class SpaceBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置设置分隔符
+    /// </summary>
+    public SpaceBuilder Split() {
+        AttributeIfNotEmpty( "[nzSplit]", _config.GetValue( UiConst.Split ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自动换行
+    /// </summary>
+    public SpaceBuilder Wrap() {
+        AttributeIfNotEmpty( "[nzWrap]", _config.GetValue( UiConst.Wrap ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        Size().Direction().Align();
+        Size().Direction().Align().Split().Wrap();
     }
 }

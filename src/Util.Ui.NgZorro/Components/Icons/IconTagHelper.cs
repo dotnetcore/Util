@@ -36,6 +36,10 @@ public class IconTagHelper : TooltipTagHelperBase {
     /// </summary>
     public string Rotate { get; set; }
     /// <summary>
+    /// nzTwotoneColor,扩展属性, 双色图标主题色,注意：仅适用双色图标主题
+    /// </summary>
+    public AntDesignColor TwotoneColorType { get; set; }
+    /// <summary>
     /// nzTwotoneColor,双色图标主题色,注意：仅适用双色图标主题
     /// </summary>
     public string TwotoneColor { get; set; }

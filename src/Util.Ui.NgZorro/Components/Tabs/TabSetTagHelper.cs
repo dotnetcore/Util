@@ -24,11 +24,11 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Animated { get; set; }
     /// <summary>
-    /// nzSize,标签大小,可选值: 'large' | 'small' | 'default',默认值: 'default'
+    /// nzSize,标签尺寸,可选值: 'large' | 'small' | 'default',默认值: 'default'
     /// </summary>
     public TabSize Size { get; set; }
     /// <summary>
-    /// [nzSize],标签大小,可选值: 'large' | 'small' | 'default',默认值: 'default'
+    /// [nzSize],标签尺寸,可选值: 'large' | 'small' | 'default',默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
@@ -56,7 +56,7 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindType { get; set; }
     /// <summary>
-    /// [nzTabBarGutter],标签间隙
+    /// [nzTabBarGutter],标签间隙, 类型: number
     /// </summary>
     public string TabBarGutter { get; set; }
     /// <summary>
@@ -92,6 +92,14 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindAddIcon { get; set; }
     /// <summary>
+    /// nzCloseIcon,关闭按钮图标,当 nzType 为 'editable-card' 时有效,类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public AntDesignIcon CloseIcon { get; set; }
+    /// <summary>
+    /// [nzCloseIcon],关闭按钮图标,当 nzType 为 'editable-card' 时有效,类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string BindCloseIcon { get; set; }
+    /// <summary>
     /// (nzSelectedIndexChange),选中标签索引变化事件,类型: EventEmitter&lt;number>
     /// </summary>
     public string OnSelectedIndexChange { get; set; }
@@ -100,11 +108,11 @@ public class TabSetTagHelper : AngularTagHelperBase {
     /// </summary>
     public string OnSelectChange { get; set; }
     /// <summary>
-    /// (nzAdd),添加标签事件,点击添加按钮时触发
+    /// (nzAdd),添加标签事件,点击添加按钮时触发, nzType='editable-card' 时有效
     /// </summary>
     public string OnAdd { get; set; }
     /// <summary>
-    /// (nzClose),关闭标签事件,点击删除按钮时触发,类型: EventEmitter&lt;{ index: number }>
+    /// (nzClose),关闭标签事件,点击删除按钮时触发, nzType='editable-card' 时有效, 类型: EventEmitter&lt;{ index: number }>
     /// </summary>
     public string OnClose { get; set; }
 

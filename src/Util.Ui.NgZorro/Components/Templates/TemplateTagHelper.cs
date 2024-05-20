@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.Templates;
 [HtmlTargetElement( "util-template" )]
 public class TemplateTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// 扩展属性 nz-tab,选项卡是否延迟加载
+    /// 扩展属性 nz-tab,选项卡是否延迟加载, 默认值: false
     /// </summary>
     public bool Tab { get; set; }
 

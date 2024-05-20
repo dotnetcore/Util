@@ -67,5 +67,16 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
             result.Append( "<div nz-typography=\"\"></div>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<div *nzSpaceItem=\"\"></div>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

@@ -50,8 +50,6 @@ public class DividerBuilder : AngularTagBuilder {
     /// 配置文字
     /// </summary>
     public DividerBuilder Text() {
-        if ( _config.Content.IsEmpty() == false )
-            return this;
         SetText( _config.GetValue( UiConst.Text ) );
         AttributeIfNotEmpty( "[nzText]", _config.GetValue( AngularConst.BindText ) );
         return this;

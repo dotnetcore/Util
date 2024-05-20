@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Tags.Builders;
 
@@ -21,8 +20,10 @@ public class TagContainerTagBuilder : AngularTagBuilder {
     /// 初始化标签标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public TagContainerTagBuilder( Config config ) : base( config, "ng-container" ) {
+    /// <param name="id">标识</param>
+    public TagContainerTagBuilder( Config config, string id ) : base( config, "ng-container" ) {
         _config = config;
+        _id = id;
     }
 
     /// <summary>
@@ -49,6 +50,7 @@ public class TagContainerTagBuilder : AngularTagBuilder {
         AttributeIfNotEmpty( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
         AttributeIfNotEmpty( "(selectedTextChange)", _config.GetValue( UiConst.OnSelectedTextChange ) );
         AttributeIfNotEmpty( "(selectedValueChange)", _config.GetValue( UiConst.OnSelectedValueChange ) );
+        AttributeIfNotEmpty( "(allSelectedChange)", _config.GetValue( UiConst.OnAllSelectedChange ) );
         return this;
     }
 

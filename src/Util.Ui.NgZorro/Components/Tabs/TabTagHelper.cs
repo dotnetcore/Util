@@ -4,19 +4,19 @@ using Util.Ui.NgZorro.Components.Tabs.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Tabs; 
+namespace Util.Ui.NgZorro.Components.Tabs;
 
 /// <summary>
-/// 标签页子标签,生成的标签为&lt;nz-tab>&lt;/nz-tab>
+/// 标签页选项卡,生成的标签为&lt;nz-tab>&lt;/nz-tab>
 /// </summary>
 [HtmlTargetElement( "util-tab" )]
 public class TabTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// 扩展属性,是否延迟加载,设置为true则创建ng-template包装内容
+    /// 扩展属性,是否延迟加载,设置为 true 则创建 ng-template 包装内容
     /// </summary>
     public bool Lazy { get; set; }
     /// <summary>
-    /// nzTitle,标题,支持i18n
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -47,10 +47,6 @@ public class TabTagHelper : AngularTagHelperBase {
     /// (nzClick),单击事件,类型: EventEmitter&lt;void>
     /// </summary>
     public string OnClick { get; set; }
-    /// <summary>
-    /// (nzContextmenu),右键上下文菜单事件,类型: EventEmitter&lt;MouseEvent>
-    /// </summary>
-    public string OnContextmenu { get; set; }
     /// <summary>
     /// (nzSelect),选中事件,类型: EventEmitter&lt;void>
     /// </summary>

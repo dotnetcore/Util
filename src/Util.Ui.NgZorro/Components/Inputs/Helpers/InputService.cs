@@ -13,7 +13,7 @@ public class InputService {
     /// <summary>
     /// 输入框组样式类
     /// </summary>
-    private string _inputGroupClass;
+    private readonly string _inputGroupClass;
 
     /// <summary>
     /// 初始化输入框服务

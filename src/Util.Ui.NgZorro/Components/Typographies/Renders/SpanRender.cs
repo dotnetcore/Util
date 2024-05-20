@@ -43,7 +43,6 @@ public class SpanRender : TypographyRender {
     /// </summary>
     /// <param name="builder">标签生成器</param>
     protected override void ConfigEvents( TagBuilder builder ) {
-        builder.AttributeIfNotEmpty( "(contextmenu)", _config.GetValue( UiConst.OnContextmenu ) );
     }
 
     /// <summary>

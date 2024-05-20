@@ -190,7 +190,7 @@ public class TreeTagHelper : AngularTagHelperBase {
     /// <summary>
     /// (nzContextMenu),上下文菜单事件,右键点击树节点时触发,类型: EventEmitter&lt;NzFormatEmitEvent>
     /// </summary>
-    public string OnContextmenu { get; set; }
+    public new string OnContextmenu { get; set; }
     /// <summary>
     /// (nzCheckBoxChange),树节点复选框选中状态变化事件,点击树节点复选框时触发,类型: EventEmitter&lt;NzFormatEmitEvent>
     /// </summary>

@@ -3,7 +3,7 @@ using Util.Ui.Angular.Extensions;
 using Util.Ui.Configs;
 using Util.Ui.Extensions;
 
-namespace Util.Ui.Angular.Builders; 
+namespace Util.Ui.Angular.Builders;
 
 /// <summary>
 /// Angular标签生成器
@@ -38,6 +38,7 @@ public abstract class AngularTagBuilder : Util.Ui.Builders.TagBuilder {
         base.ConfigBase( config );
         this.Angular( config );
         ConfigId( config );
+        ConfigOnContextmenu( config );
     }
 
     /// <summary>
@@ -46,6 +47,13 @@ public abstract class AngularTagBuilder : Util.Ui.Builders.TagBuilder {
     protected virtual void ConfigId( Config config ) {
         this.RawId( config );
         this.Id( config );
+    }
+
+    /// <summary>
+    /// 配置右键上下文菜单事件
+    /// </summary>
+    protected virtual void ConfigOnContextmenu( Config config ) {
+        AttributeIfNotEmpty( "(contextmenu)", _config.GetValue( UiConst.OnContextmenu ) );
     }
 
     /// <summary>

@@ -216,6 +216,17 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         }
 
         /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-card *nzSpaceItem=\"\"></nz-card>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试单击事件
         /// </summary>
         [Fact]

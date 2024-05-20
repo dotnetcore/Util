@@ -12,11 +12,11 @@ namespace Util.Ui.NgZorro.Components.Spaces;
 [HtmlTargetElement( "util-space")]
 public class SpaceTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzSize,间距大小,可选值: 'small' | 'middle' | 'large'
+    /// nzSize,间距大小,可选值: 'small' | 'middle' | 'large', 默认值: small
     /// </summary>
     public SpaceSize Size { get; set; }
     /// <summary>
-    /// [nzSize],间距大小,可选值: 'small' | 'middle' | 'large'
+    /// [nzSize],间距大小,可选值: 'small' | 'middle' | 'large', 默认值: small
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
@@ -35,6 +35,14 @@ public class SpaceTagHelper : AngularTagHelperBase {
     /// [nzAlign],对齐方式,可选值: 'start' | 'end' | 'center' |  'baseline'
     /// </summary>
     public string BindAlign { get; set; }
+    /// <summary>
+    /// [nzSplit],设置分隔符,类型: TemplateRef&lt;void>
+    /// </summary>
+    public string Split { get; set; }
+    /// <summary>
+    /// [nzWrap],是否自动换行，仅在 `nzDirection` 为 `horizontal` 时有效,类型: boolean , 默认值: false
+    /// </summary>
+    public string Wrap { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

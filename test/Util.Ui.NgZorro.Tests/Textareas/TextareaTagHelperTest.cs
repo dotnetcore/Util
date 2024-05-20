@@ -179,11 +179,11 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
+            result.Append( "</nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -196,11 +196,11 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
+            result.Append( "</nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -222,7 +222,38 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         /// 测试间距项
         /// </summary>
         [Fact]
-        public void TestSpaceItem() {
+        public void TestSpaceItem_1() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
+            var result = new StringBuilder();
+            result.Append( "<textarea *nzSpaceItem=\"\" nz-input=\"\"></textarea>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项 - 创建 nz-input-group
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem_2() {
+            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group *nzSpaceItem=\"\" class=\"ant-input-affix-wrapper-textarea-with-clear-btn\" [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
+            result.Append( "</ng-template>" );
+            result.Append( "<textarea #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\"></textarea>" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项 - 创建 nz-form-item
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem_3() {
             _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
             _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
 

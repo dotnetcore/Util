@@ -23,11 +23,11 @@ public class TagTagHelper : AngularTagHelperBase {
     /// </summary>
     public ModelExpression For { get; set; }
     /// <summary>
-    /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
+    /// 扩展属性,是否启用扩展指令,当设置 url 或 data 属性时自动启用,默认为 false
     /// </summary>
     public bool EnableExtend { get; set; }
     /// <summary>
-    /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
+    /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为 true,设置成 false 手工加载
     /// </summary>
     public bool AutoLoad { get; set; }
     /// <summary>
@@ -35,11 +35,11 @@ public class TagTagHelper : AngularTagHelperBase {
     /// </summary>
     public string AllSelected { get; set; }
     /// <summary>
-    /// 扩展属性 [(selectedText)],选中标签文本,多个标签文本使用逗号分隔
+    /// 扩展属性 [(selectedText)],选中标签文本,多个标签文本使用 | 分隔
     /// </summary>
     public string SelectedText { get; set; }
     /// <summary>
-    /// 扩展属性 [(selectedValue)],选中标签值,多个标签值使用逗号分隔
+    /// 扩展属性 [(selectedValue)],选中标签值,多个标签值使用 , 分隔
     /// </summary>
     public string SelectedValue { get; set; }
     /// <summary>
@@ -87,9 +87,9 @@ public class TagTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindonChecked { get; set; }
     /// <summary>
-    /// nzColor,颜色枚举类型
+    /// nzColor,扩展属性, 颜色类型
     /// </summary>
-    public AntDesignColor ColorType { get; set; }
+    public TagColor ColorType { get; set; }
     /// <summary>
     /// nzColor,颜色
     /// </summary>
@@ -98,6 +98,14 @@ public class TagTagHelper : AngularTagHelperBase {
     /// [nzColor],颜色
     /// </summary>
     public string BindColor { get; set; }
+    /// <summary>
+    /// [nzBordered],是否有边框, 类型: boolean, 默认值: true
+    /// </summary>
+    public string Bordered { get; set; }
+    /// <summary>
+    /// (click),单击事件
+    /// </summary>
+    public string OnClick { get; set; }
     /// <summary>
     /// (nzOnClose),关闭事件,在 nzMode="closable" 时可用,类型: EventEmitter&lt;MouseEvent>
     /// </summary>
@@ -111,13 +119,17 @@ public class TagTagHelper : AngularTagHelperBase {
     /// </summary>
     public string OnLoad { get; set; }
     /// <summary>
-    /// 扩展事件 (selectedTextChange),选中文本变更事件,类型: EventEmitter&lt;string>,参数为选中标签的文本,以逗号分隔
+    /// 扩展事件 (selectedTextChange),选中文本变化事件,类型: EventEmitter&lt;string>,参数为选中标签的文本,以 | 分隔
     /// </summary>
     public string OnSelectedTextChange { get; set; }
     /// <summary>
-    /// 扩展事件 (selectedValueChange),选中值变更事件,类型: EventEmitter&lt;string>,参数为选中标签的值,以逗号分隔
+    /// 扩展事件 (selectedValueChange),选中值变化事件,类型: EventEmitter&lt;string>,参数为选中标签的值,以 , 分隔
     /// </summary>
     public string OnSelectedValueChange { get; set; }
+    /// <summary>
+    /// 扩展事件 (allSelectedChange),全部选中状态变化事件,类型: EventEmitter&lt;boolean>
+    /// </summary>
+    public string OnAllSelectedChange { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

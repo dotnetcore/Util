@@ -28,7 +28,8 @@ public static class TagBuilderExtensions {
         builder.AttributeIfNotEmpty( "[nzTooltipTitleContext]", config.GetValue( UiConst.TooltipTitleContext ) );
         builder.AttributeIfNotEmpty( "nzTooltipTrigger", config.GetValue<TooltipTrigger?>( UiConst.TooltipTrigger )?.Description() );
         builder.AttributeIfNotEmpty( "[nzTooltipTrigger]", config.GetValue( AngularConst.BindTooltipTrigger ) );
-        builder.AttributeIfNotEmpty( "nzTooltipColor", config.GetValue<AntDesignColor?>( UiConst.TooltipColor )?.Description() );
+        builder.AttributeIfNotEmpty( "nzTooltipColor", config.GetValue<AntDesignColor?>( UiConst.TooltipColorType )?.Description() );
+        builder.AttributeIfNotEmpty( "nzTooltipColor", config.GetValue( UiConst.TooltipColor ) );
         builder.AttributeIfNotEmpty( "[nzTooltipColor]", config.GetValue( AngularConst.BindTooltipColor ) );
         builder.AttributeIfNotEmpty( "[nzTooltipOrigin]", config.GetValue( UiConst.TooltipOrigin ) );
         builder.AttributeIfNotEmpty( "[nzTooltipVisible]", config.GetValue( UiConst.TooltipVisible ) );

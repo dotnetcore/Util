@@ -9,6 +9,10 @@ public class AntDesignConst {
     /// </summary>
     public const string TwotoneColor = "twotone-color";
     /// <summary>
+    /// 双色图标颜色类型
+    /// </summary>
+    public const string TwotoneColorType = "twotone-color-type";
+    /// <summary>
     /// 双色图标颜色
     /// </summary>
     public const string BindTwotoneColor = "bind-twotone-color";

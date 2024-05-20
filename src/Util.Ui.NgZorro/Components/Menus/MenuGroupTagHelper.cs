@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.Menus;
 [HtmlTargetElement( "util-menu-group" )]
 public class MenuGroupTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzTitle,标题
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>

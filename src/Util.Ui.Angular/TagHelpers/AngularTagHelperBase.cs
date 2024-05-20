@@ -50,4 +50,8 @@ public abstract class AngularTagHelperBase : TagHelperBase {
     /// [acl],访问控制
     /// </summary>
     public string BindAcl { get; set; }
+    /// <summary>
+    /// (contextmenu),右键上下文菜单事件,类型: EventEmitter&lt;MouseEvent>
+    /// </summary>
+    public string OnContextmenu { get; set; }
 }

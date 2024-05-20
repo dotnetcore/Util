@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Typographies;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -42,6 +43,17 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<article nz-typography=\"\"></article>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<article *nzSpaceItem=\"\" nz-typography=\"\"></article>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

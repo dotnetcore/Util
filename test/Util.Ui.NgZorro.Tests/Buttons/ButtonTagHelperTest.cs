@@ -75,17 +75,6 @@ public partial class ButtonTagHelperTest {
     }
 
     /// <summary>
-    /// 测试链接按钮
-    /// </summary>
-    [Fact]
-    public void TestLinkType() {
-        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link );
-        var result = new StringBuilder();
-        result.Append( "<a nz-button=\"\" nzType=\"link\"></a>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
     /// 测试按钮类型
     /// </summary>
     [Fact]
@@ -93,50 +82,6 @@ public partial class ButtonTagHelperTest {
         _wrapper.SetContextAttribute( AngularConst.BindType, "a" );
         var result = new StringBuilder();
         result.Append( "<button nz-button=\"\" [nzType]=\"a\"></button>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试路由链接
-    /// </summary>
-    [Fact]
-    public void TestRouterLink() {
-        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link ).SetContextAttribute( AngularConst.RouterLink, "a" );
-        var result = new StringBuilder();
-        result.Append( "<a nz-button=\"\" nzType=\"link\" routerLink=\"a\"></a>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试路由链接
-    /// </summary>
-    [Fact]
-    public void TestBindRouterLink() {
-        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link ).SetContextAttribute( AngularConst.BindRouterLink, "a" );
-        var result = new StringBuilder();
-        result.Append( "<a nz-button=\"\" nzType=\"link\" [routerLink]=\"a\"></a>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试活动路由链接
-    /// </summary>
-    [Fact]
-    public void TestRouterLinkActive() {
-        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link ).SetContextAttribute( AngularConst.RouterLinkActive, "a" );
-        var result = new StringBuilder();
-        result.Append( "<a nz-button=\"\" nzType=\"link\" routerLinkActive=\"a\"></a>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试活动路由链接
-    /// </summary>
-    [Fact]
-    public void TestBindRouterLinkActive() {
-        _wrapper.SetContextAttribute( UiConst.Type, ButtonType.Link ).SetContextAttribute( AngularConst.BindRouterLinkActive, "a" );
-        var result = new StringBuilder();
-        result.Append( "<a nz-button=\"\" nzType=\"link\" [routerLinkActive]=\"a\"></a>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

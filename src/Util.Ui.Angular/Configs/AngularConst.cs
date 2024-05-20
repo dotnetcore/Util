@@ -25,6 +25,10 @@ public static class AngularConst {
     /// </summary>
     public const string NgSwitchDefault = "ng-switch-default";
     /// <summary>
+    /// *ngTemplateOutlet指令
+    /// </summary>
+    public const string NgTemplateOutlet = "ng-template-outlet";
+    /// <summary>
     /// ngFor指令
     /// </summary>
     public const string NgFor = "ng-for";
@@ -472,6 +476,10 @@ public static class AngularConst {
     /// 分隔符
     /// </summary>
     public const string BindSeparator = "bind-separator";
+    /// <summary>
+    /// 查询参数处理方式
+    /// </summary>
+    public const string BindQueryParamsHandling = "bind-query-params-handling";
     /// <summary>
     /// 自动生成
     /// </summary>

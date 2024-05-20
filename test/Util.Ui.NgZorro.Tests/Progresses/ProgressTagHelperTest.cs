@@ -151,6 +151,17 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         /// 测试颜色
         /// </summary>
         [Fact]
+        public void TestStrokeColorType() {
+            _wrapper.SetContextAttribute( UiConst.StrokeColorType, AntDesignColor.Red );
+            var result = new StringBuilder();
+            result.Append( "<nz-progress nzStrokeColor=\"red\"></nz-progress>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试颜色
+        /// </summary>
+        [Fact]
         public void TestStrokeColor() {
             _wrapper.SetContextAttribute( UiConst.StrokeColor, "a" );
             var result = new StringBuilder();
@@ -247,6 +258,28 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
         }
 
         /// <summary>
+        /// 测试尺寸
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            _wrapper.SetContextAttribute( UiConst.Size, ProgressSize.Small );
+            var result = new StringBuilder();
+            result.Append( "<nz-progress nzSize=\"small\"></nz-progress>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试尺寸
+        /// </summary>
+        [Fact]
+        public void TestBindSize() {
+            _wrapper.SetContextAttribute( AngularConst.BindSize, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-progress [nzSize]=\"a\"></nz-progress>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]
@@ -254,6 +287,17 @@ namespace Util.Ui.NgZorro.Tests.Progresses {
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
             result.Append( "<nz-progress>a</nz-progress>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试提示文字
+        /// </summary>
+        [Fact]
+        public void TestTooltipTitle() {
+            _wrapper.SetContextAttribute( UiConst.TooltipTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-progress nz-tooltip=\"\" nzTooltipTitle=\"a\"></nz-progress>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

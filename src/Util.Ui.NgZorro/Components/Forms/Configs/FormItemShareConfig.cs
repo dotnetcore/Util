@@ -9,6 +9,10 @@ public class FormItemShareConfig : FormShareConfig {
     /// </summary>
     public string Id { get; set; }
     /// <summary>
+    /// nz-form-item 已创建
+    /// </summary>
+    public bool FormItemCreated { get; set; }
+    /// <summary>
     /// 自动创建nz-form-item
     /// </summary>
     public bool? AutoCreateFormItem { get; set; }
@@ -33,9 +37,9 @@ public class FormItemShareConfig : FormShareConfig {
     /// </summary>
     public string BindLabelText { get; set; }
     /// <summary>
-    /// 是否间距项
+    /// [nzErrorTip]
     /// </summary>
-    public bool SpaceItem { get; set; }
+    public string BindErrorTip { get; set; }
     /// <summary>
     /// 是否存在额外提示
     /// </summary>
@@ -73,7 +77,7 @@ public class FormItemShareConfig : FormShareConfig {
     /// </summary>
     public string NgIf { get; set; }
     /// <summary>
-    /// [nzErrorTip]
+    /// 是否间距项
     /// </summary>
-    public string BindErrorTip { get; set; }
+    public bool SpaceItem { get; set; }
 }

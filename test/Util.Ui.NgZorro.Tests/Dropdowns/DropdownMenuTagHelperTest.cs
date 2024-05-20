@@ -1,7 +1,7 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Dropdowns;
+using Util.Ui.NgZorro.Components.Menus;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -87,31 +87,6 @@ namespace Util.Ui.NgZorro.Tests.Dropdowns {
         }
 
         /// <summary>
-        /// 测试不创建ul标签
-        /// </summary>
-        [Fact]
-        public void TestNotCreateUl() {
-            _wrapper.SetContextAttribute( UiConst.NotCreateUl, true );
-            var result = new StringBuilder();
-            result.Append( "<nz-dropdown-menu></nz-dropdown-menu>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试设置内容 - 不创建ul标签
-        /// </summary>
-        [Fact]
-        public void TestNotCreateUl_Content() {
-            _wrapper.SetContextAttribute( UiConst.NotCreateUl, true );
-            _wrapper.AppendContent( "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-dropdown-menu>" );
-            result.Append( "a" );
-            result.Append( "</nz-dropdown-menu>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试单击事件
         /// </summary>
         [Fact]
@@ -120,6 +95,22 @@ namespace Util.Ui.NgZorro.Tests.Dropdowns {
             var result = new StringBuilder();
             result.Append( "<nz-dropdown-menu>" );
             result.Append( "<ul (nzClick)=\"a\" nz-menu=\"\"></ul>" );
+            result.Append( "</nz-dropdown-menu>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试手工创建菜单标签
+        /// </summary>
+        [Fact]
+        public void TestMenu() {
+            var menu = new MenuTagHelper().ToWrapper();
+            _wrapper.AppendContent( menu );
+
+            var result = new StringBuilder();
+            result.Append( "<nz-dropdown-menu>" );
+            result.Append( "<ul nz-menu=\"\">" );
+            result.Append( "</ul>" );
             result.Append( "</nz-dropdown-menu>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

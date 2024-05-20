@@ -15,7 +15,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         public void TestText() {
             _wrapper.SetContextAttribute( UiConst.Text, "a" );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">a</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>a</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -27,7 +29,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.Text, "a" );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">{{'a'|i18n}}</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>{{'a'|i18n}}</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -38,7 +42,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         public void TestTextUpdate() {
             _wrapper.SetContextAttribute( UiConst.TextUpdate, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">Update</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>Update</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -50,7 +56,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.TextUpdate, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">{{'util.update'|i18n}}</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>{{'util.update'|i18n}}</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -61,7 +69,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         public void TestTextDelete() {
             _wrapper.SetContextAttribute( UiConst.TextDelete, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">Delete</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>Delete</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -73,7 +83,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.TextDelete, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">{{'util.delete'|i18n}}</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>{{'util.delete'|i18n}}</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -84,7 +96,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         public void TestTextDetail() {
             _wrapper.SetContextAttribute( UiConst.TextDetail, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">Detail</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>Detail</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -96,7 +110,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.TextDetail, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">{{'util.detail'|i18n}}</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>{{'util.detail'|i18n}}</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -107,7 +123,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         public void TestTextEnable() {
             _wrapper.SetContextAttribute( UiConst.TextEnable, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">Enable</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>Enable</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -119,7 +137,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.TextEnable, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">{{'util.enable'|i18n}}</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>{{'util.enable'|i18n}}</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -130,7 +150,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
         public void TestTextDisable() {
             _wrapper.SetContextAttribute( UiConst.TextDisable, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">Disable</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>Disable</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -142,7 +164,9 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetContextAttribute( UiConst.TextDisable, true );
             var result = new StringBuilder();
-            result.Append( "<li nz-menu-item=\"\">{{'util.disable'|i18n}}</li>" );
+            result.Append( "<li nz-menu-item=\"\">" );
+            result.Append( "<span>{{'util.disable'|i18n}}</span>" );
+            result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

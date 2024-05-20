@@ -130,6 +130,17 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// 测试双色图标主题色
         /// </summary>
         [Fact]
+        public void TestTwotoneColorType() {
+            _wrapper.SetContextAttribute( AntDesignConst.TwotoneColorType, AntDesignColor.Red );
+            var result = new StringBuilder();
+            result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"red\"></span>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试双色图标主题色
+        /// </summary>
+        [Fact]
         public void TestTwotoneColor() {
             _wrapper.SetContextAttribute( AntDesignConst.TwotoneColor, "#eb2f96" );
             var result = new StringBuilder();

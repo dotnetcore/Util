@@ -5,7 +5,7 @@ using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Cards.Builders; 
+namespace Util.Ui.NgZorro.Components.Cards.Builders;
 
 /// <summary>
 /// 卡片标签生成器
@@ -20,7 +20,7 @@ public class CardBuilder : AngularTagBuilder {
     /// 初始化卡片标签生成器
     /// </summary>
     /// <param name="config">配置</param>
-    public CardBuilder( Config config ) : base( config,"nz-card" ) {
+    public CardBuilder( Config config ) : base( config, "nz-card" ) {
         _config = config;
     }
 
@@ -106,7 +106,7 @@ public class CardBuilder : AngularTagBuilder {
     /// </summary>
     public CardBuilder Type() {
         var type = _config.GetValue<CardType?>( UiConst.Type );
-        if( type == CardType.Inner )
+        if ( type == CardType.Inner )
             Attribute( "nzType", "inner" );
         AttributeIfNotEmpty( "[nzType]", _config.GetValue( AngularConst.BindType ) );
         return this;
@@ -136,6 +136,7 @@ public class CardBuilder : AngularTagBuilder {
         base.Config();
         Title().Actions().BodyStyle().Borderless().Cover().Extra()
             .Hoverable().Loading().Type().Size()
+            .SpaceItem( _config )
             .Event();
     }
 }

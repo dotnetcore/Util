@@ -291,6 +291,17 @@ namespace Util.Ui.NgZorro.Tests.Typographies {
         }
 
         /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<p *nzSpaceItem=\"\" nz-typography=\"\"></p>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容更改事件
         /// </summary>
         [Fact]

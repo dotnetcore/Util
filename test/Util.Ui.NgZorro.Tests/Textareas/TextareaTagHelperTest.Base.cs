@@ -81,7 +81,9 @@ namespace Util.Ui.NgZorro.Tests.Textareas {
         public void TestNgIf() {
             _wrapper.SetContextAttribute( AngularConst.NgIf, "a" );
             var result = new StringBuilder();
-            result.Append( "<textarea *ngIf=\"a\" nz-input=\"\"></textarea>" );
+            result.Append( "<ng-container *ngIf=\"a\">" );
+            result.Append( "<textarea nz-input=\"\"></textarea>" );
+            result.Append( "</ng-container>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

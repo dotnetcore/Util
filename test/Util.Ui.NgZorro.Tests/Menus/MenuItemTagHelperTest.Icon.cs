@@ -30,7 +30,8 @@ namespace Util.Ui.NgZorro.Tests.Menus {
             _wrapper.SetContextAttribute( UiConst.Icon, AntDesignIcon.InfoCircle );
             var result = new StringBuilder();
             result.Append( "<li nz-menu-item=\"\">" );
-            result.Append( "<span class=\"mr-sm\" nz-icon=\"\" nzType=\"info-circle\"></span>a" );
+            result.Append( "<span class=\"mr-sm\" nz-icon=\"\" nzType=\"info-circle\"></span>" );
+            result.Append( "<span>a</span>" );
             result.Append( "</li>" );
             Assert.Equal( result.ToString(), GetResult() );
         }

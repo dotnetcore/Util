@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Builders;
 using Util.Ui.Extensions;
+using Util.Ui.NgZorro.Components.Dropdowns.Configs;
 
 namespace Util.Ui.NgZorro.Components.Dropdowns.Builders; 
 
@@ -35,8 +36,8 @@ public class DropdownMenuBuilder : AngularTagBuilder {
     /// 配置内容元素
     /// </summary>
     protected override void ConfigContent( Config config ) {
-        var notCreateUl = config.GetValue<bool?>( UiConst.NotCreateUl );
-        if ( notCreateUl == true ) {
+        var shareConfig = GetShareConfig();
+        if ( shareConfig.AutoCreateUl == false ) {
             config.Content.AppendTo( this );
             return;
         }
@@ -45,6 +46,13 @@ public class DropdownMenuBuilder : AngularTagBuilder {
         ConfigEvents( ulBuilder );
         SetContent( ulBuilder );
         _config.Content.AppendTo( ulBuilder );
+    }
+
+    /// <summary>
+    /// 获取下拉菜单共享配置
+    /// </summary>
+    private DropdownMenuShareConfig GetShareConfig() {
+        return _config.GetValueFromItems<DropdownMenuShareConfig>() ?? new DropdownMenuShareConfig();
     }
 
     /// <summary>

@@ -30,7 +30,7 @@ public class InputGroupShareService {
     /// 设置nz-input-group已创建
     /// </summary>
     public void Created() {
-        _shareConfig.IsInputGroupCreated = true;
+        _shareConfig.InputGroupCreated = true;
     }
 
     /// <summary>
@@ -66,6 +66,7 @@ public class InputGroupShareService {
         InitShareConfig();
         SetShareConfig();
         AutoCreateInputGroup();
+        SetNgIf();
     }
 
     /// <summary>
@@ -210,5 +211,18 @@ public class InputGroupShareService {
         if ( string.IsNullOrWhiteSpace( _shareConfig.BindSuffixIcon ) == false )
             return true;
         return false;
+    }
+
+    /// <summary>
+    /// 设置ngIf*
+    /// </summary>
+    private void SetNgIf() {
+        var value = _config.GetValueFromAttributes( AngularConst.NgIf );
+        if ( value.IsEmpty() )
+            return;
+        if ( _shareConfig.AllowClear == false )
+            return;
+        _shareConfig.NgIf = value;
+        _config.RemoveAttribute( AngularConst.NgIf );
     }
 }

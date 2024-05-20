@@ -127,17 +127,6 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     }
 
     /// <summary>
-    /// 配置路由链接
-    /// </summary>
-    public TBuilder RouterLink() {
-        AttributeIfNotEmpty( "routerLink", _config.GetValue( AngularConst.RouterLink ) );
-        AttributeIfNotEmpty( "[routerLink]", _config.GetValue( AngularConst.BindRouterLink ) );
-        AttributeIfNotEmpty( "routerLinkActive", _config.GetValue( AngularConst.RouterLinkActive ) );
-        AttributeIfNotEmpty( "[routerLinkActive]", _config.GetValue( AngularConst.BindRouterLinkActive ) );
-        return (TBuilder)this;
-    }
-
-    /// <summary>
     /// 配置下拉菜单
     /// </summary>
     public TBuilder DropdownMenu() {
@@ -714,7 +703,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     protected TBuilder ConfigButton() {
         EnableExtend();
-        return Type().Size().Shape().Disabled().Danger().Loading().Ghost().Block().Icon().RouterLink()
+        return Type().Size().Shape().Disabled().Danger().Loading().Ghost().Block().Icon()
             .DropdownMenu().DropdownMenuPlacement().DropdownMenuTrigger().DropdownMenuClickHide()
             .DropdownMenuVisible().DropdownMenuOverlayClassName().DropdownMenuOverlayStyle()
             .SpaceItem().Tooltip( _config ).Popconfirm( _config ).Popover( _config )
@@ -725,7 +714,8 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
             .TextStart().TextStop().TextAdd().TextRemove()
             .TextOpen().TextClose().TextSend().TextClear()
             .TextImport().TextExport().TextReset().TextUnedit()
-            .Text().OnClick().OnVisibleChange();
+            .Text()
+            .OnClick().OnVisibleChange();
     }
 
     /// <summary>
@@ -791,8 +781,8 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     protected string GetFullscreenWrapClass() {
         var className = _config.GetValue( UiConst.FullscreenWrapClass );
-        if (className.IsEmpty()) {
-            if(_config.Contains( UiConst.FullscreenPack ) || _config.Contains( UiConst.FullscreenTitle ) )
+        if ( className.IsEmpty() ) {
+            if ( _config.Contains( UiConst.FullscreenPack ) || _config.Contains( UiConst.FullscreenTitle ) )
                 return ",null";
             return null;
         }
@@ -804,7 +794,7 @@ public abstract class ButtonBuilderBase<TBuilder> : AngularTagBuilder where TBui
     /// </summary>
     protected string GetFullscreenPack() {
         var isPack = _config.GetBoolValue( UiConst.FullscreenPack );
-        if (isPack.IsEmpty()) {
+        if ( isPack.IsEmpty() ) {
             if ( _config.Contains( UiConst.FullscreenTitle ) )
                 return ",true";
             return null;

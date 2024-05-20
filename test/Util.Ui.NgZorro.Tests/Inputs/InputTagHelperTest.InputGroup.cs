@@ -312,11 +312,11 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
+            result.Append( "</nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -329,11 +329,11 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
+            result.Append( "</nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -353,11 +353,11 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
 
             var result = new StringBuilder();
             result.Append( "<nz-input-group nzSize=\"small\" [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<input #model_id=\"ngModel\" nz-input=\"\" [(ngModel)]=\"code\" />" );
+            result.Append( "</nz-input-group>" );
 
             //执行
             var html = inputGroup.GetResult();
@@ -398,11 +398,11 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             _wrapper.SetContextAttribute( UiConst.Type, InputType.Password );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<input #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
+            result.Append( "</nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -416,12 +416,12 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
             var result = new StringBuilder();
             result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
-            result.Append( "<input #model_id=\"ngModel\" #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [(ngModel)]=\"code\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
-            result.Append( "</nz-input-group>" );
             result.Append( "<ng-template #tmp_id=\"\">" );
             result.Append( "<span (click)=\"xi_id.passwordVisible = !xi_id.passwordVisible\" nz-icon=\"\" [nzType]=\"xi_id.passwordVisible?'eye-invisible':'eye'\"></span>" );
             result.Append( "<span (click)=\"model_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
             result.Append( "</ng-template>" );
+            result.Append( "<input #model_id=\"ngModel\" #xi_id=\"xInputExtend\" nz-input=\"\" x-input-extend=\"\" [(ngModel)]=\"code\" [type]=\"xi_id.passwordVisible?'text':'password'\" />" );
+            result.Append( "</nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

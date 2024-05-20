@@ -115,6 +115,28 @@ namespace Util.Ui.NgZorro.Tests.Spaces {
         }
 
         /// <summary>
+        /// 测试设置分隔符
+        /// </summary>
+        [Fact]
+        public void TestSplit() {
+            _wrapper.SetContextAttribute( UiConst.Split, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-space [nzSplit]=\"a\"></nz-space>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自动换行
+        /// </summary>
+        [Fact]
+        public void TestWrap() {
+            _wrapper.SetContextAttribute( UiConst.Wrap, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-space [nzWrap]=\"a\"></nz-space>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试设置内容
         /// </summary>
         [Fact]

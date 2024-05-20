@@ -52,6 +52,17 @@ namespace Util.Ui.NgZorro.Tests.Timelines {
         /// 测试颜色
         /// </summary>
         [Fact]
+        public void TestColorType() {
+            _wrapper.SetContextAttribute( UiConst.ColorType, AntDesignColor.Red );
+            var result = new StringBuilder();
+            result.Append( "<nz-timeline-item nzColor=\"red\"></nz-timeline-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试颜色
+        /// </summary>
+        [Fact]
         public void TestColor() {
             _wrapper.SetContextAttribute( UiConst.Color, "a" );
             var result = new StringBuilder();
@@ -100,6 +111,28 @@ namespace Util.Ui.NgZorro.Tests.Timelines {
             _wrapper.SetContextAttribute( AngularConst.BindPosition, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-timeline-item [nzPosition]=\"a\"></nz-timeline-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置标签
+        /// </summary>
+        [Fact]
+        public void TestLabel() {
+            _wrapper.SetContextAttribute( UiConst.Label, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-timeline-item nzLabel=\"a\"></nz-timeline-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置标签
+        /// </summary>
+        [Fact]
+        public void TestBindLabel() {
+            _wrapper.SetContextAttribute( AngularConst.BindLabel, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-timeline-item [nzLabel]=\"a\"></nz-timeline-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

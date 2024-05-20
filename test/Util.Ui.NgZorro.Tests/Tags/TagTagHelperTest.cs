@@ -107,7 +107,7 @@ namespace Util.Ui.NgZorro.Tests.Tags {
         /// </summary>
         [Fact]
         public void TestColorType() {
-            _wrapper.SetContextAttribute( UiConst.ColorType, AntDesignColor.GeekBlue );
+            _wrapper.SetContextAttribute( UiConst.ColorType, TagColor.GeekBlue );
             var result = new StringBuilder();
             result.Append( "<nz-tag nzColor=\"geekblue\"></nz-tag>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -136,6 +136,17 @@ namespace Util.Ui.NgZorro.Tests.Tags {
         }
 
         /// <summary>
+        /// 测试边框
+        /// </summary>
+        [Fact]
+        public void TestBordered() {
+            _wrapper.SetContextAttribute( UiConst.Bordered, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tag [nzBordered]=\"a\"></nz-tag>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]
@@ -143,6 +154,17 @@ namespace Util.Ui.NgZorro.Tests.Tags {
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
             result.Append( "<nz-tag>a</nz-tag>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试点击事件
+        /// </summary>
+        [Fact]
+        public void TestOnClick() {
+            _wrapper.SetContextAttribute( UiConst.OnClick, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tag (click)=\"a\"></nz-tag>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Progresses.Renders;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
@@ -10,7 +10,7 @@ namespace Util.Ui.NgZorro.Components.Progresses;
 /// 进度条,生成的标签为&lt;nz-progress>&lt;/nz-progress>
 /// </summary>
 [HtmlTargetElement( "util-progress" )]
-public class ProgressTagHelper : AngularTagHelperBase {
+public class ProgressTagHelper : TooltipTagHelperBase {
     /// <summary>
     /// nzType,进度条类型,可选值: 'line' | 'circle' | 'dashboard',默认值: 'line'
     /// </summary>
@@ -19,6 +19,14 @@ public class ProgressTagHelper : AngularTagHelperBase {
     /// [nzType],进度条类型,可选值: 'line' | 'circle' | 'dashboard',默认值: 'line'
     /// </summary>
     public string BindType { get; set; }
+    /// <summary>
+    /// nzSize,尺寸,可选值: 'default' | 'small' ,默认值: 'default'
+    /// </summary>
+    public ProgressSize Size { get; set; }
+    /// <summary>
+    /// [nzSize],尺寸,可选值: 'default' | 'small' ,默认值: 'default'
+    /// </summary>
+    public string BindSize { get; set; }
     /// <summary>
     /// [nzFormat],格式化函数,用于自定义显示内容,类型: (percent: number) => string | TemplateRef&lt;{ $implicit: number }>,默认值: percent => percent + '%'
     /// </summary>
@@ -47,6 +55,10 @@ public class ProgressTagHelper : AngularTagHelperBase {
     /// [nzStrokeLinecap],进度条端点形状,可选值: 'round' | 'square',默认值: 'round'
     /// </summary>
     public string BindStrokeLinecap { get; set; }
+    /// <summary>
+    /// nzStrokeColor,扩展属性, 进度条颜色
+    /// </summary>
+    public AntDesignColor StrokeColorType { get; set; }
     /// <summary>
     /// nzStrokeColor,进度条颜色，传入对象时为渐变,类型: string | { from: string; to: string: direction: string; [percent: string]: string }
     /// </summary>

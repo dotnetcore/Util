@@ -100,6 +100,10 @@ public abstract class TypographyTagHelper : TooltipTagHelperBase {
     /// </summary>
     public string BindonContent { get; set; }
     /// <summary>
+    /// *nzSpaceItem,值为 true 时设置为间距项,放入 &lt;util-space> 中使用
+    /// </summary>
+    public bool SpaceItem { get; set; }
+    /// <summary>
     /// (nzContentChange),当用户提交编辑内容时触发
     /// </summary>
     public string OnContentChange { get; set; }

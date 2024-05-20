@@ -9,7 +9,7 @@ public class InputGroupShareConfig {
     /// <summary>
     /// 是否已创建 nz-input-group
     /// </summary>
-    public bool IsInputGroupCreated { get; set; }
+    public bool InputGroupCreated { get; set; }
     /// <summary>
     /// 自动创建nz-input-group
     /// </summary>
@@ -110,4 +110,8 @@ public class InputGroupShareConfig {
     /// 样式类
     /// </summary>
     public string Class { get; set; }
+    /// <summary>
+    /// ngIf*
+    /// </summary>
+    public string NgIf { get; set; }
 }

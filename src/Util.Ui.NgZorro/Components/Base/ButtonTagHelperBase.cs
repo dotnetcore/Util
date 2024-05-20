@@ -1,4 +1,5 @@
-﻿using Util.Ui.NgZorro.Enums;
+﻿using Util.Ui.Enums;
+using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Base; 
 
@@ -23,7 +24,7 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// </summary>
     public bool FullscreenPack { get; set; }
     /// <summary>
-    /// 扩展属性,内容文本,支持i18n
+    /// 扩展属性,内容文本,支持多语言
     /// </summary>
     public string Text { get; set; }
     /// <summary>
@@ -143,31 +144,15 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// </summary>
     public bool TextUnedit { get; set; }
     /// <summary>
-    /// routerLink,路由链接,当按钮类型为链接时可用
-    /// </summary>
-    public string RouterLink { get; set; }
-    /// <summary>
-    /// [routerLink],路由链接,当按钮类型为链接时可用
-    /// </summary>
-    public string BindRouterLink { get; set; }
-    /// <summary>
-    /// routerLinkActive,活动路由链接,设置当前活动路由链接的css类,当按钮类型为链接时可用
-    /// </summary>
-    public string RouterLinkActive { get; set; }
-    /// <summary>
-    /// [routerLinkActive],活动路由链接,设置当前活动路由链接的css类,当按钮类型为链接时可用
-    /// </summary>
-    public string BindRouterLinkActive { get; set; }
-    /// <summary>
     /// [nzDropdownMenu],设置下拉菜单
     /// </summary>
     public string DropdownMenu { get; set; }
     /// <summary>
-    /// nzPlacement,下拉菜单弹出位置
+    /// nzPlacement,下拉菜单弹出位置, 可选值: bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight'
     /// </summary>
     public DropdownMenuPlacement DropdownMenuPlacement { get; set; }
     /// <summary>
-    /// [nzPlacement],下拉菜单弹出位置
+    /// [nzPlacement],下拉菜单弹出位置, 可选值: bottomLeft' | 'bottomCenter' | 'bottomRight' | 'topLeft' | 'topCenter' | 'topRight'
     /// </summary>
     public string BindDropdownMenuPlacement { get; set; }
     /// <summary>
@@ -206,6 +191,70 @@ public abstract class ButtonTagHelperBase : TooltipTagHelperBase {
     /// *nzSpaceItem,值为 true 时设置为间距项,放入 &lt;util-space> 中使用
     /// </summary>
     public bool SpaceItem { get; set; }
+    /// <summary>
+    /// 扩展属性,是否查询表单链接,折叠时显示`展开`文本,展开时显示`收起`文本
+    /// </summary>
+    public bool IsSearch { get; set; }
+    /// <summary>
+    /// 扩展属性,显示表格设置,参数值为表格标识
+    /// </summary>
+    public string ShowTableSettings { get; set; }
+    /// <summary>
+    /// href,链接地址
+    /// </summary>
+    public string Href { get; set; }
+    /// <summary>
+    /// [href],链接地址
+    /// </summary>
+    public string BindHref { get; set; }
+    /// <summary>
+    /// target,链接打开目标, 可选值: '_self' | '_blank' | '_parent' | '_top'
+    /// </summary>
+    public ATarget Target { get; set; }
+    /// <summary>
+    /// [target],链接打开目标, 可选值: '_self' | '_blank' | '_parent' | '_top'
+    /// </summary>
+    public string BindTarget { get; set; }
+    /// <summary>
+    /// rel,指定当前文档与被链接文档的关系
+    /// </summary>
+    public string Rel { get; set; }
+    /// <summary>
+    /// [rel],指定当前文档与被链接文档的关系
+    /// </summary>
+    public string BindRel { get; set; }
+    /// <summary>
+    /// routerLink,路由链接地址
+    /// </summary>
+    public string RouterLink { get; set; }
+    /// <summary>
+    /// [routerLink],路由链接地址
+    /// </summary>
+    public string BindRouterLink { get; set; }
+    /// <summary>
+    /// routerLinkActive,设置当前活动路由链接的css类
+    /// </summary>
+    public string RouterLinkActive { get; set; }
+    /// <summary>
+    /// [routerLinkActive],设置当前活动路由链接的css类
+    /// </summary>
+    public string BindRouterLinkActive { get; set; }
+    /// <summary>
+    /// [queryParams],路由查询参数
+    /// </summary>
+    public string QueryParams { get; set; }
+    /// <summary>
+    /// queryParamsHandling,路由链接查询参数处理方式, 可选值: 'merge' | 'preserve', merge 将新参数与当前参数合并, preserve 保留当前参数.
+    /// </summary>
+    public QueryParamsHandling QueryParamsHandling { get; set; }
+    /// <summary>
+    /// [queryParamsHandling],路由链接查询参数处理方式, 可选值: 'merge' | 'preserve', merge 将新参数与当前参数合并, preserve 保留当前参数.
+    /// </summary>
+    public string BindQueryParamsHandling { get; set; }
+    /// <summary>
+    /// *nzTabLink nz-tab-link, 选项卡路由联动
+    /// </summary>
+    public string TabLink { get; set; }
     /// <summary>
     /// (click),单击事件
     /// </summary>

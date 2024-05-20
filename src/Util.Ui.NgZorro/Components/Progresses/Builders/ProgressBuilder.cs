@@ -1,5 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
+using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Progresses.Builders; 
@@ -27,6 +30,15 @@ public class ProgressBuilder : AngularTagBuilder {
     public ProgressBuilder Type() {
         AttributeIfNotEmpty( "nzType", _config.GetValue<ProgressType?>( UiConst.Type )?.Description() );
         AttributeIfNotEmpty( "[nzType]", _config.GetValue( AngularConst.BindType ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置尺寸
+    /// </summary>
+    public ProgressBuilder Size() {
+        AttributeIfNotEmpty( "nzSize", _config.GetValue<ProgressSize?>( UiConst.Size )?.Description() );
+        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
         return this;
     }
 
@@ -76,6 +88,7 @@ public class ProgressBuilder : AngularTagBuilder {
     /// 配置颜色
     /// </summary>
     public ProgressBuilder StrokeColor() {
+        AttributeIfNotEmpty( "nzStrokeColor", _config.GetValue<AntDesignColor?>( UiConst.StrokeColorType )?.Description() );
         AttributeIfNotEmpty( "nzStrokeColor", _config.GetValue( UiConst.StrokeColor ) );
         AttributeIfNotEmpty( "[nzStrokeColor]", _config.GetValue( AngularConst.BindStrokeColor ) );
         return this;
@@ -135,7 +148,8 @@ public class ProgressBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Type().Format().Percent().ShowInfo().Status().StrokeLinecap()
+        this.Tooltip( _config ).Popover( _config ).Popconfirm( _config );
+        Type().Size().Format().Percent().ShowInfo().Status().StrokeLinecap()
             .StrokeColor().SuccessPercent().StrokeWidth().Steps().Width()
             .GapDegree().GapPosition();
     }
