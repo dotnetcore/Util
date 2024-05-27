@@ -17,7 +17,7 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// nzTitle,标题,支持i18n
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -41,23 +41,23 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindValue { get; set; }
     /// <summary>
-    /// [nzShowText],是否显示颜色文本,默认值: false
+    /// [nzShowText],是否显示颜色文本,类型: boolean, 默认值: false
     /// </summary>
     public string ShowText { get; set; }
     /// <summary>
-    /// nzSize,控件尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
+    /// nzSize,触发器尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
     /// </summary>
     public InputSize Size { get; set; }
     /// <summary>
-    /// [nzSize],控件尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
+    /// [nzSize],触发器尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用, 默认值: false
+    /// [nzDisabled],是否禁用,类型: boolean, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
     /// <summary>
-    /// [nzDisabledAlpha],是否禁用透明度, 默认值: false
+    /// [nzDisabledAlpha],是否禁用透明度, 类型: boolean, 默认值: false
     /// </summary>
     public string DisabledAlpha { get; set; }
     /// <summary>
@@ -69,7 +69,11 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindTrigger { get; set; }
     /// <summary>
-    /// [nzAllowClear], 是否允许清除选择的颜色, 默认值: false
+    /// [nzFlipFlop],自定义触发元素, 类型: TemplateRef&lt;void>
+    /// </summary>
+    public string FlipFlop { get; set; }
+    /// <summary>
+    /// [nzAllowClear], 是否允许清除选择的颜色, 类型: boolean, 默认值: false
     /// </summary>
     public string AllowClear { get; set; }
     /// <summary>
@@ -81,7 +85,7 @@ public class ColorPickerTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindFormat { get; set; }
     /// <summary>
-    /// [nzOpen],是否显示弹出窗口 ,默认值: false
+    /// [nzOpen],是否显示弹出窗口 ,类型: boolean, 默认值: false
     /// </summary>
     public string Open { get; set; }
     /// <summary>

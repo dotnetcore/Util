@@ -29,6 +29,30 @@ public static class UiConst {
     /// </summary>
     public const string Padding = "padding";
     /// <summary>
+    /// 标识
+    /// </summary>
+    public const string NzId = "NzId";
+    /// <summary>
+    /// 触发器
+    /// </summary>
+    public const string FlipFlop = "flip-flop";
+    /// <summary>
+    /// 显示周数
+    /// </summary>
+    public const string ShowWeekNumber = "show-week-number";
+    /// <summary>
+    /// 背景
+    /// </summary>
+    public const string Backdrop = "backdrop";
+    /// <summary>
+    /// 自定义头部
+    /// </summary>
+    public const string CustomHeader = "custom-header";
+    /// <summary>
+    /// 百分比
+    /// </summary>
+    public const string Percentage = "percentage";
+    /// <summary>
     /// 单位
     /// </summary>
     public const string Unit = "unit";
@@ -36,6 +60,14 @@ public static class UiConst {
     /// 左内边距
     /// </summary>
     public const string PaddingLeft = "padding-left";
+    /// <summary>
+    /// 触发操作
+    /// </summary>
+    public const string TriggerAction = "trigger-action";
+    /// <summary>
+    /// 不验证表单
+    /// </summary>
+    public const string Novalidate = "novalidate";
     /// <summary>
     /// 选项卡链接
     /// </summary>
@@ -64,6 +96,10 @@ public static class UiConst {
     /// 确认气泡框确认按钮是否危险按钮
     /// </summary>
     public const string PopconfirmOkDanger = "popconfirm-ok-danger";
+    /// <summary>
+    /// 确认气泡框是否禁用确认按钮
+    /// </summary>
+    public const string PopconfirmOkDisabled = "popconfirm-ok-disabled";
     /// <summary>
     /// 确认气泡框箭头是否指向锚点的中心
     /// </summary>
@@ -3880,4 +3916,28 @@ public static class UiConst {
     /// 是否无效身份证
     /// </summary>
     public const string IsInvalidIdCard = "is-invalid-id-card";
+    /// <summary>
+    /// 双色图标颜色
+    /// </summary>
+    public const string TwotoneColor = "twotone-color";
+    /// <summary>
+    /// 双色图标颜色类型
+    /// </summary>
+    public const string TwotoneColorType = "twotone-color-type";
+    /// <summary>
+    /// Iconfont图标
+    /// </summary>
+    public const string IconFont = "icon-font";
+    /// <summary>
+    /// 值为0时的触发器
+    /// </summary>
+    public const string ZeroTrigger = "zero-trigger";
+    /// <summary>
+    /// 路由标签
+    /// </summary>
+    public const string RouteLabel = "route-label";
+    /// <summary>
+    /// 路由标签函数
+    /// </summary>
+    public const string RouteLabelFn = "route-label-fn";
 }

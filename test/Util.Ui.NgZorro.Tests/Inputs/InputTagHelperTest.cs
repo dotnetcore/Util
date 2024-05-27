@@ -138,7 +138,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// </summary>
         [Fact]
         public void TestStatus() {
-            _wrapper.SetContextAttribute( UiConst.Status, InputStatus.Error );
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
             var result = new StringBuilder();
             result.Append( "<input nz-input=\"\" nzStatus=\"error\" />" );
             Assert.Equal( result.ToString(), GetResult() );

@@ -1,6 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Badges.Builders; 
 
@@ -32,6 +34,7 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置颜色
     /// </summary>
     public BadgeBuilder Color() {
+        AttributeIfNotEmpty( "nzColor", _config.GetValue<AntDesignColor?>( UiConst.ColorType )?.Description() );
         AttributeIfNotEmpty( "nzColor", _config.GetValue( UiConst.Color ) );
         AttributeIfNotEmpty( "[nzColor]", _config.GetValue( AngularConst.BindColor ) );
         return this;
@@ -90,9 +93,21 @@ public class BadgeBuilder : AngularTagBuilder {
     /// 配置状态点文本
     /// </summary>
     public BadgeBuilder Text() {
-        AttributeIfNotEmpty( "nzText", _config.GetValue( UiConst.Text ) );
+        SetText( _config.GetValue( UiConst.Text ) );
         AttributeIfNotEmpty( "[nzText]", _config.GetValue( AngularConst.BindText ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置状态点文本
+    /// </summary>
+    private void SetText( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzText]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzText", value );
     }
 
     /// <summary>
@@ -113,11 +128,20 @@ public class BadgeBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置尺寸
+    /// </summary>
+    public BadgeBuilder Size() {
+        AttributeIfNotEmpty( "nzSize", _config.GetValue<BadgeSize?>( UiConst.Size )?.Description() );
+        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
         Standalone().Color().Count().Dot().ShowDot().OverflowCount()
-            .ShowZero().Status().Text().Title().Offset();
+            .ShowZero().Status().Text().Title().Offset().Size();
     }
 }

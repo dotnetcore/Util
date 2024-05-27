@@ -89,7 +89,7 @@ public class InputGroupShareConfig {
     /// <summary>
     /// 检验状态
     /// </summary>
-    public InputStatus? Status { get; set; }
+    public FormControlStatus? Status { get; set; }
     /// <summary>
     /// 检验状态
     /// </summary>

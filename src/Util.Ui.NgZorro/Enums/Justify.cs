@@ -28,5 +28,10 @@ public enum Justify {
     /// space-between, 分散排列,两端对齐，项之间的间隔都相等
     /// </summary>
     [Description( "space-between" )]
-    SpaceBetween
+    SpaceBetween,
+    /// <summary>
+    /// space-evenly, 均匀排列
+    /// </summary>
+    [Description( "space-evenly" )]
+    SpaceEvenly
 }

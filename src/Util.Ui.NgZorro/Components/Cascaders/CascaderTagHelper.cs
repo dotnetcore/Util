@@ -17,19 +17,19 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [nzAllowClear],是否允许清除,默认值: true
+    /// [nzAllowClear],是否允许清除,类型: boolean, 默认值: true
     /// </summary>
     public string AllowClear { get; set; }
     /// <summary>
-    /// [nzAutoFocus],是否自动聚焦，当存在输入框时
+    /// [nzAutoFocus],是否自动聚焦，当存在输入框时, 类型: boolean, 默认值: false
     /// </summary>
     public string AutoFocus { get; set; }
     /// <summary>
-    /// [nzChangeOn],点击父级菜单项时，可通过该函数判断是否允许值的变化,函数定义: (option: any, index: number) => boolean
+    /// [nzChangeOn],点击父级菜单项时，可通过该函数判断是否允许值的变化,类型: (option: any, index: number) => boolean
     /// </summary>
     public string ChangeOn { get; set; }
     /// <summary>
-    /// [nzChangeOnSelect],点选每级菜单项时,是否值都会变化
+    /// [nzChangeOnSelect],点选每级菜单项时,是否值都会变化, 类型: boolean, 默认值: false
     /// </summary>
     public string ChangeOnSelect { get; set; }
     /// <summary>
@@ -41,7 +41,7 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindColumnClassName { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用
+    /// [nzDisabled],是否禁用, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
     /// <summary>
@@ -49,27 +49,43 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public AntDesignIcon ExpandIcon { get; set; }
     /// <summary>
-    /// [nzExpandIcon],自定义次级菜单展开图标
+    /// [nzExpandIcon],自定义次级菜单展开图标, 类型: string|TemplateRef&lt;void>
     /// </summary>
     public string BindExpandIcon { get; set; }
     /// <summary>
-    /// nzExpandTrigger,次级菜单的展开方式
+    /// nzExpandTrigger,次级菜单的展开方式, 类型: 'click'|'hover',默认值: 'click'
     /// </summary>
     public CascaderExpandTrigger ExpandTrigger { get; set; }
     /// <summary>
-    /// [nzExpandTrigger],次级菜单的展开方式
+    /// [nzExpandTrigger],次级菜单的展开方式, 类型: 'click'|'hover',默认值: 'click'
     /// </summary>
     public string BindExpandTrigger { get; set; }
     /// <summary>
-    /// nzLabelProperty,选项显示值的属性名
+    /// nzTriggerAction,触发操作, 类型: 'click'|'hover',默认值: 'click'
+    /// </summary>
+    public CascaderTriggerAction TriggerAction { get; set; }
+    /// <summary>
+    /// [nzTriggerAction],触发操作, 类型: 'click'|'hover',默认值: 'click'
+    /// </summary>
+    public string BindTriggerAction { get; set; }
+    /// <summary>
+    /// nzLabelProperty,选项显示文本的属性名, 默认值: 'label'
     /// </summary>
     public string LabelProperty { get; set; }
     /// <summary>
-    /// [nzLabelProperty],选项显示值的属性名
+    /// [nzLabelProperty],选项显示文本的属性名, 默认值: 'label'
     /// </summary>
     public string BindLabelProperty { get; set; }
     /// <summary>
-    /// [nzLabelRender],选择后展示的渲染模板
+    /// nzValueProperty,选项实际值的属性名,默认值: 'value'
+    /// </summary>
+    public string ValueProperty { get; set; }
+    /// <summary>
+    /// [nzValueProperty],选项实际值的属性名,默认值: 'value'
+    /// </summary>
+    public string BindValueProperty { get; set; }
+    /// <summary>
+    /// [nzLabelRender],选择后展示的渲染模板, 类型: TemplateRef&lt;any>
     /// </summary>
     public string LabelRender { get; set; }
     /// <summary>
@@ -85,39 +101,35 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindMenuClassName { get; set; }
     /// <summary>
-    /// nzMenuStyle,自定义浮层样式
+    /// [nzMenuStyle],自定义浮层样式
     /// </summary>
     public string MenuStyle { get; set; }
     /// <summary>
-    /// [nzMenuStyle],自定义浮层样式
-    /// </summary>
-    public string BindMenuStyle { get; set; }
-    /// <summary>
-    /// nzNotFoundContent,下拉列表为空时显示的内容
+    /// nzNotFoundContent,下拉列表为空时显示的内容, 类型: string | TemplateRef&lt;void>
     /// </summary>
     public string NotFoundContent { get; set; }
     /// <summary>
-    /// [nzNotFoundContent],下拉列表为空时显示的内容
+    /// [nzNotFoundContent],下拉列表为空时显示的内容, 类型: string | TemplateRef&lt;void>
     /// </summary>
     public string BindNotFoundContent { get; set; }
     /// <summary>
-    /// [nzOptionRender],选项的渲染模板
+    /// [nzOptionRender],选项的渲染模板, 类型: TemplateRef&lt;{ $implicit: NzCascaderOption, index: number }>
     /// </summary>
     public string OptionRender { get; set; }
     /// <summary>
-    /// [nzOptions],可选项数据源
+    /// [nzOptions],可选项数据源, 类型: object[]
     /// </summary>
     public string Options { get; set; }
     /// <summary>
-    /// nzPlaceHolder,输入框占位文本
+    /// nzPlaceHolder,输入框占位文本, 默认值: '请选择'
     /// </summary>
     public string Placeholder { get; set; }
     /// <summary>
-    /// [nzPlaceHolder],输入框占位文本
+    /// [nzPlaceHolder],输入框占位文本, 默认值: '请选择'
     /// </summary>
     public string BindPlaceholder { get; set; }
     /// <summary>
-    /// [nzShowArrow],是否显示箭头,默认值: true
+    /// [nzShowArrow],是否显示箭头,类型: boolean, 默认值: true
     /// </summary>
     public string ShowArrow { get; set; }
     /// <summary>
@@ -125,15 +137,15 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string ShowInput { get; set; }
     /// <summary>
-    /// [nzShowSearch],是否支持搜索，默认情况下对 label 进行全匹配搜索，不能和 [nzLoadData] 同时使用
+    /// [nzShowSearch],是否支持搜索，默认情况下对 label 进行全匹配搜索，不能和 [nzLoadData] 同时使用, 类型: boolean | NzShowSearchOptions ,默认值: false
     /// </summary>
     public string ShowSearch { get; set; }
     /// <summary>
-    /// nzSize,输入框大小，可选值: 'large'|'small'|'default'
+    /// nzSize,输入框尺寸，可选值: 'large'|'small'|'default', 默认值: 'default'
     /// </summary>
     public InputSize Size { get; set; }
     /// <summary>
-    /// [nzSize],输入框大小，可选值: 'large'|'small'|'default'
+    /// [nzSize],输入框尺寸，可选值: 'large'|'small'|'default', 默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
@@ -141,27 +153,31 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     /// </summary>
     public AntDesignIcon SuffixIcon { get; set; }
     /// <summary>
-    /// [nzSuffixIcon],选择框后缀图标
+    /// [nzSuffixIcon],选择框后缀图标, 类型: string | TemplateRef&lt;void>
     /// </summary>
     public string BindSuffixIcon { get; set; }
     /// <summary>
-    /// nzValueProperty,选项实际值的属性名,默认值: 'value'
+    /// nzStatus,校验状态, 可选值: 'error' | 'warning'
     /// </summary>
-    public string ValueProperty { get; set; }
+    public FormControlStatus Status { get; set; }
     /// <summary>
-    /// [nzValueProperty],选项实际值的属性名,默认值: 'value'
+    /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
     /// </summary>
-    public string BindValueProperty { get; set; }
+    public string BindStatus { get; set; }
     /// <summary>
-    /// (nzClear),清除事件,清除值时触发
+    /// [nzBackdrop],浮层是否应带有背景板,类型: boolean, 默认值: false
+    /// </summary>
+    public string Backdrop { get; set; }
+    /// <summary>
+    /// (nzClear),清除事件,清除值时触发, 类型: EventEmitter&lt;void>
     /// </summary>
     public string OnClear { get; set; }
     /// <summary>
-    /// (nzVisibleChange),显示状态改变事件,菜单浮层显示/隐藏时触发
+    /// (nzVisibleChange),显示状态变化事件,菜单浮层显示/隐藏时触发, 类型: EventEmitter&lt;boolean>
     /// </summary>
     public string OnVisibleChange { get; set; }
     /// <summary>
-    /// (nzSelectionChange),选中状态改变事件,值发生变化时触发
+    /// (nzSelectionChange),选中状态变化事件,值发生变化时触发, 类型: EventEmitter&lt;NzCascaderOption[]>
     /// </summary>
     public string OnSelectionChange { get; set; }
 

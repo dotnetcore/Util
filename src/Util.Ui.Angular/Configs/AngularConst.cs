@@ -49,6 +49,10 @@ public static class AngularConst {
     /// </summary>
     public const string BindLink = "bind-link";
     /// <summary>
+    /// 触发操作
+    /// </summary>
+    public const string BindTriggerAction = "bind-trigger-action";
+    /// <summary>
     /// 可选
     /// </summary>
     public const string BindOptional = "bind-optional";
@@ -1808,4 +1812,24 @@ public static class AngularConst {
     /// 单元格控件
     /// </summary>
     public const string BindCellControl = "bind-cell-control";
+    /// <summary>
+    /// 双色图标颜色
+    /// </summary>
+    public const string BindTwotoneColor = "bind-twotone-color";
+    /// <summary>
+    /// Iconfont图标
+    /// </summary>
+    public const string BindIconFont = "bind-icon-font";
+    /// <summary>
+    /// 路由标签
+    /// </summary>
+    public const string BindRouteLabel = "bind-route-label";
+    /// <summary>
+    /// 标识
+    /// </summary>
+    public const string BindNzId = "bind-nz-id";
+    /// <summary>
+    /// 自定义头部
+    /// </summary>
+    public const string BindCustomHeader = "bind-custom-header";
 }

@@ -41,10 +41,9 @@ public static class TagBuilderExtensions {
         builder.AttributeIfNotEmpty( "nzOkType", config.GetValue<ButtonType?>( UiConst.PopconfirmOkType )?.Description() );
         builder.AttributeIfNotEmpty( "[nzOkType]", config.GetValue( AngularConst.BindPopconfirmOkType ) );
         builder.AttributeIfNotEmpty( "[nzOkDanger]", config.GetValue( UiConst.PopconfirmOkDanger ) );
-
+        builder.AttributeIfNotEmpty( "[nzOkDisabled]", config.GetValue( UiConst.PopconfirmOkDisabled ) );
         builder.AttributeIfNotEmpty( "nzAutoFocus", config.GetValue<PopconfirmAutoFocus?>( UiConst.PopconfirmAutoFocus )?.Description() );
         builder.AttributeIfNotEmpty( "[nzAutoFocus]", config.GetValue( AngularConst.BindPopconfirmAutoFocus ) );
-
         builder.AttributeIfNotEmpty( "[nzCondition]", config.GetValue( UiConst.PopconfirmCondition ) );
         builder.AttributeIfNotEmpty( "nzIcon", config.GetValue<AntDesignIcon?>( UiConst.PopconfirmIcon )?.Description() );
         builder.AttributeIfNotEmpty( "[nzIcon]", config.GetValue( AngularConst.BindPopconfirmIcon ) );

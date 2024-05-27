@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Configs;
 using Xunit;
 
@@ -12,6 +13,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         /// </summary>
         [Fact]
         public void TestFor_Bool() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
@@ -36,6 +38,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         /// </summary>
         [Fact]
         public void TestFor_Bool_I18n() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
@@ -61,6 +64,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         /// </summary>
         [Fact]
         public void TestFor_Enum() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             _wrapper.SetExpression( t => t.Gender );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
@@ -85,6 +89,7 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         /// </summary>
         [Fact]
         public void TestFor_Enum_I18n() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetExpression( t => t.Gender );
             var result = new StringBuilder();

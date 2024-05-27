@@ -24,11 +24,11 @@ public class ColorBlockTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindColor { get; set; }
     /// <summary>
-    /// nzSize,控件尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
+    /// nzSize,颜色块尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
     /// </summary>
     public InputSize Size { get; set; }
     /// <summary>
-    /// [nzSize],控件尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
+    /// [nzSize],颜色块尺寸, 可选值: 'default' | 'small' |  'large' , 默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>

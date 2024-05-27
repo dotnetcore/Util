@@ -1,5 +1,6 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.Expressions;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Expressions;
 
@@ -15,7 +16,8 @@ public class SelectExpressionLoader : NgZorroExpressionLoaderBase {
     /// <param name="config">配置</param>
     /// <param name="info">模型表达式信息</param>
     protected override void Load( Config config, ModelExpressionInfo info ) {
-        LoadLabel( config, info );
+        var formShareConfig = GetFormShareConfig( config );
+        LoadLabel( config, info, formShareConfig );
         LoadId( config, info );
         LoadName( config, info );
         LoadNgModel( config, info );
@@ -24,10 +26,18 @@ public class SelectExpressionLoader : NgZorroExpressionLoaderBase {
     }
 
     /// <summary>
+    /// 获取表单共享配置
+    /// </summary>
+    private FormShareConfig GetFormShareConfig( Config config ) {
+        return config.GetValueFromItems<FormShareConfig>() ?? new FormShareConfig();
+    }
+
+    /// <summary>
     /// 加载标签
     /// </summary>
-    protected virtual void LoadLabel( Config config, ModelExpressionInfo info ) {
-        config.SetAttribute( UiConst.LabelText, info.DisplayName, false );
+    protected virtual void LoadLabel( Config config, ModelExpressionInfo info, FormShareConfig formShareConfig ) {
+        if( formShareConfig.FormCreated )
+            config.SetAttribute( UiConst.LabelText, info.DisplayName, false );
     }
 
     /// <summary>

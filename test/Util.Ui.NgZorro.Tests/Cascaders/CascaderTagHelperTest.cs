@@ -51,6 +51,28 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         }
 
         /// <summary>
+        /// 测试引用变量
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            _wrapper.SetContextAttribute( UiConst.Id, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader #a=\"\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试名称
+        /// </summary>
+        [Fact]
+        public void TestName() {
+            _wrapper.SetContextAttribute( UiConst.Name, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader name=\"a\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试允许清除
         /// </summary>
         [Fact]
@@ -172,6 +194,28 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         }
 
         /// <summary>
+        /// 测试触发操作
+        /// </summary>
+        [Fact]
+        public void TestTriggerAction() {
+            _wrapper.SetContextAttribute( UiConst.TriggerAction, CascaderTriggerAction.Hover );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader nzTriggerAction=\"hover\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试触发操作
+        /// </summary>
+        [Fact]
+        public void TestBindTriggerAction() {
+            _wrapper.SetContextAttribute( AngularConst.BindTriggerAction, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader [nzTriggerAction]=\"a\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试标签属性名
         /// </summary>
         [Fact]
@@ -243,17 +287,6 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
         [Fact]
         public void TestMenuStyle() {
             _wrapper.SetContextAttribute( UiConst.MenuStyle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-cascader nzMenuStyle=\"a\"></nz-cascader>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试浮层样式
-        /// </summary>
-        [Fact]
-        public void TestBindMenuStyle() {
-            _wrapper.SetContextAttribute( AngularConst.BindMenuStyle, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzMenuStyle]=\"a\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -421,6 +454,39 @@ namespace Util.Ui.NgZorro.Tests.Cascaders {
             _wrapper.SetContextAttribute( AngularConst.BindValueProperty, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-cascader [nzValueProperty]=\"a\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestStatus() {
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader nzStatus=\"error\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestBindStatus() {
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader [nzStatus]=\"a\"></nz-cascader>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试浮层是否应带有背景板
+        /// </summary>
+        [Fact]
+        public void TestBackdrop() {
+            _wrapper.SetContextAttribute( UiConst.Backdrop, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-cascader [nzBackdrop]=\"true\"></nz-cascader>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

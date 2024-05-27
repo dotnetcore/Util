@@ -18,6 +18,13 @@ public class FormShareService {
     private readonly FormShareConfig _shareConfig;
 
     /// <summary>
+    /// 设置 form 已创建
+    /// </summary>
+    public void Created() {
+        _shareConfig.FormCreated = true;
+    }
+
+    /// <summary>
     /// 初始化表单共享服务
     /// </summary>
     /// <param name="config">配置</param>
@@ -40,8 +47,13 @@ public class FormShareService {
     /// </summary>
     public void SetFormId() {
         var id = _config.GetValue( UiConst.Id );
-        if ( id.IsEmpty() == false )
+        if (id.IsEmpty() == false) {
             _shareConfig.FormId = id;
+            return;
+        }
+        var formGroup = _config.GetValue( UiConst.FormGroup );
+        if( formGroup.IsEmpty() )
+            _shareConfig.FormId = "form";
     }
 
     /// <summary>

@@ -14,6 +14,10 @@ public class TemplateTagHelper : AngularTagHelperBase {
     /// 扩展属性 nz-tab,选项卡是否延迟加载, 默认值: false
     /// </summary>
     public bool Tab { get; set; }
+    /// <summary>
+    /// [ngTemplateOutlet], 模板出口
+    /// </summary>
+    public string NgTemplateOutlet { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

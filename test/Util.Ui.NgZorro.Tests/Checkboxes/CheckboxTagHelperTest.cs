@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Checkboxes;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Tests.Samples;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -56,6 +57,28 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
             _wrapper.SetContextAttribute( UiConst.Id, "a" );
             var result = new StringBuilder();
             result.Append( "<label #a=\"\" nz-checkbox=\"\"></label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试内部 id
+        /// </summary>
+        [Fact]
+        public void TestNzId() {
+            _wrapper.SetContextAttribute( UiConst.NzId, "a" );
+            var result = new StringBuilder();
+            result.Append( "<label nz-checkbox=\"\" nzId=\"a\"></label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试内部 id
+        /// </summary>
+        [Fact]
+        public void TestBindNzId() {
+            _wrapper.SetContextAttribute( AngularConst.BindNzId, "a" );
+            var result = new StringBuilder();
+            result.Append( "<label nz-checkbox=\"\" [nzId]=\"a\"></label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -155,6 +178,18 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
             _wrapper.SetContextAttribute( UiConst.Label, "a" );
             var result = new StringBuilder();
             result.Append( "<label nz-checkbox=\"\">a</label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试设置标签 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestLabel_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Label, "a" );
+            var result = new StringBuilder();
+            result.Append( "<label nz-checkbox=\"\">{{'a'|i18n}}</label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

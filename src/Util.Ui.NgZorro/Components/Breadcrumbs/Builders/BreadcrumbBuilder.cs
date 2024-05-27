@@ -43,9 +43,9 @@ public class BreadcrumbBuilder : AngularTagBuilder {
     /// 配置路由属性名
     /// </summary>
     public BreadcrumbBuilder RouteLabel() {
-        AttributeIfNotEmpty( "nzRouteLabel", _config.GetValue( AntDesignConst.RouteLabel ) );
-        AttributeIfNotEmpty( "[nzRouteLabel]", _config.GetValue( AntDesignConst.BindRouteLabel ) );
-        AttributeIfNotEmpty( "[nzRouteLabelFn]", _config.GetValue( AntDesignConst.RouteLabelFn ) );
+        AttributeIfNotEmpty( "nzRouteLabel", _config.GetValue( UiConst.RouteLabel ) );
+        AttributeIfNotEmpty( "[nzRouteLabel]", _config.GetValue( AngularConst.BindRouteLabel ) );
+        AttributeIfNotEmpty( "[nzRouteLabelFn]", _config.GetValue( UiConst.RouteLabelFn ) );
         return this;
     }
 

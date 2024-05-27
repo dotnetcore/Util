@@ -16,39 +16,47 @@ public class CheckboxTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [nzAutoFocus],是否自动获取焦点
+    /// nzId,组件内部的 id
+    /// </summary>
+    public string NzId { get; set; }
+    /// <summary>
+    /// [nzId],组件内部的 id
+    /// </summary>
+    public string BindNzId { get; set; }
+    /// <summary>
+    /// [nzAutoFocus],是否自动获取焦点, 类型: boolean, 默认值: false
     /// </summary>
     public string AutoFocus { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用
+    /// [nzDisabled],是否禁用, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
     /// <summary>
-    /// [nzIndeterminate],是否中间状态
+    /// [nzIndeterminate],是否中间状态,当复选框未全部选中或全部取消时,全选复选框的状态, 类型: boolean, 默认值: false
     /// </summary>
     public string Indeterminate { get; set; }
     /// <summary>
-    /// nzValue,值,仅与 nz-checkbox-wrapper 的选中回调配合使用
+    /// nzValue,值,与 &lt;util-checkbox-wrapper> 的 on-change 配合使用
     /// </summary>
     public string Value { get; set; }
     /// <summary>
-    /// [nzValue],值,仅与 nz-checkbox-wrapper 的选中回调配合使用
+    /// [nzValue],值,与 &lt;util-checkbox-wrapper> 的 on-change 配合使用
     /// </summary>
     public string BindValue { get; set; }
     /// <summary>
-    /// 标签文本
+    /// 扩展属性, 标签文本, 支持多语言
     /// </summary>
     public string Label { get; set; }
     /// <summary>
-    /// 标签文本
+    /// 扩展属性, 标签文本
     /// </summary>
     public string BindLabel { get; set; }
     /// <summary>
-    /// [nzChecked],是否选中
+    /// [nzChecked],是否选中, 类型: boolean, 默认值: false
     /// </summary>
     public string Checked { get; set; }
     /// <summary>
-    /// (nzCheckedChange),选中状态变更事件
+    /// (nzCheckedChange),选中状态变化事件, 类型: EventEmitter&lt;boolean>
     /// </summary>
     public string OnCheckedChange { get; set; }
 

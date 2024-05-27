@@ -5,19 +5,19 @@
 /// </summary>
 public abstract class FormControlContainerTagHelperBase : FormContainerTagHelperBase {
     /// <summary>
-    /// 标签文本,自动创建nz-form-label,nz-form-control,nz-form-item容器标签,并设置nz-form-label的内容,支持i18n
+    /// 扩展属性, 标签文本,自动创建nz-form-label,nz-form-control,nz-form-item容器标签,并设置nz-form-label的内容,支持i18n
     /// </summary>
     public string LabelText { get; set; }
     /// <summary>
-    /// 标签文本,自动创建nz-form-label,nz-form-control,nz-form-item容器标签,并设置nz-form-label的内容
+    /// 扩展属性, 标签文本,自动创建nz-form-label,nz-form-control,nz-form-item容器标签,并设置nz-form-label的内容
     /// </summary>
     public string BindLabelText { get; set; }
     /// <summary>
-    /// 标签宽度
+    /// 扩展属性, 标签宽度
     /// </summary>
     public string LabelWidth { get; set; }
     /// <summary>
-    /// 是否显示标签 nz-form-label
+    /// 扩展属性, 是否显示标签 nz-form-label
     /// </summary>
     public bool ShowLabel { get; set; }
     /// <summary>

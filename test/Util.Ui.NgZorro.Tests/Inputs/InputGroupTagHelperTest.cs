@@ -265,7 +265,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// </summary>
         [Fact]
         public void TestStatus() {
-            _wrapper.SetContextAttribute( UiConst.Status, InputStatus.Error );
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
             var result = new StringBuilder();
             result.Append( "<nz-input-group nzStatus=\"error\"></nz-input-group>" );
             Assert.Equal( result.ToString(), GetResult() );

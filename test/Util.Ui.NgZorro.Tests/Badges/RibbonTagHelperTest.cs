@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Badges;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -45,6 +46,17 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<nz-ribbon></nz-ribbon>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试颜色
+        /// </summary>
+        [Fact]
+        public void TestColorType() {
+            _wrapper.SetContextAttribute( UiConst.ColorType, AntDesignColor.Red );
+            var result = new StringBuilder();
+            result.Append( "<nz-ribbon nzColor=\"red\"></nz-ribbon>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -101,6 +113,18 @@ namespace Util.Ui.NgZorro.Tests.Badges {
             _wrapper.SetContextAttribute( UiConst.Text, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-ribbon nzText=\"a\"></nz-ribbon>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试文本内容 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestText_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-ribbon [nzText]=\"'a'|i18n\"></nz-ribbon>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -101,6 +101,7 @@ public class ColorPickerBuilder : FormControlBuilderBase<ColorPickerBuilder> {
     public ColorPickerBuilder Trigger() {
         AttributeIfNotEmpty( "nzTrigger", _config.GetValue<ColorPickerTrigger?>( UiConst.Trigger )?.Description() );
         AttributeIfNotEmpty( "[nzTrigger]", _config.GetValue( AngularConst.BindTrigger ) );
+        AttributeIfNotEmpty( "[nzFlipFlop]", _config.GetValue( UiConst.FlipFlop ) );
         return this;
     }
 

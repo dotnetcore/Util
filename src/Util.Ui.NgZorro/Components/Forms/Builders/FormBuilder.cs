@@ -90,7 +90,22 @@ public class FormBuilder : AngularTagBuilder {
     /// 配置表单组
     /// </summary>
     public FormBuilder FormGroup() {
-        AttributeIfNotEmpty( "[formGroup]", _config.GetValue( UiConst.FormGroup ) );
+        AttributeIfNotEmpty( "[formGroup]", GetFormGroup() );
+        return this;
+    }
+
+    /// <summary>
+    /// 获取表单组
+    /// </summary>
+    private string GetFormGroup() {
+        return _config.GetValue( UiConst.FormGroup );
+    }
+
+    /// <summary>
+    /// 配置是否不验证表单
+    /// </summary>
+    public FormBuilder Novalidate() {
+        AttributeIf( "novalidate", _config.GetValue<bool?>( UiConst.Novalidate ) == true );
         return this;
     }
 
@@ -107,7 +122,8 @@ public class FormBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Layout().AutoTips().DisableAutoTips().NoColon().TooltipIcon().AutoComplete().FormGroup().Events();
+        Layout().AutoTips().DisableAutoTips().NoColon().TooltipIcon().AutoComplete().FormGroup().Novalidate()
+            .Events();
     }
 
     /// <summary>
@@ -119,6 +135,10 @@ public class FormBuilder : AngularTagBuilder {
             return;
         if ( _shareConfig.IsSearch.SafeValue() && _config.Contains( UiConst.Id ) == false )
             return;
+        if ( GetFormGroup().IsEmpty() == false ) {
+            AttributeIf( $"#{_shareConfig.FormId}", _shareConfig.FormId.IsEmpty() == false );
+            return;
+        }
         Attribute( $"#{_shareConfig.FormId}", "ngForm" );
     }
 }

@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Steps;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -60,6 +61,18 @@ namespace Util.Ui.NgZorro.Tests.Steps {
         }
 
         /// <summary>
+        /// 测试标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-step [nzTitle]=\"'a'|i18n\"></nz-step>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试标题
         /// </summary>
         [Fact]
@@ -78,6 +91,18 @@ namespace Util.Ui.NgZorro.Tests.Steps {
             _wrapper.SetContextAttribute( UiConst.Subtitle, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-step nzSubtitle=\"a\"></nz-step>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试子标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestSubtitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Subtitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-step [nzSubtitle]=\"'a'|i18n\"></nz-step>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -166,6 +191,17 @@ namespace Util.Ui.NgZorro.Tests.Steps {
             _wrapper.SetContextAttribute( UiConst.Disabled, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-step [nzDisabled]=\"true\"></nz-step>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试进度百分比
+        /// </summary>
+        [Fact]
+        public void TestPercentage() {
+            _wrapper.SetContextAttribute( UiConst.Percentage, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-step [nzPercentage]=\"a\"></nz-step>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

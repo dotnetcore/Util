@@ -52,15 +52,15 @@ public class PaginationTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzShowTotal],设置显示总行数和当前数据范围的模板
+    /// [nzShowTotal],自定义显示总行数和当前数据范围, 类型: TemplateRef&lt;{ $implicit: number, range: [ number, number ] }>
     /// </summary>
     public string ShowTotal { get; set; }
     /// <summary>
-    /// [nzSimple],是否显示为简单分页
+    /// [nzSimple],是否显示为简单分页, 类型: boolean
     /// </summary>
     public string Simple { get; set; }
     /// <summary>
-    /// [nzResponsive],响应式,根据屏幕宽度自动调整尺寸,未指定 nzSize 时有效, 默认值: false
+    /// [nzResponsive],是否响应式,根据屏幕宽度自动调整尺寸,未指定 nzSize 时有效, 类型: boolean, 默认值: false
     /// </summary>
     public string Responsive { get; set; }
     /// <summary>
@@ -68,11 +68,11 @@ public class PaginationTagHelper : AngularTagHelperBase {
     /// </summary>
     public string PageSizeOptions { get; set; }
     /// <summary>
-    /// [nzItemRender],自定义页码结构
+    /// [nzItemRender],自定义页码结构, 类型: TemplateRef&lt;{ $implicit: 'page' \| 'prev' \| 'next'\| 'prev_5'\| 'next_5', page: number }>
     /// </summary>
     public string ItemRender { get; set; }
     /// <summary>
-    /// [nzHideOnSinglePage],只有一页时是否隐藏分页器, 默认值: false
+    /// [nzHideOnSinglePage],只有一页时是否隐藏分页器,类型: boolean, 默认值: false
     /// </summary>
     public string HideOnSinglePage { get; set; }
     /// <summary>

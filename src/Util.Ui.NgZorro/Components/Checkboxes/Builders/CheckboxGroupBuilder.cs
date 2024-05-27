@@ -31,6 +31,6 @@ public class CheckboxGroupBuilder : FormControlBuilderBase<CheckboxGroupBuilder>
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().Disabled();
+        ConfigForm().Name().Disabled();
     }
 }

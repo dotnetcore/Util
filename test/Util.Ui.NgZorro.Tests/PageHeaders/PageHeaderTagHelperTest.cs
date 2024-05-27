@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.PageHeaders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -71,6 +72,18 @@ namespace Util.Ui.NgZorro.Tests.PageHeaders {
         }
 
         /// <summary>
+        /// 测试标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-page-header [nzTitle]=\"'a'|i18n\"></nz-page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试标题
         /// </summary>
         [Fact]
@@ -89,6 +102,18 @@ namespace Util.Ui.NgZorro.Tests.PageHeaders {
             _wrapper.SetContextAttribute( UiConst.Subtitle, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-page-header nzSubtitle=\"a\"></nz-page-header>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试子标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestSubtitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Subtitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-page-header [nzSubtitle]=\"'a'|i18n\"></nz-page-header>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

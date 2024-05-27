@@ -287,6 +287,17 @@ namespace Util.Ui.NgZorro.Tests.Buttons {
         }
 
         /// <summary>
+        /// 测试气泡框是否禁用确认按钮
+        /// </summary>
+        [Fact]
+        public void TestPopconfirmOkDisabled() {
+            _wrapper.SetContextAttribute( UiConst.PopconfirmOkDisabled, "a" );
+            var result = new StringBuilder();
+            result.Append( "<button nz-button=\"\" [nzOkDisabled]=\"a\"></button>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试气泡确认框按钮自动聚焦
         /// </summary>
         [Fact]

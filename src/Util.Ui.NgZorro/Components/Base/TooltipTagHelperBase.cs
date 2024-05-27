@@ -268,9 +268,13 @@ public abstract class TooltipTagHelperBase : AngularTagHelperBase {
     /// </summary>
     public string BindPopconfirmOkType { get; set; }
     /// <summary>
-    /// [nzOkDanger],气泡确认框确认按钮是否为危险按钮,默认值: false
+    /// [nzOkDanger],气泡确认框确认按钮是否为危险按钮,类型: boolean, 默认值: false
     /// </summary>
     public string PopconfirmOkDanger { get; set; }
+    /// <summary>
+    /// [nzOkDisabled],气泡确认框是否禁用确认按钮,类型: boolean, 默认值: false
+    /// </summary>
+    public string PopconfirmOkDisabled { get; set; }
     /// <summary>
     /// nzAutoFocus,气泡确认框按钮自动聚焦,类型: null | 'ok' | 'cancel',默认值: null
     /// </summary>

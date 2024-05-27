@@ -1,9 +1,9 @@
 ﻿namespace Util.Ui.NgZorro.Enums; 
 
 /// <summary>
-/// 输入框状态
+/// 表单控件状态
 /// </summary>
-public enum InputStatus {
+public enum FormControlStatus {
     /// <summary>
     /// error
     /// </summary>

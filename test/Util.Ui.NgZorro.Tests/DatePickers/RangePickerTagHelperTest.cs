@@ -50,7 +50,29 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
             result.Append( "<nz-range-picker></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-        
+
+        /// <summary>
+        /// 测试输入框标识
+        /// </summary>
+        [Fact]
+        public void TestNzId() {
+            _wrapper.SetContextAttribute( UiConst.NzId, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker nzId=\"a\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试输入框标识
+        /// </summary>
+        [Fact]
+        public void TestBindNzId() {
+            _wrapper.SetContextAttribute( AngularConst.BindNzId, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzId]=\"a\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
         /// <summary>
         /// 测试允许清除
         /// </summary>
@@ -70,6 +92,17 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
             _wrapper.SetContextAttribute( UiConst.AutoFocus, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzAutoFocus]=\"true\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试浮层是否应带有背景板
+        /// </summary>
+        [Fact]
+        public void TestBackdrop() {
+            _wrapper.SetContextAttribute( UiConst.Backdrop, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzBackdrop]=\"true\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -145,17 +178,6 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         [Fact]
         public void TestPopupStyle() {
             _wrapper.SetContextAttribute( UiConst.PopupStyle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-range-picker nzPopupStyle=\"a\"></nz-range-picker>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试弹出日历样式
-        /// </summary>
-        [Fact]
-        public void TestBindPopupStyle() {
-            _wrapper.SetContextAttribute( AngularConst.BindPopupStyle, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzPopupStyle]=\"a\"></nz-range-picker>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -272,6 +294,17 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         }
 
         /// <summary>
+        /// 测试自定义日期单元格内容
+        /// </summary>
+        [Fact]
+        public void TestDateRender() {
+            _wrapper.SetContextAttribute( UiConst.DateRender, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzDateRender]=\"a\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试输入框大小
         /// </summary>
         [Fact]
@@ -327,6 +360,28 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
         }
 
         /// <summary>
+        /// 测试内联模式
+        /// </summary>
+        [Fact]
+        public void TestInline() {
+            _wrapper.SetContextAttribute( UiConst.Inline, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzInline]=\"true\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试显示周数
+        /// </summary>
+        [Fact]
+        public void TestShowWeekNumber() {
+            _wrapper.SetContextAttribute( UiConst.ShowWeekNumber, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzShowWeekNumber]=\"true\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试预设时间范围
         /// </summary>
         [Fact]
@@ -367,6 +422,89 @@ namespace Util.Ui.NgZorro.Tests.DatePickers {
             _wrapper.SetContextAttribute( UiConst.ShowTime, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-range-picker [nzShowTime]=\"true\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestStatus() {
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker nzStatus=\"error\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestBindStatus() {
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzStatus]=\"a\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试日期选择框弹出位置
+        /// </summary>
+        [Fact]
+        public void TestPlacement() {
+            _wrapper.SetContextAttribute( UiConst.Placement, DatePickerPlacement.TopLeft );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker nzPlacement=\"topLeft\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试日期选择框弹出位置
+        /// </summary>
+        [Fact]
+        public void TestBindPlacement() {
+            _wrapper.SetContextAttribute( AngularConst.BindPlacement, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-range-picker [nzPlacement]=\"a\"></nz-range-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试必填项验证
+        /// </summary>
+        [Fact]
+        public void TestRequired() {
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-range-picker #v_id=\"xValidationExtend\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\"></nz-range-picker>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试必填项消息
+        /// </summary>
+        [Fact]
+        public void TestRequiredMessage() {
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( UiConst.RequiredMessage, "a" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-range-picker #v_id=\"xValidationExtend\" requiredMessage=\"a\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\"></nz-range-picker>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

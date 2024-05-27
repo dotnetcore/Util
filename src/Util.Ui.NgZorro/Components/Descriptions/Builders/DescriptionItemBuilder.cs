@@ -37,7 +37,7 @@ public class DescriptionItemBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 设置表单标签文本
+    /// 设置标题
     /// </summary>
     private void SetTitle( string value ) {
         var options = NgZorroOptionsService.GetOptions();

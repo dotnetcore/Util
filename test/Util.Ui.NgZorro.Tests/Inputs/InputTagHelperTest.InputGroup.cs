@@ -58,7 +58,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         [Fact]
         public void TestAddOnBefore_Status() {
             _wrapper.SetContextAttribute( UiConst.AddOnBefore, "a" );
-            _wrapper.SetContextAttribute( UiConst.Status, InputStatus.Error );
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
             var result = new StringBuilder();
             result.Append( "<nz-input-group nzAddOnBefore=\"a\" nzStatus=\"error\">" );
             result.Append( "<input nz-input=\"\" />" );

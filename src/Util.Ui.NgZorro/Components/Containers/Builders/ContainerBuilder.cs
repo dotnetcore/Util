@@ -22,26 +22,12 @@ public class ContainerBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置模板出口
-    /// </summary>
-    public ContainerBuilder NgTemplateOutlet() {
-        AttributeIfNotEmpty( "*ngTemplateOutlet", _config.GetValue( AngularConst.NgTemplateOutlet ) );
-        return this;
-    }
-
-    /// <summary>
-    /// 配置提及建议
-    /// </summary>
-    public ContainerBuilder MentionSuggestion() {
-        AttributeIfNotEmpty( "*nzMentionSuggestion", _config.GetValue( UiConst.MentionSuggestion ) );
-        return this;
-    }
-
-    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        NgTemplateOutlet().MentionSuggestion().SpaceItem( _config );
+        this.SpaceItem(_config);
+        AttributeIfNotEmpty( "*ngTemplateOutlet", _config.GetValue( AngularConst.NgTemplateOutlet ) );
+        AttributeIfNotEmpty( "*nzMentionSuggestion", _config.GetValue( UiConst.MentionSuggestion ) );
     }
 }

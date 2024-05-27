@@ -16,7 +16,7 @@ public class CheckboxWrapperTagHelper : AngularTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// (nzOnChange),变更事件
+    /// (nzOnChange),选中数据变化事件,类型: EventEmitter&lt;any[]>
     /// </summary>
     public string OnChange { get; set; }
 

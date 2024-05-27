@@ -89,6 +89,15 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     }
 
     /// <summary>
+    /// 配置触发操作
+    /// </summary>
+    public CascaderBuilder TriggerAction() {
+        AttributeIfNotEmpty( "nzTriggerAction", _config.GetValue<CascaderTriggerAction?>( UiConst.TriggerAction )?.Description() );
+        AttributeIfNotEmpty( "[nzTriggerAction]", _config.GetValue( AngularConst.BindTriggerAction ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置标签属性名
     /// </summary>
     public CascaderBuilder LabelProperty() {
@@ -126,8 +135,7 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// 配置浮层样式
     /// </summary>
     public CascaderBuilder MenuStyle() {
-        AttributeIfNotEmpty( "nzMenuStyle", _config.GetValue( UiConst.MenuStyle ) );
-        AttributeIfNotEmpty( "[nzMenuStyle]", _config.GetValue( AngularConst.BindMenuStyle ) );
+        AttributeIfNotEmpty( "[nzMenuStyle]", _config.GetValue( UiConst.MenuStyle ) );
         return this;
     }
 
@@ -217,6 +225,23 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     }
 
     /// <summary>
+    /// 配置展开图标
+    /// </summary>
+    public CascaderBuilder Status() {
+        AttributeIfNotEmpty( "nzStatus", _config.GetValue<FormControlStatus?>( UiConst.Status )?.Description() );
+        AttributeIfNotEmpty( "[nzStatus]", _config.GetValue( AngularConst.BindStatus ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置浮层是否应带有背景板
+    /// </summary>
+    public CascaderBuilder Backdrop() {
+        AttributeIfNotEmpty( "[nzBackdrop]", _config.GetValue( UiConst.Backdrop ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public CascaderBuilder Events() {
@@ -231,10 +256,10 @@ public class CascaderBuilder : FormControlBuilderBase<CascaderBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().AllowClear().AutoFocus().ChangeOn().ChangeOnSelect().ColumnClassName()
-            .Disabled().ExpandIcon().ExpandTrigger().LabelProperty().LabelRender().LoadData()
+        ConfigForm().Name().AllowClear().AutoFocus().ChangeOn().ChangeOnSelect().ColumnClassName()
+            .Disabled().ExpandIcon().ExpandTrigger().TriggerAction().LabelProperty().LabelRender().LoadData()
             .MenuClassName().MenuStyle().NotFoundContent().OptionRender().Options()
             .Placeholder().ShowArrow().ShowInput().ShowSearch().Size().SuffixIcon()
-            .ValueProperty().Events();
+            .ValueProperty().Status().Backdrop().Events();
     }
 }

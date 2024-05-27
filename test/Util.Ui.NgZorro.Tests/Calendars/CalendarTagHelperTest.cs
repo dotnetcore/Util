@@ -170,6 +170,28 @@ namespace Util.Ui.NgZorro.Tests.Calendars {
         }
 
         /// <summary>
+        /// 测试自定义头部内容
+        /// </summary>
+        [Fact]
+        public void TestCustomHeader() {
+            _wrapper.SetContextAttribute( UiConst.CustomHeader, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-calendar nzCustomHeader=\"a\"></nz-calendar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自定义头部内容
+        /// </summary>
+        [Fact]
+        public void TestBindCustomHeader() {
+            _wrapper.SetContextAttribute( AngularConst.BindCustomHeader, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-calendar [nzCustomHeader]=\"a\"></nz-calendar>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

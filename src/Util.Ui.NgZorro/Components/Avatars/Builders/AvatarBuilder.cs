@@ -1,5 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Directives.Popconfirms;
+using Util.Ui.NgZorro.Directives.Popover;
+using Util.Ui.NgZorro.Directives.Tooltips;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Avatars.Builders; 
@@ -104,6 +107,7 @@ public class AvatarBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
+        this.Tooltip( _config ).Popover( _config ).Popconfirm( _config );
         Icon().Shape().Size().Gap().Src().SrcSet().Alt().Text().Events();
     }
 }

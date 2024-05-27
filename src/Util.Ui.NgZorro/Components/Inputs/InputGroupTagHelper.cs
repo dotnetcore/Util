@@ -100,7 +100,7 @@ public class InputGroupTagHelper : AngularTagHelperBase {
     /// <summary>
     /// nzStatus,校验状态, 可选值: 'error' | 'warning'
     /// </summary>
-    public InputStatus Status { get; set; }
+    public FormControlStatus Status { get; set; }
     /// <summary>
     /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
     /// </summary>

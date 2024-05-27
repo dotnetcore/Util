@@ -86,7 +86,7 @@ public class SiderBuilder : AngularTagBuilder {
     /// </summary>
     public SiderBuilder Trigger() {
         AttributeIfNotEmpty( "[nzTrigger]", _config.GetValue( UiConst.Trigger ) );
-        AttributeIfNotEmpty( "[nzZeroTrigger]", _config.GetValue( AntDesignConst.ZeroTrigger ) );
+        AttributeIfNotEmpty( "[nzZeroTrigger]", _config.GetValue( UiConst.ZeroTrigger ) );
         return this;
     }
 

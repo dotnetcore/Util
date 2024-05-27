@@ -87,7 +87,7 @@ namespace Util.Ui.NgZorro.Tests.Breadcrumbs {
         /// </summary>
         [Fact]
         public void TestRouteLabel() {
-            _wrapper.SetContextAttribute( AntDesignConst.RouteLabel, "a" );
+            _wrapper.SetContextAttribute( UiConst.RouteLabel, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-breadcrumb nzRouteLabel=\"a\"></nz-breadcrumb>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -98,7 +98,7 @@ namespace Util.Ui.NgZorro.Tests.Breadcrumbs {
         /// </summary>
         [Fact]
         public void TestBindRouteLabel() {
-            _wrapper.SetContextAttribute( AntDesignConst.BindRouteLabel, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindRouteLabel, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-breadcrumb [nzRouteLabel]=\"a\"></nz-breadcrumb>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -109,7 +109,7 @@ namespace Util.Ui.NgZorro.Tests.Breadcrumbs {
         /// </summary>
         [Fact]
         public void TestRouteLabelFn() {
-            _wrapper.SetContextAttribute( AntDesignConst.RouteLabelFn, "a" );
+            _wrapper.SetContextAttribute( UiConst.RouteLabelFn, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-breadcrumb [nzRouteLabelFn]=\"a\"></nz-breadcrumb>" );
             Assert.Equal( result.ToString(), GetResult() );

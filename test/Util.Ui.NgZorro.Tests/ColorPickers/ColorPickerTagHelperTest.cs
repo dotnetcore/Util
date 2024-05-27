@@ -252,6 +252,17 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
         }
 
         /// <summary>
+        /// 测试自定义触发元素
+        /// </summary>
+        [Fact]
+        public void TestFlipFlop() {
+            _wrapper.SetContextAttribute( UiConst.FlipFlop, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-color-picker [nzFlipFlop]=\"a\"></nz-color-picker>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

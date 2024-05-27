@@ -40,11 +40,11 @@ public class SiderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Collapsible { get; set; }
     /// <summary>
-    /// [nzCollapsed],收缩状态, 默认值: false
+    /// [nzCollapsed],是否收起状态, 默认值: false
     /// </summary>
     public string Collapsed { get; set; }
     /// <summary>
-    /// [(nzCollapsed)],收缩状态, 默认值: false
+    /// [(nzCollapsed)],是否收起状态, 默认值: false
     /// </summary>
     public string BindonCollapsed { get; set; }
     /// <summary>
@@ -60,7 +60,7 @@ public class SiderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string ZeroTrigger { get; set; }
     /// <summary>
-    /// (nzCollapsedChange),展开-收起时的回调函数,注意:自定义触发器不会触发该事件
+    /// (nzCollapsedChange),展开收起状态变化事件,注意:自定义触发器不会触发该事件, 类型: EventEmitter&lt;boolean>
     /// </summary>
     public string OnCollapsedChange { get; set; }
 

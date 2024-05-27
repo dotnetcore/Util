@@ -1,7 +1,7 @@
-﻿namespace Util.Ui.NgZorro.Enums; 
+﻿namespace Util.Ui.NgZorro.Enums;
 
 /// <summary>
-/// 输入框大小
+/// 输入框尺寸
 /// </summary>
 public enum InputSize {
     /// <summary>

@@ -12,11 +12,11 @@ namespace Util.Ui.NgZorro.Components.Calendars;
 [HtmlTargetElement( "util-calendar" )]
 public class CalendarTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// [(ngModel)],模型双向绑定
+    /// [(ngModel)],展示日期,双向绑定, 类型: Date, 默认值: 当前日期
     /// </summary>
     public string NgModel { get; set; }
     /// <summary>
-    /// [ngModel],模型绑定
+    /// [ngModel],展示日期, 类型: Date, 默认值: 当前日期
     /// </summary>
     public string BindNgModel { get; set; }
     /// <summary>
@@ -32,29 +32,37 @@ public class CalendarTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindonMode { get; set; }
     /// <summary>
-    /// [nzFullscreen],是否全屏显示,默认值: true
+    /// [nzFullscreen],是否全屏显示, 类型: boolean, 默认值: true
     /// </summary>
     public string Fullscreen { get; set; }
     /// <summary>
-    /// [nzDateCell],自定义渲染日期单元格模板，模版内容会被追加到单元格,类型: TemplateRef&lt;Date>
+    /// [nzDateCell],自定义日期单元格，模版内容追加到单元格,类型: TemplateRef&lt;Date>
     /// </summary>
     public string DateCell { get; set; }
     /// <summary>
-    /// [nzDateFullCell],自定义渲染日期单元格模板，模版内容覆盖单元格,类型: TemplateRef&lt;Date>
+    /// [nzDateFullCell],自定义日期单元格，模版内容覆盖单元格,类型: TemplateRef&lt;Date>
     /// </summary>
     public string DateFullCell { get; set; }
     /// <summary>
-    /// [nzMonthCell],自定义渲染月单元格模板，模版内容会被追加到单元格,类型: TemplateRef&lt;Date>
+    /// [nzMonthCell],自定义月份单元格，模版内容追加到单元格,类型: TemplateRef&lt;Date>
     /// </summary>
     public string MonthCell { get; set; }
     /// <summary>
-    /// [nzMonthFullCell],自定义渲染月单元格模板，模版内容覆盖单元格,类型: TemplateRef&lt;Date>
+    /// [nzMonthFullCell],自定义月份单元格，模版内容覆盖单元格,类型: TemplateRef&lt;Date>
     /// </summary>
     public string MonthFullCell { get; set; }
     /// <summary>
     /// [nzDisabledDate],不可选择日期函数,类型: (current: Date) => boolean
     /// </summary>
     public string DisabledDate { get; set; }
+    /// <summary>
+    /// nzCustomHeader,自定义头部内容, 类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string CustomHeader { get; set; }
+    /// <summary>
+    /// [nzCustomHeader],自定义头部内容, 类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string BindCustomHeader { get; set; }
     /// <summary>
     /// (nzPanelChange),面板变化事件,类型: EventEmitter&lt;{ date: Date, mode: 'month' | 'year' }>
     /// </summary>

@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Badges;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -56,6 +57,17 @@ namespace Util.Ui.NgZorro.Tests.Badges {
             _wrapper.SetContextAttribute( UiConst.Standalone, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-badge [nzStandalone]=\"true\"></nz-badge>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试颜色
+        /// </summary>
+        [Fact]
+        public void TestColorType() {
+            _wrapper.SetContextAttribute( UiConst.ColorType, AntDesignColor.Red );
+            var result = new StringBuilder();
+            result.Append( "<nz-badge nzColor=\"red\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -170,6 +182,18 @@ namespace Util.Ui.NgZorro.Tests.Badges {
         }
 
         /// <summary>
+        /// 测试状态点文本 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestText_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Text, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-badge [nzText]=\"'a'|i18n\"></nz-badge>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试状态点文本
         /// </summary>
         [Fact]
@@ -210,6 +234,28 @@ namespace Util.Ui.NgZorro.Tests.Badges {
             _wrapper.SetContextAttribute( UiConst.Offset, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-badge [nzOffset]=\"a\"></nz-badge>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试徽标尺寸
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            _wrapper.SetContextAttribute( UiConst.Size, BadgeSize.Small );
+            var result = new StringBuilder();
+            result.Append( "<nz-badge nzSize=\"small\"></nz-badge>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试徽标尺寸
+        /// </summary>
+        [Fact]
+        public void TestBindSize() {
+            _wrapper.SetContextAttribute( AngularConst.BindSize, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-badge [nzSize]=\"a\"></nz-badge>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

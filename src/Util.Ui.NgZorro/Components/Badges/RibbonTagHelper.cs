@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.Badges.Renders;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Badges; 
@@ -13,6 +14,10 @@ public class RibbonTagHelper : AngularTagHelperBase {
     /// <summary>
     /// nzColor,颜色
     /// </summary>
+    public AntDesignColor ColorType { get; set; }
+    /// <summary>
+    /// nzColor,颜色
+    /// </summary>
     public string Color { get; set; }
     /// <summary>
     /// [nzColor],颜色
@@ -21,13 +26,13 @@ public class RibbonTagHelper : AngularTagHelperBase {
     /// <summary>
     /// nzPlacement,位置,可选值: 'start' | 'end',默认值: 'end'
     /// </summary>
-    public string Placement { get; set; }
+    public RibbonPlacement Placement { get; set; }
     /// <summary>
     /// [nzPlacement],位置,可选值: 'start' | 'end',默认值: 'end'
     /// </summary>
     public string BindPlacement { get; set; }
     /// <summary>
-    /// nzText,文本内容
+    /// nzText,文本内容,支持多语言
     /// </summary>
     public string Text { get; set; }
     /// <summary>

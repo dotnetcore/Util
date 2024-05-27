@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.Avatars.Renders;
+using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
@@ -10,33 +10,33 @@ namespace Util.Ui.NgZorro.Components.Avatars;
 /// 头像,生成的标签为&lt;nz-avatar>&lt;/nz-avatar>
 /// </summary>
 [HtmlTargetElement( "util-avatar" )]
-public class AvatarTagHelper : AngularTagHelperBase {
+public class AvatarTagHelper : TooltipTagHelperBase {
     /// <summary>
-    /// nzIcon,设置头像图标
+    /// nzIcon,头像图标
     /// </summary>
     public AntDesignIcon Icon { get; set; }
     /// <summary>
-    /// [nzIcon],设置头像图标
+    /// [nzIcon],头像图标
     /// </summary>
     public string BindIcon { get; set; }
     /// <summary>
-    /// nzShape,设置头像形状,可选值: 'circle' | 'square',默认值: 'circle'
+    /// nzShape,头像形状,可选值: 'circle' | 'square',默认值: 'circle'
     /// </summary>
     public AvatarShape Shape { get; set; }
     /// <summary>
-    /// [nzShape],设置头像形状,可选值: 'circle' | 'square',默认值: 'circle'
+    /// [nzShape],头像形状,可选值: 'circle' | 'square',默认值: 'circle'
     /// </summary>
     public string BindShape { get; set; }
     /// <summary>
-    /// nzSize,设置头像大小,可选值: 'large' | 'small' | 'default' | number,默认值: 'default'
+    /// nzSize,头像尺寸,可选值: 'large' | 'small' | 'default' | number, 默认值: 'default'
     /// </summary>
     public AvatarSize Size { get; set; }
     /// <summary>
-    /// [nzSize],设置头像大小,可选值: 'large' | 'small' | 'default' | number,默认值: 'default'
+    /// [nzSize],头像尺寸,可选值: 'large' | 'small' | 'default' | number, 默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzGap],文本距离左右两侧边界,单位:像素,默认值: 4
+    /// [nzGap],文本距离左右两侧边界,单位:像素, 类型: number, 默认值: 4
     /// </summary>
     public string Gap { get; set; }
     /// <summary>

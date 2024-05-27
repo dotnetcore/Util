@@ -66,6 +66,15 @@ public class CalendarBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置自定义头部内容
+    /// </summary>
+    public CalendarBuilder CustomHeader() {
+        AttributeIfNotEmpty( "nzCustomHeader", _config.GetValue( UiConst.CustomHeader ) );
+        AttributeIfNotEmpty( "[nzCustomHeader]", _config.GetValue( AngularConst.BindCustomHeader ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public CalendarBuilder Events() {
@@ -80,6 +89,6 @@ public class CalendarBuilder : AngularTagBuilder {
     public override void Config() {
         base.Config();
         this.NgModel( _config );
-        Mode().Fullscreen().DateCell().MonthCell().DisabledDate().Events();
+        Mode().Fullscreen().DateCell().MonthCell().DisabledDate().CustomHeader().Events();
     }
 }

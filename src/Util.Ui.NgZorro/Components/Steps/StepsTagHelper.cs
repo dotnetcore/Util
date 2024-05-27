@@ -12,59 +12,59 @@ namespace Util.Ui.NgZorro.Components.Steps;
 [HtmlTargetElement( "util-steps" )]
 public class StepsTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzType,步骤条类型,可选值: 'default' | 'navigation'
+    /// nzType,步骤条类型,可选值: 'default' | 'navigation', 默认值: 'default'
     /// </summary>
     public StepsType Type { get; set; }
     /// <summary>
-    /// [nzType],步骤条类型,可选值: 'default' | 'navigation'
+    /// [nzType],步骤条类型,可选值: 'default' | 'navigation', 默认值: 'default'
     /// </summary>
     public string BindType { get; set; }
     /// <summary>
-    /// [nzCurrent],指定当前步骤，从 0 开始记数,在子 nz-step 元素中，可以通过 nzStatus 属性覆盖状态, 默认值: 0
+    /// [nzCurrent],指定当前步骤，从 `0` 开始记数。在 &lt;util-step> 中，可通过 status 覆盖状态,类型: number, 默认值: 0
     /// </summary>
     public string Current { get; set; }
     /// <summary>
-    /// nzSize,步骤条尺寸,可选值: 'default' | 'small'
+    /// nzSize,步骤条尺寸,可选值: 'default' | 'small', 默认值:  'default'
     /// </summary>
     public StepsSize Size { get; set; }
     /// <summary>
-    /// [nzSize],步骤条尺寸,可选值: 'default' | 'small'
+    /// [nzSize],步骤条尺寸,可选值: 'default' | 'small', 默认值:  'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzStartIndex],起始位置的序号,默认值: 0
+    /// [nzStartIndex],起始位置的序号,类型: number, 默认值: 0
     /// </summary>
     public string StartIndex { get; set; }
     /// <summary>
-    /// nzDirection,步骤条方向,可选值: 'vertical' | 'horizontal'
+    /// nzDirection,步骤条方向,可选值: 'vertical' | 'horizontal' ,默认值:  'horizontal'
     /// </summary>
     public StepsDirection Direction { get; set; }
     /// <summary>
-    /// [nzDirection],步骤条方向,可选值: 'vertical' | 'horizontal'
+    /// [nzDirection],步骤条方向,可选值: 'vertical' | 'horizontal' ,默认值:  'horizontal'
     /// </summary>
     public string BindDirection { get; set; }
     /// <summary>
-    /// nzStatus,当前步骤的状态,可选值: 'wait' | 'process' | 'finish' | 'error'
+    /// nzStatus,当前步骤的状态,可选值: 'wait' | 'process' | 'finish' | 'error',默认值: 'process'
     /// </summary>
     public StepStatus Status { get; set; }
     /// <summary>
-    /// [nzStatus],当前步骤的状态,可选值: 'wait' | 'process' | 'finish' | 'error'
+    /// [nzStatus],当前步骤的状态,可选值: 'wait' | 'process' | 'finish' | 'error',默认值: 'process'
     /// </summary>
     public string BindStatus { get; set; }
     /// <summary>
-    /// [nzProgressDot],点状步骤条
+    /// [nzProgressDot],点状步骤条, 类型: boolean | TemplateRef&lt;{ $implicit: TemplateRef&lt;void>, status: string, index: number }>, 默认值: false
     /// </summary>
     public string ProgressDot { get; set; }
     /// <summary>
-    /// nzLabelPlacement,标签放置位置，默认水平放图标右侧，可选 vertical 放图标下方,可选值:  'horizontal' | 'vertical'
+    /// nzLabelPlacement,标签位置，可选值:  'horizontal' | 'vertical', 默认值: 'horizontal'
     /// </summary>
     public StepsLabelPlacement LabelPlacement { get; set; }
     /// <summary>
-    /// [nzLabelPlacement],标签放置位置，默认水平放图标右侧，可选 vertical 放图标下方,可选值:  'horizontal' | 'vertical'
+    /// [nzLabelPlacement],标签位置，可选值:  'horizontal' | 'vertical', 默认值: 'horizontal'
     /// </summary>
     public string BindLabelPlacement { get; set; }
     /// <summary>
-    /// (nzIndexChange),点击单个步骤时触发的事件
+    /// (nzIndexChange),步骤索引变化事件,点击步骤时触发,类型: EventEmitter&lt;number>
     /// </summary>
     public string OnIndexChange { get; set; }
 

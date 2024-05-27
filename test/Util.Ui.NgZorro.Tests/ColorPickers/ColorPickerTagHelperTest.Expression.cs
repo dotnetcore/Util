@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.ColorPickers {
@@ -11,6 +12,7 @@ namespace Util.Ui.NgZorro.Tests.ColorPickers {
         /// </summary>
         [Fact]
         public void TestFor_1() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             _wrapper.SetExpression( t => t.Name );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );

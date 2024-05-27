@@ -1,5 +1,7 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Base;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Checkboxes.Builders; 
 
@@ -19,6 +21,15 @@ public class CheckboxBuilder : FormControlBuilderBase<CheckboxBuilder> {
     public CheckboxBuilder( Config config ) : base( config,"label" ) {
         _config = config;
         base.Attribute( "nz-checkbox" );
+    }
+
+    /// <summary>
+    /// 配置内部id
+    /// </summary>
+    public CheckboxBuilder NzId() {
+        AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.NzId ) );
+        AttributeIfNotEmpty( "[nzId]", _config.GetValue( AngularConst.BindNzId ) );
+        return this;
     }
 
     /// <summary>
@@ -66,7 +77,13 @@ public class CheckboxBuilder : FormControlBuilderBase<CheckboxBuilder> {
     /// 配置标签
     /// </summary>
     public CheckboxBuilder Label() {
-        if( _config.Contains( UiConst.Label ) ) {
+        var options = NgZorroOptionsService.GetOptions();
+        var text = _config.GetValue( UiConst.Label );
+        if ( text.IsEmpty() == false ) {
+            if ( options.EnableI18n ) {
+                this.AppendContentByI18n( text );
+                return this;
+            }
             SetContent( _config.GetValue( UiConst.Label ) );
             return this;
         }
@@ -90,7 +107,7 @@ public class CheckboxBuilder : FormControlBuilderBase<CheckboxBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().Name().AutoFocus().Disabled().Indeterminate().Checked()
+        ConfigForm().NzId().Name().AutoFocus().Disabled().Indeterminate().Checked()
             .Value().Label().Events();
     }
 }

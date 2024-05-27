@@ -4,11 +4,12 @@ using Util.Ui.NgZorro.Components.Grids.Helpers;
 using Util.Ui.NgZorro.Components.Grids.Renders;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Grids; 
+namespace Util.Ui.NgZorro.Components.Grids;
 
 /// <summary>
 /// 栅格列,生成的标签为&lt;div nz-col&gt;&lt;/div&gt;
 /// </summary>
+[HtmlTargetElement( "util-col" )]
 [HtmlTargetElement( "util-column" )]
 public class ColumnTagHelper : ColumnTagHelperBase {
     /// <summary>

@@ -1,8 +1,10 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
-namespace Util.Ui.NgZorro.Components.Badges.Builders; 
+namespace Util.Ui.NgZorro.Components.Badges.Builders;
 
 /// <summary>
 /// 缎带徽标标签生成器
@@ -16,7 +18,7 @@ public class RibbonBuilder : AngularTagBuilder {
     /// <summary>
     /// 初始化缎带徽标标签生成器
     /// </summary>
-    public RibbonBuilder( Config config ) : base( config,"nz-ribbon" ) {
+    public RibbonBuilder( Config config ) : base( config, "nz-ribbon" ) {
         _config = config;
     }
 
@@ -24,6 +26,7 @@ public class RibbonBuilder : AngularTagBuilder {
     /// 配置颜色
     /// </summary>
     public RibbonBuilder Color() {
+        AttributeIfNotEmpty( "nzColor", _config.GetValue<AntDesignColor?>( UiConst.ColorType )?.Description() );
         AttributeIfNotEmpty( "nzColor", _config.GetValue( UiConst.Color ) );
         AttributeIfNotEmpty( "[nzColor]", _config.GetValue( AngularConst.BindColor ) );
         return this;
@@ -42,9 +45,21 @@ public class RibbonBuilder : AngularTagBuilder {
     /// 配置文本内容
     /// </summary>
     public RibbonBuilder Text() {
-        AttributeIfNotEmpty( "nzText", _config.GetValue( UiConst.Text ) );
+        SetText( _config.GetValue( UiConst.Text ) );
         AttributeIfNotEmpty( "[nzText]", _config.GetValue( AngularConst.BindText ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置文本内容
+    /// </summary>
+    private void SetText( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzText]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzText", value );
     }
 
     /// <summary>

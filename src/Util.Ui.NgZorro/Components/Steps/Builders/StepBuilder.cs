@@ -1,6 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Steps.Builders; 
 
@@ -25,18 +27,42 @@ public class StepBuilder : AngularTagBuilder {
     /// 配置标题
     /// </summary>
     public StepBuilder Title() {
-        AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
+        SetTitle( _config.GetValue( UiConst.Title ) );
         AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置标题
+    /// </summary>
+    private void SetTitle( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzTitle]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzTitle", value );
     }
 
     /// <summary>
     /// 配置子标题
     /// </summary>
     public StepBuilder Subtitle() {
-        AttributeIfNotEmpty( "nzSubtitle", _config.GetValue( UiConst.Subtitle ) );
+        SetSubtitle( _config.GetValue( UiConst.Subtitle ) );
         AttributeIfNotEmpty( "[nzSubtitle]", _config.GetValue( AngularConst.BindSubtitle ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置子标题
+    /// </summary>
+    private void SetSubtitle( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzSubtitle]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzSubtitle", value );
     }
 
     /// <summary>
@@ -75,10 +101,18 @@ public class StepBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置进度百分比
+    /// </summary>
+    public StepBuilder Percentage() {
+        AttributeIfNotEmpty( "[nzPercentage]", _config.GetValue( UiConst.Percentage ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        Title().Subtitle().Description().Icon().Status().Disabled();
+        Title().Subtitle().Description().Icon().Status().Disabled().Percentage();
     }
 }

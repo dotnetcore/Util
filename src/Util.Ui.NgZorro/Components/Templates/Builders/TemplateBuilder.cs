@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
+using Util.Ui.Angular.Configs;
 
-namespace Util.Ui.NgZorro.Components.Templates.Builders; 
+namespace Util.Ui.NgZorro.Components.Templates.Builders;
 
 /// <summary>
 /// ng-template标签生成器
@@ -36,10 +37,18 @@ public class TemplateBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置模板出口
+    /// </summary>
+    public TemplateBuilder TemplateOutlet() {
+        AttributeIfNotEmpty( "[ngTemplateOutlet]", _config.GetValue( AngularConst.NgTemplateOutlet ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        Tab();
+        Tab().TemplateOutlet();
     }
 }

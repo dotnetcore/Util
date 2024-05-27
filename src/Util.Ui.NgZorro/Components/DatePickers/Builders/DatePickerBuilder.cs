@@ -2,7 +2,7 @@
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.DatePickers.Builders; 
+namespace Util.Ui.NgZorro.Components.DatePickers.Builders;
 
 /// <summary>
 /// 日期选择标签生成器
@@ -24,8 +24,9 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// <summary>
     /// 配置输入框标识
     /// </summary>
-    public DatePickerBuilder InputId() {
-        AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.InputId ) );
+    public DatePickerBuilder NzId() {
+        AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.NzId ) );
+        AttributeIfNotEmpty( "[nzId]", _config.GetValue( AngularConst.BindNzId ) );
         return this;
     }
 
@@ -42,6 +43,14 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// </summary>
     public DatePickerBuilder AutoFocus() {
         AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置浮层是否应带有背景板
+    /// </summary>
+    public DatePickerBuilder Backdrop() {
+        AttributeIfNotEmpty( "[nzBackdrop]", _config.GetValue( UiConst.Backdrop ) );
         return this;
     }
 
@@ -91,8 +100,7 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置弹出日历样式
     /// </summary>
     public DatePickerBuilder PopupStyle() {
-        AttributeIfNotEmpty( "nzPopupStyle", _config.GetValue( UiConst.PopupStyle ) );
-        AttributeIfNotEmpty( "[nzPopupStyle]", _config.GetValue( AngularConst.BindPopupStyle ) );
+        AttributeIfNotEmpty( "[nzPopupStyle]", _config.GetValue( UiConst.PopupStyle ) );
         return this;
     }
 
@@ -100,8 +108,18 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// 配置日期格式
     /// </summary>
     public DatePickerBuilder Format() {
-        AttributeIfNotEmpty( "nzFormat", _config.GetValue( UiConst.Format ) );
-        AttributeIfNotEmpty( "[nzFormat]", _config.GetValue( AngularConst.BindFormat ) );
+        var format = _config.GetValue( UiConst.Format );
+        if ( format.IsEmpty() == false ) {
+            Attribute( "nzFormat", format );
+            return this;
+        }
+        var bindFormat = _config.GetValue( AngularConst.BindFormat );
+        if ( bindFormat.IsEmpty() == false ) {
+            Attribute( "[nzFormat]", bindFormat );
+            return this;
+        }
+        if ( _config.GetValue<DatePickerMode?>( UiConst.Mode ) == DatePickerMode.Week )
+            Attribute( "nzFormat", "yyyy-ww" );
         return this;
     }
 
@@ -175,6 +193,22 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     }
 
     /// <summary>
+    /// 配置内联模式
+    /// </summary>
+    public DatePickerBuilder Inline() {
+        AttributeIfNotEmpty( "[nzInline]", _config.GetValue( UiConst.Inline ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置显示周数
+    /// </summary>
+    public DatePickerBuilder ShowWeekNumber() {
+        AttributeIfNotEmpty( "[nzShowWeekNumber]", _config.GetValue( UiConst.ShowWeekNumber ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置自定义日期单元格内容
     /// </summary>
     public DatePickerBuilder DateRender() {
@@ -207,6 +241,24 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     }
 
     /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public DatePickerBuilder Status() {
+        AttributeIfNotEmpty( "nzStatus", _config.GetValue<FormControlStatus?>( UiConst.Status )?.Description() );
+        AttributeIfNotEmpty( "[nzStatus]", _config.GetValue( AngularConst.BindStatus ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public DatePickerBuilder Placement() {
+        AttributeIfNotEmpty( "nzPlacement", _config.GetValue<DatePickerPlacement?>( UiConst.Placement )?.Description() );
+        AttributeIfNotEmpty( "[nzPlacement]", _config.GetValue( AngularConst.BindPlacement ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public DatePickerBuilder Events() {
@@ -220,10 +272,13 @@ public class DatePickerBuilder : FormControlBuilderBase<DatePickerBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().Name().InputId().AllowClear().AutoFocus().DefaultPickerValue()
+        ConfigForm().Name().NzId().AllowClear().AutoFocus()
+            .Backdrop().DefaultPickerValue()
             .Disabled().DisabledDate().DisabledTime()
             .DropdownClassName().PopupStyle().Format().InputReadonly().Locale().Mode()
-            .Placeholder().RenderExtraFooter().Size().SuffixIcon().Borderless().DateRender()
-            .ShowTime().ShowToday().ShowNow().Events();
+            .Placeholder().RenderExtraFooter().Size().SuffixIcon().Borderless().Inline()
+            .ShowWeekNumber()
+            .DateRender().ShowTime().ShowToday().ShowNow().Status().Placement()
+            .Events();
     }
 }

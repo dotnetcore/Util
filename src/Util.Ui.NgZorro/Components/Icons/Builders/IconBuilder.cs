@@ -1,7 +1,6 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
-using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Directives.Popconfirms;
 using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
@@ -104,13 +103,13 @@ public class IconBuilder : AngularTagBuilder {
     /// 配置双色图标主题色
     /// </summary>
     public IconBuilder Color() {
-        var value = _config.GetValue<AntDesignColor?>( AntDesignConst.TwotoneColorType )?.Description();
+        var value = _config.GetValue<AntDesignColor?>( UiConst.TwotoneColorType )?.Description();
         if ( value.IsEmpty() == false )
-            _config.SetAttribute( AntDesignConst.TwotoneColor, value );
-        if ( _config.Contains( AntDesignConst.TwotoneColor ) || _config.Contains( AntDesignConst.BindTwotoneColor ) )
+            _config.SetAttribute( UiConst.TwotoneColor, value );
+        if ( _config.Contains( UiConst.TwotoneColor ) || _config.Contains( AngularConst.BindTwotoneColor ) )
             Attribute( "nzTheme", IconTheme.Twotone.Description() );
-        AttributeIfNotEmpty( "nzTwotoneColor", _config.GetValue( AntDesignConst.TwotoneColor ) );
-        AttributeIfNotEmpty( "[nzTwotoneColor]", _config.GetValue( AntDesignConst.BindTwotoneColor ) );
+        AttributeIfNotEmpty( "nzTwotoneColor", _config.GetValue( UiConst.TwotoneColor ) );
+        AttributeIfNotEmpty( "[nzTwotoneColor]", _config.GetValue( AngularConst.BindTwotoneColor ) );
         return this;
     }
 
@@ -134,8 +133,8 @@ public class IconBuilder : AngularTagBuilder {
     /// 配置Iconfont图标
     /// </summary>
     public IconBuilder IconFont() {
-        AttributeIfNotEmpty( "nzIconfont", _config.GetValue( AntDesignConst.IconFont ) );
-        AttributeIfNotEmpty( "[nzIconfont]", _config.GetValue( AntDesignConst.BindIconFont ) );
+        AttributeIfNotEmpty( "nzIconfont", _config.GetValue( UiConst.IconFont ) );
+        AttributeIfNotEmpty( "[nzIconfont]", _config.GetValue( AngularConst.BindIconFont ) );
         return this;
     }
 

@@ -18,7 +18,7 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Ghost { get; set; }
     /// <summary>
-    /// nzTitle,标题
+    /// nzTitle,标题, 支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -26,7 +26,7 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindTitle { get; set; }
     /// <summary>
-    /// nzSubtitle,子标题
+    /// nzSubtitle,子标题, 支持多语言
     /// </summary>
     public string Subtitle { get; set; }
     /// <summary>
@@ -34,7 +34,7 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindSubtitle { get; set; }
     /// <summary>
-    /// 扩展属性,显示默认返回按钮
+    /// 扩展属性,是否显示默认返回按钮, 默认值: false
     /// </summary>
     public bool ShowBack { get; set; }
     /// <summary>
@@ -46,7 +46,7 @@ public class PageHeaderTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindBackIcon { get; set; }
     /// <summary>
-    /// (nzBack),返回按钮点击事件
+    /// (nzBack),返回按钮点击事件, 类型: EventEmitter&lt;void>
     /// </summary>
     public string OnBack { get; set; }
 

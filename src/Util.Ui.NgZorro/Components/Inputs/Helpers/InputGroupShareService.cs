@@ -119,7 +119,7 @@ public class InputGroupShareService {
         _shareConfig.Size ??= _config.GetValue<InputSize?>( UiConst.Size );
         if ( _shareConfig.BindSize.IsEmpty() )
             _shareConfig.BindSize = _config.GetValue( AngularConst.BindSize );
-        _shareConfig.Status ??= _config.GetValue<InputStatus?>( UiConst.Status );
+        _shareConfig.Status ??= _config.GetValue<FormControlStatus?>( UiConst.Status );
         if ( _shareConfig.BindStatus.IsEmpty() )
             _shareConfig.BindStatus = _config.GetValue( AngularConst.BindStatus );
         _shareConfig.AllowClear = IsAllowClear();

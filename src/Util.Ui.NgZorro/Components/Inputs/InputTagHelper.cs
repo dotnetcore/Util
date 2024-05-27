@@ -17,7 +17,7 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [required],是否必填项
+    /// [required],是否必填项, 类型: boolean, 默认值: false
     /// </summary>
     public string Required { get; set; }
     /// <summary>
@@ -95,7 +95,7 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// nzStatus,校验状态, 可选值: 'error' | 'warning'
     /// </summary>
-    public InputStatus Status { get; set; }
+    public FormControlStatus Status { get; set; }
     /// <summary>
     /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
     /// </summary>

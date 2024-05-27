@@ -131,7 +131,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestTwotoneColorType() {
-            _wrapper.SetContextAttribute( AntDesignConst.TwotoneColorType, AntDesignColor.Red );
+            _wrapper.SetContextAttribute( UiConst.TwotoneColorType, AntDesignColor.Red );
             var result = new StringBuilder();
             result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"red\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -142,7 +142,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestTwotoneColor() {
-            _wrapper.SetContextAttribute( AntDesignConst.TwotoneColor, "#eb2f96" );
+            _wrapper.SetContextAttribute( UiConst.TwotoneColor, "#eb2f96" );
             var result = new StringBuilder();
             result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"#eb2f96\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -153,7 +153,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestTwotoneColor_2() {
-            _wrapper.SetContextAttribute( UiConst.Theme, IconTheme.Twotone ).SetContextAttribute( AntDesignConst.TwotoneColor, "#eb2f96" );
+            _wrapper.SetContextAttribute( UiConst.Theme, IconTheme.Twotone ).SetContextAttribute( UiConst.TwotoneColor, "#eb2f96" );
             var result = new StringBuilder();
             result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" nzTwotoneColor=\"#eb2f96\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -164,7 +164,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestBindTwotoneColor() {
-            _wrapper.SetContextAttribute( AntDesignConst.BindTwotoneColor, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindTwotoneColor, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-icon=\"\" nzTheme=\"twotone\" [nzTwotoneColor]=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -175,7 +175,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestIconfont() {
-            _wrapper.SetContextAttribute( AntDesignConst.IconFont, "a" );
+            _wrapper.SetContextAttribute( UiConst.IconFont, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-icon=\"\" nzIconfont=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );
@@ -186,7 +186,7 @@ namespace Util.Ui.NgZorro.Tests.Icons {
         /// </summary>
         [Fact]
         public void TestBindIconfont() {
-            _wrapper.SetContextAttribute( AntDesignConst.BindIconFont, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindIconFont, "a" );
             var result = new StringBuilder();
             result.Append( "<span nz-icon=\"\" [nzIconfont]=\"a\"></span>" );
             Assert.Equal( result.ToString(), GetResult() );

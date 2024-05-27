@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Forms.Configs;
 using Util.Ui.NgZorro.Configs;
 using Xunit;
 
@@ -14,6 +15,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestFor_Bool() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
@@ -42,6 +44,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestFor_Bool_I18n() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
             _wrapper.SetExpression( t => t.Enabled );
             var result = new StringBuilder();
@@ -71,6 +74,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestFor_Name() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             _wrapper.SetExpression( t => t.Enabled );
             _wrapper.SetContextAttribute( UiConst.Name,"abc" );
             var result = new StringBuilder();
@@ -100,6 +104,7 @@ namespace Util.Ui.NgZorro.Tests.Selects {
         /// </summary>
         [Fact]
         public void TestFor_BindName() {
+            _wrapper.SetItem( new FormShareConfig { FormCreated = true } );
             _wrapper.SetExpression( t => t.Enabled );
             _wrapper.SetContextAttribute( AngularConst.BindName, "abc" );
             var result = new StringBuilder();

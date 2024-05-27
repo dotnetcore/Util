@@ -175,7 +175,7 @@ namespace Util.Ui.NgZorro.Tests.Layouts {
         /// </summary>
         [Fact]
         public void TestZeroTrigger() {
-            _wrapper.SetContextAttribute( AntDesignConst.ZeroTrigger, "a" );
+            _wrapper.SetContextAttribute( UiConst.ZeroTrigger, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-sider [nzZeroTrigger]=\"a\"></nz-sider>" );
             Assert.Equal( result.ToString(), GetResult() );

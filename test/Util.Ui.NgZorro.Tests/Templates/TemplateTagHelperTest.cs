@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Templates;
 using Util.Ui.TagHelpers;
@@ -54,6 +55,17 @@ namespace Util.Ui.NgZorro.Tests.Templates {
             _wrapper.SetContextAttribute( UiConst.Tab, true );
             var result = new StringBuilder();
             result.Append( "<ng-template nz-tab=\"\"></ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试模板出口
+        /// </summary>
+        [Fact]
+        public void TestTemplateOutlet() {
+            _wrapper.SetContextAttribute( AngularConst.NgTemplateOutlet, "a" );
+            var result = new StringBuilder();
+            result.Append( "<ng-template [ngTemplateOutlet]=\"a\"></ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

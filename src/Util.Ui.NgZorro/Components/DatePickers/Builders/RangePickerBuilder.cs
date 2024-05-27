@@ -28,6 +28,15 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     }
 
     /// <summary>
+    /// 配置输入框标识
+    /// </summary>
+    public RangePickerBuilder NzId() {
+        AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.NzId ) );
+        AttributeIfNotEmpty( "[nzId]", _config.GetValue( AngularConst.BindNzId ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置允许清除
     /// </summary>
     public RangePickerBuilder AllowClear() {
@@ -40,6 +49,14 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// </summary>
     public RangePickerBuilder AutoFocus() {
         AttributeIfNotEmpty( "[nzAutoFocus]", _config.GetValue( UiConst.AutoFocus ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置浮层是否应带有背景板
+    /// </summary>
+    public RangePickerBuilder Backdrop() {
+        AttributeIfNotEmpty( "[nzBackdrop]", _config.GetValue( UiConst.Backdrop ) );
         return this;
     }
 
@@ -89,8 +106,7 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// 配置弹出日历样式
     /// </summary>
     public RangePickerBuilder PopupStyle() {
-        AttributeIfNotEmpty( "nzPopupStyle", _config.GetValue( UiConst.PopupStyle ) );
-        AttributeIfNotEmpty( "[nzPopupStyle]", _config.GetValue( AngularConst.BindPopupStyle ) );
+        AttributeIfNotEmpty( "[nzPopupStyle]", _config.GetValue( UiConst.PopupStyle ) );
         return this;
     }
 
@@ -147,6 +163,14 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     }
 
     /// <summary>
+    /// 配置自定义日期单元格内容
+    /// </summary>
+    public RangePickerBuilder DateRender() {
+        AttributeIfNotEmpty( "[nzDateRender]", _config.GetValue( UiConst.DateRender ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置输入框大小
     /// </summary>
     public RangePickerBuilder Size() {
@@ -169,6 +193,22 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// </summary>
     public RangePickerBuilder Borderless() {
         AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( UiConst.Borderless ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置内联模式
+    /// </summary>
+    public RangePickerBuilder Inline() {
+        AttributeIfNotEmpty( "[nzInline]", _config.GetValue( UiConst.Inline ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置显示周数
+    /// </summary>
+    public RangePickerBuilder ShowWeekNumber() {
+        AttributeIfNotEmpty( "[nzShowWeekNumber]", _config.GetValue( UiConst.ShowWeekNumber ) );
         return this;
     }
 
@@ -198,6 +238,24 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     }
 
     /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public RangePickerBuilder Status() {
+        AttributeIfNotEmpty( "nzStatus", _config.GetValue<FormControlStatus?>( UiConst.Status )?.Description() );
+        AttributeIfNotEmpty( "[nzStatus]", _config.GetValue( AngularConst.BindStatus ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public RangePickerBuilder Placement() {
+        AttributeIfNotEmpty( "nzPlacement", _config.GetValue<DatePickerPlacement?>( UiConst.Placement )?.Description() );
+        AttributeIfNotEmpty( "[nzPlacement]", _config.GetValue( AngularConst.BindPlacement ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public RangePickerBuilder Events() {
@@ -212,12 +270,15 @@ public class RangePickerBuilder : FormControlBuilderBase<RangePickerBuilder> {
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
-        ConfigForm().Name().AllowClear().AutoFocus().DefaultPickerValue()
+        ConfigForm().NzId().Name().AllowClear().AutoFocus()
+            .Backdrop().DefaultPickerValue()
             .Disabled().DisabledDate().DisabledTime()
             .DropdownClassName().PopupStyle()
             .Format().InputReadonly().Locale().Mode()
-            .Placeholder().RenderExtraFooter().Size().SuffixIcon().Borderless()
-            .Ranges().Separator().ShowTime().Events();
+            .Placeholder().RenderExtraFooter().DateRender()
+            .Size().SuffixIcon().Borderless().Inline().ShowWeekNumber()
+            .Ranges().Separator().ShowTime().Status().Placement()
+            .Events();
         EnableExtend();
     }
 

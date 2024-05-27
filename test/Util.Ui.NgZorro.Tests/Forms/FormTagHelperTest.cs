@@ -184,6 +184,31 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         }
 
         /// <summary>
+        /// 测试表单组 - 设置id
+        /// </summary>
+        [Fact]
+        public void TestFormGroup_2() {
+            _wrapper.SetContextAttribute( UiConst.Id, "id" );
+            _wrapper.SetContextAttribute( UiConst.FormGroup, "a" );
+            var result = new StringBuilder();
+            result.Append( "<form #id=\"\" nz-form=\"\" [formGroup]=\"a\">" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试是否不验证表单
+        /// </summary>
+        [Fact]
+        public void TestNovalidate() {
+            _wrapper.SetContextAttribute( UiConst.Novalidate, true );
+            var result = new StringBuilder();
+            result.Append( "<form novalidate=\"\" nz-form=\"\">" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]

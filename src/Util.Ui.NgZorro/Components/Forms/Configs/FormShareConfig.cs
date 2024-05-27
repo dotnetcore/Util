@@ -16,7 +16,6 @@ public class FormShareConfig {
     /// </summary>
     public FormShareConfig() {
         _columnIds = new List<string>();
-        FormId = "form";
     }
 
     /// <summary>
@@ -60,6 +59,10 @@ public class FormShareConfig {
         return index >= SearchFormShowNumber;
     }
 
+    /// <summary>
+    /// form 已创建
+    /// </summary>
+    public bool FormCreated { get; set; }
     /// <summary>
     /// 是否查询表单
     /// </summary>

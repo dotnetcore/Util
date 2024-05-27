@@ -61,6 +61,10 @@ public class FormTagHelper : FormContainerTagHelperBase {
     /// </summary>
     public string LabelWidth { get; set; }
     /// <summary>
+    /// novalidate,是否不验证表单,类型: boolean, 默认值: false
+    /// </summary>
+    public bool Novalidate { get; set; }
+    /// <summary>
     /// (ngSubmit),表单提交事件
     /// </summary>
     public string OnSubmit { get; set; }
@@ -70,6 +74,7 @@ public class FormTagHelper : FormContainerTagHelperBase {
         _config = new Config( context, output );
         var service = new FormShareService( _config );
         service.Init();
+        service.Created();
         service.SetFormId();
     }
 

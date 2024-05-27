@@ -16,7 +16,7 @@ public class CheckboxGroupTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [nzDisabled],禁用
+    /// [nzDisabled],是否禁用全部复选框, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
 

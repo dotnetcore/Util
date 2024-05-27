@@ -48,6 +48,28 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
         }
 
         /// <summary>
+        /// 测试引用变量
+        /// </summary>
+        [Fact]
+        public void TestId() {
+            _wrapper.SetContextAttribute( UiConst.Id, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-checkbox-group #a=\"\"></nz-checkbox-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试名称
+        /// </summary>
+        [Fact]
+        public void TestName() {
+            _wrapper.SetContextAttribute( UiConst.Name, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-checkbox-group name=\"a\"></nz-checkbox-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试禁用
         /// </summary>
         [Fact]
