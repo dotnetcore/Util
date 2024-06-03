@@ -62,10 +62,10 @@ public class CardBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置是否移除边框
+    /// 配置是否显示边框
     /// </summary>
-    public CardBuilder Borderless() {
-        AttributeIfNotEmpty( "[nzBorderless]", _config.GetValue( UiConst.Borderless ) );
+    public CardBuilder Bordered() {
+        AttributeIfNotEmpty( "[nzBordered]", _config.GetValue( UiConst.Bordered ) );
         return this;
     }
 
@@ -134,7 +134,7 @@ public class CardBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Title().Actions().BodyStyle().Borderless().Cover().Extra()
+        Title().Actions().BodyStyle().Bordered().Cover().Extra()
             .Hoverable().Loading().Type().Size()
             .SpaceItem( _config )
             .Event();

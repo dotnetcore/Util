@@ -176,17 +176,6 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             result.Append( "<input nz-input=\"\" [type]=\"a\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-
-        /// <summary>
-        /// 测试全局框设置 autocomplete="off"
-        /// </summary>
-        [Fact]
-        public void TestAutocompleteOff() {
-            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAutocompleteOff = true } );
-            var result = new StringBuilder();
-            result.Append( "<input autocomplete=\"off\" nz-input=\"\" />" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
     }
 }
 

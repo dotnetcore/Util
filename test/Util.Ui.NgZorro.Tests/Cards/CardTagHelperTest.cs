@@ -106,13 +106,13 @@ namespace Util.Ui.NgZorro.Tests.Cards {
         }
 
         /// <summary>
-        /// 测试是否移除边框
+        /// 测试是否显示边框
         /// </summary>
         [Fact]
-        public void TestBorderless() {
-            _wrapper.SetContextAttribute( UiConst.Borderless, "true" );
+        public void TestBordered() {
+            _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-card [nzBorderless]=\"true\"></nz-card>" );
+            result.Append( "<nz-card [nzBordered]=\"true\"></nz-card>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

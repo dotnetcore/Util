@@ -76,11 +76,47 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         }
 
         /// <summary>
-        /// 测试标签for
+        /// 测试标签文本是否换行
         /// </summary>
         [Fact]
-        public void TestLabelFor() {
-            _wrapper.SetContextAttribute( UiConst.LabelFor, "a" );
+        public void TestLabelWrap() {
+            _wrapper.SetContextAttribute( UiConst.LabelWrap, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label [nzLabelWrap]=\"true\">" );
+            result.Append( "</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标签文本是否换行
+        /// </summary>
+        [Fact]
+        public void TestLabelAlign() {
+            _wrapper.SetContextAttribute( UiConst.LabelAlign, LabelAlign.Right );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label nzLabelAlign=\"right\">" );
+            result.Append( "</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标签文本是否换行
+        /// </summary>
+        [Fact]
+        public void TestBindLabelAlign() {
+            _wrapper.SetContextAttribute( AngularConst.BindLabelAlign, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-label [nzLabelAlign]=\"a\">" );
+            result.Append( "</nz-form-label>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试NzFor
+        /// </summary>
+        [Fact]
+        public void TestNzFor() {
+            _wrapper.SetContextAttribute( UiConst.NzFor, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-form-label nzFor=\"a\">" );
             result.Append( "</nz-form-label>" );
@@ -92,7 +128,7 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         /// </summary>
         [Fact]
         public void TestBindLabelFor() {
-            _wrapper.SetContextAttribute( AngularConst.BindLabelFor, "a" );
+            _wrapper.SetContextAttribute( AngularConst.BindNzFor, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-form-label [nzFor]=\"a\">" );
             result.Append( "</nz-form-label>" );

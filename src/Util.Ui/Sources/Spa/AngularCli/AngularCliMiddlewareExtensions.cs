@@ -14,9 +14,7 @@ public static class AngularCliMiddlewareExtensions {
         this ISpaBuilder spaBuilder,
         string npmScript ) {
         ArgumentNullException.ThrowIfNull( spaBuilder );
-
         var spaOptions = spaBuilder.Options;
-
         if ( string.IsNullOrEmpty( spaOptions.SourcePath ) ) {
             throw new InvalidOperationException( $"To use {nameof( UseAngularCliServer )}, you must supply a non-empty value for the {nameof( SpaOptions.SourcePath )} property of {nameof( SpaOptions )} ." );
         }

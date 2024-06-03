@@ -80,6 +80,14 @@ public class CarouselBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置是否支持循环
+    /// </summary>
+    public CarouselBuilder Loop() {
+        AttributeIfNotEmpty( "[nzLoop]", _config.GetValue( UiConst.Loop ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public CarouselBuilder Events() {
@@ -94,7 +102,7 @@ public class CarouselBuilder : AngularTagBuilder {
     public override void Config() {
         base.Config();
         AutoPlay().AutoPlaySpeed().DotRender().DotPosition()
-            .Dots().Effect().EnableSwipe()
+            .Dots().Effect().EnableSwipe().Loop()
             .Events();
     }
 }

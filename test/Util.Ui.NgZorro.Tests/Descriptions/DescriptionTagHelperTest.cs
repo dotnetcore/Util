@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Descriptions;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -45,7 +46,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         [Fact]
         public void TestDefault() {
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -56,7 +57,19 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestTitle() {
             _wrapper.SetContextAttribute( UiConst.Title, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions nzTitle=\"a\" [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions nzTitle=\"a\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzTitle]=\"'a'|i18n\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -67,7 +80,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestBindTitle() {
             _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\" [nzTitle]=\"a\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzTitle]=\"a\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -78,7 +91,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestExtra() {
             _wrapper.SetContextAttribute( UiConst.Extra, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions nzExtra=\"a\" [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions nzExtra=\"a\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -89,7 +102,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestBindExtra() {
             _wrapper.SetContextAttribute( AngularConst.BindExtra, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\" [nzExtra]=\"a\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzExtra]=\"a\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -100,7 +113,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestBordered() {
             _wrapper.SetContextAttribute( UiConst.Bordered, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzBordered]=\"true\" [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzBordered]=\"true\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -111,74 +124,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestColumn() {
             _wrapper.SetContextAttribute( UiConst.Column, 1 );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:1,xxl:1}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestColumn_2() {
-            _wrapper.SetContextAttribute( UiConst.Column, 1 );
-            _wrapper.SetContextAttribute( UiConst.XsColumn, 2 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:2,sm:1,md:1,lg:1,xl:1,xxl:1}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestXsColumn() {
-            _wrapper.SetContextAttribute( UiConst.XsColumn, 2 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:2,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestSmColumn() {
-            _wrapper.SetContextAttribute( UiConst.SmColumn, 2 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:2,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestMdColumn() {
-            _wrapper.SetContextAttribute( UiConst.MdColumn, 2 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:2,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestLgColumn() {
-            _wrapper.SetContextAttribute( UiConst.LgColumn, 2 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:2,xl:2,xxl:2}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestXlColumn() {
-            _wrapper.SetContextAttribute( UiConst.XlColumn, 1 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:1,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzColumn]=\"1\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -187,21 +133,9 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         /// </summary>
         [Fact]
         public void TestXxlColumn() {
-            _wrapper.SetContextAttribute( UiConst.XxlColumn, 1 );
-            var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:1}\"></nz-descriptions>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试一行中描述列表项的数量
-        /// </summary>
-        [Fact]
-        public void TestXxlColumn_2() {
-            _wrapper.SetContextAttribute( UiConst.LgColumn, 3 );
             _wrapper.SetContextAttribute( UiConst.XxlColumn, 3 );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:3,xl:2,xxl:3}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:3}\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -212,7 +146,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestSize() {
             _wrapper.SetContextAttribute( UiConst.Size, DescriptionSize.Small );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions nzSize=\"small\" [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions nzSize=\"small\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -223,7 +157,29 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestBindSize() {
             _wrapper.SetContextAttribute( AngularConst.BindSize, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\" [nzSize]=\"a\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzSize]=\"a\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试列表布局
+        /// </summary>
+        [Fact]
+        public void TestLayout() {
+            _wrapper.SetContextAttribute( UiConst.Layout, DescriptionLayout.Vertical );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions nzLayout=\"vertical\"></nz-descriptions>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试列表布局
+        /// </summary>
+        [Fact]
+        public void TestBindLayout() {
+            _wrapper.SetContextAttribute( AngularConst.BindLayout, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-descriptions [nzLayout]=\"a\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -234,7 +190,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestColon() {
             _wrapper.SetContextAttribute( UiConst.Colon, "true" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColon]=\"true\" [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\"></nz-descriptions>" );
+            result.Append( "<nz-descriptions [nzColon]=\"true\"></nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -245,7 +201,7 @@ namespace Util.Ui.NgZorro.Tests.Descriptions {
         public void TestContent() {
             _wrapper.AppendContent( "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-descriptions [nzColumn]=\"{xs:1,sm:1,md:1,lg:1,xl:2,xxl:2}\">a</nz-descriptions>" );
+            result.Append( "<nz-descriptions>a</nz-descriptions>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

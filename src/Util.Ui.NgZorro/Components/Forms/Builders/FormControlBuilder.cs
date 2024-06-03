@@ -42,7 +42,15 @@ public class FormControlBuilder : ColumnBuilderBase<FormControlBuilder> {
     /// 配置展示校验状态图标
     /// </summary>
     public FormControlBuilder HasFeedback() {
-        AttributeIfNotEmpty( "[nzHasFeedback]", _config.GetValue( UiConst.HasFeedback ) );
+        if ( _config.Contains( UiConst.HasFeedback ) ) {
+            AttributeIfNotEmpty( "[nzHasFeedback]", _config.GetValue( UiConst.HasFeedback ) );
+            return this;
+        }
+        var shareConfig = GetFormItemShareConfig();
+        if ( shareConfig.IsValidationExtend == false )
+            return this;
+        if ( shareConfig.HasFeedback == true )
+            Attribute( "[nzHasFeedback]", "true" );
         return this;
     }
 

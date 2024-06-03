@@ -19,7 +19,7 @@ public class FormLabelTagHelper : ColumnTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// 扩展属性,内容文本,支持i18n
+    /// 扩展属性,内容文本,支持多语言
     /// </summary>
     public string Text { get; set; }
     /// <summary>
@@ -27,27 +27,39 @@ public class FormLabelTagHelper : ColumnTagHelperBase {
     /// </summary>
     public ModelExpression For { get; set; }
     /// <summary>
-    /// [nzRequired],是否必填项，显示红色星号, 默认值: false
+    /// [nzRequired],是否必填项，显示红色星号, 类型: boolean, 默认值: false
     /// </summary>
     public string Required { get; set; }
     /// <summary>
-    /// [nzNoColon],是否不显示冒号, 默认值: false
+    /// [nzNoColon],是否不显示冒号, 类型: boolean, 默认值: false
     /// </summary>
     public string NoColon { get; set; }
     /// <summary>
-    /// nzFor,设置标签指向的组件Id,注意：应设置组件的raw-id,即原始Id属性,而不是引用变量
+    /// [nzLabelWrap],标签文本是否换行, 类型: boolean, 默认值: false
     /// </summary>
-    public string LabelFor { get; set; }
+    public string LabelWrap { get; set; }
     /// <summary>
-    /// [nzFor],设置标签指向的组件Id,注意：应设置组件的raw-id,即原始Id属性,而不是引用变量
+    /// nzLabelAlign,标签文本对齐方式, 类型: 'left' | 'right', 默认值: 'right'
     /// </summary>
-    public string BindLabelFor { get; set; }
+    public LabelAlign LabelAlign { get; set; }
     /// <summary>
-    /// nzTooltipTitle,提示信息
+    /// [nzLabelAlign],标签文本对齐方式, 类型: 'left' | 'right', 默认值: 'right'
+    /// </summary>
+    public string BindLabelAlign { get; set; }
+    /// <summary>
+    /// nzFor,设置标签指向的组件Id,注意：应设置组件的 raw-id 或 nz-id,即原始Id属性
+    /// </summary>
+    public string NzFor { get; set; }
+    /// <summary>
+    /// [nzFor],设置标签指向的组件Id,注意：应设置组件的 raw-id 或 nz-id,即原始Id属性
+    /// </summary>
+    public string BindNzFor { get; set; }
+    /// <summary>
+    /// nzTooltipTitle,提示信息,类型: string | TemplateRef&lt;void>
     /// </summary>
     public string TooltipTitle { get; set; }
     /// <summary>
-    /// [nzTooltipTitle],提示信息
+    /// [nzTooltipTitle],提示信息,类型: string | TemplateRef&lt;void>
     /// </summary>
     public string BindTooltipTitle { get; set; }
     /// <summary>
@@ -55,7 +67,7 @@ public class FormLabelTagHelper : ColumnTagHelperBase {
     /// </summary>
     public AntDesignIcon TooltipIcon { get; set; }
     /// <summary>
-    /// [nzTooltipIcon],提示图标
+    /// [nzTooltipIcon],提示图标, 类型: string | NzFormTooltipIcon
     /// </summary>
     public string BindTooltipIcon { get; set; }
 

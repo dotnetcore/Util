@@ -10,6 +10,10 @@ public class CheckboxService {
     /// 配置
     /// </summary>
     private readonly Config _config;
+    /// <summary>
+    /// 是否禁用自动设置表单标签 nzFor
+    /// </summary>
+    private bool _isDisableAutoNzFor;
 
     /// <summary>
     /// 初始化复选框服务
@@ -17,6 +21,13 @@ public class CheckboxService {
     /// <param name="config">配置</param>
     public CheckboxService( Config config ) {
         _config = config;
+    }
+
+    /// <summary>
+    /// 禁用自动设置表单标签 nzFor
+    /// </summary>
+    public void DisableAutoNzFor() {
+        _isDisableAutoNzFor = true;
     }
 
     /// <summary>
@@ -49,6 +60,8 @@ public class CheckboxService {
     /// </summary>
     private void InitFormItemShareService() {
         var service = new FormItemShareService( _config );
+        if ( _isDisableAutoNzFor )
+            service.DisableAutoNzFor();
         service.Init();
         service.InitId();
     }

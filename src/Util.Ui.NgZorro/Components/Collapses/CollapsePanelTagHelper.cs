@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Collapses;
 [HtmlTargetElement( "util-collapse-panel" )]
 public class CollapsePanelTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// [nzDisabled],是否禁用,默认值: false
+    /// [nzDisabled],是否禁用, 类型: boolean, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
     /// <summary>
@@ -32,23 +32,23 @@ public class CollapsePanelTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindExpandedIcon { get; set; }
     /// <summary>
-    /// nzExtra,自定义渲染每个面板右上角的内容,类型: string | TemplateRef&lt;void>
+    /// nzExtra,自定义面板右上角区域内容,类型: string | TemplateRef&lt;void>
     /// </summary>
     public string Extra { get; set; }
     /// <summary>
-    /// [nzExtra],自定义渲染每个面板右上角的内容,类型: string | TemplateRef&lt;void>
+    /// [nzExtra],自定义面板右上角区域内容,类型: string | TemplateRef&lt;void>
     /// </summary>
     public string BindExtra { get; set; }
     /// <summary>
-    /// [nzShowArrow],是否显示箭头,默认值: true
+    /// [nzShowArrow],是否显示箭头, 类型: boolean, 默认值: true
     /// </summary>
     public string ShowArrow { get; set; }
     /// <summary>
-    /// [nzActive],是否展开面板
+    /// [nzActive],是否展开面板, 类型: boolean, 默认值: false
     /// </summary>
     public string Active { get; set; }
     /// <summary>
-    /// [(nzActive)],是否展开面板
+    /// [(nzActive)],是否展开面板, 类型: boolean, 默认值: false
     /// </summary>
     public string BindonActive { get; set; }
     /// <summary>

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Options;
 using Util.Ui.Sources.Spa.AngularCli;
 using Util.Ui.Sources.Spa;
+using Util.Ui.Razor;
 
 namespace Util.Ui.NgZorro;
 
@@ -21,6 +23,8 @@ public static class WebApplicationExtensions {
         app.CheckNull( nameof( app ) );
         AddEndpoints( app );
         app.UseAngular( spa => {
+            var options = app.Services.GetService<IOptions<RazorOptions>>();
+            spa.Options.StartupTimeout = options.Value.StartupTimeout;
             spa.Options.SourcePath = SourcePath;
             if ( app.Environment.IsDevelopment() )
                 spa.UseAngularCliServer( "start" );

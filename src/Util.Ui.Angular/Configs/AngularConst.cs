@@ -29,6 +29,10 @@ public static class AngularConst {
     /// </summary>
     public const string NgTemplateOutlet = "ng-template-outlet";
     /// <summary>
+    /// ngTemplateOutletContext
+    /// </summary>
+    public const string NgTemplateOutletContext = "ng-template-outlet-context";
+    /// <summary>
     /// ngFor指令
     /// </summary>
     public const string NgFor = "ng-for";
@@ -709,9 +713,9 @@ public static class AngularConst {
     /// </summary>
     public const string BindRequired = "bind-required";
     /// <summary>
-    /// 标签for属性
+    /// NzFor
     /// </summary>
-    public const string BindLabelFor = "bind-label-for";
+    public const string BindNzFor = "bind-nz-for";
     /// <summary>
     /// 提示信息
     /// </summary>
@@ -1832,4 +1836,8 @@ public static class AngularConst {
     /// 自定义头部
     /// </summary>
     public const string BindCustomHeader = "bind-custom-header";
+    /// <summary>
+    /// 标签对齐方式
+    /// </summary>
+    public const string BindLabelAlign = "bind-label-align";
 }

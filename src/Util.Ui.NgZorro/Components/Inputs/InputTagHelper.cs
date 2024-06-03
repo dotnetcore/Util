@@ -17,7 +17,7 @@ public class InputTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [required],是否必填项, 类型: boolean, 默认值: false
+    /// 扩展属性 [x-required-extend],是否必填项, 类型: boolean, 默认值: false
     /// </summary>
     public string Required { get; set; }
     /// <summary>

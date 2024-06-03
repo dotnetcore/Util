@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Cards;
 [HtmlTargetElement( "util-card")]
 public class CardTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzTitle,标题,支持i18n
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -20,7 +20,7 @@ public class CardTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindTitle { get; set; }
     /// <summary>
-    /// [nzActions],卡片操作组，位置在卡片底部,类型: Array&lt;TemplateRef&lt;void>>
+    /// [nzActions],卡片操作组，位于卡片底部,类型: Array&lt;TemplateRef&lt;void>>
     /// </summary>
     public string Actions { get; set; }
     /// <summary>
@@ -28,9 +28,9 @@ public class CardTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BodyStyle { get; set; }
     /// <summary>
-    /// [nzBorderless],是否移除边框,默认值: false
+    /// [nzBordered],是否显示边框, 类型: boolean, 默认值: true
     /// </summary>
-    public string Borderless { get; set; }
+    public string Bordered { get; set; }
     /// <summary>
     /// [nzCover],卡片封面,类型: TemplateRef&lt;void>
     /// </summary>
@@ -40,11 +40,11 @@ public class CardTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Extra { get; set; }
     /// <summary>
-    /// [nzHoverable],鼠标滑过时是否可浮起,默认值: false
+    /// [nzHoverable],鼠标滑过时是否可浮起, 类型: boolean, 默认值: false
     /// </summary>
     public string Hoverable { get; set; }
     /// <summary>
-    /// [nzLoading],是否加载状态,默认值: false
+    /// [nzLoading],是否加载状态, 类型: boolean, 默认值: false
     /// </summary>
     public string Loading { get; set; }
     /// <summary>
@@ -56,11 +56,11 @@ public class CardTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindType { get; set; }
     /// <summary>
-    /// nzSize,卡片大小，可选值: 'default'|'small',默认值: 'default'
+    /// nzSize,卡片尺寸，可选值: 'default'|'small',默认值: 'default'
     /// </summary>
     public CardSize Size { get; set; }
     /// <summary>
-    /// [nzSize],卡片大小，可选值: 'default'|'small',默认值: 'default'
+    /// [nzSize],卡片尺寸，可选值: 'default'|'small',默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>

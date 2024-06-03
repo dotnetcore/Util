@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.Descriptions.Renders;
 using Util.Ui.NgZorro.Components.Display.Helpers;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Descriptions; 
@@ -21,7 +22,7 @@ public class DescriptionItemTagHelper : AngularTagHelperBase {
     /// </summary>
     public ModelExpression For { get; set; }
     /// <summary>
-    /// nzTitle,标题,支持i18n
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -29,19 +30,23 @@ public class DescriptionItemTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindTitle { get; set; }
     /// <summary>
+    /// 扩展属性,内容变量值的数据类型
+    /// </summary>
+    public DescriptionDataType Type { get; set; }
+    /// <summary>
     /// 扩展属性,内容值,自动包含在 {{}} 中,范例: 设置为 model.name, 内容为 {{model.name}}
     /// </summary>
     public string Value { get; set; }
     /// <summary>
-    /// 扩展属性,值是否支持多语言,设置为 true 添加i18n管道,默认值: false, 范例: value="model.name",value-i18n="true", 内容为 {{model.name|i18n}}
+    /// 扩展属性,值是否支持多语言,设置为 true 添加 i18n 管道,默认值: false, 范例: value="model.name",value-i18n="true", 内容为 {{model.name|i18n}}
     /// </summary>
     public bool ValueI18n { get; set; }
     /// <summary>
-    /// [nzSpan],包含列的数量,默认值: 1
+    /// [nzSpan],包含列的数量, 类型: number, 默认值: 1
     /// </summary>
     public string Span { get; set; }
     /// <summary>
-    /// 日期格式化字符串，默认值: yyyy-MM-dd HH:mm:ss,仅在使用属性表达式For时有效,格式说明：
+    /// 日期格式化字符串，默认值: yyyy-MM-dd HH:mm:ss,仅在 type="Date" 时有效,格式说明：
     /// 1. 年 - yyyy
     /// 2. 月 - MM
     /// 3. 日 - dd
@@ -52,7 +57,7 @@ public class DescriptionItemTagHelper : AngularTagHelperBase {
     /// </summary>
     public string DateFormat { get; set; }
     /// <summary>
-    /// 扩展属性 [cdkCopyToClipboard],是否允许复制到剪贴板,注意: 需要设置 value 属性
+    /// 扩展属性 [cdkCopyToClipboard],是否允许复制到剪贴板,注意: 需要设置 value 属性,默认值: false
     /// </summary>
     public bool Clipboard { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.Collapses.Renders;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.Renders;
 
 namespace Util.Ui.NgZorro.Components.Collapses; 
@@ -11,23 +12,23 @@ namespace Util.Ui.NgZorro.Components.Collapses;
 [HtmlTargetElement( "util-collapse" )]
 public class CollapseTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// [nzAccordion],是否手风琴,即每次只打开一个标签页,默认值: false
+    /// [nzAccordion],是否手风琴,即只能展开一个面板,类型: boolean, 默认值: false
     /// </summary>
     public string Accordion { get; set; }
     /// <summary>
-    /// [nzBordered],是否有边框,默认值: true
+    /// [nzBordered],是否显示边框,类型: boolean, 默认值: true
     /// </summary>
     public string Bordered { get; set; }
     /// <summary>
-    /// [nzGhost],是否使折叠面板透明且无边框,默认值: false
+    /// [nzGhost],是否使折叠面板透明且无边框,类型: boolean, 默认值: false
     /// </summary>
     public string Ghost { get; set; }
     /// <summary>
-    /// nzExpandIconPosition,图标位置,可选值: 'left' | 'right' ,默认值: 'left'
+    /// nzExpandIconPosition,折叠图标位置,可选值: 'left' | 'right' ,默认值: 'left'
     /// </summary>
-    public string ExpandIconPosition { get; set; }
+    public CollapseIconPosition ExpandIconPosition { get; set; }
     /// <summary>
-    /// [nzExpandIconPosition],图标位置,可选值: 'left' | 'right' ,默认值: 'left'
+    /// [nzExpandIconPosition],折叠图标位置,可选值: 'left' | 'right' ,默认值: 'left'
     /// </summary>
     public string BindExpandIconPosition { get; set; }
 

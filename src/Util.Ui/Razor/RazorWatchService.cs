@@ -55,6 +55,7 @@ public class RazorWatchService : IRazorWatchService {
         _options = options.Value;
         _container = new RazorViewContainer( resolver );
         _addViewSubject = new SequentialSimpleAsyncSubject<string>();
+        client.Timeout = options.Value.StartupTimeout;
         InitAddViewSubject();
     }
 

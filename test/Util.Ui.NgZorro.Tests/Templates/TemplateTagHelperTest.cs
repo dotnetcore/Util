@@ -68,5 +68,16 @@ namespace Util.Ui.NgZorro.Tests.Templates {
             result.Append( "<ng-template [ngTemplateOutlet]=\"a\"></ng-template>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        /// <summary>
+        /// 测试模板出口上下文
+        /// </summary>
+        [Fact]
+        public void TestNgTemplateOutletContext() {
+            _wrapper.SetContextAttribute( AngularConst.NgTemplateOutletContext, "a" );
+            var result = new StringBuilder();
+            result.Append( "<ng-template [ngTemplateOutletContext]=\"a\"></ng-template>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
     }
 }

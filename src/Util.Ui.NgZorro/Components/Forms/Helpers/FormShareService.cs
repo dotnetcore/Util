@@ -1,8 +1,9 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Forms.Helpers; 
+namespace Util.Ui.NgZorro.Components.Forms.Helpers;
 
 /// <summary>
 /// 表单共享服务
@@ -47,12 +48,12 @@ public class FormShareService {
     /// </summary>
     public void SetFormId() {
         var id = _config.GetValue( UiConst.Id );
-        if (id.IsEmpty() == false) {
+        if ( id.IsEmpty() == false ) {
             _shareConfig.FormId = id;
             return;
         }
         var formGroup = _config.GetValue( UiConst.FormGroup );
-        if( formGroup.IsEmpty() )
+        if ( formGroup.IsEmpty() )
             _shareConfig.FormId = "form";
     }
 
@@ -68,7 +69,8 @@ public class FormShareService {
         SetGutter();
         SetJustify();
         SetBindJustify();
-        SetAutoLabelFor();
+        SetAutoNzFor();
+        SetHasFeedback();
         SetLabelSpan();
         SetLabelOffset();
         SetLabelOrder();
@@ -170,7 +172,7 @@ public class FormShareService {
     /// </summary>
     private void SetShowLabel() {
         var value = _config.GetValueFromAttributes<bool?>( UiConst.ShowLabel );
-        if( value == false )
+        if ( value == false )
             _shareConfig.ShowLabel = false;
     }
 
@@ -237,11 +239,31 @@ public class FormShareService {
     /// <summary>
     /// 设置自动设置表单标签 nzFor 属性
     /// </summary>
-    private void SetAutoLabelFor() {
-        var value = _config.GetValue<bool?>( UiConst.AutoLabelFor );
-        if ( value == null )
-            return;
-        _shareConfig.AutoLabelFor = value.SafeValue();
+    private void SetAutoNzFor() {
+        var value = IsEnableAutoNzFor();
+        if ( value != null )
+            _shareConfig.AutoNzFor = value;
+    }
+
+    /// <summary>
+    /// 是否启用自动设置表单标签 nzFor
+    /// </summary>
+    private bool? IsEnableAutoNzFor() {
+        var value = _config.GetValue<bool?>( UiConst.AutoNzFor );
+        if (value != null)
+            return value;
+        if( _shareConfig.AutoNzFor == null )
+            return  NgZorroOptionsService.GetOptions().EnableAutoNzFor;
+        return null;
+    }
+
+    /// <summary>
+    /// 设置展示校验状态图标
+    /// </summary>
+    private void SetHasFeedback() {
+        var value = _config.GetValue<bool?>( UiConst.HasFeedback );
+        if ( value != null )
+            _shareConfig.HasFeedback = value;
     }
 
     /// <summary>

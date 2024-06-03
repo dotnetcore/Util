@@ -247,6 +247,17 @@ namespace Util.Ui.NgZorro.Tests.Images {
         }
 
         /// <summary>
+        /// 测试缩放的每步倍数
+        /// </summary>
+        [Fact]
+        public void TestScaleStep() {
+            _wrapper.SetContextAttribute( UiConst.ScaleStep, "a" );
+            var result = new StringBuilder();
+            result.Append( "<img nz-image=\"\" [nzScaleStep]=\"a\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试图片加载完成事件
         /// </summary>
         [Fact]
@@ -254,6 +265,17 @@ namespace Util.Ui.NgZorro.Tests.Images {
             _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
             var result = new StringBuilder();
             result.Append( "<img (load)=\"a\" nz-image=\"\" />" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<img *nzSpaceItem=\"\" nz-image=\"\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

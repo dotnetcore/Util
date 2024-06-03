@@ -11,11 +11,11 @@ namespace Util.Ui.NgZorro.Components.Empties;
 [HtmlTargetElement( "util-empty" )]
 public class EmptyTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzNotFoundImage,设置显示图片,当设置字符串值时表示图片地址,类型: string | TemplateRef&lt;void>
+    /// nzNotFoundImage,设置显示图片,设置字符串值表示图片地址,值为 `simple` 时显示简单风格图片, 类型: string | TemplateRef&lt;void>
     /// </summary>
     public string NotFoundImage { get; set; }
     /// <summary>
-    /// [nzNotFoundImage],设置显示图片,当设置字符串值时表示图片地址,类型: string | TemplateRef&lt;void>
+    /// [nzNotFoundImage],设置显示图片,设置字符串值表示图片地址,值为 `simple` 时显示简单风格图片,类型: string | TemplateRef&lt;void>
     /// </summary>
     public string BindNotFoundImage { get; set; }
     /// <summary>

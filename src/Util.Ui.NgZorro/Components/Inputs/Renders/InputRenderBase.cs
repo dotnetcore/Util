@@ -35,6 +35,15 @@ public abstract class InputRenderBase : FormControlRenderBase {
     }
 
     /// <summary>
+    /// 设置控件Id
+    /// </summary>
+    protected void SetControlId() {
+        if ( ShareConfig.AutoNzFor != true )
+            return;
+        _config.SetAttribute( AngularConst.RawId, ShareConfig.ControlId );
+    }
+
+    /// <summary>
     /// 添加表单控件
     /// </summary>
     protected override void AppendControl( TagBuilder formControlBuilder ) {

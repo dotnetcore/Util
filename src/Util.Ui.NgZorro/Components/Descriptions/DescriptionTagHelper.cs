@@ -12,7 +12,7 @@ namespace Util.Ui.NgZorro.Components.Descriptions;
 [HtmlTargetElement( "util-descriptions" )]
 public class DescriptionTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzTitle,标题，显示在最顶部,类型: string|TemplateRef&lt;void>
+    /// nzTitle,标题，显示在最顶部,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>
@@ -28,7 +28,7 @@ public class DescriptionTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindExtra { get; set; }
     /// <summary>
-    /// [nzBordered],是否显示边框,默认值：false
+    /// [nzBordered],是否显示边框,类型: boolean, 默认值：false
     /// </summary>
     public string Bordered { get; set; }
     /// <summary>
@@ -36,39 +36,27 @@ public class DescriptionTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Column { get; set; }
     /// <summary>
-    /// [nzColumn]={ xs: value },一行包含的描述列表项数量,&lt;576px超窄尺寸生效
-    /// </summary>
-    public int XsColumn { get; set; }
-    /// <summary>
-    /// [nzColumn]={ sm: value },一行包含的描述列表项数量,≥576px窄尺寸生效
-    /// </summary>
-    public int SmColumn { get; set; }
-    /// <summary>
-    /// [nzColumn]={ md: value },一行包含的描述列表项数量,≥768px中尺寸生效
-    /// </summary>
-    public int MdColumn { get; set; }
-    /// <summary>
-    /// [nzColumn]={ lg: value },一行包含的描述列表项数量,≥992px宽尺寸生效
-    /// </summary>
-    public int LgColumn { get; set; }
-    /// <summary>
-    /// [nzColumn]={ xl: value },一行包含的描述列表项数量,≥1200px超宽尺寸生效
-    /// </summary>
-    public int XlColumn { get; set; }
-    /// <summary>
-    /// [nzColumn]={ xxl: value },一行包含的描述列表项数量,≥1600px极宽尺寸生效
+    /// 扩展属性 [nzColumn],当 ≥1600px 极宽尺寸,一行包含的描述列表项数量,生成 {xs:1,sm:1,md:1,lg:1,xl:2,xxl:value}
     /// </summary>
     public int XxlColumn { get; set; }
     /// <summary>
-    /// nzSize,列表大小,只有设置 nzBordered 为 true 时生效,类型: 'default' | 'middle' | 'small',默认值: 'default'
+    /// nzSize,列表尺寸,显示边框时生效,类型: 'default' | 'middle' | 'small',默认值: 'default'
     /// </summary>
     public DescriptionSize Size { get; set; }
     /// <summary>
-    /// [nzSize],列表大小,只有设置 nzBordered 为 true 时生效,类型: 'default' | 'middle' | 'small',默认值: 'default'
+    /// [nzSize],列表尺寸,显示边框时生效,类型: 'default' | 'middle' | 'small',默认值: 'default'
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
-    /// [nzColon],是否显示冒号,默认值：true
+    /// nzLayout,列表布局,类型: 'horizontal' | 'vertical',默认值: 'horizontal'
+    /// </summary>
+    public DescriptionLayout Layout { get; set; }
+    /// <summary>
+    /// [nzLayout],列表布局,类型: 'horizontal' | 'vertical',默认值: 'horizontal'
+    /// </summary>
+    public string BindLayout { get; set; }
+    /// <summary>
+    /// [nzColon],是否在标题后显示冒号,类型: boolean, 默认值：true
     /// </summary>
     public string Colon { get; set; }
 

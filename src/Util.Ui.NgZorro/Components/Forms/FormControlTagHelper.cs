@@ -20,55 +20,55 @@ public class FormControlTagHelper : ColumnTagHelperBase {
     /// </summary>
     public string ValidateStatus { get; set; }
     /// <summary>
-    /// [nzHasFeedback],是否展示校验状态反馈图标，配合 nzValidateStatus 使用
+    /// [nzHasFeedback],是否显示校验状态反馈图标,类型: boolean, 默认值: false
     /// </summary>
     public string HasFeedback { get; set; }
     /// <summary>
-    /// nzExtra,显示额外提示信息
+    /// nzExtra,额外提示信息, 类型: string | TemplateRef&lt;void>
     /// </summary>
     public string Extra { get; set; }
     /// <summary>
-    /// [nzExtra],显示额外提示信息
+    /// [nzExtra],额外提示信息, 类型: string | TemplateRef&lt;void>
     /// </summary>
     public string BindExtra { get; set; }
     /// <summary>
-    /// nzSuccessTip,校验状态为成功时的提示信息
+    /// nzSuccessTip,校验成功提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string SuccessTip { get; set; }
     /// <summary>
-    /// [nzSuccessTip],校验状态为成功时的提示信息
+    /// [nzSuccessTip],校验成功提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string BindSuccessTip { get; set; }
     /// <summary>
-    /// nzWarningTip,校验状态为警告时的提示信息
+    /// nzWarningTip,校验状态为警告时的提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string WarningTip { get; set; }
     /// <summary>
-    /// [nzWarningTip],校验状态为警告时的提示信息
+    /// [nzWarningTip],校验状态为警告时的提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string BindWarningTip { get; set; }
     /// <summary>
-    /// nzErrorTip,校验状态为错误时的提示信息
+    /// nzErrorTip,校验状态为错误时的提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string ErrorTip { get; set; }
     /// <summary>
-    /// [nzErrorTip],校验状态为错误时的提示信息
+    /// [nzErrorTip],校验状态为错误时的提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string BindErrorTip { get; set; }
     /// <summary>
-    /// nzValidatingTip,正在校验时的提示信息
+    /// nzValidatingTip,正在校验时的提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string ValidatingTip { get; set; }
     /// <summary>
-    /// [nzValidatingTip],正在校验时的提示信息
+    /// [nzValidatingTip],正在校验时的提示信息, 类型: string \| TemplateRef&lt;{ $implicit: FormControl \| NgModel }>
     /// </summary>
     public string BindValidatingTip { get; set; }
     /// <summary>
-    /// [nzAutoTips],自动提示
+    /// [nzAutoTips],自动提示, 类型: Record&lt;string, Record&lt;string, string>>
     /// </summary>
     public string AutoTips { get; set; }
     /// <summary>
-    /// [nzDisableAutoTips],禁用自动提示
+    /// [nzDisableAutoTips],是否禁用自动提示, 类型: boolean, 默认值: false
     /// </summary>
     public string DisableAutoTips { get; set; }
 

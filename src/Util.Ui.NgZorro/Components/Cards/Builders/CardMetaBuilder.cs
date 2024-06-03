@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
+using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Cards.Builders; 
 
@@ -25,9 +26,21 @@ public class CardMetaBuilder : AngularTagBuilder {
     /// 配置标题
     /// </summary>
     public CardMetaBuilder Title() {
-        AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
+        SetTitle( _config.GetValue( UiConst.Title ) );
         AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置表单标签文本
+    /// </summary>
+    private void SetTitle( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzTitle]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzTitle", value );
     }
 
     /// <summary>

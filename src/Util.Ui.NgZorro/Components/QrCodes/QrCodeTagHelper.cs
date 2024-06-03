@@ -20,11 +20,11 @@ public class QrCodeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindValue { get; set; }
     /// <summary>
-    /// nzColor,二维码颜色, 默认值: #000
+    /// nzColor,颜色, 默认值: #000
     /// </summary>
     public string Color { get; set; }
     /// <summary>
-    /// [nzColor],二维码颜色, 默认值: #000
+    /// [nzColor],颜色, 默认值: #000
     /// </summary>
     public string BindColor { get; set; }
     /// <summary>
@@ -36,7 +36,7 @@ public class QrCodeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindBgColor { get; set; }
     /// <summary>
-    /// [nzSize],尺寸, 默认值: 160
+    /// [nzSize],尺寸, 类型: number, 默认值: 160
     /// </summary>
     public string Size { get; set; }
     /// <summary>
@@ -52,11 +52,11 @@ public class QrCodeTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindIcon { get; set; }
     /// <summary>
-    /// [nzIconSize],图标尺寸, 默认值: 40
+    /// [nzIconSize],图标尺寸,类型: number, 默认值: 40
     /// </summary>
     public string IconSize { get; set; }
     /// <summary>
-    /// [nzBordered],是否显示边框, 默认值: true
+    /// [nzBordered],是否显示边框,类型: boolean, 默认值: true
     /// </summary>
     public string Bordered { get; set; }
     /// <summary>

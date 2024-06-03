@@ -18,6 +18,10 @@ public class TemplateTagHelper : AngularTagHelperBase {
     /// [ngTemplateOutlet], 模板出口
     /// </summary>
     public string NgTemplateOutlet { get; set; }
+    /// <summary>
+    /// [ngTemplateOutletContext], 模板出口上下文
+    /// </summary>
+    public string NgTemplateOutletContext { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

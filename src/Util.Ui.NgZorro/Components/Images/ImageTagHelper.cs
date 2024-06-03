@@ -36,11 +36,11 @@ public class ImageTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindPlaceholder { get; set; }
     /// <summary>
-    /// [nzDisablePreview],是否禁止预览,默认值: false
+    /// [nzDisablePreview],是否禁止预览, 类型: boolean, 默认值: false
     /// </summary>
     public string DisablePreview { get; set; }
     /// <summary>
-    /// [nzCloseOnNavigation],导航时是否关闭预览,默认值: false
+    /// [nzCloseOnNavigation],导航时是否关闭预览,类型: boolean, 默认值: false
     /// </summary>
     public string CloseOnNavigation { get; set; }
     /// <summary>
@@ -52,19 +52,19 @@ public class ImageTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindDirection { get; set; }
     /// <summary>
-    /// width,宽度
+    /// width,图片宽度, 可设置为数值,单位 px, 也可自行设置单位
     /// </summary>
     public string Width { get; set; }
     /// <summary>
-    /// [width],宽度
+    /// [width],图片宽度
     /// </summary>
     public string BindWidth { get; set; }
     /// <summary>
-    /// height,高度
+    /// height,图片高度, 可设置为数值,单位 px, 也可自行设置单位
     /// </summary>
     public string Height { get; set; }
     /// <summary>
-    /// [height],高度
+    /// [height],图片高度
     /// </summary>
     public string BindHeight { get; set; }
     /// <summary>
@@ -75,6 +75,14 @@ public class ImageTagHelper : AngularTagHelperBase {
     /// [alt],文本描述
     /// </summary>
     public string BindAlt { get; set; }
+    /// <summary>
+    /// [nzScaleStep], `1 + nzScaleStep` 为缩放放大的每步倍数, 类型: number, 默认值: 0.5
+    /// </summary>
+    public string ScaleStep { get; set; }
+    /// <summary>
+    /// *nzSpaceItem,值为 true 时设置为间距项,放入 &lt;util-space> 中使用
+    /// </summary>
+    public bool SpaceItem { get; set; }
     /// <summary>
     /// (load),图片加载完成事件
     /// </summary>

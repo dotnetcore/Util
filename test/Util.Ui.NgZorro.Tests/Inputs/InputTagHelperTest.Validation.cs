@@ -30,6 +30,31 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试必填项验证 - 允许清除
+        /// </summary>
+        [Fact]
+        public void TestRequired_AllowClear() {
+            _wrapper.SetContextAttribute( UiConst.AllowClear, true );
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-input-group [nzSuffix]=\"tmp_id\">" );
+            result.Append( "<ng-template #tmp_id=\"\">" );
+            result.Append( "<span (click)=\"v_id.reset()\" *ngIf=\"model_id.value\" class=\"ant-input-clear-icon\" nz-icon=\"\" nzTheme=\"fill\" nzType=\"close-circle\"></span>" );
+            result.Append( "</ng-template>" );
+            result.Append( "<input #model_id=\"ngModel\" #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"true\" />" );
+            result.Append( "</nz-input-group>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试必填项验证 - 设置ErrorTip
         /// </summary>
         [Fact]

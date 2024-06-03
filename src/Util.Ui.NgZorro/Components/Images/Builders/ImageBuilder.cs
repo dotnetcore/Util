@@ -3,6 +3,7 @@ using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Helpers;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Images.Builders;
 
@@ -105,6 +106,14 @@ public class ImageBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置缩放的每步倍数
+    /// </summary>
+    public ImageBuilder ScaleStep() {
+        AttributeIfNotEmpty( "[nzScaleStep]", _config.GetValue( UiConst.ScaleStep ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public ImageBuilder Events() {
@@ -118,6 +127,7 @@ public class ImageBuilder : AngularTagBuilder {
     public override void Config() {
         base.Config();
         Src().Fallback().Placeholder().DisablePreview().CloseOnNavigation().Direction()
-            .Width().Height().Alt().Events();
+            .Width().Height().Alt().ScaleStep().Events()
+            .SpaceItem( _config );
     }
 }

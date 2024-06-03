@@ -48,6 +48,15 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     }
 
     /// <summary>
+    /// 配置内部id
+    /// </summary>
+    public SelectBuilder NzId() {
+        AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.NzId ) );
+        AttributeIfNotEmpty( "[nzId]", _config.GetValue( AngularConst.BindNzId ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置比较算法函数
     /// </summary>
     public SelectBuilder CompareWith() {
@@ -425,7 +434,7 @@ public class SelectBuilder : FormControlBuilderBase<SelectBuilder> {
     /// </summary>
     public override void Config() {
         base.Config();
-        ConfigForm().Name().CompareWith().AutoClearSearchValue().AllowClear()
+        ConfigForm().NzId().Name().CompareWith().AutoClearSearchValue().AllowClear()
             .Borderless().Open().AutoFocus().Disabled()
             .DropdownClassName().DropdownStyle().DropdownMatchSelectWidth()
             .CustomTemplate().ServerSearch().FilterOption().MaxMultipleCount()

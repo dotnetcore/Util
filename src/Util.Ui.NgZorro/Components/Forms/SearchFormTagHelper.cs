@@ -29,6 +29,7 @@ public class SearchFormTagHelper : FormTagHelper {
         var service = new FormShareService( _config );
         service.SetSearchForm();
         service.Init();
+        service.Created();
     }
 
     /// <inheritdoc />

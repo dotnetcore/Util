@@ -106,7 +106,11 @@ public class FormShareConfig {
     /// <summary>
     /// 自动设置表单标签 nzFor 属性
     /// </summary>
-    public bool? AutoLabelFor { get; set; }
+    public bool? AutoNzFor { get; set; }
+    /// <summary>
+    /// 展示校验状态图标
+    /// </summary>
+    public bool? HasFeedback { get; set; }
     /// <summary>
     /// 标签跨度
     /// </summary>

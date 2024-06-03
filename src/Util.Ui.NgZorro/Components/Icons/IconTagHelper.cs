@@ -7,7 +7,7 @@ using Util.Ui.Renders;
 namespace Util.Ui.NgZorro.Components.Icons; 
 
 /// <summary>
-/// 图标,生成的标签为&lt;i nz-icon&gt;&lt;/i&gt;
+/// 图标,生成的标签为&lt;span nz-icon>&lt;/span>
 /// </summary>
 [HtmlTargetElement( "util-icon" )]
 public class IconTagHelper : TooltipTagHelperBase {

@@ -146,7 +146,18 @@ namespace Util.Ui.NgZorro.Tests.Carousels {
             result.Append( "<nz-carousel [nzEnableSwipe]=\"true\"></nz-carousel>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-        
+
+        /// <summary>
+        /// 测试循环
+        /// </summary>
+        [Fact]
+        public void TestLoop() {
+            _wrapper.SetContextAttribute( UiConst.Loop, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-carousel [nzLoop]=\"true\"></nz-carousel>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
         /// <summary>
         /// 测试内容
         /// </summary>

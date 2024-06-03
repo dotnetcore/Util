@@ -48,16 +48,33 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     }
 
     /// <summary>
-    /// 配置For
+    /// 配置标签文本是否换行
     /// </summary>
-    public FormLabelBuilder For() {
-        if ( _config.Contains( UiConst.LabelFor ) || _config.Contains( AngularConst.BindLabelFor ) ) {
-            AttributeIfNotEmpty( "nzFor", _config.GetValue( UiConst.LabelFor ) );
-            AttributeIfNotEmpty( "[nzFor]", _config.GetValue( AngularConst.BindLabelFor ) );
+    public FormLabelBuilder LabelWrap() {
+        AttributeIfNotEmpty( "[nzLabelWrap]", _config.GetValue( UiConst.LabelWrap ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标签文本对齐方式
+    /// </summary>
+    public FormLabelBuilder LabelAlign() {
+        AttributeIfNotEmpty( "nzLabelAlign", _config.GetValue<LabelAlign?>( UiConst.LabelAlign )?.Description() );
+        AttributeIfNotEmpty( "[nzLabelAlign]", _config.GetValue( AngularConst.BindLabelAlign ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置NzFor
+    /// </summary>
+    public FormLabelBuilder NzFor() {
+        if ( _config.Contains( UiConst.NzFor ) || _config.Contains( AngularConst.BindNzFor ) ) {
+            AttributeIfNotEmpty( "nzFor", _config.GetValue( UiConst.NzFor ) );
+            AttributeIfNotEmpty( "[nzFor]", _config.GetValue( AngularConst.BindNzFor ) );
             return this;
         }
         var shareConfig = GetFormItemShareConfig();
-        if ( shareConfig.AutoLabelFor != true )
+        if ( shareConfig.AutoNzFor != true )
             return this;
         AttributeIfNotEmpty( "nzFor", shareConfig.ControlId );
         return this;
@@ -557,7 +574,8 @@ public class FormLabelBuilder : ColumnBuilderBase<FormLabelBuilder> {
     public override void Config() {
         Width();
         base.Config();
-        ConfigColumn().Required().NoColon().For().TooltipTitle().TooltipIcon();
+        ConfigColumn().Required().NoColon().LabelWrap().LabelAlign()
+            .NzFor().TooltipTitle().TooltipIcon();
         Text();
     }
 

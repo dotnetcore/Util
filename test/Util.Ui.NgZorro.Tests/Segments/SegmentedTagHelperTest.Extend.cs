@@ -133,6 +133,46 @@ namespace Util.Ui.NgZorro.Tests.Segments {
 
         #endregion
 
+        /// <summary>
+        /// 测试索引变更事件
+        /// </summary>
+        [Fact]
+        public void TestOnIndexChange_1() {
+            _wrapper.SetContextAttribute( UiConst.OnIndexChange, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-segmented (nzValueChange)=\"a\"></nz-segmented>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试索引变更事件 - 设置数据源
+        /// </summary>
+        [Fact]
+        public void TestOnIndexChange_2() {
+            _wrapper.SetContextAttribute( UiConst.Data, "a" );
+            _wrapper.SetContextAttribute( UiConst.OnIndexChange, "b" );
+            var result = new StringBuilder();
+            result.Append( "<nz-segmented #x_id=\"xSegmentedExtend\" (nzValueChange)=\"x_id.handleValueChange($event);b\" " );
+            result.Append( "x-segmented-extend=\"\" [(ngModel)]=\"x_id.index\" [data]=\"a\" [nzOptions]=\"x_id.options\">" );
+            result.Append( "</nz-segmented>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #region OnValueChange
+
+        /// <summary>
+        /// 测试值变更事件
+        /// </summary>
+        [Fact]
+        public void TestOnValueChange() {
+            _wrapper.SetContextAttribute( UiConst.OnValueChange, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-segmented (valueChange)=\"a\"></nz-segmented>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
         #region OnLoad
 
         /// <summary>

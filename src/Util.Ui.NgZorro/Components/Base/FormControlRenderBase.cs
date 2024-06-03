@@ -1,5 +1,4 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.Angular.Extensions;
+﻿using Util.Ui.Angular.Extensions;
 using Util.Ui.Builders;
 using Util.Ui.NgZorro.Components.Forms.Builders;
 using Util.Ui.NgZorro.Components.Forms.Configs;
@@ -21,7 +20,7 @@ public abstract class FormControlRenderBase : IRender {
     /// <summary>
     /// 表单项共享配置
     /// </summary>
-    private readonly FormItemShareConfig _shareConfig;
+    protected readonly FormItemShareConfig ShareConfig;
     /// <summary>
     /// 标识
     /// </summary>
@@ -33,13 +32,13 @@ public abstract class FormControlRenderBase : IRender {
     /// <param name="config">配置</param>
     protected FormControlRenderBase( Config config ) {
         _config = config;
-        _shareConfig = GetFormItemShareConfig();
+        ShareConfig = GetFormItemShareConfig();
     }
 
     /// <summary>
     /// 获取表单项共享配置
     /// </summary>
-    private FormItemShareConfig GetFormItemShareConfig() {
+    protected FormItemShareConfig GetFormItemShareConfig() {
         return _config.GetValueFromItems<FormItemShareConfig>() ?? new FormItemShareConfig();
     }
 
@@ -76,22 +75,13 @@ public abstract class FormControlRenderBase : IRender {
     }
 
     /// <summary>
-    /// 设置控件Id
-    /// </summary>
-    protected void SetControlId() {
-        if ( _shareConfig.AutoLabelFor != true )
-            return;
-        _config.SetAttribute( AngularConst.RawId, _shareConfig.ControlId );
-    }
-
-    /// <summary>
     /// 获取表单项
     /// </summary>
     protected virtual TagBuilder GetFormItem() {
         TagBuilder builder = new EmptyContainerTagBuilder();
-        if (_config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormItem == true) {
+        if (_config.Id == ShareConfig.Id && ShareConfig.AutoCreateFormItem == true) {
             builder = new FormItemBuilder(_config.CopyRemoveAttributes());
-            _shareConfig.FormItemCreated = true;
+            ShareConfig.FormItemCreated = true;
         }
         builder.Config();
         return builder;
@@ -101,7 +91,7 @@ public abstract class FormControlRenderBase : IRender {
     /// 获取表单标签
     /// </summary>
     protected virtual TagBuilder GetFormLabel() {
-        if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormLabel == true ) {
+        if ( _config.Id == ShareConfig.Id && ShareConfig.AutoCreateFormLabel == true ) {
             var builder = new FormLabelBuilder( GetFormLabelConfig() );
             builder.Config();
             SetLabelText( builder );
@@ -124,23 +114,23 @@ public abstract class FormControlRenderBase : IRender {
     /// 设置表单标签文本
     /// </summary>
     protected virtual void SetLabelText( FormLabelBuilder builder ) {
-        if ( _shareConfig.LabelText.IsEmpty() )
+        if ( ShareConfig.LabelText.IsEmpty() )
             return;
         var options = NgZorroOptionsService.GetOptions();
         if ( options.EnableI18n ) {
-            builder.AppendContentByI18n( _shareConfig.LabelText );
+            builder.AppendContentByI18n( ShareConfig.LabelText );
             return;
         }
-        builder.SetContent( _shareConfig.LabelText );
+        builder.SetContent( ShareConfig.LabelText );
     }
 
     /// <summary>
     /// 设置表单标签文本
     /// </summary>
     protected virtual void SetBindLabelText( FormLabelBuilder builder ) {
-        if ( _shareConfig.BindLabelText.IsEmpty() )
+        if ( ShareConfig.BindLabelText.IsEmpty() )
             return;
-        builder.SetContent( "{{" + _shareConfig.BindLabelText + "}}" );
+        builder.SetContent( "{{" + ShareConfig.BindLabelText + "}}" );
     }
 
     /// <summary>
@@ -148,7 +138,7 @@ public abstract class FormControlRenderBase : IRender {
     /// </summary>
     protected virtual TagBuilder GetFormControl() {
         TagBuilder builder = new EmptyContainerTagBuilder();
-        if ( _config.Id == _shareConfig.Id && _shareConfig.AutoCreateFormControl == true )
+        if ( _config.Id == ShareConfig.Id && ShareConfig.AutoCreateFormControl == true )
             builder = new FormControlBuilder( _config.CopyRemoveAttributes() );
         builder.Config();
         AppendControl( builder );
@@ -174,11 +164,11 @@ public abstract class FormControlRenderBase : IRender {
     /// 添加验证模板
     /// </summary>
     protected virtual void AppendValidationTempalte( TagBuilder formControlBuilder ) {
-        if ( _shareConfig.ValidationTempalteId.IsEmpty() )
+        if ( ShareConfig.ValidationTempalteId.IsEmpty() )
             return;
         var templateBuilder = new TemplateBuilder( _config.CopyRemoveAttributes() );
-        templateBuilder.Id( _shareConfig.ValidationTempalteId );
-        templateBuilder.SetContent( $"{{{{{_shareConfig.ValidationExtendId}.getErrorMessage()}}}}" );
+        templateBuilder.Id( ShareConfig.ValidationTempalteId );
+        templateBuilder.SetContent( $"{{{{{ShareConfig.ValidationExtendId}.getErrorMessage()}}}}" );
         formControlBuilder.AppendContent( templateBuilder );
     }
 

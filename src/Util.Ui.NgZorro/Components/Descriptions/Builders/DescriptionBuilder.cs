@@ -1,7 +1,9 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Grids.Helpers;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Descriptions.Builders;
 
@@ -26,9 +28,21 @@ public class DescriptionBuilder : AngularTagBuilder {
     /// 配置标题
     /// </summary>
     public DescriptionBuilder Title() {
-        AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
+        SetTitle( _config.GetValue( UiConst.Title ) );
         AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
         return this;
+    }
+
+    /// <summary>
+    /// 设置标题
+    /// </summary>
+    private void SetTitle( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzTitle]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzTitle", value );
     }
 
     /// <summary>
@@ -53,16 +67,18 @@ public class DescriptionBuilder : AngularTagBuilder {
     /// </summary>
     public DescriptionBuilder Column() {
         var column = _config.GetValue( UiConst.Column );
-        var columnValue = column.ToIntOrNull();
-        if ( column.IsEmpty() == false && columnValue == null )
+        if ( column.IsEmpty() == false )
             return Column( column );
+        var value = _config.GetValue<int?>( UiConst.XxlColumn );
+        if ( value == null )
+            return this;
         var model = new ColumnModel {
-            Xs = _config.GetValue<int?>( UiConst.XsColumn ) ?? 1,
-            Sm = _config.GetValue<int?>( UiConst.SmColumn ) ?? 1,
-            Md = _config.GetValue<int?>( UiConst.MdColumn ) ?? 1,
-            Lg = _config.GetValue<int?>( UiConst.LgColumn ) ?? 1,
-            Xl = _config.GetValue<int?>( UiConst.XlColumn ) ?? columnValue ?? 2,
-            Xxl = _config.GetValue<int?>( UiConst.XxlColumn ) ?? columnValue ?? 2
+            Xs = 1,
+            Sm = 1,
+            Md = 1,
+            Lg = 1,
+            Xl = 2,
+            Xxl = value
         };
         Column( model.ToJson() );
         return this;
@@ -86,6 +102,15 @@ public class DescriptionBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置列表布局
+    /// </summary>
+    public DescriptionBuilder Layout() {
+        AttributeIfNotEmpty( "nzLayout", _config.GetValue<DescriptionLayout?>( UiConst.Layout )?.Description() );
+        AttributeIfNotEmpty( "[nzLayout]", _config.GetValue( AngularConst.BindLayout ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置是否显示冒号
     /// </summary>
     public DescriptionBuilder Colon() {
@@ -98,6 +123,6 @@ public class DescriptionBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Title().Extra().Bordered().Column().Size().Colon();
+        Title().Extra().Bordered().Column().Size().Layout().Colon();
     }
 }

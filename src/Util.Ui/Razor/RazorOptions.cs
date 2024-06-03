@@ -44,4 +44,8 @@ public class RazorOptions {
     /// 启动Razor监视服务时, 是否重新生成全部html文件,默认值: false
     /// </summary>
     public bool EnableGenerateAllHtml { get; set; }
+    /// <summary>
+    /// 启动超时间隔,默认值: 300 秒
+    /// </summary>
+    public TimeSpan StartupTimeout { get; set; } = TimeSpan.FromSeconds( 300 );
 }

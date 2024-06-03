@@ -42,13 +42,6 @@ public class RadioRender : FormControlRenderBase {
     }
 
     /// <summary>
-    /// 初始化
-    /// </summary>
-    protected override void Init() {
-        SetControlId();
-    }
-
-    /// <summary>
     /// 添加表单控件
     /// </summary>
     protected override void AppendControl( TagBuilder formControlBuilder ) {

@@ -117,12 +117,33 @@ public class SegmentedBuilder : FormControlBuilderBase<SegmentedBuilder> {
     }
 
     /// <summary>
+    /// 配置自定义渲染选项
+    /// </summary>
+    private SegmentedBuilder LabelTemplate() {
+        AttributeIfNotEmpty( "[nzLabelTemplate]", _config.GetValue( UiConst.LabelTemplate ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public SegmentedBuilder Events() {
+        AttributeIfNotEmpty( "(nzValueChange)", GetOnIndexChange() );
         AttributeIfNotEmpty( "(valueChange)", _config.GetValue( UiConst.OnValueChange ) );
         AttributeIfNotEmpty( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
         return this;
+    }
+
+    /// <summary>
+    /// 获取索引变化事件
+    /// </summary>
+    private string GetOnIndexChange() {
+        var value = _config.GetValue( UiConst.OnIndexChange );
+        if ( IsEnableExtend() == false )
+            return value;
+        if (value.IsEmpty())
+            return $"{ExtendId}.handleValueChange($event)";
+        return $"{ExtendId}.handleValueChange($event);{value}";
     }
 
     /// <summary>
@@ -133,7 +154,7 @@ public class SegmentedBuilder : FormControlBuilderBase<SegmentedBuilder> {
         ConfigForm().Name()
             .Block().Disabled().Size()
             .Options().AutoLoad().QueryParam()
-            .Url().Data().Value()
+            .Url().Data().Value().LabelTemplate()
             .Events();
         EnableExtend();
     }
@@ -148,7 +169,6 @@ public class SegmentedBuilder : FormControlBuilderBase<SegmentedBuilder> {
         Attribute( "x-segmented-extend" );
         Attribute( "[nzOptions]", $"{ExtendId}.options" );
         Attribute( "[(ngModel)]", $"{ExtendId}.index", true );
-        Attribute( "(nzValueChange)", $"{ExtendId}.handleValueChange($event)" );
         return this;
     }
 

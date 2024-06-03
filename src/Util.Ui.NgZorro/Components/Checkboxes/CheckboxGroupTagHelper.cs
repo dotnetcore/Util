@@ -24,6 +24,7 @@ public class CheckboxGroupTagHelper : FormControlTagHelperBase {
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
         _config = new Config( context, output );
         var service = new CheckboxService( _config );
+        service.DisableAutoNzFor();
         service.Init();
     }
 

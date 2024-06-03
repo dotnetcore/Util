@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Forms.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Forms.Builders;
@@ -59,6 +60,23 @@ public class FormBuilder : AngularTagBuilder {
     /// </summary>
     public FormBuilder NoColon() {
         AttributeIfNotEmpty( "[nzNoColon]", _config.GetValue( UiConst.NoColon ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标签文本是否换行
+    /// </summary>
+    public FormBuilder LabelWrap() {
+        AttributeIfNotEmpty( "[nzLabelWrap]", _config.GetValue( UiConst.LabelWrap ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置标签文本对齐方式
+    /// </summary>
+    public FormBuilder LabelAlign() {
+        AttributeIfNotEmpty( "nzLabelAlign", _config.GetValue<LabelAlign?>( UiConst.LabelAlign )?.Description() );
+        AttributeIfNotEmpty( "[nzLabelAlign]", _config.GetValue( AngularConst.BindLabelAlign ) );
         return this;
     }
 
@@ -122,8 +140,10 @@ public class FormBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Layout().AutoTips().DisableAutoTips().NoColon().TooltipIcon().AutoComplete().FormGroup().Novalidate()
+        Layout().AutoTips().DisableAutoTips().NoColon().LabelWrap().LabelAlign()
+            .TooltipIcon().AutoComplete().FormGroup().Novalidate()
             .Events();
+        AutocompleteOff();
     }
 
     /// <summary>
@@ -140,5 +160,14 @@ public class FormBuilder : AngularTagBuilder {
             return;
         }
         Attribute( $"#{_shareConfig.FormId}", "ngForm" );
+    }
+
+    /// <summary>
+    /// 配置全局设置 autocomplete="off"
+    /// </summary>
+    protected void AutocompleteOff() {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableAutocompleteOff )
+            Attribute( "autocomplete", "off" );
     }
 }

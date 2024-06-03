@@ -2,7 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Statistics;
-using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -45,6 +45,62 @@ namespace Util.Ui.NgZorro.Tests.Statistics {
         public void TestDefault() {
             var result = new StringBuilder();
             result.Append( "<nz-countdown></nz-countdown>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题
+        /// </summary>
+        [Fact]
+        public void TestTitle() {
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-countdown nzTitle=\"a\"></nz-countdown>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-countdown [nzTitle]=\"'a'|i18n\"></nz-countdown>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题
+        /// </summary>
+        [Fact]
+        public void TestBindTitle() {
+            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-countdown [nzTitle]=\"a\"></nz-countdown>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试值
+        /// </summary>
+        [Fact]
+        public void TestValue() {
+            _wrapper.SetContextAttribute( UiConst.Value, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-countdown nzValue=\"a\"></nz-countdown>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试值
+        /// </summary>
+        [Fact]
+        public void TestBindValue() {
+            _wrapper.SetContextAttribute( AngularConst.BindValue, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-countdown [nzValue]=\"a\"></nz-countdown>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -111,50 +167,6 @@ namespace Util.Ui.NgZorro.Tests.Statistics {
             _wrapper.SetContextAttribute( AngularConst.BindSuffix, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-countdown [nzSuffix]=\"a\"></nz-countdown>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestTitle() {
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-countdown nzTitle=\"a\"></nz-countdown>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestBindTitle() {
-            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-countdown [nzTitle]=\"a\"></nz-countdown>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试值
-        /// </summary>
-        [Fact]
-        public void TestValue() {
-            _wrapper.SetContextAttribute( UiConst.Value, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-countdown nzValue=\"a\"></nz-countdown>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试值
-        /// </summary>
-        [Fact]
-        public void TestBindValue() {
-            _wrapper.SetContextAttribute( AngularConst.BindValue, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-countdown [nzValue]=\"a\"></nz-countdown>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

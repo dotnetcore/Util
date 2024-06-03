@@ -127,6 +127,17 @@ namespace Util.Ui.NgZorro.Tests.Segments {
         }
 
         /// <summary>
+        /// 测试自定义渲染选项
+        /// </summary>
+        [Fact]
+        public void TestLabelTemplate() {
+            _wrapper.SetContextAttribute( UiConst.LabelTemplate, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-segmented [nzLabelTemplate]=\"a\"></nz-segmented>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试内容
         /// </summary>
         [Fact]
@@ -145,17 +156,6 @@ namespace Util.Ui.NgZorro.Tests.Segments {
             _wrapper.SetContextAttribute( UiConst.OnModelChange, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-segmented (ngModelChange)=\"a\"></nz-segmented>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试值变更事件
-        /// </summary>
-        [Fact]
-        public void TestOnValueChange() {
-            _wrapper.SetContextAttribute( UiConst.OnValueChange, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-segmented (valueChange)=\"a\"></nz-segmented>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
     }

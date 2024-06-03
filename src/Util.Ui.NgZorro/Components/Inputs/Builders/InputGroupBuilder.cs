@@ -273,8 +273,27 @@ public class InputGroupBuilder : AngularTagBuilder {
         builder.Class( "ant-input-clear-icon" );
         builder.Theme( IconTheme.Fill ).Type( AntDesignIcon.CloseCircle );
         builder.NgIf( $"{GetNgModelId()}.value" );
-        builder.OnClick( $"{GetNgModelId()}.reset()" );
+        SetClearIconReset( builder );
         return builder;
+    }
+
+    /// <summary>
+    /// 设置清除操作
+    /// </summary>
+    private void SetClearIconReset( IconBuilder builder ) {
+        var shareConfig = GetFormItemShareConfig();
+        if ( shareConfig.IsValidationExtend == false ) {
+            builder.OnClick( $"{GetNgModelId()}.reset()" );
+            return;
+        }
+        builder.OnClick( $"{shareConfig.ValidationExtendId}.reset()" );
+    }
+
+    /// <summary>
+    /// 获取表单项共享配置
+    /// </summary>
+    private FormItemShareConfig GetFormItemShareConfig() {
+        return _config.GetValueFromItems<FormItemShareConfig>() ?? new FormItemShareConfig();
     }
 
     /// <summary>

@@ -92,21 +92,21 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 测试放入提及组件中,设置标签文本和前置标签,并自动设置标签for
         /// </summary>
         [Fact]
-        public void TestMention_LabelText_AddOnBefore_AutoLabelFor() {
+        public void TestMention_LabelText_AddOnBefore_AutoNzFor() {
             _wrapper.SetContextAttribute( UiConst.LabelText, "a" );
             _wrapper.SetContextAttribute( UiConst.AddOnBefore, "a" );
-            _wrapper.SetContextAttribute( UiConst.AutoLabelFor, true );
+            _wrapper.SetContextAttribute( UiConst.AutoNzFor, true );
 
             var mention = new MentionTagHelper().ToWrapper();
             mention.AppendContent( _wrapper );
 
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label nzFor=\"control_id\">a</nz-form-label>" );
+            result.Append( "<nz-form-label nzFor=\"control__id\">a</nz-form-label>" );
             result.Append( "<nz-form-control>" );
             result.Append( "<nz-mention>" );
             result.Append( "<nz-input-group nzAddOnBefore=\"a\">" );
-            result.Append( "<input id=\"control_id\" nz-input=\"\" nzMentionTrigger=\"\" />" );
+            result.Append( "<input id=\"control__id\" nz-input=\"\" nzMentionTrigger=\"\" />" );
             result.Append( "</nz-input-group>" );
             result.Append( "</nz-mention>" );
             result.Append( "</nz-form-control>" );

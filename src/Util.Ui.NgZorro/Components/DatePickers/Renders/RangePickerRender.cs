@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.DatePickers.Builders;
@@ -28,6 +27,15 @@ public class RangePickerRender : FormControlRenderBase {
     /// </summary>
     protected override void Init() {
         SetControlId();
+    }
+
+    /// <summary>
+    /// 设置控件Id
+    /// </summary>
+    protected void SetControlId() {
+        if ( ShareConfig.AutoNzFor != true )
+            return;
+        _config.SetAttribute( UiConst.NzId, ShareConfig.ControlId );
     }
 
     /// <summary>

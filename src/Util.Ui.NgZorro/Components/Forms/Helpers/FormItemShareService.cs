@@ -16,6 +16,10 @@ public class FormItemShareService {
     /// 表单项共享配置
     /// </summary>
     private FormItemShareConfig _shareConfig;
+    /// <summary>
+    /// 是否禁用自动设置表单标签 nzFor
+    /// </summary>
+    private bool _isDisableAutoNzFor;
 
     /// <summary>
     /// 初始化表单项共享服务
@@ -30,6 +34,13 @@ public class FormItemShareService {
     /// </summary>
     public void Created() {
         _shareConfig.FormItemCreated = true;
+    }
+
+    /// <summary>
+    /// 禁用自动设置表单标签 nzFor
+    /// </summary>
+    public void DisableAutoNzFor() {
+        _isDisableAutoNzFor = true;
     }
 
     /// <summary>
@@ -91,6 +102,7 @@ public class FormItemShareService {
         AutoCreateFormContainer();
         DisableLabelForTableEdit();
         SetNgIf();
+        SetAutoNzFor();
     }
 
     /// <summary>
@@ -112,7 +124,7 @@ public class FormItemShareService {
     /// 初始化控件Id
     /// </summary>
     public void InitControlId() {
-        if ( _shareConfig.AutoLabelFor != true )
+        if ( _shareConfig.AutoNzFor != true )
             return;
         if ( _shareConfig.ControlId.IsEmpty() == false )
             return;
@@ -123,13 +135,16 @@ public class FormItemShareService {
     /// 获取控件Id
     /// </summary>
     private string GetControlId() {
+        var nzId = _config.GetValue( UiConst.NzId );
+        if ( nzId.IsEmpty() == false )
+            return nzId;
         var id = _config.GetValue( AngularConst.RawId );
         if ( id.IsEmpty() == false )
             return id;
         id = _config.GetValue( UiConst.Id );
         if ( id.IsEmpty() == false )
-            return $"control_{id}";
-        return $"control_{Util.Helpers.Id.Create()}";
+            return $"control_{_shareConfig.FormId}_{id}";
+        return $"control_{_shareConfig.FormId}_{Util.Helpers.Id.Create()}";
     }
 
     /// <summary>
@@ -394,5 +409,13 @@ public class FormItemShareService {
             return;
         _shareConfig.NgIf = value;
         _config.RemoveAttribute( AngularConst.NgIf );
+    }
+
+    /// <summary>
+    /// 设置自动设置表单标签 nzFor
+    /// </summary>
+    public void SetAutoNzFor() {
+        if ( _isDisableAutoNzFor )
+            _shareConfig.AutoNzFor = false;
     }
 }

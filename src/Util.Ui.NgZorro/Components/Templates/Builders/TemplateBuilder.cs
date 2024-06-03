@@ -41,6 +41,7 @@ public class TemplateBuilder : AngularTagBuilder {
     /// </summary>
     public TemplateBuilder TemplateOutlet() {
         AttributeIfNotEmpty( "[ngTemplateOutlet]", _config.GetValue( AngularConst.NgTemplateOutlet ) );
+        AttributeIfNotEmpty( "[ngTemplateOutletContext]", _config.GetValue( AngularConst.NgTemplateOutletContext ) );
         return this;
     }
 

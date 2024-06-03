@@ -452,10 +452,10 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 测试自动设置表单标签的 nzFor 属性,不会自动创建表单标签
         /// </summary>
         [Fact]
-        public void TestAutoLabelFor() {
-            _wrapper.SetContextAttribute( UiConst.AutoLabelFor, true );
+        public void TestAutoNzFor() {
+            _wrapper.SetContextAttribute( UiConst.AutoNzFor, true );
             var result = new StringBuilder();
-            result.Append( "<input id=\"control_id\" nz-input=\"\" />" );
+            result.Append( "<input id=\"control__id\" nz-input=\"\" />" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -463,7 +463,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 测试自动创建控件Id,并设置标签for
         /// </summary>
         [Fact]
-        public void TestAutoLabelFor_2() {
+        public void TestAutoNzFor_2() {
             var form = new FormTagHelper().ToWrapper();
             
             var formItem = new FormItemTagHelper().ToWrapper();
@@ -473,7 +473,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             formLabel.AppendContent( "a" );
             formItem.AppendContent( formLabel );
 
-            _wrapper.SetContextAttribute( UiConst.AutoLabelFor, true );
+            _wrapper.SetContextAttribute( UiConst.AutoNzFor, true );
             var formControl = new FormControlTagHelper().ToWrapper();
             formControl.AppendContent( _wrapper );
             formItem.AppendContent( formControl );
@@ -481,9 +481,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             var result = new StringBuilder();
             result.Append( "<form nz-form=\"\">" );
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label nzFor=\"control_id\">a</nz-form-label>" );
+            result.Append( "<nz-form-label nzFor=\"control_form_id\">a</nz-form-label>" );
             result.Append( "<nz-form-control>" );
-            result.Append( "<input id=\"control_id\" nz-input=\"\" />" );
+            result.Append( "<input id=\"control_form_id\" nz-input=\"\" />" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             result.Append( "</form>" );
@@ -494,7 +494,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 测试手工设置控件Id,并设置标签for
         /// </summary>
         [Fact]
-        public void TestAutoLabelFor_3() {
+        public void TestAutoNzFor_3() {
             var form = new FormTagHelper().ToWrapper();
             
             var formItem = new FormItemTagHelper().ToWrapper();
@@ -505,7 +505,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             formItem.AppendContent( formLabel );
 
             _wrapper.SetContextAttribute( AngularConst.RawId, "a" );
-            _wrapper.SetContextAttribute( UiConst.AutoLabelFor, true );
+            _wrapper.SetContextAttribute( UiConst.AutoNzFor, true );
             var formControl = new FormControlTagHelper().ToWrapper();
             formControl.AppendContent( _wrapper );
             formItem.AppendContent( formControl );
@@ -526,9 +526,9 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 测试表单设置标签for,表单控件取消设置
         /// </summary>
         [Fact]
-        public void TestAutoLabelFor_4() {
+        public void TestAutoNzFor_4() {
             var form = new FormTagHelper().ToWrapper();
-            form.SetContextAttribute( UiConst.AutoLabelFor, true );
+            form.SetContextAttribute( UiConst.AutoNzFor, true );
             
             var formItem = new FormItemTagHelper().ToWrapper();
             form.AppendContent( formItem );
@@ -537,7 +537,7 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
             formLabel.AppendContent( "a" );
             formItem.AppendContent( formLabel );
 
-            _wrapper.SetContextAttribute( UiConst.AutoLabelFor, false );
+            _wrapper.SetContextAttribute( UiConst.AutoNzFor, false );
             var formControl = new FormControlTagHelper().ToWrapper();
             formControl.AppendContent( _wrapper );
             formItem.AppendContent( formControl );
@@ -558,13 +558,13 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         /// 测试同时设置标签文本和标签for
         /// </summary>
         [Fact]
-        public void TestAutoLabelFor_5() {
-            _wrapper.SetContextAttribute( UiConst.LabelText, "a" ).SetContextAttribute( UiConst.AutoLabelFor, true );
+        public void TestAutoNzFor_5() {
+            _wrapper.SetContextAttribute( UiConst.LabelText, "a" ).SetContextAttribute( UiConst.AutoNzFor, true );
             var result = new StringBuilder();
             result.Append( "<nz-form-item>" );
-            result.Append( "<nz-form-label nzFor=\"control_id\">a</nz-form-label>" );
+            result.Append( "<nz-form-label nzFor=\"control__id\">a</nz-form-label>" );
             result.Append( "<nz-form-control>" );
-            result.Append( "<input id=\"control_id\" nz-input=\"\" />" );
+            result.Append( "<input id=\"control__id\" nz-input=\"\" />" );
             result.Append( "</nz-form-control>" );
             result.Append( "</nz-form-item>" );
             Assert.Equal( result.ToString(), GetResult() );

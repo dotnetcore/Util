@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Forms;
@@ -31,6 +32,7 @@ namespace Util.Ui.NgZorro.Tests.Forms {
         public FormContainerTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new FormContainerTagHelper().ToWrapper();
+            Id.SetId( "id" );
         }
 
         /// <summary>
@@ -211,6 +213,68 @@ namespace Util.Ui.NgZorro.Tests.Forms {
             result.Append( "</nz-form-item>" );
             result.Append( "</ng-container>" );
             Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region HasFeedback(显示校验状态反馈图标)
+
+        /// <summary>
+        /// 测试显示校验状态反馈图标
+        /// </summary>
+        [Fact]
+        public void TestHasFeedback_1() {
+            _wrapper.SetContextAttribute( UiConst.HasFeedback, true );
+
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute( AngularConst.NgModel, "model" );
+            input.SetContextAttribute( UiConst.Required, "a" );
+            _wrapper.AppendContent( input );
+
+            var result = new StringBuilder();
+            result.Append( "<ng-container>" );
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\" [nzHasFeedback]=\"true\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"a\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            result.Append( "</ng-container>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试显示校验状态反馈图标 - 覆盖 form 设置
+        /// </summary>
+        [Fact]
+        public void TestHasFeedback_2() {
+            var form = new FormTagHelper().ToWrapper();
+            form.SetContextAttribute( UiConst.HasFeedback, true );
+
+            _wrapper.SetContextAttribute( UiConst.HasFeedback, false );
+            form.AppendContent(_wrapper);
+
+            var input = new InputTagHelper().ToWrapper();
+            input.SetContextAttribute( AngularConst.NgModel, "model" );
+            input.SetContextAttribute( UiConst.Required, "a" );
+            _wrapper.AppendContent( input );
+
+            var result = new StringBuilder();
+            result.Append( "<form nz-form=\"\">" );
+            result.Append( "<ng-container>" );
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<input #v_id=\"xValidationExtend\" nz-input=\"\" x-validation-extend=\"\" [(ngModel)]=\"model\" [x-required-extend]=\"a\" />" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            result.Append( "</ng-container>" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), form.GetResult() );
         }
 
         #endregion

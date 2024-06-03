@@ -17,7 +17,7 @@ public class SegmentedTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
+    /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用
     /// </summary>
     public bool EnableExtend { get; set; }
     /// <summary>
@@ -41,19 +41,19 @@ public class SegmentedTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string Data { get; set; }
     /// <summary>
-    /// 扩展属性 [(value)],双向绑定值
+    /// 扩展属性 [(value)],双向绑定选项值
     /// </summary>
     public string Value { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用
+    /// [nzDisabled],是否禁用, 类型: boolean, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
     /// <summary>
-    /// nzSize,组件尺寸，可选值: 'large'|'small'|'default'
+    /// nzSize,尺寸，可选值: 'large'|'small'|'default', 默认值: default
     /// </summary>
     public InputSize Size { get; set; }
     /// <summary>
-    /// [nzSize],组件尺寸，可选值: 'large'|'small'|'default'
+    /// [nzSize],尺寸，可选值: 'large'|'small'|'default', 默认值: default
     /// </summary>
     public string BindSize { get; set; }
     /// <summary>
@@ -61,11 +61,19 @@ public class SegmentedTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string Options { get; set; }
     /// <summary>
-    /// [nzBlock],是否将宽度调整为父元素宽度, 默认值: false
+    /// [nzBlock],是否将宽度调整为父元素宽度,类型: boolean, 默认值: false
     /// </summary>
     public string Block { get; set; }
     /// <summary>
-    /// (valueChange),扩展事件, 选中值变更事件
+    /// [nzLabelTemplate],自定义渲染选项, 类型: TemplateRef&lt;{ $implicit: NzSegmentedOption; index: number }>
+    /// </summary>
+    public string LabelTemplate { get; set; }
+    /// <summary>
+    /// (nzValueChange),选中项索引变化事件,参数为选中项的索引, 类型: EventEmitter&lt;number>
+    /// </summary>
+    public string OnIndexChange { get; set; }
+    /// <summary>
+    /// (valueChange),扩展事件, 选中值变化事件,参数为选中项的值, 类型: EventEmitter&lt;any>
     /// </summary>
     public string OnValueChange { get; set; }
     /// <summary>

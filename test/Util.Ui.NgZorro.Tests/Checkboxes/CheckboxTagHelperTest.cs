@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Util.Helpers;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Checkboxes;
@@ -28,6 +29,7 @@ namespace Util.Ui.NgZorro.Tests.Checkboxes {
         public CheckboxTagHelperTest( ITestOutputHelper output ) {
             _output = output;
             _wrapper = new CheckboxTagHelper().ToWrapper<Customer>();
+            Id.SetId( "id" );
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Util.Templates.HandlebarsDotNet;
 using Xunit;
 
 namespace Util.Templates.Handlebars.Tests.Integration; 
@@ -10,12 +11,12 @@ public class HandlebarsTemplateEngineTest {
     /// <summary>
     /// RazorÄ£°åÒıÇæ
     /// </summary>
-    private readonly ITemplateEngine _templateEngine;
+    private readonly IHandlebarsTemplateEngine _templateEngine;
 
     /// <summary>
     /// ²âÊÔ³õÊ¼»¯
     /// </summary>
-    public HandlebarsTemplateEngineTest( ITemplateEngine templateEngine ) {
+    public HandlebarsTemplateEngineTest( IHandlebarsTemplateEngine templateEngine ) {
         _templateEngine = templateEngine;
     }
 
@@ -35,6 +36,28 @@ public class HandlebarsTemplateEngineTest {
     public void TestRender_2() {
         var result = _templateEngine.Render( "hello {{Name}}", new { Name = "util" } );
         Assert.Equal( "hello util", result );
+    }
+
+    /// <summary>
+    /// ²âÊÔäÖÈ¾Ä£°å - ÖĞÎÄ±àÂë
+    /// </summary>
+    [Fact]
+    public void TestRender_3() {
+        var source = "<div>{{Text}}   {}</div>";
+        var value = new { Text = "<ÄãºÃ>" };
+        var actual2 = _templateEngine.Render( source, value );
+        Assert.Equal( "<div><ÄãºÃ>   {}</div>", actual2 );
+    }
+
+    /// <summary>
+    /// ²âÊÔäÖÈ¾Ä£°å - Html±àÂëÆ÷
+    /// </summary>
+    [Fact]
+    public void TestHtmlEncoder() {
+        var source = "<div>{{Text2}}   {}</div>";
+        var value = new { Text2 = "<ÄãºÃ>" };
+        var actual2 = _templateEngine.HtmlEncoder().Render( source, value );
+        Assert.Equal( "<div>&lt;ÄãºÃ&gt;   {}</div>", actual2 );
     }
 
     /// <summary>

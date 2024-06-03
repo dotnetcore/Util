@@ -185,6 +185,7 @@ public class CascaderTagHelper : FormControlTagHelperBase {
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {
         _config = new Config( context, output );
         var service = new SelectService( _config );
+        service.DisableAutoNzFor();
         service.Init();
     }
 

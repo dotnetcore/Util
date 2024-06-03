@@ -19,7 +19,7 @@ public abstract class TagHelperBase : TagHelper {
     /// </summary>
     public string Class { get; set; }
     /// <summary>
-    /// [hidden],是否隐藏
+    /// [hidden],是否隐藏,类型: boolean, 默认值: false
     /// </summary>
     public string Hidden { get; set; }
 

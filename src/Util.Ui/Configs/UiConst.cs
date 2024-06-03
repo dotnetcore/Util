@@ -29,9 +29,33 @@ public static class UiConst {
     /// </summary>
     public const string Padding = "padding";
     /// <summary>
-    /// 标识
+    /// 标签模板
     /// </summary>
-    public const string NzId = "NzId";
+    public const string LabelTemplate = "label-template";
+    /// <summary>
+    /// 标签换行
+    /// </summary>
+    public const string LabelWrap = "label-wrap";
+    /// <summary>
+    /// 标签对齐方式
+    /// </summary>
+    public const string LabelAlign = "label-align";
+    /// <summary>
+    /// 缩放步数
+    /// </summary>
+    public const string ScaleStep = "scale-step";
+    /// <summary>
+    /// NzId
+    /// </summary>
+    public const string NzId = "nz-id";
+    /// <summary>
+    /// NzFor
+    /// </summary>
+    public const string NzFor = "nz-for";
+    /// <summary>
+    /// 循环
+    /// </summary>
+    public const string Loop = "loop";
     /// <summary>
     /// 触发器
     /// </summary>
@@ -1573,13 +1597,9 @@ public static class UiConst {
     /// </summary>
     public const string NoColon = "no-colon";
     /// <summary>
-    /// 标签for属性
-    /// </summary>
-    public const string LabelFor = "label-for";
-    /// <summary>
     /// 自动设置标签for属性
     /// </summary>
-    public const string AutoLabelFor = "auto-label-for";
+    public const string AutoNzFor = "auto-nz-for";
     /// <summary>
     /// 间隔
     /// </summary>

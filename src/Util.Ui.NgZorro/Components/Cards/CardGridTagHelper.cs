@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.Cards;
 [HtmlTargetElement( "util-card-grid" )]
 public class CardGridTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// [nzHoverable],鼠标滑过时是否可浮起,默认值: true
+    /// [nzHoverable],鼠标滑过时是否可浮起, 类型: boolean, 默认值: true
     /// </summary>
     public string Hoverable { get; set; }
     /// <summary>

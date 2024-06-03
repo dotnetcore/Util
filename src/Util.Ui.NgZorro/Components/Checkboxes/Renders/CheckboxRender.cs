@@ -1,4 +1,5 @@
-﻿using Util.Ui.Builders;
+﻿using Util.Ui.Angular.Configs;
+using Util.Ui.Builders;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Checkboxes.Builders;
@@ -27,6 +28,15 @@ public class CheckboxRender : FormControlRenderBase {
     /// </summary>
     protected override void Init() {
         SetControlId();
+    }
+
+    /// <summary>
+    /// 设置控件Id
+    /// </summary>
+    protected void SetControlId() {
+        if ( ShareConfig.AutoNzFor != true )
+            return;
+        _config.SetAttribute( UiConst.NzId, ShareConfig.ControlId );
     }
 
     /// <summary>

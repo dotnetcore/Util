@@ -28,13 +28,17 @@ public class NgZorroOptions : RazorOptions {
     /// </summary>
     public bool EnableI18n { get; set; } = true;
     /// <summary>
-    /// 是否启用全局输入框设置 autocomplete="off",默认值: false
+    /// 是否启用关闭浏览器自动完成功能, 设置 autocomplete="off",默认值: false
     /// </summary>
     public bool EnableAutocompleteOff { get; set; }
     /// <summary>
     /// 是否启用允许清除输入框,默认值: true
     /// </summary>
     public bool EnableAllowClear { get; set; } = true;
+    /// <summary>
+    /// 是否启用自动设置表单标签 nzFor,默认值: null
+    /// </summary>
+    public bool? EnableAutoNzFor { get; set; } = null;
     /// <summary>
     /// 是否启用勾选表格行复选框时添加样式类 table-row-checked ,默认值: false
     /// </summary>

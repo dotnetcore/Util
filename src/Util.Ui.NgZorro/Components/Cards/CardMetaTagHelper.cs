@@ -11,7 +11,7 @@ namespace Util.Ui.NgZorro.Components.Cards;
 [HtmlTargetElement( "util-card-meta" )]
 public class CardMetaTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// nzTitle,标题,类型: string|TemplateRef&lt;void>
+    /// nzTitle,标题,支持多语言
     /// </summary>
     public string Title { get; set; }
     /// <summary>

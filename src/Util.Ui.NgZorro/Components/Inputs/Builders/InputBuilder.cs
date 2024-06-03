@@ -203,7 +203,7 @@ public class InputBuilder : FormControlBuilderBase<InputBuilder> {
             .Size().Status()
             .Type().Autocomplete()
             .ValidatePhone().ValidateIdCard()
-            .Events().AutocompleteOff();
+            .Events();
     }
 
     /// <summary>
