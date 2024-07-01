@@ -31,6 +31,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="FileSignatures" Version="5.0.1" />
+	  <PackageReference Include="FileSignatures" Version="5.0.2" />
 	</ItemGroup>
 </Project>

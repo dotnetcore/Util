@@ -16,9 +16,11 @@ public partial class TagTagHelperTest {
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" " );
         result.Append( "[data]=\"[{'text':'util.female','value':1,'sortId':1},{'text':'util.male','value':2,'sortId':2}]\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }

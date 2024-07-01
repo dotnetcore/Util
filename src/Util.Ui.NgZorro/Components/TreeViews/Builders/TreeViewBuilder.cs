@@ -53,10 +53,18 @@ public class TreeViewBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置跟踪函数
+    /// </summary>
+    public TreeViewBuilder TrackBy() {
+        AttributeIfNotEmpty( "[trackBy]", _config.GetValue( UiConst.TrackBy ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
-        TreeControl().DataSource().DirectoryTree().BlockNode();
+        TreeControl().DataSource().DirectoryTree().BlockNode().TrackBy();
     }
 }

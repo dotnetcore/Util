@@ -14,13 +14,13 @@ public class UtcNullableDateTimeJsonConverter : JsonConverter<DateTime?> {
     /// <summary>
     /// 初始化可空日期格式Json转换器
     /// </summary>
-    public UtcNullableDateTimeJsonConverter() : this( "yyyy-MM-dd HH:mm:ss" ) {
+    public UtcNullableDateTimeJsonConverter() : this( "yyyy-MM-ddTHH:mm:sszzzz" ) {
     }
 
     /// <summary>
     /// 初始化可空日期格式Json转换器
     /// </summary>
-    /// <param name="format">日期格式,默认值: yyyy-MM-dd HH:mm:ss</param>
+    /// <param name="format">日期格式,默认值: yyyy-MM-ddTHH:mm:sszzzz</param>
     public UtcNullableDateTimeJsonConverter( string format ) {
         _format = format;
     }

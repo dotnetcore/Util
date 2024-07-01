@@ -1,6 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Configs;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Mentions.Builders; 
@@ -72,6 +71,31 @@ public class MentionBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置指定提及的触发元素
+    /// </summary>
+    public MentionBuilder MentionTrigger() {
+        AttributeIfNotEmpty( "[nzMentionTrigger]", _config.GetValue( UiConst.MentionTrigger ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自定义建议渲染模板
+    /// </summary>
+    public MentionBuilder MentionSuggestion() {
+        AttributeIfNotEmpty( "[nzMentionSuggestion]", _config.GetValue( UiConst.MentionSuggestion ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public MentionBuilder Status() {
+        AttributeIfNotEmpty( "nzStatus", _config.GetValue<FormControlStatus?>( UiConst.Status )?.Description() );
+        AttributeIfNotEmpty( "[nzStatus]", _config.GetValue( AngularConst.BindStatus ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public MentionBuilder Events() {
@@ -86,6 +110,8 @@ public class MentionBuilder : AngularTagBuilder {
     public override void Config() {
         base.ConfigBase( _config );
         Suggestions().Loading().ValueWith().Prefix().Placement()
-            .NotFoundContent().Events();
+            .NotFoundContent().MentionTrigger().MentionSuggestion()
+            .Status()
+            .Events();
     }
 }

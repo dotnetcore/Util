@@ -1,7 +1,7 @@
-﻿namespace Util.Ui.NgZorro.Enums; 
+﻿namespace Util.Ui.NgZorro.Enums;
 
 /// <summary>
-/// 列表大小
+/// 列表尺寸
 /// </summary>
 public enum ListSize {
     /// <summary>

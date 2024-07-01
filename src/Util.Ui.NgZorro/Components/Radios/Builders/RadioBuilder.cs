@@ -2,7 +2,9 @@
 using Util.Ui.Angular.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Configs;
+using Util.Ui.NgZorro.Components.Selects.Builders;
 using Util.Ui.NgZorro.Configs;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Radios.Builders; 
 
@@ -73,12 +75,18 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     /// 配置标签
     /// </summary>
     public RadioBuilder Label() {
-        if( _config.Contains( UiConst.Label ) ) {
+        var options = NgZorroOptionsService.GetOptions();
+        var text = _config.GetValue( UiConst.Label );
+        if ( text.IsEmpty() == false ) {
+            if ( options.EnableI18n ) {
+                this.AppendContentByI18n( text );
+                return this;
+            }
             SetContent( _config.GetValue( UiConst.Label ) );
             return this;
         }
         var bindLabel = _config.GetValue( AngularConst.BindLabel );
-        if( string.IsNullOrWhiteSpace( bindLabel ) )
+        if ( string.IsNullOrWhiteSpace( bindLabel ) )
             return this;
         SetContent( $"{{{{{bindLabel}}}}}" );
         return this;
@@ -97,7 +105,7 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     public override void Config() {
         base.ConfigBase( _config );
         NgModel().FormControl().OnModelChange()
-            .TableEdit()
+            .TableEdit().SpaceItem()
             .Name().AutoFocus().Disabled().Value()
             .Label().Events();
     }
@@ -115,7 +123,6 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
     /// 数据绑定扩展
     /// </summary>
     public void Extend() {
-        this.NgFor( $"let item of {_shareConfig.ExtendId}.options" );
         Attribute( "[nzValue]", "item.value" );
         Attribute( "[nzDisabled]", "item.disabled" );
         var options = NgZorroOptionsService.GetOptions();
@@ -133,5 +140,25 @@ public class RadioBuilder : FormControlBuilderBase<RadioBuilder> {
         if ( _shareConfig.IsAutoCreateRadioGroup == true )
             return this;
         return base.OnModelChange();
+    }
+
+    /// <summary>
+    /// 配置间距项
+    /// </summary>
+    public override RadioBuilder SpaceItem() {
+        if ( FormItemShareConfig.FormItemCreated )
+            return this;
+        var radioGroupShareConfig = GetRadioGroupShareConfig();
+        if ( radioGroupShareConfig.RadioGroupCreated )
+            return this;
+        this.SpaceItem( FormItemShareConfig.SpaceItem );
+        return this;
+    }
+
+    /// <summary>
+    /// 获取输入框组合共享配置
+    /// </summary>
+    private RadioGroupShareConfig GetRadioGroupShareConfig() {
+        return _config.GetValueFromItems<RadioGroupShareConfig>() ?? new RadioGroupShareConfig();
     }
 }

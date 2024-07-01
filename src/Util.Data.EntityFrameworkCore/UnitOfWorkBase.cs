@@ -574,9 +574,9 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
     /// <summary>
     /// 添加实体变更事件
     /// </summary>
-    protected virtual void AddEntityChangedEvent( object entity, EntityChangeType changeType ) {
+    protected virtual void AddEntityChangedEvent( object entity, EntityChangeType changeType, ChangeValueCollection changeValues = null ) {
         var eventType = typeof( EntityChangedEvent<> ).MakeGenericType( entity.GetType() );
-        var @event = Reflection.CreateInstance<IEvent>( eventType, entity, changeType );
+        var @event = Reflection.CreateInstance<IEvent>( eventType, entity, changeType, changeValues );
         SaveAfterEvents.Add( @event );
     }
 
@@ -619,7 +619,7 @@ public abstract class UnitOfWorkBase : DbContext, IUnitOfWork, IFilterSwitch {
         var changeValues = GetChangeValues( entry );
         var @event = CreateEntityEvent( typeof( EntityUpdatedEvent<> ), entity, changeValues );
         SaveAfterEvents.Add( @event );
-        AddEntityChangedEvent( entity, EntityChangeType.Updated );
+        AddEntityChangedEvent( entity, EntityChangeType.Updated, changeValues );
     }
 
     #endregion

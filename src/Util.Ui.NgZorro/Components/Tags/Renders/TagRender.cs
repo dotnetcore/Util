@@ -32,9 +32,16 @@ public class TagRender : RenderBase {
         var containerTagBuilder = new TagContainerTagBuilder( config, _config.GetValue( UiConst.Id ) );
         containerTagBuilder.Config();
         TagBuilder container = IsEnableExtend() ? containerTagBuilder : new EmptyContainerTagBuilder();
+        if (IsEnableExtend()) {
+            container.AppendContent($"@for(item of {containerTagBuilder.ExtendId}.options;track item.text)");
+            container.AppendContent( "{" );
+        }
         var builder = new TagTagBuilder( _config, IsEnableExtend(), containerTagBuilder.ExtendId );
         container.AppendContent( builder );
         builder.Config();
+        if ( IsEnableExtend() ) {
+            container.AppendContent( "}" );
+        }
         return container;
     }
 

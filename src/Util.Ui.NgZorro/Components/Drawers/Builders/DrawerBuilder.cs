@@ -1,6 +1,9 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Components.Cards.Builders;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Drawers.Builders;
 
@@ -22,6 +25,27 @@ public class DrawerBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置标题
+    /// </summary>
+    public DrawerBuilder Title() {
+        SetTitle( _config.GetValue( UiConst.Title ) );
+        AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 设置标题
+    /// </summary>
+    private void SetTitle( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzTitle]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzTitle", value );
+    }
+
+    /// <summary>
     /// 配置是否可关闭
     /// </summary>
     public DrawerBuilder Closable() {
@@ -35,6 +59,14 @@ public class DrawerBuilder : AngularTagBuilder {
     public DrawerBuilder CloseIcon() {
         AttributeIfNotEmpty( "nzCloseIcon", _config.GetValue<AntDesignIcon?>( UiConst.CloseIcon )?.Description() );
         AttributeIfNotEmpty( "[nzCloseIcon]", _config.GetValue( AngularConst.BindCloseIcon ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置右上角操作区域
+    /// </summary>
+    public DrawerBuilder Extra() {
+        AttributeIfNotEmpty( "[nzExtra]", _config.GetValue( UiConst.Extra ) );
         return this;
     }
 
@@ -88,15 +120,6 @@ public class DrawerBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置标题
-    /// </summary>
-    public DrawerBuilder Title() {
-        AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
-        AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
-        return this;
-    }
-
-    /// <summary>
     /// 配置页脚
     /// </summary>
     public DrawerBuilder Footer() {
@@ -120,6 +143,15 @@ public class DrawerBuilder : AngularTagBuilder {
     public DrawerBuilder Placement() {
         AttributeIfNotEmpty( "nzPlacement", _config.GetValue<DrawerPlacement?>( UiConst.Placement )?.Description() );
         AttributeIfNotEmpty( "[nzPlacement]", _config.GetValue( AngularConst.BindPlacement ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置尺寸
+    /// </summary>
+    public DrawerBuilder Size() {
+        AttributeIfNotEmpty( "nzSize", _config.GetValue<DrawerSize?>( UiConst.Size )?.Description() );
+        AttributeIfNotEmpty( "[nzSize]", _config.GetValue( AngularConst.BindSize ) );
         return this;
     }
 
@@ -185,9 +217,9 @@ public class DrawerBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Closable().CloseIcon().MaskClosable().Mask().CloseOnNavigation()
+        Closable().CloseIcon().Extra().MaskClosable().Mask().CloseOnNavigation()
             .MaskStyle().Keyboard().BodyStyle().Title().Footer().Visible()
-            .Placement().Width().Height().OffsetX().OffsetY().WrapClassName()
+            .Placement().Size().Width().Height().OffsetX().OffsetY().WrapClassName()
             .ZIndex().Events();
     }
 }

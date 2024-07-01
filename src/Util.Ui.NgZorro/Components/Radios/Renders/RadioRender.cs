@@ -46,7 +46,14 @@ public class RadioRender : FormControlRenderBase {
     /// </summary>
     protected override void AppendControl( TagBuilder formControlBuilder ) {
         var groupBuilder = GetRadioGroupBuilder();
+        if ( _shareConfig.IsRadioExtend && _shareConfig.IsAutoCreateRadioGroup == true ) {
+            groupBuilder.AppendContent( $"@for(item of {_shareConfig.ExtendId}.options;track item.value )" );
+            groupBuilder.AppendContent( "{" );
+        }
         groupBuilder.AppendContent( GetRadioBuilder() );
+        if ( _shareConfig.IsRadioExtend && _shareConfig.IsAutoCreateRadioGroup == true ) {
+            groupBuilder.AppendContent( "}" );
+        }
         formControlBuilder.AppendContent( groupBuilder );
     }
 
@@ -57,11 +64,11 @@ public class RadioRender : FormControlRenderBase {
         if ( _shareConfig.IsAutoCreateRadioGroup != true )
             return new EmptyContainerTagBuilder();
         var groupBuilder = new RadioGroupBuilder( _config );
-        return groupBuilder.SelectExtend()
-            .Data().Url().NgModel()
-            .Name().OnModelChange()
+        return groupBuilder.SelectExtend().AutoLoad()
+            .Data().Url().QueryParam().Sort()
+            .Name().NgModel().OnModelChange()
             .Required().RequiredMessage()
-            .ValidationExtend();
+            .ValidationExtend().OnLoad();
     }
 
     /// <summary>

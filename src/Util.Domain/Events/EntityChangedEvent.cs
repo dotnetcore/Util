@@ -1,4 +1,6 @@
-﻿namespace Util.Domain.Events; 
+﻿using Util.Domain.Compare;
+
+namespace Util.Domain.Events; 
 
 /// <summary>
 /// 实体变更事件,当实体新增,修改,删除时均触发
@@ -10,9 +12,11 @@ public class EntityChangedEvent<TEntity> : IEvent {
     /// </summary>
     /// <param name="entity">实体</param>
     /// <param name="changeType">变更类型</param>
-    public EntityChangedEvent( TEntity entity, EntityChangeType changeType ) {
+    /// <param name="changeValues">变更值集合</param>
+    public EntityChangedEvent( TEntity entity, EntityChangeType changeType, ChangeValueCollection changeValues = null ) {
         Entity = entity;
         ChangeType = changeType;
+        ChangeValues = changeValues;
     }
 
     /// <summary>
@@ -24,4 +28,9 @@ public class EntityChangedEvent<TEntity> : IEvent {
     /// 变更类型
     /// </summary>
     public EntityChangeType ChangeType { get; }
+
+    /// <summary>
+    /// 变更值集合
+    /// </summary>
+    public ChangeValueCollection ChangeValues { get; }
 }

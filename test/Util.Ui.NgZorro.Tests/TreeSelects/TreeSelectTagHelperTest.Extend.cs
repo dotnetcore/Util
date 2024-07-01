@@ -2,6 +2,7 @@
 using Util.Applications.Trees;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Forms;
 using Xunit;
 
 namespace Util.Ui.NgZorro.Tests.TreeSelects {
@@ -290,6 +291,49 @@ namespace Util.Ui.NgZorro.Tests.TreeSelects {
 
         #endregion
 
+        #region Required
+
+        /// <summary>
+        /// 测试必填项验证
+        /// </summary>
+        [Fact]
+        public void TestRequired() {
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-tree-select #v_id=\"xValidationExtend\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\"></nz-tree-select>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试必填项消息
+        /// </summary>
+        [Fact]
+        public void TestRequiredMessage() {
+            _wrapper.SetContextAttribute( UiConst.Required, "true" );
+            _wrapper.SetContextAttribute( UiConst.RequiredMessage, "a" );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "model" );
+            var result = new StringBuilder();
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-control [nzErrorTip]=\"vt_id\">" );
+            result.Append( "<nz-tree-select #v_id=\"xValidationExtend\" requiredMessage=\"a\" x-validation-extend=\"\" [(ngModel)]=\"model\" [required]=\"true\"></nz-tree-select>" );
+            result.Append( "<ng-template #vt_id=\"\">" );
+            result.Append( "{{v_id.getErrorMessage()}}" );
+            result.Append( "</ng-template>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
         #region OnLoadChildrenBefore
 
         /// <summary>
@@ -348,6 +392,41 @@ namespace Util.Ui.NgZorro.Tests.TreeSelects {
             var result = new StringBuilder();
             result.Append( "<nz-tree-select (onCollapse)=\"a\"></nz-tree-select>" );
             Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region AutoNzFor
+
+        /// <summary>
+        /// 测试自动设置nzFor
+        /// </summary>
+        [Fact]
+        public void TestAutoNzFor() {
+            var form = new FormTagHelper().ToWrapper();
+
+            var formItem = new FormItemTagHelper().ToWrapper();
+            form.AppendContent( formItem );
+
+            var formLabel = new FormLabelTagHelper().ToWrapper();
+            formLabel.AppendContent( "a" );
+            formItem.AppendContent( formLabel );
+
+            _wrapper.SetContextAttribute( UiConst.AutoNzFor, true );
+            var formControl = new FormControlTagHelper().ToWrapper();
+            formControl.AppendContent( _wrapper );
+            formItem.AppendContent( formControl );
+
+            var result = new StringBuilder();
+            result.Append( "<form nz-form=\"\">" );
+            result.Append( "<nz-form-item>" );
+            result.Append( "<nz-form-label nzFor=\"control_form_id\">a</nz-form-label>" );
+            result.Append( "<nz-form-control>" );
+            result.Append( "<nz-tree-select nzId=\"control_form_id\"></nz-tree-select>" );
+            result.Append( "</nz-form-control>" );
+            result.Append( "</nz-form-item>" );
+            result.Append( "</form>" );
+            Assert.Equal( result.ToString(), form.GetResult() );
         }
 
         #endregion

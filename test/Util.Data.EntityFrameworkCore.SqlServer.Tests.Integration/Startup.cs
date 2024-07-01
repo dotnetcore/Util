@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Util.Aop;
+using Util.Dates;
 using Util.Helpers;
 using Util.Sessions;
 using Util.Tenants;
@@ -23,6 +24,7 @@ public class Startup {
             .AsBuild()
             .AddAop()
             .AddTenant()
+            .AddUtc()
             .AddSqlServerUnitOfWork<ITestUnitOfWork, SqlServerUnitOfWork>( Config.GetConnectionString( "connection" ) )
             .AddUtil();
     }

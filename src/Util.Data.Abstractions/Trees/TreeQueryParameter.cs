@@ -9,7 +9,7 @@ public class TreeQueryParameter : QueryParameter, ITreeQueryParameter {
     /// <summary>
     /// 初始化树形查询参数
     /// </summary>
-    protected TreeQueryParameter() {
+    public TreeQueryParameter() {
         Order = "SortId";
     }
 

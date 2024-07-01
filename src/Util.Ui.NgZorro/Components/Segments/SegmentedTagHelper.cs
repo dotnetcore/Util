@@ -23,7 +23,7 @@ public class SegmentedTagHelper : FormControlTagHelperBase {
     /// <summary>
     /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
     /// </summary>
-    public bool AutoLoad { get; set; }
+    public string AutoLoad { get; set; }
     /// <summary>
     /// 扩展属性 [(queryParam)],查询参数
     /// </summary>

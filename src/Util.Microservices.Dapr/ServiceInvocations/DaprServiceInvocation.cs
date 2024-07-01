@@ -381,7 +381,7 @@ public class DaprServiceInvocation : DaprServiceInvocationBase<IServiceInvocatio
             return await response.Content.ReadFromJsonAsync<ServiceResult<TResponse>>( Client.JsonSerializerOptions, cancellationToken );
         var objResult = await OnResultAction( response, Client.JsonSerializerOptions, cancellationToken );
         var result = objResult as ServiceResult<TResponse>;
-        result.CheckNull( nameof( result ) );
+        result!.CheckNull( nameof( result ) );
         return result;
     }
 

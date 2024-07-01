@@ -88,6 +88,10 @@ public class AutocompleteTagHelper : AngularTagHelperBase {
     /// [compareWith],比较算法函数,函数定义:(o1: any, o2: any) => boolean
     /// </summary>
     public string CompareWith { get; set; }
+    /// <summary>
+    /// 扩展事件 (onLoad),数据加载完成事件,类型: EventEmitter&lt;any>,参数为服务端返回结果
+    /// </summary>
+    public string OnLoad { get; set; }
 
     /// <inheritdoc />
     protected override void ProcessBefore( TagHelperContext context, TagHelperOutput output ) {

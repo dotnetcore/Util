@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.TreeViews;
 using Util.Ui.TagHelpers;
@@ -88,6 +87,17 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
             _wrapper.SetContextAttribute( UiConst.BlockNode, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-view [nzBlockNode]=\"true\"></nz-tree-view>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试跟踪函数
+        /// </summary>
+        [Fact]
+        public void TestTrackBy() {
+            _wrapper.SetContextAttribute( UiConst.TrackBy, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-view [trackBy]=\"a\"></nz-tree-view>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

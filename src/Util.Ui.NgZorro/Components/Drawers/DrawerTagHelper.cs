@@ -17,7 +17,15 @@ public class DrawerTagHelper : AngularTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [nzClosable],是否可关闭,默认值: true
+    /// nzTitle,标题,支持多语言
+    /// </summary>
+    public string Title { get; set; }
+    /// <summary>
+    /// [nzTitle],标题,类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string BindTitle { get; set; }
+    /// <summary>
+    /// [nzClosable],是否显示左上角的关闭按钮, 类型: boolean, 默认值: true
     /// </summary>
     public string Closable { get; set; }
     /// <summary>
@@ -29,37 +37,33 @@ public class DrawerTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindCloseIcon { get; set; }
     /// <summary>
-    /// [nzMaskClosable],点击遮罩是否允许关闭,默认值: true
+    /// [nzExtra],右上角的操作区域,类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string Extra { get; set; }
+    /// <summary>
+    /// [nzMaskClosable],点击遮罩是否允许关闭,类型: boolean, 默认值: true
     /// </summary>
     public string MaskClosable { get; set; }
     /// <summary>
-    /// [nzMask],是否显示遮罩,默认值: true
-    /// </summary>
-    public string Mask { get; set; }
-    /// <summary>
-    /// [nzCloseOnNavigation],导航时是否关闭,当用户在历史中前进/后退时是否关闭抽屉,注意:这通常不包括点击链接（除非用户使用HashLocationStrategy）。默认值: true
-    /// </summary>
-    public string CloseOnNavigation { get; set; }
-    /// <summary>
-    /// [nzMaskStyle],遮罩样式,类型: object,默认值: {}
-    /// </summary>
-    public string MaskStyle { get; set; }
-    /// <summary>
-    /// [nzKeyboard],是否支持键盘ESC键关闭,默认值: true
+    /// [nzKeyboard],按下ESC键是否允许关闭,类型: boolean, 默认值: true
     /// </summary>
     public string Keyboard { get; set; }
     /// <summary>
-    /// [nzBodyStyle],主体样式,类型: object,默认值: {}
+    /// [nzMask],是否显示遮罩,类型: boolean, 默认值: true
+    /// </summary>
+    public string Mask { get; set; }
+    /// <summary>
+    /// [nzCloseOnNavigation],当用户在历史中前进/后退时是否关闭抽屉,类型: boolean, 默认值: true
+    /// </summary>
+    public string CloseOnNavigation { get; set; }
+    /// <summary>
+    /// [nzMaskStyle],遮罩样式,类型: object
+    /// </summary>
+    public string MaskStyle { get; set; }
+    /// <summary>
+    /// [nzBodyStyle],抽屉主体样式,类型: object
     /// </summary>
     public string BodyStyle { get; set; }
-    /// <summary>
-    /// nzTitle,标题,类型: string | TemplateRef&lt;void>
-    /// </summary>
-    public string Title { get; set; }
-    /// <summary>
-    /// [nzTitle],标题,类型: string | TemplateRef&lt;void>
-    /// </summary>
-    public string BindTitle { get; set; }
     /// <summary>
     /// nzFooter,页脚,类型: string | TemplateRef&lt;void>
     /// </summary>
@@ -69,11 +73,11 @@ public class DrawerTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindFooter { get; set; }
     /// <summary>
-    /// [nzVisible],是否可见
+    /// [nzVisible],是否可见, 类型: boolean
     /// </summary>
     public string Visible { get; set; }
     /// <summary>
-    /// [(nzVisible)],是否可见
+    /// [(nzVisible)],是否可见, 类型: boolean
     /// </summary>
     public string BindonVisible { get; set; }
     /// <summary>
@@ -85,11 +89,19 @@ public class DrawerTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindPlacement { get; set; }
     /// <summary>
-    /// [nzWidth],宽度, 只在方向为 'right'或'left' 时生效,类型: number | string,默认值: 256
+    /// nzSize,抽屉尺寸,可选值: 'default' | 'large',默认值: 'default'
+    /// </summary>
+    public DrawerSize Size { get; set; }
+    /// <summary>
+    /// [nzSize],抽屉尺寸,可选值: 'default' | 'large',默认值: 'default'
+    /// </summary>
+    public string BindSize { get; set; }
+    /// <summary>
+    /// [nzWidth],宽度, 只在方向为 'right'或'left' 时生效,类型: number | string
     /// </summary>
     public string Width { get; set; }
     /// <summary>
-    /// [nzHeight],高度, 只在方向为 'top'或'bottom' 时生效,类型: number | string,默认值: 256
+    /// [nzHeight],高度, 只在方向为 'top'或'bottom' 时生效,类型: number | string
     /// </summary>
     public string Height { get; set; }
     /// <summary>
@@ -101,11 +113,11 @@ public class DrawerTagHelper : AngularTagHelperBase {
     /// </summary>
     public string OffsetY { get; set; }
     /// <summary>
-    /// nzWrapClassName,对话框外层容器样式类名
+    /// nzWrapClassName,抽屉外层容器样式类名
     /// </summary>
     public string WrapClassName { get; set; }
     /// <summary>
-    /// [nzWrapClassName],对话框外层容器样式类名
+    /// [nzWrapClassName],抽屉外层容器样式类名
     /// </summary>
     public string BindWrapClassName { get; set; }
     /// <summary>
@@ -113,7 +125,7 @@ public class DrawerTagHelper : AngularTagHelperBase {
     /// </summary>
     public string ZIndex { get; set; }
     /// <summary>
-    /// (nzOnClose),关闭事件,点击遮罩层或右上角叉时触发,类型: EventEmitter&lt;MouseEvent>
+    /// (nzOnClose),关闭事件,类型: EventEmitter&lt;MouseEvent>
     /// </summary>
     public string OnClose { get; set; }
 

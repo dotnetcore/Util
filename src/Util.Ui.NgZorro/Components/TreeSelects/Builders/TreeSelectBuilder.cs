@@ -6,7 +6,7 @@ using Util.Ui.NgZorro.Enums;
 namespace Util.Ui.NgZorro.Components.TreeSelects.Builders;
 
 /// <summary>
-/// 树选择标签生成器
+/// 树形选择标签生成器
 /// </summary>
 public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// <summary>
@@ -31,6 +31,15 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 扩展标识
     /// </summary>
     private string ExtendId => _service.ExtendId;
+
+    /// <summary>
+    /// 配置输入框标识
+    /// </summary>
+    public TreeSelectBuilder NzId() {
+        AttributeIfNotEmpty( "nzId", _config.GetValue( UiConst.NzId ) );
+        AttributeIfNotEmpty( "[nzId]", _config.GetValue( AngularConst.BindNzId ) );
+        return this;
+    }
 
     /// <summary>
     /// 配置允许清除
@@ -133,6 +142,15 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     }
 
     /// <summary>
+    /// 配置选择框弹出位置
+    /// </summary>
+    public TreeSelectBuilder Placement() {
+        AttributeIfNotEmpty( "nzPlacement", _config.GetValue<TreeSelectPlacement?>( UiConst.Placement )?.Description() );
+        AttributeIfNotEmpty( "[nzPlacement]", _config.GetValue( AngularConst.BindPlacement ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置节点前是否添加复选框
     /// </summary>
     public TreeSelectBuilder Checkable() {
@@ -200,7 +218,7 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置是否默认展开所有节点
     /// </summary>
     public TreeSelectBuilder DefaultExpandAll() {
-        AttributeIfNotEmpty( "[nzDefaultExpandAll]", _config.GetValue( UiConst.DefaultExpandAll ) );
+        AttributeIfNotEmpty( "[nzDefaultExpandAll]", _config.GetValue( UiConst.ExpandAll ) );
         return this;
     }
 
@@ -297,6 +315,23 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     }
 
     /// <summary>
+    /// 配置校验状态
+    /// </summary>
+    public TreeSelectBuilder Status() {
+        AttributeIfNotEmpty( "nzStatus", _config.GetValue<FormControlStatus?>( UiConst.Status )?.Description() );
+        AttributeIfNotEmpty( "[nzStatus]", _config.GetValue( AngularConst.BindStatus ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置浮层是否应带有背景板
+    /// </summary>
+    public TreeSelectBuilder Backdrop() {
+        AttributeIfNotEmpty( "[nzBackdrop]", _config.GetValue( UiConst.Backdrop ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置事件
     /// </summary>
     public TreeSelectBuilder Events() {
@@ -316,15 +351,15 @@ public class TreeSelectBuilder : FormControlBuilderBase<TreeSelectBuilder> {
     /// 配置
     /// </summary>
     public override void Config() {
-        ConfigForm().Name().AllowClear().Placeholder().Disabled().ShowIcon()
+        ConfigForm().NzId().Name().AllowClear().Placeholder().Disabled().ShowIcon()
             .ShowSearch().NotFoundContent().DropdownMatchSelectWidth()
             .DropdownStyle().DropdownClassName().Multiple()
-            .HideUnmatched().Size().Checkable().CheckStrictly()
+            .HideUnmatched().Size().Placement().Checkable().CheckStrictly()
             .ShowExpand().ShowLine().AsyncData().Nodes()
             .DefaultExpandAll().ExpandedKeys().DisplayWith()
             .MaxTagCount().MaxTagPlaceholder().TreeTemplate()
             .VirtualHeight().VirtualItemSize().VirtualMaxBufferPx().VirtualMinBufferPx()
-            .Width()
+            .Width().Status().Backdrop()
             .Events();
         base.ConfigBase( _config );
         _service.ConfigBuilder( this );

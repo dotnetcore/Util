@@ -35,7 +35,7 @@ public class ProductUpdatedEventHandler : EventHandlerBase<EntityUpdatedEvent<Pr
     /// 处理事件
     /// </summary>
     public override async Task HandleAsync( EntityUpdatedEvent<Product> @event, CancellationToken cancellationToken ) {
-        if( @event.Entity.Name != "EntityUpdatedEvent" )
+        if ( @event.Entity.Name != "EntityUpdatedEvent" )
             return;
         var log = new OperationLog { Caption = @event.Entity.Name,LogName = nameof( ProductUpdatedEventHandler ) };
         await _operationLogRepository.AddAsync( log, cancellationToken );

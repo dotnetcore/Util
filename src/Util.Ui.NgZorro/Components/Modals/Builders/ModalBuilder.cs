@@ -1,6 +1,8 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
+using Util.Ui.NgZorro.Extensions;
 
 namespace Util.Ui.NgZorro.Components.Modals.Builders; 
 
@@ -19,6 +21,27 @@ public class ModalBuilder : AngularTagBuilder {
     /// <param name="config">配置</param>
     public ModalBuilder( Config config ) : base( config,"nz-modal" ) {
         _config = config;
+    }
+
+    /// <summary>
+    /// 配置标题
+    /// </summary>
+    public ModalBuilder Title() {
+        SetTitle( _config.GetValue( UiConst.Title ) );
+        AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 设置标题
+    /// </summary>
+    private void SetTitle( string value ) {
+        var options = NgZorroOptionsService.GetOptions();
+        if ( options.EnableI18n ) {
+            this.AttributeByI18n( "[nzTitle]", value );
+            return;
+        }
+        AttributeIfNotEmpty( "nzTitle", value );
     }
 
     /// <summary>
@@ -58,6 +81,14 @@ public class ModalBuilder : AngularTagBuilder {
     /// </summary>
     public ModalBuilder Closable() {
         AttributeIfNotEmpty( "[nzClosable]", _config.GetValue( UiConst.Closable ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置模态框是否可拖动
+    /// </summary>
+    public ModalBuilder Draggable() {
+        AttributeIfNotEmpty( "[nzDraggable]", _config.GetValue( UiConst.Draggable ) );
         return this;
     }
 
@@ -171,16 +202,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// 配置浮层样式
     /// </summary>
     public ModalBuilder Style() {
-        AttributeIfNotEmpty( "[nzStyle]", _config.GetValue( UiConst.ModalStyle ) );
-        return this;
-    }
-
-    /// <summary>
-    /// 配置标题
-    /// </summary>
-    public ModalBuilder Title() {
-        AttributeIfNotEmpty( "nzTitle", _config.GetValue( UiConst.Title ) );
-        AttributeIfNotEmpty( "[nzTitle]", _config.GetValue( AngularConst.BindTitle ) );
+        AttributeIfNotEmpty( "[nzStyle]", _config.GetValue( UiConst.NzStyle ) );
         return this;
     }
 
@@ -278,7 +300,7 @@ public class ModalBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        Mask().MaskClosable().CloseOnNavigation().Visible().Closable()
+        Mask().MaskClosable().CloseOnNavigation().Visible().Closable().Draggable()
             .OkLoading().OkDisabled().CancelLoading().CancelDisabled()
             .Keyboard().Centered().Content().ComponentParams().Footer()
             .ZIndex().Width().WrapClassName().ClassName().Style()

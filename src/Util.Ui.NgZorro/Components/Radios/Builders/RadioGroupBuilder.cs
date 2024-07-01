@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Configs;
+using Util.Ui.NgZorro.Components.Selects.Builders;
 using Util.Ui.NgZorro.Enums;
 
 namespace Util.Ui.NgZorro.Components.Radios.Builders; 
@@ -70,14 +71,15 @@ public class RadioGroupBuilder : FormControlBuilderBase<RadioGroupBuilder> {
         AttributeIfNotEmpty( "[nzButtonStyle]", _config.GetValue( AngularConst.BindButtonStyle ) );
         return this;
     }
-
+    
     /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.ConfigBase( _config );
         ConfigForm().Name().Disabled().Size().ButtonStyle()
-            .Data().Url();
+            .Data().Url().AutoLoad().QueryParam().Sort()
+            .SpaceItem().OnLoad();
     }
 
     /// <summary>
@@ -103,6 +105,39 @@ public class RadioGroupBuilder : FormControlBuilderBase<RadioGroupBuilder> {
     public RadioGroupBuilder SelectExtend() {
         Attribute( $"#{_shareConfig.ExtendId}", "xSelectExtend" );
         Attribute( "x-select-extend" );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自动加载
+    /// </summary>
+    public RadioGroupBuilder AutoLoad() {
+        AttributeIfNotEmpty( "[autoLoad]", _config.GetBoolValue( UiConst.AutoLoad ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置查询参数
+    /// </summary>
+    public RadioGroupBuilder QueryParam() {
+        AttributeIfNotEmpty( "[(queryParam)]", _config.GetValue( UiConst.QueryParam ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置排序条件
+    /// </summary>
+    public RadioGroupBuilder Sort() {
+        AttributeIfNotEmpty( "order", _config.GetValue( UiConst.Sort ) );
+        AttributeIfNotEmpty( "[order]", _config.GetValue( AngularConst.BindSort ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置加载完成事件
+    /// </summary>
+    public RadioGroupBuilder OnLoad() {
+        AttributeIfNotEmpty( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
         return this;
     }
 }

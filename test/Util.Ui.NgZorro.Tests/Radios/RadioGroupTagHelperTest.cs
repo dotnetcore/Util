@@ -129,6 +129,31 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         }
 
         /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem_1() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-radio-group *nzSpaceItem=\"\"></nz-radio-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试间距项
+        /// </summary>
+        [Fact]
+        public void TestSpaceItem_2() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
+            _wrapper.AppendContent( new RadioTagHelper().ToWrapper() );
+            var result = new StringBuilder();
+            result.Append( "<nz-radio-group *nzSpaceItem=\"\">" );
+            result.Append( "<label nz-radio=\"\"></label>" );
+            result.Append( "</nz-radio-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试模型绑定
         /// </summary>
         [Fact]

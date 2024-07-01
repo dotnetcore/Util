@@ -34,7 +34,7 @@ public class CardBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 设置表单标签文本
+    /// 设置标题
     /// </summary>
     private void SetTitle( string value ) {
         var options = NgZorroOptionsService.GetOptions();
@@ -113,7 +113,7 @@ public class CardBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置卡片大小
+    /// 配置尺寸
     /// </summary>
     public CardBuilder Size() {
         AttributeIfNotEmpty( "nzSize", _config.GetValue<CardSize?>( UiConst.Size )?.Description() );

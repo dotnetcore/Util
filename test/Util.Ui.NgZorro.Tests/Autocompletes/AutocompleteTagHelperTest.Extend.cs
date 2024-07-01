@@ -16,18 +16,21 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
         /// 添加选项
         /// </summary>
         private void AppendOptions( StringBuilder result ) {
-            result.Append( "<ng-container *ngIf=\"!x_id.isGroup\">" );
-            result.Append( "<nz-auto-option *ngFor=\"let item of x_id.options\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text\" [nzValue]=\"item.value\">" );
+            result.Append( "@if(x_id.isGroup){" );
+            result.Append( "@for(group of x_id.optionGroups;track group.text ){" );
+            result.Append( "<nz-auto-optgroup [nzLabel]=\"group.text\">" );
+            result.Append( "@for(item of group.value;track item.value){" );
+            result.Append( "<nz-auto-option [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text}}" );
             result.Append( "</nz-auto-option>" );
-            result.Append( "</ng-container>" );
-            result.Append( "<ng-container *ngIf=\"x_id.isGroup\">" );
-            result.Append( "<nz-auto-optgroup *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text\">" );
-            result.Append( "<nz-auto-option *ngFor=\"let item of group.value\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text\" [nzValue]=\"item.value\">" );
-            result.Append( "{{item.text}}" );
-            result.Append( "</nz-auto-option>" );
+            result.Append( "}" );
             result.Append( "</nz-auto-optgroup>" );
-            result.Append( "</ng-container>" );
+            result.Append( "}} @else {" );
+            result.Append( "@for(item of x_id.options;track item.value){" );
+            result.Append( "<nz-auto-option [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text\" [nzValue]=\"item.value\">" );
+            result.Append( "{{item.text}}" );
+            result.Append( "</nz-auto-option>" );
+            result.Append( "}}" );
         }
 
         #endregion
@@ -175,19 +178,37 @@ namespace Util.Ui.NgZorro.Tests.Autocompletes {
             _wrapper.SetContextAttribute( UiConst.Data, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-autocomplete #x_id=\"xSelectExtend\" x-select-extend=\"\" [data]=\"a\">" );
-            result.Append( "<ng-container *ngIf=\"!x_id.isGroup\">" );
-            result.Append( "<nz-auto-option *ngFor=\"let item of x_id.options\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
+            result.Append( "@if(x_id.isGroup){" );
+            result.Append( "@for(group of x_id.optionGroups;track group.text ){" );
+            result.Append( "<nz-auto-optgroup [nzLabel]=\"group.text|i18n\">" );
+            result.Append( "@for(item of group.value;track item.value){" );
+            result.Append( "<nz-auto-option [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
             result.Append( "{{item.text|i18n}}" );
             result.Append( "</nz-auto-option>" );
-            result.Append( "</ng-container>" );
-            result.Append( "<ng-container *ngIf=\"x_id.isGroup\">" );
-            result.Append( "<nz-auto-optgroup *ngFor=\"let group of x_id.optionGroups\" [nzLabel]=\"group.text|i18n\">" );
-            result.Append( "<nz-auto-option *ngFor=\"let item of group.value\" [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
-            result.Append( "{{item.text|i18n}}" );
-            result.Append( "</nz-auto-option>" );
+            result.Append( "}" );
             result.Append( "</nz-auto-optgroup>" );
-            result.Append( "</ng-container>" );
+            result.Append( "}} @else {" );
+            result.Append( "@for(item of x_id.options;track item.value){" );
+            result.Append( "<nz-auto-option [nzDisabled]=\"item.disabled\" [nzLabel]=\"item.text|i18n\" [nzValue]=\"item.value\">" );
+            result.Append( "{{item.text|i18n}}" );
+            result.Append( "</nz-auto-option>" );
+            result.Append( "}}" );
             result.Append( "</nz-autocomplete>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        #endregion
+
+        #region OnLoad
+
+        /// <summary>
+        /// 测试数据加载完成事件
+        /// </summary>
+        [Fact]
+        public void TestOnLoad() {
+            _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-autocomplete (onLoad)=\"a\"></nz-autocomplete>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

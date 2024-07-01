@@ -88,8 +88,6 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 配置前缀
     /// </summary>
     public InputGroupBuilder Prefix() {
-        AttributeIfNotEmpty( "nzPrefix", _config.GetValue( UiConst.Prefix ) );
-        AttributeIfNotEmpty( "[nzPrefix]", _config.GetValue( AngularConst.BindPrefix ) );
         AttributeIfNotEmpty( "nzPrefix", _shareConfig.Prefix );
         AttributeIfNotEmpty( "[nzPrefix]", _shareConfig.BindPrefix );
         return this;
@@ -99,21 +97,13 @@ public class InputGroupBuilder : AngularTagBuilder {
     /// 配置后缀
     /// </summary>
     public InputGroupBuilder Suffix() {
-        AttributeIfNotEmpty( "nzSuffix", _config.GetValue( UiConst.Suffix ) );
-        AttributeIfNotEmpty( "[nzSuffix]", _config.GetValue( AngularConst.BindSuffix ) );
         AttributeIfNotEmpty( "nzSuffix", _shareConfig.Suffix );
         AttributeIfNotEmpty( "[nzSuffix]", _shareConfig.BindSuffix );
-        SetSuffixAttribute();
-        return this;
-    }
-
-    /// <summary>
-    /// 设置后置图标模板属性
-    /// </summary>
-    protected void SetSuffixAttribute() {
-        if ( IsAllowClear() || IsPassword() ) {
+        if (_shareConfig.Suffix.IsEmpty() == false || _shareConfig.BindSuffix.IsEmpty() == false )
+            return this;
+        if ( IsAllowClear() || IsPassword() )
             AttributeIfNotEmpty( "[nzSuffix]", GetSuffixTemplateId() );
-        }
+        return this;
     }
 
     /// <summary>

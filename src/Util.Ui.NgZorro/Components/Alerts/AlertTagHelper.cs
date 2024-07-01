@@ -17,11 +17,11 @@ public class AlertTagHelper : AngularTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [nzBanner],是否顶部公告,默认值: false
+    /// [nzBanner],是否顶部公告, 类型: boolean, 默认值: false
     /// </summary>
     public string Banner { get; set; }
     /// <summary>
-    /// [nzCloseable],是否可关闭
+    /// [nzCloseable],是否可关闭,类型: boolean, 默认值: false
     /// </summary>
     public string Closeable { get; set; }
     /// <summary>
@@ -49,17 +49,21 @@ public class AlertTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindMessage { get; set; }
     /// <summary>
-    /// [nzShowIcon],是否显示图标,默认值: false,nzBanner 模式下默认值为 true
+    /// [nzShowIcon],是否显示图标, 类型: boolean, 默认值: false, nzBanner 模式下默认值为 true
     /// </summary>
     public string ShowIcon { get; set; }
     /// <summary>
-    /// nzIconType,自定义图标类型，nzShowIcon 为 true 时有效
+    /// nzIconType,自定义图标类型
     /// </summary>
     public AntDesignIcon IconType { get; set; }
     /// <summary>
-    /// [nzIconType],自定义图标类型，nzShowIcon 为 true 时有效
+    /// [nzIconType],自定义图标类型
     /// </summary>
     public string BindIconType { get; set; }
+    /// <summary>
+    /// [nzIcon],自定义图标,类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string Icon { get; set; }
     /// <summary>
     /// nzType,警告类型,指定警告提示的样式,可选值: 'success' | 'info' | 'warning' | 'error',默认值: 'info',nzBanner 模式下默认值为 'warning'
     /// </summary>
@@ -68,6 +72,10 @@ public class AlertTagHelper : AngularTagHelperBase {
     /// [nzType],警告类型,指定警告提示的样式,可选值: 'success' | 'info' | 'warning' | 'error',默认值: 'info',nzBanner 模式下默认值为 'warning'
     /// </summary>
     public string BindType { get; set; }
+    /// <summary>
+    /// [nzAction],自定义操作项,类型: string | TemplateRef&lt;void>
+    /// </summary>
+    public string Action { get; set; }
     /// <summary>
     /// (nzOnClose),关闭事件,类型: EventEmitter&lt;void>
     /// </summary>

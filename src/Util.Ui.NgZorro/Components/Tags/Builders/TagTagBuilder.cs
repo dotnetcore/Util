@@ -139,16 +139,7 @@ public class TagTagBuilder : AngularTagBuilder {
         base.Config();
         Mode().Checked().Color().Bordered().Events();
         TextEnabled().TextNotEnabled().Text();
-        SetForeach();
         SetChecked();
-    }
-
-    /// <summary>
-    /// 设置循环
-    /// </summary>
-    private void SetForeach() {
-        if(IsEnableExtend)
-            this.NgFor( $"let item of {ExtendId}.options" );
     }
 
     /// <summary>

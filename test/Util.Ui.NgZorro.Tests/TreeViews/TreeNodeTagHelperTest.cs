@@ -62,9 +62,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestTreeNodePadding() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodePadding, "true" );
+            _wrapper.SetContextAttribute( UiConst.TreeNodePadding, "" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-node [nzTreeNodePadding]=\"true\"></nz-tree-node>" );
+            result.Append( "<nz-tree-node nzTreeNodePadding=\"\"></nz-tree-node>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -73,9 +73,9 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestTreeNodeIndentLine() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodeIndentLine, "true" );
+            _wrapper.SetContextAttribute( UiConst.TreeNodeIndentLine, "" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-node [nzTreeNodeIndentLine]=\"true\"></nz-tree-node>" );
+            result.Append( "<nz-tree-node nzTreeNodeIndentLine=\"\"></nz-tree-node>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

@@ -170,6 +170,9 @@ public abstract class InputRenderBase : FormControlRenderBase {
     /// 是否需要导出ngModel
     /// </summary>
     private bool NeedExportNgModel() {
+        var shareConfig = GetInputGroupShareConfig();
+        if ( shareConfig.Suffix.IsEmpty() == false || shareConfig.BindSuffix.IsEmpty() == false )
+            return false;
         if ( IsAllowClear() )
             return true;
         return false;

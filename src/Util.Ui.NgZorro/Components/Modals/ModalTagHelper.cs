@@ -17,39 +17,47 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// [nzMask],是否显示遮罩,默认值: true
+    /// nzTitle,标题,支持多语言
     /// </summary>
-    public bool Mask { get; set; }
+    public string Title { get; set; }
     /// <summary>
-    /// [nzMask],是否显示遮罩,默认值: true
+    /// [nzTitle],标题,类型: string | TemplateRef
     /// </summary>
-    public string BindMask { get; set; }
+    public string BindTitle { get; set; }
     /// <summary>
-    /// [nzMaskClosable],点击遮罩是否允许关闭,默认值: true
+    /// [nzMask],是否显示遮罩,类型: boolean, 默认值: true
+    /// </summary>
+    public string Mask { get; set; }
+    /// <summary>
+    /// [nzMaskClosable],点击遮罩是否允许关闭,类型: boolean, 默认值: true
     /// </summary>
     public string MaskClosable { get; set; }
     /// <summary>
-    /// [nzCloseOnNavigation],导航时是否关闭,当用户在历史中前进/后退时是否关闭模态框,注意:这通常不包括点击链接（除非用户使用HashLocationStrategy）。默认值: true
+    /// [nzCloseOnNavigation],当用户在历史中前进/后退时是否关闭对话框, 类型: boolean, 默认值: true
     /// </summary>
     public string CloseOnNavigation { get; set; }
     /// <summary>
-    /// [(nzVisible)],是否可见,默认值: false
+    /// [(nzVisible)],是否可见,类型: boolean, 默认值: false
     /// </summary>
     public string Visible { get; set; }
     /// <summary>
-    /// [nzClosable],是否可关闭,确认框模式下该值无效（默认会被隐藏）,默认值: true
+    /// [nzClosable],是否显示关闭按钮,类型: boolean, 默认值: true
     /// </summary>
     public string Closable { get; set; }
     /// <summary>
-    /// [nzOkLoading],确定按钮是否加载状态,默认值: false
+    /// [nzDraggable],是否可拖动,类型: boolean, 默认值: false
+    /// </summary>
+    public string Draggable { get; set; }
+    /// <summary>
+    /// [nzOkLoading],确定按钮是否加载状态,类型: boolean, 默认值: false
     /// </summary>
     public string OkLoading { get; set; }
     /// <summary>
-    /// [nzOkDisabled],是否禁用确定按钮,默认值: false
+    /// [nzOkDisabled],是否禁用确定按钮,类型: boolean, 默认值: false
     /// </summary>
     public string OkDisabled { get; set; }
     /// <summary>
-    /// [nzCancelLoading],取消按钮是否加载状态,默认值: false
+    /// [nzCancelLoading],取消按钮是否加载状态,类型: boolean, 默认值: false
     /// </summary>
     public string CancelLoading { get; set; }
     /// <summary>
@@ -57,11 +65,11 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     public string CancelDisabled { get; set; }
     /// <summary>
-    /// [nzKeyboard],是否支持键盘ESC键关闭,默认值: true
+    /// [nzKeyboard],按下ESC键是否允许关闭, 类型: boolean, 默认值: true
     /// </summary>
     public string Keyboard { get; set; }
     /// <summary>
-    /// [nzCentered],是否垂直居中显示,默认值: false
+    /// [nzCentered],是否垂直居中显示,类型: boolean, 默认值: false
     /// </summary>
     public string Centered { get; set; }
     /// <summary>
@@ -81,7 +89,7 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     public string ZIndex { get; set; }
     /// <summary>
-    /// [nzWidth],宽度, 使用数字时，默认单位为px,类型: number | string,默认值: 520
+    /// [nzWidth],宽度, 使用数字时，默认单位为 px,类型: number | string, 默认值: 520
     /// </summary>
     public string Width { get; set; }
     /// <summary>
@@ -101,23 +109,15 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindClassName { get; set; }
     /// <summary>
-    /// [nzStyle],可用于设置浮层样式，调整浮层位置等
+    /// [nzStyle],浮层样式,类型: object
     /// </summary>
-    public string ModalStyle { get; set; }
+    public string NzStyle { get; set; }
     /// <summary>
-    /// nzTitle,标题,留空表示不显示标题,类型: string | TemplateRef
-    /// </summary>
-    public string Title { get; set; }
-    /// <summary>
-    /// [nzTitle],标题,留空表示不显示标题,类型: string | TemplateRef
-    /// </summary>
-    public string BindTitle { get; set; }
-    /// <summary>
-    /// nzCloseIcon,自定义关闭图标,类型: string | TemplateRef&lt;void>,默认值: 'close'
+    /// nzCloseIcon,关闭按钮图标,类型: string | TemplateRef&lt;void>,默认值: 'close'
     /// </summary>
     public AntDesignIcon CloseIcon { get; set; }
     /// <summary>
-    /// [nzCloseIcon],自定义关闭图标,类型: string | TemplateRef&lt;void>,默认值: 'close'
+    /// [nzCloseIcon],关闭按钮图标,类型: string | TemplateRef&lt;void>,默认值: 'close'
     /// </summary>
     public string BindCloseIcon { get; set; }
     /// <summary>
@@ -153,7 +153,7 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindOkType { get; set; }
     /// <summary>
-    /// [nzOkDanger],确认按钮是否危险按钮,默认值: false
+    /// [nzOkDanger],确认按钮是否危险按钮,类型: boolean, 默认值: false
     /// </summary>
     public string OkDanger { get; set; }
     /// <summary>
@@ -173,19 +173,19 @@ public class ModalTagHelper : AngularTagHelperBase {
     /// </summary>
     public string BindAutofocus { get; set; }
     /// <summary>
-    /// (nzOnOk),确定事件,点击确定按钮时触发
+    /// (nzOnOk),确定事件,点击确定按钮时触发,类型: EventEmitter&lt;any>
     /// </summary>
     public string OnOk { get; set; }
     /// <summary>
-    /// (nzOnCancel),取消事件,点击取消按钮时触发
+    /// (nzOnCancel),取消事件,点击取消按钮时触发,类型: EventEmitter&lt;any>
     /// </summary>
     public string OnCancel { get; set; }
     /// <summary>
-    /// (nzAfterOpen),打开后事件,打开对话框后触发
+    /// (nzAfterOpen),打开后事件,打开对话框后触发, 类型: EventEmitter&lt;void>
     /// </summary>
     public string OnAfterOpen { get; set; }
     /// <summary>
-    /// (nzAfterClose),关闭后事件,对话框完全关闭后触发
+    /// (nzAfterClose),关闭后事件,对话框完全关闭后触发,类型: EventEmitter&lt;any>
     /// </summary>
     public string OnAfterClose { get; set; }
 

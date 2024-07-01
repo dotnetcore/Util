@@ -135,7 +135,51 @@ namespace Util.Ui.NgZorro.Tests.Mentions {
             result.Append( "<nz-mention [nzNotFoundContent]=\"a\"></nz-mention>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
-        
+
+        /// <summary>
+        /// 测试指定提及的触发元素
+        /// </summary>
+        [Fact]
+        public void TestMentionTrigger() {
+            _wrapper.SetContextAttribute( UiConst.MentionTrigger, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-mention [nzMentionTrigger]=\"a\"></nz-mention>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自定义建议渲染模板
+        /// </summary>
+        [Fact]
+        public void TestMentionSuggestion() {
+            _wrapper.SetContextAttribute( UiConst.MentionSuggestion, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-mention [nzMentionSuggestion]=\"a\"></nz-mention>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试校验状态
+        /// </summary>
+        [Fact]
+        public void TestStatus() {
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<nz-mention nzStatus=\"error\"></nz-mention>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试校验状态
+        /// </summary>
+        [Fact]
+        public void TestBindStatus() {
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-mention [nzStatus]=\"a\"></nz-mention>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
         /// <summary>
         /// 测试内容
         /// </summary>

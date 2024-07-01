@@ -29,6 +29,26 @@ public static class UiConst {
     /// </summary>
     public const string Padding = "padding";
     /// <summary>
+    /// 递归
+    /// </summary>
+    public const string Recursive = "recursive";
+    /// <summary>
+    /// 跟踪
+    /// </summary>
+    public const string TrackBy = "track-by";
+    /// <summary>
+    /// 提及触发器
+    /// </summary>
+    public const string MentionTrigger = "mention-trigger";
+    /// <summary>
+    /// 旋转图标
+    /// </summary>
+    public const string RotateIcon = "rotate-icon";
+    /// <summary>
+    /// 激活图标
+    /// </summary>
+    public const string ActiveIcon = "active-icon";
+    /// <summary>
     /// 标签模板
     /// </summary>
     public const string LabelTemplate = "label-template";
@@ -1623,7 +1643,7 @@ public static class UiConst {
     /// <summary>
     /// 复选框变化事件
     /// </summary>
-    public const string OnCheckBoxChange = "on-check-box-change";
+    public const string OnCheckboxChange = "on-checkbox-change";
     /// <summary>
     /// 允许选中
     /// </summary>
@@ -3733,9 +3753,9 @@ public static class UiConst {
     /// </summary>
     public const string ComponentParams = "component-params";
     /// <summary>
-    /// 对话框样式
+    /// 样式
     /// </summary>
-    public const string ModalStyle = "modal-style";
+    public const string NzStyle = "nz-style";
     /// <summary>
     /// 确认文字
     /// </summary>

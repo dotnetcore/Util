@@ -31,7 +31,7 @@ public class TreeNodeBuilder : AngularTagBuilder {
     /// 配置树节点内边距
     /// </summary>
     public TreeNodeBuilder TreeNodePadding() {
-        AttributeIfNotEmpty( "[nzTreeNodePadding]", _config.GetValue( UiConst.TreeNodePadding ) );
+        AttributeIf( "nzTreeNodePadding", _config.Contains( UiConst.TreeNodePadding ) );
         return this;
     }
 
@@ -39,7 +39,7 @@ public class TreeNodeBuilder : AngularTagBuilder {
     /// 配置树节点内边距
     /// </summary>
     public TreeNodeBuilder TreeNodeIndentLine() {
-        AttributeIfNotEmpty( "[nzTreeNodeIndentLine]", _config.GetValue( UiConst.TreeNodeIndentLine ) );
+        AttributeIf( "nzTreeNodeIndentLine", _config.Contains( UiConst.TreeNodeIndentLine ) );
         return this;
     }
 

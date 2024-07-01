@@ -17,11 +17,11 @@ public class SelectTagHelper : FormControlTagHelperBase {
     /// </summary>
     private Config _config;
     /// <summary>
-    /// 扩展属性,是否启用扩展指令,当设置Url或Data属性时自动启用,默认为 false
+    /// 扩展属性,是否启用扩展指令,当设置 url 或 data 属性时自动启用,默认值: false
     /// </summary>
     public bool EnableExtend { get; set; }
     /// <summary>
-    /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认为true,设置成false则手工加载
+    /// 扩展属性 [autoLoad],初始化时是否自动加载数据，默认值: true,设置成 false 手工加载
     /// </summary>
     public bool AutoLoad { get; set; }
     /// <summary>

@@ -23,7 +23,15 @@ public class TreeNodeToggleBuilder : AngularTagBuilder {
     /// 配置空操作切换
     /// </summary>
     public TreeNodeToggleBuilder TreeNodeNoopToggle() {
-        AttributeIfNotEmpty( "[nzTreeNodeNoopToggle]", _config.GetValue( UiConst.TreeNodeNoopToggle ) );
+        AttributeIf( "nzTreeNodeNoopToggle", _config.Contains( UiConst.TreeNodeNoopToggle ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置是否递归展开/收起
+    /// </summary>
+    public TreeNodeToggleBuilder Recursive() {
+        AttributeIfNotEmpty( "[nzTreeNodeToggleRecursive]", _config.GetValue( UiConst.Recursive ) );
         return this;
     }
 
@@ -32,6 +40,6 @@ public class TreeNodeToggleBuilder : AngularTagBuilder {
     /// </summary>
     public override void Config() {
         base.Config();
-        TreeNodeNoopToggle();
+        TreeNodeNoopToggle().Recursive();
     }
 }

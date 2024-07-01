@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Modals;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -46,6 +47,40 @@ public class ModalTagHelperTest {
     public void TestDefault() {
         var result = new StringBuilder();
         result.Append( "<nz-modal></nz-modal>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试标题
+    /// </summary>
+    [Fact]
+    public void TestTitle() {
+        _wrapper.SetContextAttribute( UiConst.Title, "a" );
+        var result = new StringBuilder();
+        result.Append( "<nz-modal nzTitle=\"a\"></nz-modal>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试标题 - 支持多语言
+    /// </summary>
+    [Fact]
+    public void TestTitle_I18n() {
+        NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+        _wrapper.SetContextAttribute( UiConst.Title, "a" );
+        var result = new StringBuilder();
+        result.Append( "<nz-modal [nzTitle]=\"'a'|i18n\"></nz-modal>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试标题
+    /// </summary>
+    [Fact]
+    public void TestBindTitle() {
+        _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
+        var result = new StringBuilder();
+        result.Append( "<nz-modal [nzTitle]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -101,6 +136,17 @@ public class ModalTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.Closable, "true" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzClosable]=\"true\"></nz-modal>" );
+        Assert.Equal( result.ToString(), GetResult() );
+    }
+
+    /// <summary>
+    /// 测试模态框是否可拖动
+    /// </summary>
+    [Fact]
+    public void TestDraggable() {
+        _wrapper.SetContextAttribute( UiConst.Draggable, "true" );
+        var result = new StringBuilder();
+        result.Append( "<nz-modal [nzDraggable]=\"true\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 
@@ -273,32 +319,10 @@ public class ModalTagHelperTest {
     /// 测试浮层样式
     /// </summary>
     [Fact]
-    public void TestModalStyle() {
-        _wrapper.SetContextAttribute( UiConst.ModalStyle, "a" );
+    public void TestNzStyle() {
+        _wrapper.SetContextAttribute( UiConst.NzStyle, "a" );
         var result = new StringBuilder();
         result.Append( "<nz-modal [nzStyle]=\"a\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试标题
-    /// </summary>
-    [Fact]
-    public void TestTitle() {
-        _wrapper.SetContextAttribute( UiConst.Title, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal nzTitle=\"a\"></nz-modal>" );
-        Assert.Equal( result.ToString(), GetResult() );
-    }
-
-    /// <summary>
-    /// 测试标题
-    /// </summary>
-    [Fact]
-    public void TestBindTitle() {
-        _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
-        var result = new StringBuilder();
-        result.Append( "<nz-modal [nzTitle]=\"a\"></nz-modal>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
 

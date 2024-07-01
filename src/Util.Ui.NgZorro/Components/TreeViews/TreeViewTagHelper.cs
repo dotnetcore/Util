@@ -15,17 +15,21 @@ public class TreeViewTagHelper : AngularTagHelperBase {
     /// </summary>
     public string TreeControl { get; set; }
     /// <summary>
-    /// [nzDataSource],数据源,用于渲染树的数组数据,类型: DataSource&lt;T>,默认值: Observable&lt;T[]>
+    /// [nzDataSource],数据源,数组数据,类型: DataSource&lt;T> | Observable&lt;T[]> | T[]
     /// </summary>
     public string Datasource { get; set; }
     /// <summary>
-    /// [nzDirectoryTree],是否以文件夹样式显示节点,默认值: false
+    /// [nzDirectoryTree],是否以文件夹样式显示节点,类型: boolean, 默认值: false
     /// </summary>
     public string DirectoryTree { get; set; }
     /// <summary>
-    /// [nzBlockNode],节点是否占整行,默认值: false
+    /// [nzBlockNode],节点是否占据整行,类型: boolean, 默认值: false
     /// </summary>
     public string BlockNode { get; set; }
+    /// <summary>
+    /// [trackBy],跟踪函数
+    /// </summary>
+    public string TrackBy { get; set; }
 
     /// <inheritdoc />
     protected override IRender GetRender( TagHelperContext context, TagHelperOutput output, TagHelperContent content ) {

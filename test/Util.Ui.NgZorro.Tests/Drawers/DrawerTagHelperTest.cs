@@ -2,6 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Drawers;
+using Util.Ui.NgZorro.Configs;
 using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
@@ -49,6 +50,40 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         }
 
         /// <summary>
+        /// 测试标题
+        /// </summary>
+        [Fact]
+        public void TestTitle() {
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-drawer nzTitle=\"a\"></nz-drawer>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题 - 支持多语言
+        /// </summary>
+        [Fact]
+        public void TestTitle_I18n() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableI18n = true } );
+            _wrapper.SetContextAttribute( UiConst.Title, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-drawer [nzTitle]=\"'a'|i18n\"></nz-drawer>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试标题
+        /// </summary>
+        [Fact]
+        public void TestBindTitle() {
+            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-drawer [nzTitle]=\"a\"></nz-drawer>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试是否可关闭
         /// </summary>
         [Fact]
@@ -78,6 +113,17 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
             _wrapper.SetContextAttribute( AngularConst.BindCloseIcon, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzCloseIcon]=\"a\"></nz-drawer>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试右上角操作区域
+        /// </summary>
+        [Fact]
+        public void TestExtra() {
+            _wrapper.SetContextAttribute( UiConst.Extra, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-drawer [nzExtra]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -148,28 +194,6 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
         }
 
         /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestTitle() {
-            _wrapper.SetContextAttribute( UiConst.Title, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer nzTitle=\"a\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试标题
-        /// </summary>
-        [Fact]
-        public void TestBindTitle() {
-            _wrapper.SetContextAttribute( AngularConst.BindTitle, "a" );
-            var result = new StringBuilder();
-            result.Append( "<nz-drawer [nzTitle]=\"a\"></nz-drawer>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
         /// 测试页脚
         /// </summary>
         [Fact]
@@ -232,6 +256,28 @@ namespace Util.Ui.NgZorro.Tests.Drawers {
             _wrapper.SetContextAttribute( AngularConst.BindPlacement, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-drawer [nzPlacement]=\"a\"></nz-drawer>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试抽屉尺寸
+        /// </summary>
+        [Fact]
+        public void TestSize() {
+            _wrapper.SetContextAttribute( UiConst.Size, DrawerSize.Large );
+            var result = new StringBuilder();
+            result.Append( "<nz-drawer nzSize=\"large\"></nz-drawer>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试抽屉尺寸
+        /// </summary>
+        [Fact]
+        public void TestBindSize() {
+            _wrapper.SetContextAttribute( AngularConst.BindSize, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-drawer [nzSize]=\"a\"></nz-drawer>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

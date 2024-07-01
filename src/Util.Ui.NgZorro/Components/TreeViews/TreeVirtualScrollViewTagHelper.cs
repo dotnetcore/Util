@@ -10,15 +10,15 @@ namespace Util.Ui.NgZorro.Components.TreeViews;
 [HtmlTargetElement( "util-tree-virtual-scroll-view" )]
 public class TreeVirtualScrollViewTagHelper : TreeViewTagHelper {
     /// <summary>
-    /// [nzItemSize],节点大小,虚拟滚动时每一列的高度,单位:像素,默认值: 28
+    /// [nzItemSize],节点大小,虚拟滚动时每一列的高度,类型: number, 单位:像素,默认值: 28
     /// </summary>
     public string ItemSize { get; set; }
     /// <summary>
-    /// [nzMaxBufferPx],虚拟滚动缓冲区最大高度,需要渲染新节点时的缓冲区大小,单位:像素,默认值: 28 * 10
+    /// [nzMaxBufferPx],虚拟滚动缓冲区最大高度,需要渲染新节点时的缓冲区大小,类型: number, 单位:像素,默认值: 28 * 10
     /// </summary>
     public string MaxBufferPx { get; set; }
     /// <summary>
-    /// [nzMinBufferPx],虚拟滚动缓冲区最小高度，超出渲染区的最小缓存区大小,单位:像素,默认值: 28 * 5
+    /// [nzMinBufferPx],虚拟滚动缓冲区最小高度，超出渲染区的最小缓存区大小,类型: number, 单位:像素,默认值: 28 * 5
     /// </summary>
     public string MinBufferPx { get; set; }
 

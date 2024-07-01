@@ -391,6 +391,36 @@ namespace Util.Ui.NgZorro.Tests.Inputs {
         }
 
         /// <summary>
+        /// 测试允许清除 - 指定后缀图标
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_6() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
+            _wrapper.SetContextAttribute( UiConst.Suffix, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group nzSuffix=\"a\">" );
+            result.Append( "<input nz-input=\"\" [(ngModel)]=\"code\" />" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试允许清除 - 指定后缀图标
+        /// </summary>
+        [Fact]
+        public void TestAllowClear_7() {
+            NgZorroOptionsService.SetOptions( new NgZorroOptions { EnableAllowClear = true } );
+            _wrapper.SetContextAttribute( AngularConst.NgModel, "code" );
+            _wrapper.SetContextAttribute( AngularConst.BindSuffix, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-input-group [nzSuffix]=\"a\">" );
+            result.Append( "<input nz-input=\"\" [(ngModel)]=\"code\" />" );
+            result.Append( "</nz-input-group>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试密码类型
         /// </summary>
         [Fact]

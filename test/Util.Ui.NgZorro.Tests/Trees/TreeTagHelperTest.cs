@@ -395,7 +395,7 @@ namespace Util.Ui.NgZorro.Tests.Trees {
         /// </summary>
         [Fact]
         public void TestOnCheckBoxChange() {
-            _wrapper.SetContextAttribute( UiConst.OnCheckBoxChange, "a" );
+            _wrapper.SetContextAttribute( UiConst.OnCheckboxChange, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-tree (nzCheckBoxChange)=\"a\"></nz-tree>" );
             Assert.Equal( result.ToString(), GetResult() );

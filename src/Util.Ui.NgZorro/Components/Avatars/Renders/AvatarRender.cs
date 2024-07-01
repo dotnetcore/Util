@@ -3,7 +3,7 @@ using Util.Ui.NgZorro.Components.Avatars.Builders;
 using Util.Ui.NgZorro.Components.Comments.Configs;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.Avatars.Renders; 
+namespace Util.Ui.NgZorro.Components.Avatars.Renders;
 
 /// <summary>
 /// 头像渲染器

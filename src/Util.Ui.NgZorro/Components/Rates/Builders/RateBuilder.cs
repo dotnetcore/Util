@@ -1,5 +1,4 @@
-﻿using Util.Ui.Angular.Configs;
-using Util.Ui.NgZorro.Components.Base;
+﻿using Util.Ui.NgZorro.Components.Base;
 
 namespace Util.Ui.NgZorro.Components.Rates.Builders; 
 

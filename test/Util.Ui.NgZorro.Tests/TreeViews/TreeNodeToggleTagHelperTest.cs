@@ -1,6 +1,8 @@
 ﻿using System.Text;
 using Util.Ui.Configs;
+using Util.Ui.NgZorro.Components.Icons;
 using Util.Ui.NgZorro.Components.TreeViews;
+using Util.Ui.NgZorro.Enums;
 using Util.Ui.TagHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -51,9 +53,67 @@ namespace Util.Ui.NgZorro.Tests.TreeViews {
         /// </summary>
         [Fact]
         public void TestTreeNodeNoopToggle() {
-            _wrapper.SetContextAttribute( UiConst.TreeNodeNoopToggle, "true" );
+            _wrapper.SetContextAttribute( UiConst.TreeNodeNoopToggle, "" );
             var result = new StringBuilder();
-            result.Append( "<nz-tree-node-toggle [nzTreeNodeNoopToggle]=\"true\"></nz-tree-node-toggle>" );
+            result.Append( "<nz-tree-node-toggle nzTreeNodeNoopToggle=\"\"></nz-tree-node-toggle>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试是否递归展开/收起
+        /// </summary>
+        [Fact]
+        public void TestRecursive() {
+            _wrapper.SetContextAttribute( UiConst.Recursive, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-node-toggle [nzTreeNodeToggleRecursive]=\"true\"></nz-tree-node-toggle>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试旋转图标 - 默认设置
+        /// </summary>
+        [Fact]
+        public void TestRotateIcon_1() {
+            var icon = new IconTagHelper().ToWrapper();
+            icon.SetContextAttribute( UiConst.Type, AntDesignIcon.Alert );
+            _wrapper.AppendContent( icon );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-node-toggle>" );
+            result.Append( "<span nz-icon=\"\" nzTreeNodeToggleRotateIcon=\"\" nzType=\"alert\"></span>" );
+            result.Append( "</nz-tree-node-toggle>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试旋转图标 - 设置取消
+        /// </summary>
+        [Fact]
+        public void TestRotateIcon_2() {
+            var icon = new IconTagHelper().ToWrapper();
+            icon.SetContextAttribute( UiConst.Type, AntDesignIcon.Alert );
+            _wrapper.AppendContent( icon );
+            _wrapper.SetContextAttribute( UiConst.RotateIcon, false );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-node-toggle>" );
+            result.Append( "<span nz-icon=\"\" nzType=\"alert\"></span>" );
+            result.Append( "</nz-tree-node-toggle>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试激活图标
+        /// </summary>
+        [Fact]
+        public void TestActiveIcon() {
+            var icon = new IconTagHelper().ToWrapper();
+            icon.SetContextAttribute( UiConst.Type, AntDesignIcon.Alert );
+            _wrapper.AppendContent( icon );
+            _wrapper.SetContextAttribute( UiConst.ActiveIcon, true );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-node-toggle>" );
+            result.Append( "<span nz-icon=\"\" nzTreeNodeToggleActiveIcon=\"\" nzType=\"alert\"></span>" );
+            result.Append( "</nz-tree-node-toggle>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

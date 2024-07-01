@@ -29,12 +29,10 @@ public class DateTimeJsonConverter : JsonConverter<DateTime> {
     /// 读取数据
     /// </summary>
     public override DateTime Read( ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options ) {
-        if ( reader.TokenType == JsonTokenType.String ) {
+        if ( reader.TokenType == JsonTokenType.String )
             return Time.ToLocalTime( Util.Helpers.Convert.ToDateTime( reader.GetString() ) );
-        }
-        if ( reader.TryGetDateTime( out var date ) ) {
+        if ( reader.TryGetDateTime( out var date ) )
             return Time.ToLocalTime( date );
-        }
         return DateTime.MinValue;
     }
 

@@ -3,23 +3,23 @@ using Util.Ui.Angular.TagHelpers;
 using Util.Ui.NgZorro.Components.TreeViews.Renders;
 using Util.Ui.Renders;
 
-namespace Util.Ui.NgZorro.Components.TreeViews; 
+namespace Util.Ui.NgZorro.Components.TreeViews;
 
 /// <summary>
-/// 树节点复选框,生成的标签为&lt;nz-tree-node-checkbox>&lt;/nz-tree-node-checkbox>
+/// 树视图节点复选框,生成的标签为&lt;nz-tree-node-checkbox>&lt;/nz-tree-node-checkbox>
 /// </summary>
 [HtmlTargetElement( "util-tree-node-checkbox" )]
 public class TreeNodeCheckboxTagHelper : AngularTagHelperBase {
     /// <summary>
-    /// [nzChecked],是否勾选,默认值: false
+    /// [nzChecked],是否勾选,类型: boolean, 默认值: false
     /// </summary>
     public string Checked { get; set; }
     /// <summary>
-    /// [nzIndeterminate],是否半选,默认值: false
+    /// [nzIndeterminate],是否半选,类型: boolean, 默认值: false
     /// </summary>
     public string Indeterminate { get; set; }
     /// <summary>
-    /// [nzDisabled],是否禁用,默认值: false
+    /// [nzDisabled],是否禁用,类型: boolean, 默认值: false
     /// </summary>
     public string Disabled { get; set; }
     /// <summary>

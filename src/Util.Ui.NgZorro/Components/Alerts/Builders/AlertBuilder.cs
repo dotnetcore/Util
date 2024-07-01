@@ -2,7 +2,7 @@
 using Util.Ui.Angular.Configs;
 using Util.Ui.NgZorro.Enums;
 
-namespace Util.Ui.NgZorro.Components.Alerts.Builders; 
+namespace Util.Ui.NgZorro.Components.Alerts.Builders;
 
 /// <summary>
 /// 警告提示标签生成器
@@ -75,16 +75,23 @@ public class AlertBuilder : AngularTagBuilder {
     /// 配置是否显示图标
     /// </summary>
     public AlertBuilder ShowIcon() {
+        if ( _config.GetValue( UiConst.IconType ).IsEmpty() == false ||
+            _config.GetValue( AngularConst.BindIconType ).IsEmpty() == false ||
+            _config.GetValue( UiConst.Icon ).IsEmpty() == false ) {
+            Attribute( "[nzShowIcon]", "true" );
+            return this;
+        }
         AttributeIfNotEmpty( "[nzShowIcon]", _config.GetValue( UiConst.ShowIcon ) );
         return this;
     }
 
     /// <summary>
-    /// 配置图标类型
+    /// 配置图标
     /// </summary>
-    public AlertBuilder IconType() {
+    public AlertBuilder Icon() {
         AttributeIfNotEmpty( "nzIconType", _config.GetValue<AntDesignIcon?>( UiConst.IconType )?.Description() );
         AttributeIfNotEmpty( "[nzIconType]", _config.GetValue( AngularConst.BindIconType ) );
+        AttributeIfNotEmpty( "[nzIcon]", _config.GetValue( UiConst.Icon ) );
         return this;
     }
 
@@ -94,6 +101,14 @@ public class AlertBuilder : AngularTagBuilder {
     public AlertBuilder Type() {
         AttributeIfNotEmpty( "nzType", _config.GetValue<AlertType?>( UiConst.Type )?.Description() );
         AttributeIfNotEmpty( "[nzType]", _config.GetValue( AngularConst.BindType ) );
+        return this;
+    }
+
+    /// <summary>
+    /// 配置自定义操作项
+    /// </summary>
+    public AlertBuilder Action() {
+        AttributeIfNotEmpty( "[nzAction]", _config.GetValue( UiConst.Action ) );
         return this;
     }
 
@@ -111,7 +126,7 @@ public class AlertBuilder : AngularTagBuilder {
     public override void Config() {
         base.ConfigBase( _config );
         Banner().Closeable().CloseText().Description()
-            .Message().ShowIcon().IconType().Type()
+            .Message().ShowIcon().Icon().Type().Action()
             .Events();
     }
 }

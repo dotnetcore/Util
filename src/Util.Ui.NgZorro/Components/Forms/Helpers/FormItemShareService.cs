@@ -166,7 +166,10 @@ public class FormItemShareService {
     /// 设置间距项
     /// </summary>
     private void SetSpaceItem() {
-        _shareConfig.SpaceItem = _config.GetValue<bool>( UiConst.SpaceItem );
+        var value = _config.GetValue<bool?>( UiConst.SpaceItem );
+        if ( value == null )
+            return;
+        _shareConfig.SpaceItem = value.SafeValue();
     }
 
     /// <summary>

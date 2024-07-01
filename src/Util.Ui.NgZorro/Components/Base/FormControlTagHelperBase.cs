@@ -31,7 +31,7 @@ public abstract class FormControlTagHelperBase : FormControlContainerTagHelperBa
     /// </summary>
     public string BindFormControlName { get; set; }
     /// <summary>
-    /// (ngModelChange),模型变更事件
+    /// (ngModelChange),模型变化事件
     /// </summary>
     public string OnModelChange { get; set; }
     /// <summary>

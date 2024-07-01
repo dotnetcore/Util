@@ -63,6 +63,28 @@ namespace Util.Ui.NgZorro.Tests.TreeSelects {
         }
 
         /// <summary>
+        /// 测试输入框标识
+        /// </summary>
+        [Fact]
+        public void TestNzId() {
+            _wrapper.SetContextAttribute( UiConst.NzId, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select nzId=\"a\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试输入框标识
+        /// </summary>
+        [Fact]
+        public void TestBindNzId() {
+            _wrapper.SetContextAttribute( AngularConst.BindNzId, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select [nzId]=\"a\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试模型绑定
         /// </summary>
         [Fact]
@@ -250,6 +272,61 @@ namespace Util.Ui.NgZorro.Tests.TreeSelects {
         }
 
         /// <summary>
+        /// 测试选择框弹出位置
+        /// </summary>
+        [Fact]
+        public void TestPlacement() {
+            _wrapper.SetContextAttribute( UiConst.Placement, TreeSelectPlacement.BottomRight );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select nzPlacement=\"bottomRight\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试选择框弹出位置
+        /// </summary>
+        [Fact]
+        public void TestBindPlacement() {
+            _wrapper.SetContextAttribute( AngularConst.BindPlacement, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select [nzPlacement]=\"a\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestStatus() {
+            _wrapper.SetContextAttribute( UiConst.Status, FormControlStatus.Error );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select nzStatus=\"error\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试状态
+        /// </summary>
+        [Fact]
+        public void TestBindStatus() {
+            _wrapper.SetContextAttribute( AngularConst.BindStatus, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select [nzStatus]=\"a\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试浮层是否应带有背景板
+        /// </summary>
+        [Fact]
+        public void TestBackdrop() {
+            _wrapper.SetContextAttribute( UiConst.Backdrop, "true" );
+            var result = new StringBuilder();
+            result.Append( "<nz-tree-select [nzBackdrop]=\"true\"></nz-tree-select>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
         /// 测试节点前是否添加复选框
         /// </summary>
         [Fact]
@@ -319,8 +396,8 @@ namespace Util.Ui.NgZorro.Tests.TreeSelects {
         /// 测试默认展开所有节点
         /// </summary>
         [Fact]
-        public void TestDefaultExpandAll() {
-            _wrapper.SetContextAttribute( UiConst.DefaultExpandAll, "true" );
+        public void TestExpandAll() {
+            _wrapper.SetContextAttribute( UiConst.ExpandAll, "true" );
             var result = new StringBuilder();
             result.Append( "<nz-tree-select [nzDefaultExpandAll]=\"true\"></nz-tree-select>" );
             Assert.Equal( result.ToString(), GetResult() );

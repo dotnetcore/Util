@@ -39,9 +39,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.AutoLoad, false );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [autoLoad]=\"false\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -59,9 +61,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.QueryParam, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [(queryParam)]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -79,9 +83,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.AllSelected, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [(allSelected)]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -99,9 +105,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.SelectedText, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [(selectedText)]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -119,9 +127,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.SelectedValue, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [(selectedValue)]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -139,9 +149,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.Url, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_i=\"xTagExtend\" url=\"a\" x-tag-extend=\"\">" );
-        result.Append( "<nz-tag #i=\"\" *ngFor=\"let item of x_i.options\">" );
+        result.Append( "@for(item of x_i.options;track item.text){" );
+        result.Append( "<nz-tag #i=\"\">" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -154,9 +166,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( AngularConst.BindUrl, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [url]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -173,9 +187,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.Data, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [data]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -189,9 +205,11 @@ public partial class TagTagHelperTest {
         _wrapper.AppendContent( "b" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [data]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "b" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -205,9 +223,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.Data, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [data]=\"a\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text|i18n}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -225,9 +245,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.OnLoad, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" (onLoad)=\"a\" x-tag-extend=\"\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -245,9 +267,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.OnSelectedTextChange, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" (selectedTextChange)=\"a\" x-tag-extend=\"\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -265,9 +289,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.OnSelectedValueChange, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" (selectedValueChange)=\"a\" x-tag-extend=\"\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -285,9 +311,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.OnAllSelectedChange, "a" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" (allSelectedChange)=\"a\" x-tag-extend=\"\">" );
-        result.Append( "<nz-tag *ngFor=\"let item of x_id.options\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag>" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }
@@ -305,9 +333,11 @@ public partial class TagTagHelperTest {
         _wrapper.SetContextAttribute( UiConst.Mode, "checkable" );
         var result = new StringBuilder();
         result.Append( "<ng-container #x_id=\"xTagExtend\" x-tag-extend=\"\" [data]=\"a\">" );
-        result.Append( "<nz-tag (nzCheckedChange)=\"x_id.selectItem($event,item.text)\" *ngFor=\"let item of x_id.options\" nzMode=\"checkable\" [nzChecked]=\"item.selected\">" );
+        result.Append( "@for(item of x_id.options;track item.text){" );
+        result.Append( "<nz-tag (nzCheckedChange)=\"x_id.selectItem($event,item.text)\" nzMode=\"checkable\" [nzChecked]=\"item.selected\">" );
         result.Append( "{{item.text}}" );
         result.Append( "</nz-tag>" );
+        result.Append( "}" );
         result.Append( "</ng-container>" );
         Assert.Equal( result.ToString(), GetResult() );
     }

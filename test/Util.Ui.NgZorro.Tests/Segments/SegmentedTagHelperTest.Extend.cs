@@ -133,6 +133,8 @@ namespace Util.Ui.NgZorro.Tests.Segments {
 
         #endregion
 
+        #region OnIndexChange
+
         /// <summary>
         /// 测试索引变更事件
         /// </summary>
@@ -157,6 +159,8 @@ namespace Util.Ui.NgZorro.Tests.Segments {
             result.Append( "</nz-segmented>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
+
+        #endregion
 
         #region OnValueChange
 

@@ -9,7 +9,7 @@ using Util.Ui.Renders;
 namespace Util.Ui.NgZorro.Components.TreeSelects; 
 
 /// <summary>
-/// 树选择,生成的标签为&lt;nz-tree-select>&lt;/nz-tree-select>
+/// 树形选择,生成的标签为&lt;nz-tree-select>&lt;/nz-tree-select>
 /// </summary>
 [HtmlTargetElement( "util-tree-select" )]
 public class TreeSelectTagHelper : FormControlTagHelperBase {
@@ -17,6 +17,166 @@ public class TreeSelectTagHelper : FormControlTagHelperBase {
     /// 配置
     /// </summary>
     private Config _config;
+    /// <summary>
+    /// nzId,组件内部 input 的 id 值
+    /// </summary>
+    public string NzId { get; set; }
+    /// <summary>
+    /// [nzId],组件内部 input 的 id 值
+    /// </summary>
+    public string BindNzId { get; set; }
+    /// <summary>
+    /// [nzNodes],数据源,类型: NzTreeNodeOptions[]
+    /// </summary>
+    public string Nodes { get; set; }
+    /// <summary>
+    /// nzPlaceHolder,占位提示
+    /// </summary>
+    public string Placeholder { get; set; }
+    /// <summary>
+    /// [nzPlaceHolder],占位提示
+    /// </summary>
+    public string BindPlaceholder { get; set; }
+    /// <summary>
+    /// [nzDefaultExpandAll],是否默认展开所有节点,类型: boolean, 默认值: false
+    /// </summary>
+    public string ExpandAll { get; set; }
+    /// <summary>
+    /// [nzExpandedKeys],指定展开的节点标识列表,类型: string[]
+    /// </summary>
+    public string ExpandedKeys { get; set; }
+    /// <summary>
+    /// [nzShowSearch],是否显示搜索框,类型: boolean, 默认值: false
+    /// </summary>
+    public string ShowSearch { get; set; }
+    /// <summary>
+    /// [nzAllowClear],是否允许清除,类型: boolean, 默认值: true
+    /// </summary>
+    public string AllowClear { get; set; }
+    /// <summary>
+    /// [nzDisabled],是否禁用,类型: boolean, 默认值: false
+    /// </summary>
+    public string Disabled { get; set; }
+    /// <summary>
+    /// [nzMultiple],是否支持多选,类型: boolean, 默认值: false,当设置 nzCheckable 时为 true
+    /// </summary>
+    public string Multiple { get; set; }
+    /// <summary>
+    /// [nzCheckable],节点前是否添加复选框,类型: boolean, 默认值: false
+    /// </summary>
+    public string Checkable { get; set; }
+    /// <summary>
+    /// [nzCheckStrictly],严格勾选,父子节点选中状态不再关联,类型: boolean, 默认值: false
+    /// </summary>
+    public string CheckStrictly { get; set; }
+    /// <summary>
+    /// [nzShowIcon],是否显示图标,类型: boolean, 默认值: false
+    /// </summary>
+    public string ShowIcon { get; set; }
+    /// <summary>
+    /// [nzShowExpand],节点前是否显示展开图标,类型: boolean, 默认值: true
+    /// </summary>
+    public string ShowExpand { get; set; }
+    /// <summary>
+    /// [nzShowLine],是否显示连接线,类型: boolean, 默认值: false
+    /// </summary>
+    public string ShowLine { get; set; }
+    /// <summary>
+    /// [nzAsyncData],是否异步加载,类型: boolean, 默认值: false
+    /// </summary>
+    public string AsyncData { get; set; }
+    /// <summary>
+    /// [nzMaxTagCount],最多显示的标签数量,类型: number
+    /// </summary>
+    public string MaxTagCount { get; set; }
+    /// <summary>
+    /// [nzMaxTagPlaceholder],隐藏标签时显示的占位内容,类型: TemplateRef&lt;{ $implicit: NzTreeNode[] }>
+    /// </summary>
+    public string MaxTagPlaceholder { get; set; }
+    /// <summary>
+    /// [nzHideUnMatched],是否搜索时隐藏未匹配的节点,类型: boolean, 默认值: false
+    /// </summary>
+    public string HideUnmatched { get; set; }
+    /// <summary>
+    /// nzSize,选择框尺寸，可选值: 'large'|'small'|'default',默认值: 'default'
+    /// </summary>
+    public InputSize Size { get; set; }
+    /// <summary>
+    /// [nzSize],选择框尺寸，可选值: 'large'|'small'|'default',默认值: 'default'
+    /// </summary>
+    public string BindSize { get; set; }
+    /// <summary>
+    /// nzPlacement,选择框弹出位置，可选值: 'bottomLeft'| 'bottomRight' | 'topLeft' | 'topRight',默认值: 'bottomLeft'
+    /// </summary>
+    public TreeSelectPlacement Placement { get; set; }
+    /// <summary>
+    /// [nzPlacement],选择框弹出位置，可选值: 'bottomLeft'| 'bottomRight' | 'topLeft' | 'topRight',默认值: 'bottomLeft'
+    /// </summary>
+    public string BindPlacement { get; set; }
+    /// <summary>
+    /// nzVirtualHeight,虚拟滚动的总高度,范例: '300px'
+    /// </summary>
+    public string VirtualHeight { get; set; }
+    /// <summary>
+    /// [nzVirtualHeight],虚拟滚动的总高度,范例: '300px'
+    /// </summary>
+    public string BindVirtualHeight { get; set; }
+    /// <summary>
+    /// [nzVirtualItemSize],虚拟滚动时每一列的高度,类型: number, 单位:像素, 默认值: 28
+    /// </summary>
+    public string VirtualItemSize { get; set; }
+    /// <summary>
+    /// [nzVirtualMaxBufferPx],虚拟滚动缓冲区最大高度,类型: number, 单位:像素,默认值: 500
+    /// </summary>
+    public string VirtualMaxBufferPx { get; set; }
+    /// <summary>
+    /// [nzVirtualMinBufferPx],虚拟滚动缓冲区最小高度，低于该值时将加载新结构,类型: number, 单位:像素,默认值: 28
+    /// </summary>
+    public string VirtualMinBufferPx { get; set; }
+    /// <summary>
+    /// [nzDropdownMatchSelectWidth],是否下拉菜单和选择器同宽,类型: boolean, 默认值: true
+    /// </summary>
+    public string DropdownMatchSelectWidth { get; set; }
+    /// <summary>
+    /// [nzDropdownStyle],下拉菜单样式,类型: { [key: string]: string; },范例: { 'max-height': '300px' }
+    /// </summary>
+    public string DropdownStyle { get; set; }
+    /// <summary>
+    /// nzDropdownClassName,下拉菜单样式类名
+    /// </summary>
+    public string DropdownClassName { get; set; }
+    /// <summary>
+    /// [nzDropdownClassName],下拉菜单样式类名
+    /// </summary>
+    public string BindDropdownClassName { get; set; }
+    /// <summary>
+    /// nzNotFoundContent,当下拉列表为空时显示的内容
+    /// </summary>
+    public string NotFoundContent { get; set; }
+    /// <summary>
+    /// [nzNotFoundContent],当下拉列表为空时显示的内容
+    /// </summary>
+    public string BindNotFoundContent { get; set; }
+    /// <summary>
+    /// nzStatus,校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public FormControlStatus Status { get; set; }
+    /// <summary>
+    /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public string BindStatus { get; set; }
+    /// <summary>
+    /// [nzBackdrop],浮层是否应带有背景板,类型: boolean, 默认值: false
+    /// </summary>
+    public string Backdrop { get; set; }
+    /// <summary>
+    /// [nzDisplayWith],在输入框显示所选节点值的函数,类型: (node: NzTreeNode) => string,默认值: (node: NzTreeNode) => node.title
+    /// </summary>
+    public string DisplayWith { get; set; }
+    /// <summary>
+    /// [nzTreeTemplate],自定义节点模板,类型: TemplateRef&lt;{ $implicit: NzTreeNode }>
+    /// </summary>
+    public string TreeTemplate { get; set; }
     /// <summary>
     /// 扩展属性,是否启用扩展指令,当设置Api地址时自动启用,默认为 false
     /// </summary>
@@ -54,27 +214,27 @@ public class TreeSelectTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string BindUrl { get; set; }
     /// <summary>
-    /// 扩展属性 loadUrl,首次加载地址，对于异步请求,仅加载第一级节点,如果未设置该属性,则使用 Url 属性地址
+    /// 扩展属性 loadUrl,首次加载地址，对于异步请求,仅加载第一级节点,如果未设置该属性,则使用 url 地址
     /// </summary>
     public string LoadUrl { get; set; }
     /// <summary>
-    /// 扩展属性 [loadUrl],首次加载地址，对于异步请求,仅加载第一级节点,如果未设置该属性,则使用 Url 属性地址
+    /// 扩展属性 [loadUrl],首次加载地址，对于异步请求,仅加载第一级节点,如果未设置该属性,则使用 url 地址
     /// </summary>
     public string BindLoadUrl { get; set; }
     /// <summary>
-    /// 扩展属性 queryUrl,查询地址，如果未设置该属性,则使用 Url 属性地址
+    /// 扩展属性 queryUrl,查询地址，如果未设置该属性,则使用 url 地址
     /// </summary>
     public string QueryUrl { get; set; }
     /// <summary>
-    /// 扩展属性 [queryUrl],查询地址，如果未设置该属性,则使用 Url 属性地址
+    /// 扩展属性 [queryUrl],查询地址，如果未设置该属性,则使用 url 地址
     /// </summary>
     public string BindQueryUrl { get; set; }
     /// <summary>
-    /// 扩展属性 loadChildrenUrl,加载子节点地址，如果未设置该属性,则使用 Url 属性地址
+    /// 扩展属性 loadChildrenUrl,加载子节点地址，如果未设置该属性,则使用 url 地址
     /// </summary>
     public string LoadChildrenUrl { get; set; }
     /// <summary>
-    /// 扩展属性 [loadChildrenUrl],加载子节点地址，如果未设置该属性,则使用 Url 属性地址
+    /// 扩展属性 [loadChildrenUrl],加载子节点地址，如果未设置该属性,则使用 url 地址
     /// </summary>
     public string BindLoadChildrenUrl { get; set; }
     /// <summary>
@@ -82,133 +242,17 @@ public class TreeSelectTagHelper : FormControlTagHelperBase {
     /// </summary>
     public string Width { get; set; }
     /// <summary>
-    /// [nzAllowClear],允许清除,默认值: false
+    /// [required],是否必填项, 类型: boolean, 默认值: false
     /// </summary>
-    public string AllowClear { get; set; }
+    public string Required { get; set; }
     /// <summary>
-    /// nzPlaceHolder,占位提示
+    /// 扩展属性 requiredMessage,必填项验证消息
     /// </summary>
-    public string Placeholder { get; set; }
+    public string RequiredMessage { get; set; }
     /// <summary>
-    /// [nzPlaceHolder],占位提示
+    /// 扩展属性 [requiredMessage],必填项验证消息
     /// </summary>
-    public string BindPlaceholder { get; set; }
-    /// <summary>
-    /// [nzDisabled],是否禁用
-    /// </summary>
-    public string Disabled { get; set; }
-    /// <summary>
-    /// [nzShowIcon],是否显示图标,默认值: false
-    /// </summary>
-    public string ShowIcon { get; set; }
-    /// <summary>
-    /// nzNotFoundContent,当下拉列表为空时显示的内容,类型: string
-    /// </summary>
-    public string NotFoundContent { get; set; }
-    /// <summary>
-    /// [nzNotFoundContent],当下拉列表为空时显示的内容,类型: string
-    /// </summary>
-    public string BindNotFoundContent { get; set; }
-    /// <summary>
-    /// [nzDropdownMatchSelectWidth],是否下拉菜单和选择器同宽,默认值: true
-    /// </summary>
-    public string DropdownMatchSelectWidth { get; set; }
-    /// <summary>
-    /// [nzDropdownStyle],下拉菜单样式,类型: { [key: string]: string; },范例: { 'max-height': '300px' }
-    /// </summary>
-    public string DropdownStyle { get; set; }
-    /// <summary>
-    /// nzDropdownClassName,下拉菜单样式类名
-    /// </summary>
-    public string DropdownClassName { get; set; }
-    /// <summary>
-    /// [nzDropdownClassName],下拉菜单样式类名
-    /// </summary>
-    public string BindDropdownClassName { get; set; }
-    /// <summary>
-    /// [nzMultiple],是否支持多选,默认值: false,当设置 nzCheckable 时自动变为true
-    /// </summary>
-    public string Multiple { get; set; }
-    /// <summary>
-    /// [nzHideUnMatched],是否搜索时隐藏未匹配的节点,默认值: false
-    /// </summary>
-    public string HideUnmatched { get; set; }
-    /// <summary>
-    /// nzSize,选择框大小，可选值: 'large'|'small'|'default',默认值: 'default'
-    /// </summary>
-    public InputSize Size { get; set; }
-    /// <summary>
-    /// [nzSize],选择框大小，可选值: 'large'|'small'|'default',默认值: 'default'
-    /// </summary>
-    public string BindSize { get; set; }
-    /// <summary>
-    /// [nzCheckable],节点前是否添加复选框,默认值: false
-    /// </summary>
-    public string Checkable { get; set; }
-    /// <summary>
-    /// [nzCheckStrictly],严格勾选,父子节点选中状态不再关联,默认值: false
-    /// </summary>
-    public string CheckStrictly { get; set; }
-    /// <summary>
-    /// [nzShowExpand],节点前是否显示展开图标,默认值: true
-    /// </summary>
-    public string ShowExpand { get; set; }
-    /// <summary>
-    /// [nzShowLine],是否显示连接线,默认值: false
-    /// </summary>
-    public string ShowLine { get; set; }
-    /// <summary>
-    /// [nzAsyncData],是否异步加载,默认值: false
-    /// </summary>
-    public string AsyncData { get; set; }
-    /// <summary>
-    /// [nzNodes],节点数据,类型: NzTreeNodeOptions[]
-    /// </summary>
-    public string Nodes { get; set; }
-    /// <summary>
-    /// [nzDefaultExpandAll],是否默认展开所有节点,默认值: false
-    /// </summary>
-    public string DefaultExpandAll { get; set; }
-    /// <summary>
-    /// [nzExpandedKeys],默认展开节点的键集合,类型: string[]
-    /// </summary>
-    public string ExpandedKeys { get; set; }
-    /// <summary>
-    /// [nzDisplayWith],在输入框显示所选节点值的函数,类型: (node: NzTreeNode) => string,默认值: (node: NzTreeNode) => node.title
-    /// </summary>
-    public string DisplayWith { get; set; }
-    /// <summary>
-    /// [nzMaxTagCount],最多显示的标签数量,类型: number
-    /// </summary>
-    public string MaxTagCount { get; set; }
-    /// <summary>
-    /// [nzMaxTagPlaceholder],隐藏标签时显示的占位内容,类型: TemplateRef&lt;{ $implicit: NzTreeNode[] }>
-    /// </summary>
-    public string MaxTagPlaceholder { get; set; }
-    /// <summary>
-    /// [nzTreeTemplate],自定义节点模板,类型: TemplateRef&lt;{ $implicit: NzTreeNode }>
-    /// </summary>
-    public string TreeTemplate { get; set; }
-    /// <summary>
-    /// nzVirtualHeight,虚拟滚动的总高度,范例: '300px'
-    /// </summary>
-    public string VirtualHeight { get; set; }
-    /// <summary>
-    /// [nzVirtualHeight],虚拟滚动的总高度,范例: '300px'
-    /// </summary>
-    public string BindVirtualHeight { get; set; }
-    /// <summary>
-    /// [nzVirtualItemSize],虚拟滚动时每一列的高度,单位:像素,默认值: 28
-    /// </summary>
-    public string VirtualItemSize { get; set; }
-    /// <summary>
-    /// [nzVirtualMaxBufferPx],虚拟滚动缓冲区最大高度,单位:像素,默认值: 500
-    /// </summary>
-    public string VirtualMaxBufferPx { get; set; }
-    /// <summary>
-    /// [nzVirtualMinBufferPx],虚拟滚动缓冲区最小高度，低于该值时将加载新结构,单位:像素,默认值: 28
-    /// </summary>
-    public string VirtualMinBufferPx { get; set; }
+    public string BindRequiredMessage { get; set; }
     /// <summary>
     /// (nzExpandChange),展开收缩节点事件,类型: EventEmitter&lt;NzFormatEmitEvent>
     /// </summary>

@@ -156,7 +156,7 @@ namespace Util.Ui.NgZorro.Tests.Alerts {
         public void TestIconType() {
             _wrapper.SetContextAttribute( UiConst.IconType, AntDesignIcon.AccountBook );
             var result = new StringBuilder();
-            result.Append( "<nz-alert nzIconType=\"account-book\"></nz-alert>" );
+            result.Append( "<nz-alert nzIconType=\"account-book\" [nzShowIcon]=\"true\"></nz-alert>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -167,7 +167,18 @@ namespace Util.Ui.NgZorro.Tests.Alerts {
         public void TestBindIconType() {
             _wrapper.SetContextAttribute( AngularConst.BindIconType, "a" );
             var result = new StringBuilder();
-            result.Append( "<nz-alert [nzIconType]=\"a\"></nz-alert>" );
+            result.Append( "<nz-alert [nzIconType]=\"a\" [nzShowIcon]=\"true\"></nz-alert>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试图标
+        /// </summary>
+        [Fact]
+        public void TestIcon() {
+            _wrapper.SetContextAttribute( UiConst.Icon, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-alert [nzIcon]=\"a\" [nzShowIcon]=\"true\"></nz-alert>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 
@@ -190,6 +201,17 @@ namespace Util.Ui.NgZorro.Tests.Alerts {
             _wrapper.SetContextAttribute( AngularConst.BindType, "a" );
             var result = new StringBuilder();
             result.Append( "<nz-alert [nzType]=\"a\"></nz-alert>" );
+            Assert.Equal( result.ToString(), GetResult() );
+        }
+
+        /// <summary>
+        /// 测试自定义操作项
+        /// </summary>
+        [Fact]
+        public void TestAction() {
+            _wrapper.SetContextAttribute( UiConst.Action, "a" );
+            var result = new StringBuilder();
+            result.Append( "<nz-alert [nzAction]=\"a\"></nz-alert>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

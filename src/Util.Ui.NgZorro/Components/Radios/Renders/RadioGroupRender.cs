@@ -1,5 +1,4 @@
 ﻿using Util.Ui.Builders;
-using Util.Ui.Configs;
 using Util.Ui.Extensions;
 using Util.Ui.NgZorro.Components.Base;
 using Util.Ui.NgZorro.Components.Radios.Builders;
@@ -40,21 +39,20 @@ public class RadioGroupRender : FormControlRenderBase {
     /// 添加表单控件
     /// </summary>
     protected override void AppendControl( TagBuilder formControlBuilder ) {
-        var groupBuilder = GetRadioGroupBuilder();
-        groupBuilder.AppendContent( GetRadioBuilder() );
-        formControlBuilder.AppendContent( groupBuilder );
-    }
-
-    /// <summary>
-    /// 获取单选框组合标签生成器
-    /// </summary>
-    private TagBuilder GetRadioGroupBuilder() {
         var builder = new RadioGroupBuilder( _config );
         builder.Config();
+        if ( _shareConfig.IsRadioExtend && _shareConfig.IsAutoCreateRadioGroup != true ) {
+            builder.AppendContent( $"@for(item of {_shareConfig.ExtendId}.options;track item.value )" );
+            builder.AppendContent( "{" );
+        }
         _config.Content.AppendTo( builder );
         if ( _shareConfig.IsRadioGroupExtend )
             builder.SelectExtend();
-        return builder;
+        builder.AppendContent( GetRadioBuilder() );
+        if ( _shareConfig.IsRadioExtend && _shareConfig.IsAutoCreateRadioGroup != true ) {
+            builder.AppendContent( "}" );
+        }
+        formControlBuilder.AppendContent( builder );
     }
 
     /// <summary>

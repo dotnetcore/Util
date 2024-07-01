@@ -27,6 +27,13 @@ public class RadioGroupService {
     }
 
     /// <summary>
+    /// 设置nz-radio-group已创建
+    /// </summary>
+    public void Created() {
+        _shareConfig.RadioGroupCreated = true;
+    }
+
+    /// <summary>
     /// 初始化
     /// </summary>
     public void Init() {
@@ -102,11 +109,22 @@ public class RadioGroupService {
     /// 是否扩展
     /// </summary>
     private bool IsExtend() {
+        if ( GetEnableExtend() == false )
+            return false;
+        if ( GetEnableExtend() == true )
+            return true;
         if ( HasData() )
             return true;
         if ( HasUrl() )
             return true;
         return false;
+    }
+
+    /// <summary>
+    /// 获取启用扩展属性
+    /// </summary>
+    private bool? GetEnableExtend() {
+        return _config.GetValue<bool?>( UiConst.EnableExtend );
     }
 
     /// <summary>

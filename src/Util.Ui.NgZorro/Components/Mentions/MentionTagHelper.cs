@@ -23,7 +23,7 @@ public class MentionTagHelper : AngularTagHelperBase {
     /// </summary>
     public string Suggestions { get; set; }
     /// <summary>
-    /// [nzLoading],加载状态,类型: boolean
+    /// [nzLoading],加载状态,类型: boolean, 默认值: false
     /// </summary>
     public string Loading { get; set; }
     /// <summary>
@@ -50,6 +50,22 @@ public class MentionTagHelper : AngularTagHelperBase {
     /// [nzNotFoundContent],建议列表为空时显示的内容,默认值: '无匹配结果，轻敲空格完成输入'
     /// </summary>
     public string BindNotFoundContent { get; set; }
+    /// <summary>
+    /// [nzMentionTrigger],指定提及的触发元素,类型: HTMLTextAreaElement | HTMLInputElement
+    /// </summary>
+    public string MentionTrigger { get; set; }
+    /// <summary>
+    /// [nzMentionSuggestion],自定义建议渲染模板,类型: TemplateRef&lt;any>
+    /// </summary>
+    public string MentionSuggestion { get; set; }
+    /// <summary>
+    /// nzStatus,校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public FormControlStatus Status { get; set; }
+    /// <summary>
+    /// [nzStatus],校验状态, 可选值: 'error' | 'warning'
+    /// </summary>
+    public string BindStatus { get; set; }
     /// <summary>
     /// (nzOnSelect),选择事件,类型: EventEmitter&lt;any&gt;
     /// </summary>

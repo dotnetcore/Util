@@ -1,7 +1,5 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
-using Util.Ui.Angular.Extensions;
-using Util.Ui.NgZorro.Components.Containers.Builders;
 using Util.Ui.NgZorro.Configs;
 
 namespace Util.Ui.NgZorro.Components.Autocompletes.Builders;
@@ -144,13 +142,21 @@ public class AutocompleteBuilder : AngularTagBuilder {
     }
 
     /// <summary>
+    /// 配置事件
+    /// </summary>
+    public AutocompleteBuilder Events() {
+        AttributeIfNotEmpty( "(onLoad)", _config.GetValue( UiConst.OnLoad ) );
+        return this;
+    }
+
+    /// <summary>
     /// 配置
     /// </summary>
     public override void Config() {
         base.Config();
         Backfill().DataSource().DefaultActiveFirstOption().Width()
             .OverlayClassName().OverlayStyle().CompareWith()
-            .AutoLoad().QueryParam().Sort().Url().Data();
+            .AutoLoad().QueryParam().Sort().Url().Data().Events();
         EnableExtend();
     }
 
@@ -162,8 +168,7 @@ public class AutocompleteBuilder : AngularTagBuilder {
             return this;
         Attribute( $"#{ExtendId}", "xSelectExtend" );
         Attribute( "x-select-extend" );
-        ConfigOption();
-        ConfigOptionGroup();
+        ConfigOptions();
         return this;
     }
 
@@ -212,18 +217,49 @@ public class AutocompleteBuilder : AngularTagBuilder {
     }
 
     /// <summary>
-    /// 配置选项
+    /// 配置数据项
     /// </summary>
-    private void ConfigOption() {
-        var containerBuilder = new ContainerBuilder( _config );
-        containerBuilder.NgIf( $"!{ExtendId}.isGroup" );
+    private void ConfigOptions() {
+        AppendContent( $"@if({ExtendId}.isGroup)" );
+        AppendContent( "{" );
+        ConfigOptionGroup();
+        AppendContent( "}} @else {" );
+        ConfigOption();
+        AppendContent( "}" );
+    }
+
+    /// <summary>
+    /// 配置选项组
+    /// </summary>
+    private void ConfigOptionGroup() {
+        AppendContent( $"@for(group of {ExtendId}.optionGroups;track group.text )" );
+        AppendContent( "{" );
+        var options = NgZorroOptionsService.GetOptions();
+        var groupBuilder = new AutoOptionGroupBuilder( _config );
+        AppendContent( groupBuilder );
+        groupBuilder.BindLabel( options.EnableI18n ? "group.text|i18n" : "group.text" );
+        groupBuilder.AppendContent( "@for(item of group.value;track item.value)" );
+        groupBuilder.AppendContent( "{" );
         var optionBuilder = new AutoOptionBuilder( _config );
-        containerBuilder.AppendContent( optionBuilder );
-        optionBuilder.NgFor( $"let item of {ExtendId}.options" );
+        groupBuilder.AppendContent( optionBuilder );
         ConfigOptionLabel( optionBuilder );
         optionBuilder.BindValue( "item.value" );
         optionBuilder.Disabled( "item.disabled" );
-        AppendContent( containerBuilder );
+        groupBuilder.AppendContent( "}" );
+    }
+
+    /// <summary>
+    /// 配置选项
+    /// </summary>
+    private void ConfigOption() {
+        AppendContent( $"@for(item of {ExtendId}.options;track item.value)" );
+        AppendContent( "{" );
+        var optionBuilder = new AutoOptionBuilder( _config );
+        AppendContent( optionBuilder );
+        ConfigOptionLabel( optionBuilder );
+        optionBuilder.BindValue( "item.value" );
+        optionBuilder.Disabled( "item.disabled" );
+        AppendContent( "}" );
     }
 
     /// <summary>
@@ -238,25 +274,5 @@ public class AutocompleteBuilder : AngularTagBuilder {
         }
         optionBuilder.BindLabel( "item.text" );
         optionBuilder.SetContent( "{{item.text}}" );
-    }
-
-    /// <summary>
-    /// 配置选项组
-    /// </summary>
-    private void ConfigOptionGroup() {
-        var options = NgZorroOptionsService.GetOptions();
-        var containerBuilder = new ContainerBuilder( _config );
-        containerBuilder.NgIf( $"{ExtendId}.isGroup" );
-        var groupBuilder = new AutoOptionGroupBuilder( _config );
-        containerBuilder.AppendContent( groupBuilder );
-        groupBuilder.NgFor( $"let group of {ExtendId}.optionGroups" );
-        groupBuilder.BindLabel( options.EnableI18n ? "group.text|i18n" : "group.text" );
-        var optionBuilder = new AutoOptionBuilder( _config );
-        groupBuilder.AppendContent( optionBuilder );
-        optionBuilder.NgFor( "let item of group.value" );
-        ConfigOptionLabel( optionBuilder );
-        optionBuilder.BindValue( "item.value" );
-        optionBuilder.Disabled( "item.disabled" );
-        AppendContent( containerBuilder );
     }
 }

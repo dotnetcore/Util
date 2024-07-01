@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using Util.Ui.Angular.Configs;
 using Util.Ui.Configs;
 using Util.Ui.NgZorro.Components.Rates;
 using Util.Ui.TagHelpers;

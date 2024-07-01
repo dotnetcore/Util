@@ -23,6 +23,11 @@ public class RadioGroupShareConfig {
     public string ExtendId => $"x_{Id}";
 
     /// <summary>
+    /// 是否已创建 nz-radio-group
+    /// </summary>
+    public bool RadioGroupCreated { get; set; }
+
+    /// <summary>
     /// 是否自动创建单选框组合
     /// </summary>
     public bool? IsAutoCreateRadioGroup { get; set; }

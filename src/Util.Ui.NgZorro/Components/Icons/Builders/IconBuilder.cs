@@ -1,6 +1,7 @@
 ﻿using Util.Ui.Angular.Builders;
 using Util.Ui.Angular.Configs;
 using Util.Ui.Angular.Extensions;
+using Util.Ui.NgZorro.Components.TreeViews.Configs;
 using Util.Ui.NgZorro.Directives.Popconfirms;
 using Util.Ui.NgZorro.Directives.Popover;
 using Util.Ui.NgZorro.Directives.Tooltips;
@@ -153,5 +154,21 @@ public class IconBuilder : AngularTagBuilder {
         base.Config();
         this.Tooltip( _config ).Popover( _config ).Popconfirm( _config );
         Type().Theme().Color().Spin().Rotate().IconFont().Events();
+        AddTreeNodeToggleIcon();
+    }
+
+    /// <summary>
+    /// 添加TreeNodeToggle图标指令
+    /// </summary>
+    private void AddTreeNodeToggleIcon() {
+        var shareConfig = _config.GetValueFromItems<TreeNodeToggleShareConfig>();
+        if ( shareConfig == null )
+            return;
+        if ( shareConfig.ActiveIcon ) {
+            Attribute( "nzTreeNodeToggleActiveIcon" );
+            return;
+        }
+        if ( shareConfig.RotateIcon )
+            Attribute( "nzTreeNodeToggleRotateIcon" );
     }
 }

@@ -282,7 +282,7 @@ public class TreeBuilder : AngularTagBuilder {
     public TreeBuilder Events() {
         AttributeIfNotEmpty( "(nzClick)", _config.GetValue( UiConst.OnClick ) );
         AttributeIfNotEmpty( "(nzDblClick)", _config.GetValue( UiConst.OnDblClick ) );
-        AttributeIfNotEmpty( "(nzCheckBoxChange)", _config.GetValue( UiConst.OnCheckBoxChange ) );
+        AttributeIfNotEmpty( "(nzCheckBoxChange)", _config.GetValue( UiConst.OnCheckboxChange ) );
         OnExpandChange( _config.GetValue( UiConst.OnExpandChange ) );
         AttributeIfNotEmpty( "(nzSearchValueChange)", _config.GetValue( UiConst.OnSearchValueChange ) );
         AttributeIfNotEmpty( "(nzOnDragStart)", _config.GetValue( UiConst.OnDragStart ) );

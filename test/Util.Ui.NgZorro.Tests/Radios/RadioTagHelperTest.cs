@@ -139,24 +139,13 @@ namespace Util.Ui.NgZorro.Tests.Radios {
         }
 
         /// <summary>
-        /// 测试设置标签
+        /// 测试间距项
         /// </summary>
         [Fact]
-        public void TestLabel() {
-            _wrapper.SetContextAttribute( UiConst.Label, "a" );
+        public void TestSpaceItem() {
+            _wrapper.SetContextAttribute( UiConst.SpaceItem, true );
             var result = new StringBuilder();
-            result.Append( "<label nz-radio=\"\">a</label>" );
-            Assert.Equal( result.ToString(), GetResult() );
-        }
-
-        /// <summary>
-        /// 测试设置标签绑定
-        /// </summary>
-        [Fact]
-        public void TestBindLabel() {
-            _wrapper.SetContextAttribute( AngularConst.BindLabel, "a" );
-            var result = new StringBuilder();
-            result.Append( "<label nz-radio=\"\">{{a}}</label>" );
+            result.Append( "<label *nzSpaceItem=\"\" nz-radio=\"\"></label>" );
             Assert.Equal( result.ToString(), GetResult() );
         }
 

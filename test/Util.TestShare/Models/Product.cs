@@ -173,6 +173,16 @@ public class Product : AggregateRoot<Product>, IDelete, ITenant, IAudited, IExtr
         set => ExtraProperties.SetProperty( nameof( TestProperty6 ), value );
     }
 
+    private readonly ExtraProperty<List<TaskRecord>> _property7 = new( nameof( TaskRecordList ) );
+    /// <summary>
+    /// 执行记录
+    /// </summary>
+    [NotMapped]
+    public List<TaskRecord> TaskRecordList {
+        get => _property7.GetProperty( ExtraProperties );
+        set => _property7.SetProperty( ExtraProperties, value );
+    }
+
     /// <summary>
     /// 添加变更列表
     /// </summary>
