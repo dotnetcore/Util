@@ -553,12 +553,12 @@ public class MinioFileStore : IFileStore {
             foreach ( var bucket in buckets ) {
                 await SafeDeleteBucketAsync( new ProcessedName( bucket ), cancellationToken );
                 var listObjectsArgs = new ListObjectsArgs().WithBucket( bucket ).WithRecursive( true );
-                client.ListObjectsAsync( listObjectsArgs, cancellationToken ).Subscribe( item => {
+                var list = client.ListObjectsEnumAsync(listObjectsArgs, cancellationToken);
+                await foreach (var item in list.ConfigureAwait(false)) {
                     var removeObjectArgs = new RemoveObjectArgs().WithBucket( bucket ).WithObject( item.Key );
                     client.RemoveObjectAsync( removeObjectArgs, cancellationToken ).GetAwaiter();
-                }, () => {
-                    SafeDeleteBucketAsync( new ProcessedName( bucket ), cancellationToken ).GetAwaiter();
-                } );
+                }
+                SafeDeleteBucketAsync( new ProcessedName( bucket ), cancellationToken ).GetAwaiter();
             }
         }
     }
